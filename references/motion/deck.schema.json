@@ -1,0 +1,669 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Motion Slides editable content",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "mode": {
+          "const": "motion"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "language": {
+          "enum": [
+            "en",
+            "zh"
+          ],
+          "default": "en"
+        },
+        "fps": {
+          "enum": [
+            24,
+            25,
+            30,
+            50,
+            60
+          ],
+          "default": 30
+        },
+        "brandName": {
+          "type": "string"
+        },
+        "logo": {
+          "oneOf": [
+            {
+              "type": "string",
+              "pattern": "\\.(svg|png|jpe?g|webp)$"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "src": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "alt": {
+                  "type": "string"
+                },
+                "fit": {
+                  "enum": [
+                    "contain",
+                    "cover"
+                  ]
+                },
+                "position": {
+                  "type": "string",
+                  "pattern": "^[0-9]+(\\.[0-9]+)?% [0-9]+(\\.[0-9]+)?%$"
+                }
+              },
+              "required": [
+                "src"
+              ]
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "light": {
+                  "$ref": "#/$defs/image"
+                },
+                "dark": {
+                  "$ref": "#/$defs/image"
+                }
+              }
+            }
+          ]
+        }
+      },
+      "required": [
+        "title"
+      ]
+    },
+    "slides": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/slide"
+      },
+      "minItems": 1
+    }
+  },
+  "required": [
+    "meta",
+    "slides"
+  ],
+  "$defs": {
+    "image": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "\\.(svg|png|jpe?g|webp)$"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "src": {
+              "type": "string",
+              "minLength": 1
+            },
+            "alt": {
+              "type": "string"
+            },
+            "fit": {
+              "enum": [
+                "contain",
+                "cover"
+              ]
+            },
+            "position": {
+              "type": "string",
+              "pattern": "^[0-9]+(\\.[0-9]+)?% [0-9]+(\\.[0-9]+)?%$"
+            }
+          },
+          "required": [
+            "src"
+          ]
+        }
+      ]
+    },
+    "item": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "badge": {
+          "type": "string"
+        },
+        "tone": {
+          "enum": [
+            "standard",
+            "muted",
+            "accent",
+            "neutral",
+            "info",
+            "success",
+            "warning",
+            "purple"
+          ]
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "checked": {
+          "type": "boolean"
+        },
+        "size": {
+          "enum": [
+            "small",
+            "medium",
+            "large"
+          ]
+        }
+      }
+    },
+    "notes": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "purpose": {
+          "type": "string"
+        },
+        "talk": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "transition": {
+          "type": "string"
+        }
+      }
+    },
+    "slide": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "type": {
+          "enum": [
+            "motion-title",
+            "motion-brand",
+            "motion-cards",
+            "motion-comparison",
+            "motion-input",
+            "motion-list",
+            "motion-synthesis",
+            "motion-hub",
+            "motion-image",
+            "motion-metric"
+          ]
+        },
+        "variant": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "kicker": {
+          "type": "string"
+        },
+        "highlight": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "prompt": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          }
+        },
+        "groups": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/item"
+            },
+            "minItems": 1,
+            "maxItems": 4
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/item"
+          },
+          "minItems": 1,
+          "maxItems": 3
+        },
+        "hub": {
+          "$ref": "#/$defs/item"
+        },
+        "logos": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/image"
+          },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "separator": {
+          "type": "string"
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "background": {
+          "enum": [
+            "content",
+            "title",
+            "elements"
+          ]
+        },
+        "duration": {
+          "type": "number",
+          "minimum": 2,
+          "maximum": 180
+        },
+        "showCursor": {
+          "type": "boolean"
+        },
+        "showSend": {
+          "type": "boolean"
+        },
+        "motion": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enter": {
+              "type": "number",
+              "minimum": 0
+            },
+            "stagger": {
+              "type": "number",
+              "minimum": 0
+            },
+            "hold": {
+              "type": "number",
+              "minimum": 0
+            },
+            "exit": {
+              "type": "number",
+              "minimum": 0
+            },
+            "travel": {
+              "type": "number",
+              "minimum": 0,
+              "maximum": 80
+            },
+            "preset": {
+              "enum": [
+                "rise",
+                "fade",
+                "none"
+              ]
+            }
+          }
+        },
+        "scroll": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "enabled": {
+              "type": "boolean"
+            },
+            "start": {
+              "type": "number",
+              "minimum": 0
+            },
+            "end": {
+              "type": "number",
+              "minimum": 0
+            },
+            "reveal": {
+              "enum": [
+                "sequential",
+                "all"
+              ]
+            },
+            "direction": {
+              "const": "up"
+            },
+            "itemDirection": {
+              "enum": [
+                "up",
+                "down",
+                "fade"
+              ],
+              "default": "fade"
+            },
+            "itemOrder": {
+              "enum": [
+                "top-to-bottom",
+                "bottom-to-top"
+              ],
+              "default": "top-to-bottom"
+            }
+          }
+        },
+        "notes": {
+          "$ref": "#/$defs/notes"
+        }
+      },
+      "required": [
+        "id",
+        "type"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-title"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "title"
+            ],
+            "properties": {
+              "variant": {
+                "enum": [
+                  "statement"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-brand"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "logos"
+            ],
+            "properties": {
+              "variant": {
+                "enum": [
+                  "single",
+                  "pair"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-cards"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "title",
+              "items"
+            ],
+            "properties": {
+              "variant": {
+                "enum": [
+                  "standard"
+                ]
+              },
+              "items": {
+                "minItems": 2,
+                "maxItems": 4
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-comparison"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "title",
+              "items"
+            ],
+            "properties": {
+              "variant": {
+                "enum": [
+                  "before-after"
+                ]
+              },
+              "items": {
+                "minItems": 2,
+                "maxItems": 2
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-input"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "prompt"
+            ],
+            "properties": {
+              "variant": {
+                "enum": [
+                  "multiline",
+                  "compact"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-list"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "items"
+            ],
+            "properties": {
+              "variant": {
+                "enum": [
+                  "plain",
+                  "checked"
+                ]
+              },
+              "items": {
+                "minItems": 1,
+                "maxItems": 24
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-synthesis"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "title",
+              "groups",
+              "outputs"
+            ],
+            "properties": {
+              "variant": {
+                "enum": [
+                  "stages",
+                  "many-to-few"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-hub"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "title",
+              "items",
+              "hub"
+            ],
+            "properties": {
+              "variant": {
+                "enum": [
+                  "three",
+                  "four"
+                ]
+              },
+              "items": {
+                "minItems": 3,
+                "maxItems": 4
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-image"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "title",
+              "image"
+            ],
+            "properties": {
+              "variant": {
+                "enum": [
+                  "split",
+                  "hero"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-metric"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "title",
+              "value"
+            ],
+            "properties": {
+              "variant": {
+                "enum": [
+                  "single"
+                ]
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

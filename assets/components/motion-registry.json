@@ -1,0 +1,274 @@
+{
+  "version": 1,
+  "mode": "motion",
+  "theme": "light",
+  "defaultLanguage": "en",
+  "languages": [
+    "en",
+    "zh"
+  ],
+  "layouts": {
+    "motion-title": {
+      "variants": [
+        "statement"
+      ],
+      "maxLines": 2,
+      "duration": 5,
+      "fields": [
+        "title",
+        "highlight",
+        "kicker"
+      ],
+      "purpose": "One memorable statement or section beat"
+    },
+    "motion-brand": {
+      "variants": [
+        "single",
+        "pair"
+      ],
+      "counts": [
+        1,
+        2
+      ],
+      "duration": 4,
+      "fields": [
+        "logos",
+        "separator"
+      ],
+      "purpose": "Replaceable single brand or partnership identity"
+    },
+    "motion-cards": {
+      "variants": [
+        "standard"
+      ],
+      "counts": [
+        2,
+        3,
+        4
+      ],
+      "duration": 7,
+      "fields": [
+        "title",
+        "kicker",
+        "items"
+      ],
+      "purpose": "Parallel concise points"
+    },
+    "motion-comparison": {
+      "variants": [
+        "before-after"
+      ],
+      "counts": [
+        2
+      ],
+      "duration": 7,
+      "fields": [
+        "title",
+        "kicker",
+        "items"
+      ],
+      "purpose": "Muted baseline paired with gradient target"
+    },
+    "motion-input": {
+      "variants": [
+        "multiline",
+        "compact"
+      ],
+      "duration": 7,
+      "fields": [
+        "prompt",
+        "label",
+        "image",
+        "showCursor",
+        "showSend"
+      ],
+      "purpose": "A prompt entered into a conceptual UI"
+    },
+    "motion-list": {
+      "variants": [
+        "plain",
+        "checked"
+      ],
+      "counts": {
+        "min": 1,
+        "max": 24
+      },
+      "duration": 8,
+      "fields": [
+        "items",
+        "image",
+        "scroll"
+      ],
+      "purpose": "Sequential entry and upward scrolling list; off-canvas content is intentional"
+    },
+    "motion-synthesis": {
+      "variants": [
+        "stages",
+        "many-to-few"
+      ],
+      "duration": 8,
+      "fields": [
+        "title",
+        "kicker",
+        "groups",
+        "outputs"
+      ],
+      "purpose": "Information tags consolidated into outcomes"
+    },
+    "motion-hub": {
+      "variants": [
+        "three",
+        "four"
+      ],
+      "counts": [
+        3,
+        4
+      ],
+      "duration": 7,
+      "fields": [
+        "title",
+        "kicker",
+        "hub",
+        "items"
+      ],
+      "purpose": "Three/four satellites connected to one replaceable identity"
+    },
+    "motion-image": {
+      "variants": [
+        "split",
+        "hero"
+      ],
+      "duration": 6,
+      "fields": [
+        "title",
+        "kicker",
+        "body",
+        "image"
+      ],
+      "purpose": "User image or screenshot; split always left text and right image",
+      "extension": true
+    },
+    "motion-metric": {
+      "variants": [
+        "single"
+      ],
+      "duration": 5,
+      "fields": [
+        "title",
+        "value",
+        "label",
+        "body"
+      ],
+      "purpose": "One user-supplied metric; provenance in notes",
+      "extension": true
+    }
+  },
+  "components": {
+    "heading": {
+      "alignment": "center",
+      "width": 1700,
+      "height": "hug",
+      "roles": [
+        "kicker",
+        "display"
+      ],
+      "maxLines": 1
+    },
+    "statement": {
+      "alignment": "center",
+      "width": 1700,
+      "height": "hug",
+      "role": "statement",
+      "maxLines": 2
+    },
+    "pointCard": {
+      "height": 450,
+      "width": "fill",
+      "padding": 30,
+      "radius": 20,
+      "roles": [
+        "label",
+        "item",
+        "body"
+      ],
+      "labelOptional": true,
+      "bodyMaxLines": 3
+    },
+    "listRow": {
+      "height": "hug",
+      "minHeight": 137,
+      "width": "fill",
+      "padding": 20,
+      "radius": 20,
+      "roles": [
+        "list",
+        "body"
+      ],
+      "badgeOptional": true,
+      "iconOptional": true
+    },
+    "tag": {
+      "width": "hug",
+      "height": "hug",
+      "sizes": {
+        "small": {
+          "fontSize": 24,
+          "padding": 12,
+          "radius": 8
+        },
+        "medium": {
+          "fontSize": 30,
+          "padding": 16,
+          "radius": 16
+        },
+        "large": {
+          "fontSize": 50,
+          "padding": 16,
+          "radius": 24
+        }
+      },
+      "tones": [
+        "neutral",
+        "info",
+        "success",
+        "warning",
+        "purple",
+        "accent"
+      ]
+    },
+    "input": {
+      "height": "hug",
+      "width": 900,
+      "minWidth": 452,
+      "maxWidth": 1273,
+      "padding": 24,
+      "radius": 40
+    },
+    "logo": {
+      "fit": "contain",
+      "stretch": false,
+      "crop": false,
+      "slots": {
+        "brand": 144,
+        "list": 150,
+        "hub": 80,
+        "satellite": 46,
+        "input": 60
+      }
+    },
+    "connector": {
+      "asset": "original exported vector",
+      "layer": "behind content",
+      "separate": true,
+      "sizing": "intrinsic; mirror only; never stretch or skew",
+      "fit": "contain",
+      "binding": "content-hugging cards move to dock at fixed-size connector endpoints"
+    },
+    "scrollWindow": {
+      "clip": true,
+      "height": 563,
+      "top": 417,
+      "overflowAllowedOnlyInsideTrack": true
+    }
+  }
+}

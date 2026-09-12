@@ -26,6 +26,10 @@ if(assets._status!=='waived'){
   for(const [slideId,patch] of Object.entries(assets.slides)){
     const slide=byId.get(slideId);if(!slide)throw new Error(`assets.json references unknown slide id: ${slideId}`);
     if(patch.image)slide.image=patch.image;
+    if(deck.meta.mode==='motion'){
+      if(patch.logos)slide.logos=patch.logos;
+      if(patch.hub?.image)slide.hub={...slide.hub,image:patch.hub.image};
+    }
     if(patch.header)slide.header={...(slide.header||{}),...patch.header};
     if(patch.items){
       const items=slide.items||slide.steps;if(!Array.isArray(items))throw new Error(`Asset item mapping targets slide without items/steps: ${slideId}`);

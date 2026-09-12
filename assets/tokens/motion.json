@@ -1,0 +1,239 @@
+{
+  "version": 1,
+  "canvas": {
+    "width": 1920,
+    "height": 1080,
+    "safeX": 110,
+    "safeY": 100
+  },
+  "heading": {
+    "top": 132,
+    "width": 1700,
+    "gap": 12
+  },
+  "type": {
+    "en": {
+      "display": {
+        "family": "Outfit",
+        "size": 100,
+        "weight": 400,
+        "lineHeight": 1.1,
+        "tracking": -0.02
+      },
+      "statement": {
+        "family": "Outfit",
+        "size": 116,
+        "weight": 400,
+        "lineHeight": 1.1,
+        "tracking": -0.02
+      },
+      "item": {
+        "family": "Outfit",
+        "size": 54,
+        "weight": 400,
+        "lineHeight": 1.5,
+        "tracking": -0.01
+      },
+      "body": {
+        "family": "Noto Sans",
+        "size": 22,
+        "weight": 400,
+        "lineHeight": 1.5,
+        "tracking": -0.01
+      },
+      "label": {
+        "family": "Noto Sans",
+        "size": 18,
+        "weight": 600,
+        "lineHeight": 1.5,
+        "tracking": -0.01
+      },
+      "kicker": {
+        "family": "Noto Sans",
+        "size": 24,
+        "weight": 400,
+        "lineHeight": 1.5,
+        "tracking": -0.01
+      },
+      "list": {
+        "family": "Noto Sans",
+        "size": 36,
+        "weight": 400,
+        "lineHeight": 1.5,
+        "tracking": -0.01
+      },
+      "input": {
+        "family": "Noto Sans",
+        "size": 42,
+        "weight": 400,
+        "lineHeight": 1.5,
+        "tracking": -0.01
+      },
+      "tag": {
+        "family": "Outfit",
+        "size": 30,
+        "weight": 400,
+        "lineHeight": 1.5,
+        "tracking": -0.02
+      }
+    },
+    "zh": {
+      "display": {
+        "family": "Smiley Sans",
+        "size": 100,
+        "weight": 400,
+        "lineHeight": 1.2,
+        "tracking": 0
+      },
+      "statement": {
+        "family": "Smiley Sans",
+        "size": 116,
+        "weight": 400,
+        "lineHeight": 1.2,
+        "tracking": 0
+      },
+      "item": {
+        "family": "Noto Sans SC",
+        "size": 54,
+        "weight": 600,
+        "lineHeight": 1.5,
+        "tracking": 0
+      },
+      "body": {
+        "family": "Noto Sans SC",
+        "size": 22,
+        "weight": 400,
+        "lineHeight": 1.5,
+        "tracking": 0
+      },
+      "label": {
+        "family": "Noto Sans SC",
+        "size": 22,
+        "weight": 600,
+        "lineHeight": 1.5,
+        "tracking": 0
+      },
+      "kicker": {
+        "family": "Noto Sans SC",
+        "size": 24,
+        "weight": 400,
+        "lineHeight": 1.5,
+        "tracking": 0
+      },
+      "list": {
+        "family": "Noto Sans SC",
+        "size": 36,
+        "weight": 400,
+        "lineHeight": 1.5,
+        "tracking": 0
+      },
+      "input": {
+        "family": "Noto Sans SC",
+        "size": 42,
+        "weight": 400,
+        "lineHeight": 1.5,
+        "tracking": 0
+      },
+      "tag": {
+        "family": "Noto Sans SC",
+        "size": 30,
+        "weight": 400,
+        "lineHeight": 1.5,
+        "tracking": 0
+      }
+    }
+  },
+  "colors": {
+    "canvas": "#F2F4F0",
+    "primary": "#111114",
+    "secondary": "#5E6263",
+    "accent": "#008089",
+    "surface": "#FFFFFF",
+    "cardFill": "rgba(30,234,234,0.06)",
+    "cardStroke": "rgba(0,128,137,0.30)",
+    "mutedFill": "rgba(17,17,20,0.04)",
+    "mutedStroke": "rgba(17,17,20,0.20)",
+    "accentStroke": "rgba(0,128,137,0.60)",
+    "badgeFill": "rgba(30,234,234,0.20)",
+    "kicker": "linear-gradient(90deg,#1F1F23,#029090)",
+    "emphasis": "linear-gradient(90deg,#77FAB4 0%,#6DE4F9 49.038%,#F3B6FF 100%)",
+    "accentCard": "linear-gradient(90deg,rgba(119,250,180,0.2),rgba(109,228,249,0.2) 49.038%,rgba(243,182,255,0.2))"
+  },
+  "tags": {
+    "neutral": {
+      "text": "#5E6263",
+      "fill": "rgba(17,17,20,0.04)"
+    },
+    "info": {
+      "text": "#1381FF",
+      "fill": "rgba(19,129,255,0.12)"
+    },
+    "success": {
+      "text": "#009A13",
+      "fill": "rgba(69,227,82,0.12)"
+    },
+    "warning": {
+      "text": "#FF8000",
+      "fill": "rgba(255,128,0,0.12)"
+    },
+    "purple": {
+      "text": "#6155FF",
+      "fill": "rgba(97,85,255,0.12)"
+    },
+    "accent": {
+      "text": "#008089",
+      "fill": "rgba(30,234,234,0.12)"
+    }
+  },
+  "card": {
+    "top": 429,
+    "height": 450,
+    "gap": 30,
+    "padding": 30,
+    "radius": 20,
+    "textGap": 10
+  },
+  "list": {
+    "width": 1300,
+    "top": 417,
+    "windowHeight": 563,
+    "rowMinHeight": 137,
+    "gap": 20,
+    "padding": 20,
+    "textGap": 8,
+    "logoTop": 200,
+    "logoHeight": 150,
+    "maskFade": 36
+  },
+  "input": {
+    "width": 900,
+    "compactMaxWidth": 1600,
+    "padding": 24,
+    "radius": 40,
+    "buttonSize": 77,
+    "iconSize": 45
+  },
+  "motion": {
+    "fps": 30,
+    "defaultDuration": 6,
+    "enter": 0.6,
+    "stagger": 0.18,
+    "hold": 1.2,
+    "exit": 0.3,
+    "travel": 24,
+    "scrollPixelsPerSecond": 100
+  },
+  "backgrounds": {
+    "content": "assets/backgrounds/motion-content-light.webp",
+    "title": "assets/backgrounds/motion-title-light.webp",
+    "elements": "assets/backgrounds/light-elements-inner.webp"
+  },
+  "assets": {
+    "send": "assets/motion/send.svg",
+    "cursor": "assets/motion/cursor.svg",
+    "check": "assets/motion/check.svg",
+    "arrow": "assets/motion/arrow.svg",
+    "curve": "assets/motion/curve.svg",
+    "stem": "assets/motion/stem.svg"
+  }
+}

@@ -5,6 +5,7 @@ Inventory supplied visual assets and write `handoffs/assets.json`.
 Requirements:
 
 - Read `references/assets-and-branding.md` and `assets/icons/manifest.json`.
+- For Motion Slides, read `references/motion/content.md` and `assets/motion/icons/manifest.json`. Use local assets, original fixed-size Joint vectors and normalized bare glyphs. Map `logos`, `hub.image`, `image`, and `items[index].image`; do not substitute presentation icon surfaces or header geometry.
 - Inspect only assets placed in the run `input/` directory or explicitly provided paths/URLs.
 - Map each asset to a registered slide/image slot by stable slide ID when known.
 - Record source/provenance, alt text, crop position, aspect-ratio suitability, and sensitivity risk.

@@ -6,9 +6,16 @@
   "description": "Self-contained Aident-style bilingual HTML, PPTX, PDF, and web presentation skill.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jzs3660/aident-ppt-skill.git"
+    "url": "https://github.com/Edward-J-create/aident-ppt-skill.git"
   },
   "scripts": {
+    "motion:en": "node scripts/generate-deck.mjs --input examples/motion/deck.en.json --out output/motion-en",
+    "motion:zh": "node scripts/generate-deck.mjs --input examples/motion/deck.zh.json --out output/motion-zh",
+    "motion:qa:en": "node scripts/preflight.mjs --html output/motion-en/index.html --screenshots output/motion-en/qa",
+    "motion:qa:zh": "node scripts/preflight.mjs --html output/motion-zh/index.html --screenshots output/motion-zh/qa",
+    "motion:icons:check": "node scripts/normalize-motion-icons.mjs --check",
+    "motion:validate": "node scripts/validate-motion.mjs",
+    "motion:preview": "node scripts/build-motion-preview.mjs",
     "icons:normalize": "node scripts/normalize-icons.mjs",
     "icons:check": "node scripts/normalize-icons.mjs --check",
     "fonts": "node scripts/check-fonts.mjs",
@@ -30,7 +37,7 @@
     "preview:readme": "node scripts/build-readme-visuals.mjs",
     "preview": "npm run preview:readme",
     "assets": "node scripts/validate-assets.mjs",
-    "validate": "node scripts/normalize-icons.mjs --check && node scripts/validate-assets.mjs && node scripts/validate-system.mjs && node scripts/check-fonts.mjs",
+    "validate": "node scripts/normalize-icons.mjs --check && node scripts/normalize-motion-icons.mjs --check && node scripts/validate-assets.mjs && node scripts/validate-system.mjs && node scripts/validate-motion.mjs && node scripts/check-fonts.mjs",
     "run:init": "node scripts/init-multi-agent-run.mjs",
     "run:assemble": "node scripts/assemble-agent-run.mjs",
     "run:validate": "node scripts/validate-agent-run.mjs"

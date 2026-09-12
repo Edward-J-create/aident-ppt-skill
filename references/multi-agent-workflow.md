@@ -90,6 +90,18 @@ The default format is HTML. Add `pdf` and/or `pptx` to `--formats` only when req
 
 The handoff files start as explicit templates with `_status: "pending"`. Specialists replace the templates with valid contract JSON.
 
+### Motion Slides runs
+
+Use the same initializer with `--formats html` (or `html,single-html`). In the narrative handoff, set `deck.meta.mode: "motion"` and use the Motion schema, not Presentation slide types. The lead must preserve this field during assembly. There is no separate `--mode` initializer option.
+
+- Narrative: read `motion/README.md`, `motion/layouts.md`, and `motion/content.md`; keep EN/ZH copy budgets and the top-to-bottom list order.
+- Assets: patch local `logos`, `hub.image`, `image`, and `items[index].image` by stable slide ID. Omit presentation-only `brand.rightText`, `header`, and item `icon` fields. Use normalized Motion SVGs via `image`.
+- Notes: use `{purpose,talk,transition}` for off-canvas narration; do not introduce an on-canvas footer or Callout.
+- HTML QA: use `motion/quality.md`; retain fixed Joint geometry, verify card docking and final list-row reachability, then test external animation ownership.
+- Generation: `generate-deck.mjs --input <run>/deck.json --out <run>/output/web`; mode routes from JSON. Deliver the generated timeline and layer index beside HTML.
+- QA reviewer writes `qa/html-report.json` in the handoff report shape with `pass`, inspected artifacts and findings; raw browser `report.json` alone is not the release sign-off.
+- Do not request PDF/PPTX or native video-engine QA for an HTML-only Motion request. Those are separate downstream adaptations, not automatic outputs of this mode.
+
 ## Concurrency model
 
 Default maximum concurrency: four active agents including the lead. Adapt to the host limit.

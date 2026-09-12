@@ -1,13 +1,22 @@
 ---
 name: aident-ppt-skill
-description: Create polished bilingual 16:9 presentation decks in the packaged Aident PPT visual language from a user-supplied outline or content framework. Use when the user wants an Aident-style HTML/web presentation, single-file HTML, editable PPTX, PDF, presenter view, reusable data-driven slide content, or a multi-agent deck workflow. All slide copy, logos, and images are replaceable. The skill is self-contained at runtime and does not require Figma.
+description: Create polished bilingual 16:9 presentation decks or simpler Motion Slides in the packaged Aident PPT visual language from a user-supplied outline. Use for HTML/web presentations, editable HTML scenes for later video animation, single-file HTML, optional PPTX/PDF, presenter view, reusable slide content, or a multi-agent deck workflow. Motion Slides preserve editable layers for GSAP, Hyperframes, or Remotion adaptation. All copy, logos, and images are replaceable. Self-contained at runtime.
 ---
 
 # Aident PPT Skill
 
 Turn an outline into a coherent, source-faithful deck. Treat the packaged assets, tokens, components, and layout rules as the runtime source of truth. Figma and the source PDFs are provenance and QA references only; do not require them to generate a deck.
 
-## Non-negotiable outcomes
+## Select the output mode first
+
+- **Presentation** (default): business presentation layouts, inner titles left aligned, optional presenter/PDF/PPTX outputs. Follow the workflow below.
+- **Motion Slides**: simple visual HTML scenes for later video/animation editing. Set `meta.mode: "motion"` or `--mode motion`, then read `references/motion/README.md`. English is the default; Chinese has the same template coverage. All text, logos, images and component content are replaceable. This mode has its own centered headings, typography roles, clipped scrolling-list contract, tokens, registry, schema and browser preflight.
+
+For Motion Slides, use `references/motion/layouts.md` and `references/motion/content.md`, then generate through the same `scripts/generate-deck.mjs` command and run `scripts/preflight.mjs`. Deliver the editable HTML folder plus `deck.resolved.json`, `timeline.json`, and `animation-handoff.json`. Use `references/motion/animation-handoff.md` when handing the result to GSAP, Hyperframes, or Remotion. Complex animation templates and video export are not required for layout generation. Items in a scrolling list appear top-to-bottom; the complete list track scrolls upward. Preserve every off-canvas row inside the clipped list window.
+
+The presentation-specific rules/workflow below do not override Motion Slides' explicit differences. Keep one mode per deck; use separate outputs when both are requested. Shared asset licensing, logo ratio, data-driven content and lossless packaging requirements apply to both.
+
+## Presentation mode: non-negotiable outcomes
 
 - Build at exactly 1920×1080, 16:9.
 - Scale and center the fixed canvas responsively in ordinary, audience, and embed views. The full slide must remain visible at 1280×720, 1366×768, 1440×900, and 1024×768; never crop the right or bottom edge.

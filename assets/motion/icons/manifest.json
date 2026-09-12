@@ -1,0 +1,85 @@
+{
+  "version": 1,
+  "icons": [
+    {
+      "name": "integration",
+      "file": "assets/motion/icons/integration.svg",
+      "source": "assets/icons/light/integration.svg",
+      "box": 46,
+      "viewBox": "16.6000 16.6000 26.8000 26.8000",
+      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "history",
+      "file": "assets/motion/icons/history.svg",
+      "source": "assets/icons/light/history.svg",
+      "box": 46,
+      "viewBox": "15.0000 15.0000 30.0000 30.0000",
+      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "skill",
+      "file": "assets/motion/icons/skill.svg",
+      "source": "assets/icons/light/skill.svg",
+      "box": 46,
+      "viewBox": "13.8000 14.7000 31.5000 31.5000",
+      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "run-circle",
+      "file": "assets/motion/icons/run-circle.svg",
+      "source": "assets/icons/light/run-circle.svg",
+      "box": 46,
+      "viewBox": "15.0000 15.0000 30.0000 30.0000",
+      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "download",
+      "file": "assets/motion/icons/download.svg",
+      "source": "assets/icons/light/download.svg",
+      "box": 46,
+      "viewBox": "16.6000 16.6000 26.8000 26.8000",
+      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "copy",
+      "file": "assets/motion/icons/copy.svg",
+      "source": "assets/icons/light/copy.svg",
+      "box": 46,
+      "viewBox": "15.8000 15.8000 28.4000 28.4000",
+      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "key",
+      "file": "assets/motion/icons/key.svg",
+      "source": "assets/icons/light/key.svg",
+      "box": 46,
+      "viewBox": "14.5000 13.8000 31.1000 31.1000",
+      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "action",
+      "file": "assets/motion/icons/action.svg",
+      "source": "assets/icons/light/action.svg",
+      "box": 46,
+      "viewBox": "14.3000 14.8000 30.4000 30.4000",
+      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "capabilities",
+      "file": "assets/motion/icons/capabilities.svg",
+      "source": "assets/icons/light/capabilities.svg",
+      "box": 46,
+      "viewBox": "16.8000 16.8000 26.4000 26.4000",
+      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "help",
+      "file": "assets/motion/icons/help.svg",
+      "source": "assets/icons/light/help.svg",
+      "box": 46,
+      "viewBox": "15.0000 15.0000 30.0000 30.0000",
+      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    }
+  ]
+}

@@ -2,6 +2,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {validateMotion} from './lib/motion-deck.mjs';
 
 const here=path.dirname(fileURLToPath(import.meta.url));
 const root=path.resolve(here,'..');
@@ -44,6 +45,7 @@ if(['planning','assembled','release'].includes(args.phase)){
 }
 
 function validateDeck(value){
+  if(value?.meta?.mode==='motion'){errors.push(...validateMotion(value));return;}
   const allowed={cover:[1],points:[2,3,4,6],cards:[2,3,4,6],metrics:[2,3,4,6],workflow:[3,4],comparison:[2],'image-cards':[2,3],team:[3],'split-image-text':[1],'full-bleed':[1]};
   if(!value?.meta||!['en','zh'].includes(value.meta.language))errors.push('deck.json meta.language must be en or zh.');
   if(!Array.isArray(value?.slides)||!value.slides.length){errors.push('deck.json must contain slides.');return}

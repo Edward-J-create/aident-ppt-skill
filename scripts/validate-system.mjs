@@ -144,7 +144,7 @@ check(backgrounds.format?.type==='webp'&&backgrounds.format?.lossless===true,'Ba
 check(backgrounds.treatments?.length===8&&backgrounds.treatments.every(entry=>entry.source.endsWith('.webp')),'All eight canonical backgrounds must be WebP.');
 check(backgrounds.pptxRasterization?.committedCompiledCopies===false,'Background manifest must reject committed compiled PPTX copies.');
 check(textures.format?.type==='webp'&&textures.format?.lossless===true&&textures.textures.every(entry=>entry.file.endsWith('.webp')),'All canonical textures must be Lossless WebP.');
-check(previews.format?.type==='webp'&&previews.format?.lossless===true&&previews.items?.length===4&&previews.items.every(entry=>entry.path.endsWith('.webp')),'README/Hero/Showcase previews must be Lossless WebP.');
+check(previews.format?.type==='webp'&&previews.format?.lossless===true&&previews.items?.length===6&&previews.items.every(entry=>entry.path.endsWith('.webp')),'README/Hero/Showcase and bilingual Motion previews must be Lossless WebP.');
 check(fontManifest.families.every(family=>Array.isArray(family.web)&&family.web.length>0),'Every bundled family must declare at least one runtime web face.');
 
 for(const theme of ['light','dark'])for(const entry of iconManifest.icons||[]){

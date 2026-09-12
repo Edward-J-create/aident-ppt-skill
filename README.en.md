@@ -4,9 +4,31 @@
 
 [中文](./README.md) · [Skill instructions](./SKILL.md) · [Page layout catalog](./references/layout-catalog.md) · [Multi-Agent workflow](./references/multi-agent-workflow.md)
 
+[Dependencies, maintenance and release checks](./CONTRIBUTING.md)
+
 A self-contained bilingual presentation Skill that turns an audience, objective, and content outline into consistent HTML presentations by default. Single-file webpages, PDFs, and editable PPTX decks are optional outputs. Layouts, components, typography policy, icons, backgrounds, and quality gates are packaged with the Skill. Public visibility does not place every branded asset under an open-source license; read [NOTICE.md](./NOTICE.md) before use or redistribution.
 
 Bring your own brand: replace the cover and upper-left slide mark with your own PNG, JPG/JPEG, WebP, or SVG. Use one logo for both themes or provide separate Light/Dark files; the source aspect ratio is always preserved.
+
+## Motion Slides / 视频用 HTML 版式
+
+Set `meta.mode: "motion"` for simpler, visual HTML scenes intended for later animation editing. The 10 layout families cover statement, brand, cards, comparison, input, scrolling list, synthesis, Joint/hub, image, and metric. English and Chinese have matching coverage; all text, logos and images are replaceable.
+
+设置 `meta.mode: "motion"`，可生成中英文可编辑视频版式；所有文案、Logo 和图片可替换，列表逐项从上到下出现，整体向上滚动。
+
+![English Motion Slides / 英文视频版式](./assets/previews/motion-slides.en.webp)
+![Chinese Motion Slides / 中文视频版式](./assets/previews/motion-slides.zh.webp)
+
+```bash
+npm run motion:en
+npm run motion:zh
+npm run motion:qa:en
+npm run motion:qa:zh
+```
+
+Deliverables include editable HTML, content JSON, suggested timing, a layer/asset manifest, and bundled fonts. Separate text, image, connector and list targets can be adapted into GSAP, Hyperframes or Remotion. This is an editable HTML handoff, not a native NLE or video-engine project.
+
+[Usage](./references/motion/README.md) · [Layouts](./references/motion/layouts.md) · [Content replacement](./references/motion/content.md) · [Animation handoff](./references/motion/animation-handoff.md)
 
 ## The system at a glance / 一眼看懂这套系统
 
@@ -57,10 +79,10 @@ Claude Code:
 cp -R /path/to/aident-ppt-skill ~/.claude/skills/aident-ppt-skill
 ```
 
-Other local Agent environments need file access, Node.js 20+, and browser preview support. If this Skill is later published to Git or skills.sh, install the complete repository using that platform's installer and keep the Skill name `aident-ppt-skill`.
+Other local Agent environments need file access, Node.js 20+, and browser preview support. Install the complete public repository, keeping the Skill name `aident-ppt-skill`:
 
 ```bash
-npx skills add https://github.com/jzs3660/aident-ppt-skill --skill aident-ppt-skill
+npx skills add https://github.com/Edward-J-create/aident-ppt-skill --skill aident-ppt-skill
 ```
 
 ### Prompt the Agent
@@ -188,7 +210,9 @@ node scripts/validate-agent-run.mjs --run /absolute/path/run --phase release
 
 Release requires every requested artifact and a matching passing QA report. See [multi-agent-workflow.md](./references/multi-agent-workflow.md) for scheduling, failure recovery, and assignment patterns for Codex, Claude Code, Cursor, and similar local Agents.
 
-## Non-negotiable design rules
+## Presentation-mode design rules
+
+These rules apply to the business presentation mode. Motion Slides use their own [layout rules](./references/motion/layouts.md): centered headings, separate Joint connectors, and intentionally clipped long lists. Do not apply presentation-only alignment, logo heights, or icon surfaces to Motion Slides.
 
 - Only the cover title is centered; every inner-page title is left-aligned.
 - Every slide uses a registered background and texture treatment.

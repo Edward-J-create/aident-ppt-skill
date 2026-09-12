@@ -1,5 +1,5 @@
 interface:
   display_name: "Aident PPT Skill"
-  short_description: "Generate Aident-style HTML decks with optional PDF/PPTX"
+  short_description: "Create bilingual HTML presentations or editable Motion Slides"
   brand_color: "#4C5CFF"
-  default_prompt: "Use $aident-ppt-skill to turn this outline into a polished HTML presentation; export PDF or PPTX only if I ask."
+  default_prompt: "Use $aident-ppt-skill to turn this outline into a polished bilingual HTML presentation, or Motion Slides for later animation when requested; export other formats only if I ask."

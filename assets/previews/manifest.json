@@ -3,6 +3,24 @@
   "format": { "type": "webp", "lossless": true },
   "items": [
     {
+      "id": "motion-slides-en",
+      "path": "assets/previews/motion-slides.en.webp",
+      "width": 2016,
+      "height": 2328,
+      "purpose": "English Motion Slides: 18 scenes across 10 layout families",
+      "runtimeRequired": false,
+      "derivedFrom": "examples/motion/deck.en.json browser preflight screenshots"
+    },
+    {
+      "id": "motion-slides-zh",
+      "path": "assets/previews/motion-slides.zh.webp",
+      "width": 2016,
+      "height": 2328,
+      "purpose": "Chinese Motion Slides: the same 18 scenes and 10 layout families",
+      "runtimeRequired": false,
+      "derivedFrom": "examples/motion/deck.zh.json browser preflight screenshots"
+    },
+    {
       "id": "aident-ppt-hero",
       "path": "assets/previews/aident-ppt-hero.webp",
       "width": 1920,

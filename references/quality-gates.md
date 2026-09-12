@@ -2,6 +2,8 @@
 
 Quality is a release gate, not a final glance. Validate content, structure, browser layout, PDF rendering, and PPTX rendering independently.
 
+This page's visual rules apply to Presentation mode. For `meta.mode: "motion"`, use [motion/quality.md](motion/quality.md); its centered headings and intentional list clipping are not errors. Shared integrity, licensing and release checks still apply. PDF/PPTX checks apply only when requested or their adapters changed.
+
 ## Severity
 
 ### P0: blocks delivery
@@ -109,7 +111,7 @@ Checks include:
 - folder output contains only referenced visual assets and required language/component font faces; README previews, font source archives, and unused backgrounds/icons must not leak into the generated deck.
 - replacement header/cover logos retain their intrinsic aspect ratio within 1.5%.
 - Accent Callout uses the registered three-stop gradient at 16% fill alpha, 20px blur, no stroke, full-opacity content, and an 88px minimum.
-- Workflow renders arrows only between adjacent steps and honors `showDividers: false`.
+- Workflow renders a separate arrow row above every Step, including the final Step, and honors `showDividers: false`.
 
 Successful result must say `0 errors`. Warnings need review; do not ignore them automatically.
 
@@ -277,7 +279,8 @@ Verify:
 
 - 8 registered Lossless WebP background variants and no committed compiled PPTX duplicates;
 - 3 Lossless WebP texture/source images;
-- 4 Lossless WebP README/Hero/Showcase previews;
+- 4 Lossless WebP Presentation README/Hero/Showcase previews plus 2 bilingual Motion montages;
+- 2 additional Motion atmospheric backgrounds, original Joint/control vectors, and 10 normalized Motion glyphs;
 - Foundation preview keeps every base-color and gradient swatch plus its label inside the white Color tokens panel; the preview renderer's overlap/overflow guard passes;
 - 4 logos;
 - 10 icons × 2 themes;
@@ -301,7 +304,7 @@ Before publishing:
 - JS syntax checks pass;
 - `node scripts/validate-presenter.mjs --html <final-html> --require-notes` passes for formal presentation decks;
 - HTML preflight passes for EN and ZH;
-- PDF and PPTX sample render correctly;
+- PDF/PPTX samples render correctly when requested or when their adapters changed;
 - asset manifest current;
 - scratch/output directories excluded or removed.
 
@@ -319,7 +322,7 @@ Before publishing:
 - [ ] Logo and images replace correctly.
 - [ ] Icons come from the packaged registry.
 - [ ] HTML preflight 0 errors.
-- [ ] PDF pages rendered and inspected.
-- [ ] PPTX rendered, inspected, and overflow-tested.
+- [ ] PDF pages rendered and inspected when requested or the adapter changed.
+- [ ] PPTX rendered, inspected, and overflow-tested when requested or the adapter changed.
 - [ ] Asset hashes current.
 - [ ] Skill validator passes.

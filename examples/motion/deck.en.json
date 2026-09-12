@@ -1,0 +1,609 @@
+{
+  "meta": {
+    "mode": "motion",
+    "title": "Motion Slides · Editable layout library",
+    "language": "en",
+    "fps": 30
+  },
+  "slides": [
+    {
+      "id": "opening-statement",
+      "type": "motion-title",
+      "title": "Turn scattered ideas\ninto clear action",
+      "highlight": "clear action",
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "brand-identity",
+      "type": "motion-brand",
+      "logos": [
+        {
+          "src": "assets/logos/wordmark-light.svg",
+          "alt": "Replaceable example wordmark"
+        }
+      ],
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "four-points",
+      "type": "motion-cards",
+      "kicker": "METHOD · FOUR MOVES",
+      "title": "Make each step count",
+      "items": [
+        {
+          "label": "01",
+          "title": "Gather inputs",
+          "body": "Start with one clear question and the evidence you already have."
+        },
+        {
+          "label": "02",
+          "title": "Find patterns",
+          "body": "Group related signals and separate facts from assumptions."
+        },
+        {
+          "label": "03",
+          "title": "Make a choice",
+          "body": "Choose the next useful action and give it a clear owner."
+        },
+        {
+          "label": "04",
+          "title": "Review results",
+          "body": "Check what changed and carry the learning into the next cycle."
+        }
+      ],
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "three-points",
+      "type": "motion-cards",
+      "title": "Keep the model simple",
+      "items": [
+        {
+          "label": "01",
+          "title": "Gather inputs",
+          "body": "Start with one clear question and the evidence you already have."
+        },
+        {
+          "label": "02",
+          "title": "Find patterns",
+          "body": "Group related signals and separate facts from assumptions."
+        },
+        {
+          "label": "03",
+          "title": "Make a choice",
+          "body": "Choose the next useful action and give it a clear owner."
+        }
+      ],
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "two-points",
+      "type": "motion-cards",
+      "title": "Connect intent and evidence",
+      "items": [
+        {
+          "label": "01",
+          "title": "Gather inputs",
+          "body": "Start with one clear question and the evidence you already have."
+        },
+        {
+          "label": "04",
+          "title": "Review results",
+          "body": "Check what changed and carry the learning into the next cycle."
+        }
+      ],
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "before-after",
+      "type": "motion-comparison",
+      "title": "From scattered to shared",
+      "items": [
+        {
+          "label": "BEFORE",
+          "title": "Scattered inputs",
+          "body": "Start with one clear question and the evidence you already have.",
+          "tone": "muted"
+        },
+        {
+          "label": "AFTER",
+          "title": "A shared direction",
+          "body": "Group related signals and separate facts from assumptions.",
+          "tone": "accent"
+        }
+      ],
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "prompt-entry",
+      "type": "motion-input",
+      "variant": "multiline",
+      "prompt": "Review these source notes and find three ideas worth testing next.",
+      "showCursor": true,
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "compact-prompt",
+      "type": "motion-input",
+      "variant": "compact",
+      "label": "Research",
+      "prompt": "Find the next useful signal",
+      "image": {
+        "src": "assets/motion/mark.svg",
+        "alt": "Replaceable example mark"
+      },
+      "showCursor": true,
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "results-list",
+      "type": "motion-list",
+      "variant": "plain",
+      "image": {
+        "src": "assets/motion/mark.svg",
+        "alt": "Replaceable example mark"
+      },
+      "items": [
+        {
+          "title": "Define the outcome",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Ready",
+          "tone": "accent"
+        },
+        {
+          "title": "Collect source material",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Collected"
+        },
+        {
+          "title": "Check the evidence",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Verified"
+        },
+        {
+          "title": "Connect related ideas",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Linked"
+        },
+        {
+          "title": "Draft the first version",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Draft"
+        },
+        {
+          "title": "Review the details",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Checked"
+        },
+        {
+          "title": "Share the result",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Shared"
+        },
+        {
+          "title": "Capture the learning",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Recorded"
+        }
+      ],
+      "duration": 16,
+      "scroll": {
+        "enabled": true,
+        "reveal": "sequential",
+        "direction": "up",
+        "itemOrder": "top-to-bottom",
+        "itemDirection": "fade",
+        "start": 2,
+        "end": 14
+      },
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "checked-results",
+      "type": "motion-list",
+      "variant": "checked",
+      "image": {
+        "src": "assets/motion/mark.svg",
+        "alt": "Replaceable example mark"
+      },
+      "items": [
+        {
+          "title": "Define the outcome",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Ready",
+          "tone": "accent"
+        },
+        {
+          "title": "Collect source material",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Collected"
+        },
+        {
+          "title": "Check the evidence",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Verified"
+        },
+        {
+          "title": "Connect related ideas",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Linked"
+        },
+        {
+          "title": "Draft the first version",
+          "body": "Keep this stage focused on one visible, useful result.",
+          "badge": "Draft"
+        }
+      ],
+      "duration": 11,
+      "scroll": {
+        "enabled": true,
+        "reveal": "sequential",
+        "direction": "up",
+        "itemOrder": "top-to-bottom",
+        "itemDirection": "fade",
+        "start": 2,
+        "end": 9
+      },
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "information-stages",
+      "type": "motion-synthesis",
+      "variant": "stages",
+      "title": "Bring the signal into focus",
+      "groups": [
+        [
+          {
+            "title": "Notes",
+            "tone": "neutral"
+          },
+          {
+            "title": "Facts",
+            "tone": "info"
+          },
+          {
+            "title": "Signals",
+            "tone": "accent"
+          }
+        ],
+        [
+          {
+            "title": "Group inputs",
+            "tone": "neutral"
+          },
+          {
+            "title": "Compare views",
+            "tone": "info"
+          },
+          {
+            "title": "Check patterns",
+            "tone": "accent"
+          }
+        ],
+        [
+          {
+            "title": "Learn",
+            "tone": "neutral"
+          },
+          {
+            "title": "Choose",
+            "tone": "info"
+          },
+          {
+            "title": "Act",
+            "tone": "accent"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "Clear action",
+          "tone": "accent"
+        }
+      ],
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "many-to-few",
+      "type": "motion-synthesis",
+      "variant": "many-to-few",
+      "title": "Many inputs, three priorities",
+      "groups": [
+        [
+          {
+            "title": "Signal 1",
+            "tone": "success"
+          },
+          {
+            "title": "Signal 2",
+            "tone": "success"
+          },
+          {
+            "title": "Signal 3",
+            "tone": "success"
+          },
+          {
+            "title": "Signal 4",
+            "tone": "success"
+          }
+        ],
+        [
+          {
+            "title": "Signal 5",
+            "tone": "warning"
+          },
+          {
+            "title": "Signal 6",
+            "tone": "warning"
+          },
+          {
+            "title": "Signal 7",
+            "tone": "warning"
+          },
+          {
+            "title": "Signal 8",
+            "tone": "warning"
+          }
+        ],
+        [
+          {
+            "title": "Signal 9",
+            "tone": "purple"
+          },
+          {
+            "title": "Signal 10",
+            "tone": "purple"
+          },
+          {
+            "title": "Signal 11",
+            "tone": "purple"
+          },
+          {
+            "title": "Signal 12",
+            "tone": "purple"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "Clarity",
+          "tone": "purple"
+        },
+        {
+          "title": "Ownership",
+          "tone": "success"
+        },
+        {
+          "title": "Momentum",
+          "tone": "warning"
+        }
+      ],
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "connected-three",
+      "type": "motion-hub",
+      "variant": "three",
+      "title": "Connect the right capabilities",
+      "hub": {
+        "title": "Your workflow",
+        "image": {
+          "src": "assets/motion/mark.svg",
+          "alt": "Replaceable example mark"
+        }
+      },
+      "items": [
+        {
+          "title": "Signals",
+          "image": {
+            "src": "assets/icons/light/integration.svg",
+            "alt": "Signals"
+          }
+        },
+        {
+          "title": "Research",
+          "image": {
+            "src": "assets/icons/light/skill.svg",
+            "alt": "Research"
+          }
+        },
+        {
+          "title": "Output",
+          "image": {
+            "src": "assets/icons/light/action.svg",
+            "alt": "Output"
+          }
+        }
+      ],
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "connected-four",
+      "type": "motion-hub",
+      "variant": "four",
+      "title": "One shared working context",
+      "hub": {
+        "image": {
+          "src": "assets/motion/mark.svg",
+          "alt": "Replaceable example mark"
+        }
+      },
+      "items": [
+        {
+          "title": "Sources",
+          "image": {
+            "src": "assets/icons/light/integration.svg",
+            "alt": "Sources"
+          }
+        },
+        {
+          "title": "Research",
+          "image": {
+            "src": "assets/icons/light/skill.svg",
+            "alt": "Research"
+          }
+        },
+        {
+          "title": "Review",
+          "image": {
+            "src": "assets/icons/light/history.svg",
+            "alt": "Review"
+          }
+        },
+        {
+          "title": "Delivery",
+          "image": {
+            "src": "assets/icons/light/action.svg",
+            "alt": "Delivery"
+          }
+        }
+      ],
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "brand-partnership",
+      "type": "motion-brand",
+      "variant": "pair",
+      "logos": [
+        {
+          "src": "assets/logos/wordmark-light.svg",
+          "alt": "Replaceable example wordmark"
+        },
+        {
+          "src": "assets/motion/mark.svg",
+          "alt": "Replaceable example mark"
+        }
+      ],
+      "separator": "×",
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "one-metric",
+      "type": "motion-metric",
+      "title": "Focus on one useful signal",
+      "label": "ILLUSTRATIVE TARGET",
+      "value": "3×",
+      "body": "Replace this illustrative value with your verified result.",
+      "notes": {
+        "title": "Editable motion example",
+        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "talk": [
+          "Replace copy, logos, and images before producing your own video."
+        ]
+      }
+    },
+    {
+      "id": "replaceable-image",
+      "type": "motion-image",
+      "variant": "split",
+      "title": "Show the evidence",
+      "body": "Replace this example board with your screenshot, diagram, or photograph. Keep the explanation on the left.",
+      "image": {
+        "src": "assets/previews/aident-ppt-system.webp",
+        "alt": "Example design-system board; replace with your visual",
+        "fit": "contain"
+      }
+    },
+    {
+      "id": "hero-image",
+      "type": "motion-image",
+      "variant": "hero",
+      "title": "One visual, one idea",
+      "image": {
+        "src": "assets/previews/aident-ppt-system.webp",
+        "alt": "Replaceable example design board",
+        "fit": "contain"
+      }
+    }
+  ]
+}

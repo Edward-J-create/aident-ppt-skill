@@ -14,7 +14,7 @@ const allowedCounts={points:[2,3,4,6],cards:[2,3,4,6],metrics:[2,3,4,6],workflow
 const emoji=/[\u{1F000}-\u{1FAFF}\u{2600}-\u{27BF}]/u;
 const allowedKeys={
   root:new Set(['meta','slides']),
-  meta:new Set(['title','language','brandName','url','logo','header']),
+  meta:new Set(['title','language','brandName','url','logo','header','mode']),
   header:new Set(['show','showLogo','showRightText','rightText']),
   image:new Set(['src','alt','position','fit']),
   item:new Set(['number','label','title','body','value','icon','showIcon','showLabel','image','tone','points']),
@@ -30,13 +30,14 @@ function parseArgs(argv){
     if(value==='--input')args.input=argv[++i];
     else if(value==='--out')args.out=argv[++i];
     else if(value==='--single-file')args.singleFile=true;
+    else if(value==='--mode')args.mode=argv[++i];
     else if(value==='--help')args.help=true;
     else throw new Error(`Unknown argument: ${value}`);
   }
   return args;
 }
 
-const usage=`Usage: node scripts/generate-deck.mjs --input examples/deck.example.json --out output/deck [--single-file]\n`;
+const usage=`Usage: node scripts/generate-deck.mjs --input examples/deck.example.en.json --out output/deck [--mode presentation|motion] [--single-file]\n`;
 const escapeHtml=value=>String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const text=value=>String(value??'').trim();
 const length=value=>Array.from(text(value)).length;
@@ -337,6 +338,14 @@ async function main(){
   if(!args.input||!args.out)throw new Error(usage.trim());
   const input=path.resolve(args.input),outDir=path.resolve(args.out),inputDir=path.dirname(input);
   const deckRaw=JSON.parse(await fs.readFile(input,'utf8'));
+  const mode=args.mode||deckRaw.meta?.mode||'presentation';
+  if(!['presentation','motion'].includes(mode))throw new Error('Mode must be presentation or motion.');
+  if(args.mode&&deckRaw.meta?.mode&&args.mode!==deckRaw.meta.mode)throw new Error('CLI mode conflicts with meta.mode.');
+  if(mode==='motion'){
+    const {generateMotionDeck}=await import('./lib/motion-deck.mjs');
+    await generateMotionDeck({...args,input,out:outDir},deckRaw);
+    return;
+  }
   const errors=validate(deckRaw);if(errors.length)throw new Error(`Content validation failed:\n- ${errors.join('\n- ')}`);
   await fs.mkdir(outDir,{recursive:true});
   if(outDir===skillRoot||outDir===path.parse(outDir).root)throw new Error('Output directory must be a dedicated deck folder.');
@@ -353,4 +362,5 @@ async function main(){
   process.stdout.write(`Generated ${deck.slides.length} slides at ${outDir}\n`);
 }
 
-main().catch(error=>{console.error(error.message||error);process.exitCode=1});
+export {copyPackagedAsset,writeRuntimeFonts,inlineHtml,escapeHtml,normalizeImage,skillRoot};
+if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url))main().catch(error=>{console.error(error.message||error);process.exitCode=1});

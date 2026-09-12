@@ -166,6 +166,11 @@ async function browserChecks(htmlPath,args,slideCount,expectedFonts){
 async function main(){
   const args=parseArgs(process.argv);if(args.help){process.stdout.write(usage);return}if(!args.html)throw new Error(usage.trim());
   const htmlPath=path.resolve(args.html),html=await fs.readFile(htmlPath,'utf8');
+  if(html.includes('data-mode="motion"')){
+    if(args.staticOnly)throw new Error('Motion Slides require browser preflight to validate the scrolling window.');
+    const {preflightMotion}=await import('./preflight-motion.mjs');
+    const report=await preflightMotion(htmlPath,args.screenshots);if(report.errors.length)process.exitCode=1;return;
+  }
   const stat=staticChecks(html);const localFonts=await localFontChecks(args,htmlPath);let browser=[];
   if(!args.staticOnly)browser=await browserChecks(htmlPath,args,stat.slideCount,localFonts.families);
   const errors=[...stat.errors,...localFonts.errors,...browser.flatMap(s=>s.errors.map(e=>`${s.id}: ${e}`))];

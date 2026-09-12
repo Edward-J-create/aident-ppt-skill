@@ -12,6 +12,7 @@
       "required": ["title", "language"],
       "properties": {
         "title": { "type": "string", "minLength": 1 },
+        "mode": { "const": "presentation" },
         "language": { "enum": ["en", "zh"] },
         "brandName": { "type": "string" },
         "url": { "type": "string" },

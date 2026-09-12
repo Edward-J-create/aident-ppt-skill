@@ -1,0 +1,609 @@
+{
+  "meta": {
+    "mode": "motion",
+    "title": "Motion Slides · 可编辑版式库",
+    "language": "zh",
+    "fps": 30
+  },
+  "slides": [
+    {
+      "id": "opening-statement",
+      "type": "motion-title",
+      "title": "将分散的想法\n变成清晰的行动",
+      "highlight": "清晰的行动",
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "brand-identity",
+      "type": "motion-brand",
+      "logos": [
+        {
+          "src": "assets/logos/wordmark-light.svg",
+          "alt": "Replaceable example wordmark"
+        }
+      ],
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "four-points",
+      "type": "motion-cards",
+      "kicker": "方法 · 四个步骤",
+      "title": "让每一步都有价值",
+      "items": [
+        {
+          "label": "01",
+          "title": "收集输入",
+          "body": "围绕一个明确的问题，整理已有的材料与证据。"
+        },
+        {
+          "label": "02",
+          "title": "识别规律",
+          "body": "将相关信号归类，区分事实和待验证的判断。"
+        },
+        {
+          "label": "03",
+          "title": "做出选择",
+          "body": "选出下一步有效行动，并确定清晰的负责人。"
+        },
+        {
+          "label": "04",
+          "title": "复盘结果",
+          "body": "检查变化，将得到的经验带入下一个循环。"
+        }
+      ],
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "three-points",
+      "type": "motion-cards",
+      "title": "让方法保持简单",
+      "items": [
+        {
+          "label": "01",
+          "title": "收集输入",
+          "body": "围绕一个明确的问题，整理已有的材料与证据。"
+        },
+        {
+          "label": "02",
+          "title": "识别规律",
+          "body": "将相关信号归类，区分事实和待验证的判断。"
+        },
+        {
+          "label": "03",
+          "title": "做出选择",
+          "body": "选出下一步有效行动，并确定清晰的负责人。"
+        }
+      ],
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "two-points",
+      "type": "motion-cards",
+      "title": "连接目标与证据",
+      "items": [
+        {
+          "label": "01",
+          "title": "收集输入",
+          "body": "围绕一个明确的问题，整理已有的材料与证据。"
+        },
+        {
+          "label": "04",
+          "title": "复盘结果",
+          "body": "检查变化，将得到的经验带入下一个循环。"
+        }
+      ],
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "before-after",
+      "type": "motion-comparison",
+      "title": "从信息分散到协同清晰",
+      "items": [
+        {
+          "label": "之前",
+          "title": "分散的输入",
+          "body": "围绕一个明确的问题，整理已有的材料与证据。",
+          "tone": "muted"
+        },
+        {
+          "label": "之后",
+          "title": "共同的方向",
+          "body": "将相关信号归类，区分事实和待验证的判断。",
+          "tone": "accent"
+        }
+      ],
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "prompt-entry",
+      "type": "motion-input",
+      "variant": "multiline",
+      "prompt": "阅读这些资料，找到三个值得下一步验证的想法。",
+      "showCursor": true,
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "compact-prompt",
+      "type": "motion-input",
+      "variant": "compact",
+      "label": "研究",
+      "prompt": "找到下一个有效信号",
+      "image": {
+        "src": "assets/motion/mark.svg",
+        "alt": "Replaceable example mark"
+      },
+      "showCursor": true,
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "results-list",
+      "type": "motion-list",
+      "variant": "plain",
+      "image": {
+        "src": "assets/motion/mark.svg",
+        "alt": "Replaceable example mark"
+      },
+      "items": [
+        {
+          "title": "明确目标",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "就绪",
+          "tone": "accent"
+        },
+        {
+          "title": "收集资料",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "已收集"
+        },
+        {
+          "title": "核实证据",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "已验证"
+        },
+        {
+          "title": "连接线索",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "已关联"
+        },
+        {
+          "title": "完成初稿",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "初稿"
+        },
+        {
+          "title": "检查细节",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "已检查"
+        },
+        {
+          "title": "分享成果",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "已分享"
+        },
+        {
+          "title": "沉淀经验",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "已记录"
+        }
+      ],
+      "duration": 16,
+      "scroll": {
+        "enabled": true,
+        "reveal": "sequential",
+        "direction": "up",
+        "itemOrder": "top-to-bottom",
+        "itemDirection": "fade",
+        "start": 2,
+        "end": 14
+      },
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "checked-results",
+      "type": "motion-list",
+      "variant": "checked",
+      "image": {
+        "src": "assets/motion/mark.svg",
+        "alt": "Replaceable example mark"
+      },
+      "items": [
+        {
+          "title": "明确目标",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "就绪",
+          "tone": "accent"
+        },
+        {
+          "title": "收集资料",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "已收集"
+        },
+        {
+          "title": "核实证据",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "已验证"
+        },
+        {
+          "title": "连接线索",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "已关联"
+        },
+        {
+          "title": "完成初稿",
+          "body": "每一步聚焦一个可见且有用的结果。",
+          "badge": "初稿"
+        }
+      ],
+      "duration": 11,
+      "scroll": {
+        "enabled": true,
+        "reveal": "sequential",
+        "direction": "up",
+        "itemOrder": "top-to-bottom",
+        "itemDirection": "fade",
+        "start": 2,
+        "end": 9
+      },
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "information-stages",
+      "type": "motion-synthesis",
+      "variant": "stages",
+      "title": "让关键信号逐渐清晰",
+      "groups": [
+        [
+          {
+            "title": "记录",
+            "tone": "neutral"
+          },
+          {
+            "title": "事实",
+            "tone": "info"
+          },
+          {
+            "title": "信号",
+            "tone": "accent"
+          }
+        ],
+        [
+          {
+            "title": "归类输入",
+            "tone": "neutral"
+          },
+          {
+            "title": "对比观点",
+            "tone": "info"
+          },
+          {
+            "title": "检验规律",
+            "tone": "accent"
+          }
+        ],
+        [
+          {
+            "title": "理解",
+            "tone": "neutral"
+          },
+          {
+            "title": "选择",
+            "tone": "info"
+          },
+          {
+            "title": "行动",
+            "tone": "accent"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "清晰行动",
+          "tone": "accent"
+        }
+      ],
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "many-to-few",
+      "type": "motion-synthesis",
+      "variant": "many-to-few",
+      "title": "多条线索，三个重点",
+      "groups": [
+        [
+          {
+            "title": "线索 1",
+            "tone": "success"
+          },
+          {
+            "title": "线索 2",
+            "tone": "success"
+          },
+          {
+            "title": "线索 3",
+            "tone": "success"
+          },
+          {
+            "title": "线索 4",
+            "tone": "success"
+          }
+        ],
+        [
+          {
+            "title": "线索 5",
+            "tone": "warning"
+          },
+          {
+            "title": "线索 6",
+            "tone": "warning"
+          },
+          {
+            "title": "线索 7",
+            "tone": "warning"
+          },
+          {
+            "title": "线索 8",
+            "tone": "warning"
+          }
+        ],
+        [
+          {
+            "title": "线索 9",
+            "tone": "purple"
+          },
+          {
+            "title": "线索 10",
+            "tone": "purple"
+          },
+          {
+            "title": "线索 11",
+            "tone": "purple"
+          },
+          {
+            "title": "线索 12",
+            "tone": "purple"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "清晰",
+          "tone": "purple"
+        },
+        {
+          "title": "责任",
+          "tone": "success"
+        },
+        {
+          "title": "进展",
+          "tone": "warning"
+        }
+      ],
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "connected-three",
+      "type": "motion-hub",
+      "variant": "three",
+      "title": "连接所需能力",
+      "hub": {
+        "title": "你的工作流",
+        "image": {
+          "src": "assets/motion/mark.svg",
+          "alt": "Replaceable example mark"
+        }
+      },
+      "items": [
+        {
+          "title": "信号",
+          "image": {
+            "src": "assets/icons/light/integration.svg",
+            "alt": "信号"
+          }
+        },
+        {
+          "title": "研究",
+          "image": {
+            "src": "assets/icons/light/skill.svg",
+            "alt": "研究"
+          }
+        },
+        {
+          "title": "产出",
+          "image": {
+            "src": "assets/icons/light/action.svg",
+            "alt": "产出"
+          }
+        }
+      ],
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "connected-four",
+      "type": "motion-hub",
+      "variant": "four",
+      "title": "一个共享的工作上下文",
+      "hub": {
+        "image": {
+          "src": "assets/motion/mark.svg",
+          "alt": "Replaceable example mark"
+        }
+      },
+      "items": [
+        {
+          "title": "来源",
+          "image": {
+            "src": "assets/icons/light/integration.svg",
+            "alt": "来源"
+          }
+        },
+        {
+          "title": "研究",
+          "image": {
+            "src": "assets/icons/light/skill.svg",
+            "alt": "研究"
+          }
+        },
+        {
+          "title": "审核",
+          "image": {
+            "src": "assets/icons/light/history.svg",
+            "alt": "审核"
+          }
+        },
+        {
+          "title": "交付",
+          "image": {
+            "src": "assets/icons/light/action.svg",
+            "alt": "交付"
+          }
+        }
+      ],
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "brand-partnership",
+      "type": "motion-brand",
+      "variant": "pair",
+      "logos": [
+        {
+          "src": "assets/logos/wordmark-light.svg",
+          "alt": "Replaceable example wordmark"
+        },
+        {
+          "src": "assets/motion/mark.svg",
+          "alt": "Replaceable example mark"
+        }
+      ],
+      "separator": "×",
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "one-metric",
+      "type": "motion-metric",
+      "title": "聚焦一个有效信号",
+      "label": "示例目标",
+      "value": "3×",
+      "body": "将示例数字替换为已验证的真实结果。",
+      "notes": {
+        "title": "可编辑的动态版式示例",
+        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "talk": [
+          "制作你的视频前，请替换文字、标志和图片。"
+        ]
+      }
+    },
+    {
+      "id": "replaceable-image",
+      "type": "motion-image",
+      "variant": "split",
+      "title": "展示实际的证据",
+      "body": "将示例设计板替换为你的截图、图表或照片。说明文字保持在左侧。",
+      "image": {
+        "src": "assets/previews/aident-ppt-system.webp",
+        "alt": "示例设计系统板，可替换为你的图片",
+        "fit": "contain"
+      }
+    },
+    {
+      "id": "hero-image",
+      "type": "motion-image",
+      "variant": "hero",
+      "title": "一张图片，一个观点",
+      "image": {
+        "src": "assets/previews/aident-ppt-system.webp",
+        "alt": "可替换的示例设计板",
+        "fit": "contain"
+      }
+    }
+  ]
+}

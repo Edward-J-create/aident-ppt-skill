@@ -1,5 +1,7 @@
 # Aident PPT Skill
 
+[Dependencies and maintenance / 依赖安装与维护检查](./CONTRIBUTING.md)
+
 ![Aident PPT Skill — from content outline to polished presentation / 从内容框架到高质量演示](./assets/previews/aident-ppt-hero.webp)
 
 [Full English README / 完整英文文档](./README.en.md) · [Skill instructions](./SKILL.md) · [Layout catalog / 页面版式目录](./references/layout-catalog.md) · [Multi-Agent workflow](./references/multi-agent-workflow.md)
@@ -11,6 +13,27 @@ A self-contained, publicly installable bilingual presentation Skill. Provide the
 Bring your own brand: replace the cover and upper-left slide mark with your own PNG, JPG/JPEG, WebP, or SVG. Use one logo for both themes or provide separate Light/Dark files; the source aspect ratio is always preserved.
 
 自定义品牌：可用自己的 PNG、JPG/JPEG、WebP 或 SVG 替换封面和内页左上角 Logo；支持单一 Logo 或 Light/Dark 两套文件，始终保持原始比例。
+
+## Motion Slides / 面向视频编辑的 HTML 版式
+
+Choose `meta.mode: "motion"` for simpler, more visual HTML scenes. English and Chinese share 10 layout families: statement, brand, cards, comparison, input, scrolling list, synthesis, Joint/hub, image and metric. All copy, logos and images are replaceable. Independent layers and a handoff manifest let GSAP, Hyperframes or Remotion author the animation later.
+
+设置 `meta.mode: "motion"`，即可生成更简洁、可视化的 HTML 场景。中英文共享 10 类版式，支持替换所有文案、Logo 和图片。文字、卡片、图标、连接线、列表窗口与滚动轨道均独立保留，方便后续动画工具接手；列表按从上到下的顺序逐项出现，整体向上滚动。
+
+![English Motion Slides / 英文视频版式](./assets/previews/motion-slides.en.webp)
+![Chinese Motion Slides / 中文视频版式](./assets/previews/motion-slides.zh.webp)
+
+```bash
+npm run motion:en
+npm run motion:zh
+# Optional browser QA / 可选运行示例检查（交付前必须检查）
+npm run motion:qa:en
+npm run motion:qa:zh
+```
+
+[Usage and rules / 使用规则](./references/motion/README.md) · [Layout details / 版式细节](./references/motion/layouts.md) · [Editable content / 内容替换](./references/motion/content.md) · [Animation handoff / 动画交接](./references/motion/animation-handoff.md)
+
+The folder includes HTML, editable content JSON, suggested timing, a layer/asset index and bundled fonts. It is ready for animation adaptation, but is not itself a native video-engine or NLE project. / 输出包含 HTML、内容 JSON、建议时间轴、图层与素材索引及字体；可继续改编为动画项目，当前交付本身并非剪辑工程或原生视频引擎项目。
 
 ## Design system at a glance / 一眼看懂这套系统
 
@@ -63,10 +86,10 @@ cp -R /path/to/aident-ppt-skill ~/.claude/skills/aident-ppt-skill
 
 Other local Agent environments need file access, Node.js 20+, and browser preview support. / 其他支持本地 Skill 的 Agent，可把目录放入其约定的技能路径；至少需要文件读写、Node.js 20+ 和浏览器预览能力。
 
-如果以后发布到 Git 仓库或 skills.sh，可使用对应平台的安装命令安装完整目录，Skill 名保持 `aident-ppt-skill`。
+Install the complete public repository with the following command. / 使用以下命令安装完整公开仓库，Skill 名保持 `aident-ppt-skill`：
 
 ```bash
-npx skills add https://github.com/jzs3660/aident-ppt-skill --skill aident-ppt-skill
+npx skills add https://github.com/Edward-J-create/aident-ppt-skill --skill aident-ppt-skill
 ```
 
 ### 2. Give the Agent an outline / 给 Agent 一段内容框架
@@ -210,7 +233,9 @@ node scripts/validate-agent-run.mjs --run /absolute/path/run --phase release
 
 所有请求的文件与对应 `pass: true` 报告齐全后才能发布。完整协议、失败恢复和 Codex/Claude/Cursor 的分派模式见 [multi-agent-workflow.md](./references/multi-agent-workflow.md)。
 
-## Non-negotiable design rules / 设计与内容规则
+## Presentation-mode design rules / 商务演示模式规则
+
+Motion Slides have separate [layout rules](./references/motion/layouts.md), including centered headings, unchanged Joint connectors and intentionally clipped lists. / 以下规则用于商务演示；Motion Slides 使用独立版式规则，包括居中标题、原始尺寸的 Joint 和允许超出窗口的长列表。不要混用两种模式的标题对齐、Logo 高度和图标底板规范。
 
 These rules are enforced by runtime validation or QA. / 以下关键规则会被运行时或 QA 强制检查：
 

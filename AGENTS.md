@@ -13,6 +13,10 @@ This repository supports both single-agent and multi-agent deck production. When
 - Do not introduce proprietary names, claims, data, or imagery unless supplied and approved.
 - Always run browser checks. Run PDF and PPTX checks only when those optional formats were requested or when their adapters changed during Skill maintenance.
 
+## Motion Slides routing
+
+For `deck.meta.mode: "motion"`, narrative/asset/QA roles use `references/motion/README.md` and its linked layout, content, handoff and quality documents. Preserve centered Motion headings, independent connectors, and intentionally clipped long-list tracks. The lead generates through the same CLI; preflight auto-routes by HTML mode. Assets handoffs may patch `logos`, `hub.image`, `image`, and `items[index].image`. HTML QA checks both static composition and the reachable final list row. Do not assign PPTX/PDF roles or claim a native video-engine project for an HTML-only Motion Slides request.
+
 ## Default ownership
 
 | Role | Writable output |

@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="{{LANG}}">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>{{TITLE}}</title><link rel="stylesheet" href="assets/runtime/deck.css"></head>
+<body data-mode="motion" data-lang="{{LANG}}">
+<main id="viewport"><div id="deck">{{SLIDES}}</div></main>
+<nav id="motion-controls" aria-label="Motion Slides controls"><button data-action="prev" aria-label="Previous">‹</button><button data-action="play">Play</button><button data-action="next" aria-label="Next">›</button><input id="scrubber" type="range" min="0" value="0" step="0.001" aria-label="Timeline seconds"><output id="timecode"></output><button data-action="overview">Grid</button></nav>
+<section id="motion-overview" hidden aria-label="Slide overview"></section>
+<script>window.AIDENT_DECK={{DECK_JSON}};</script>
+<script src="assets/runtime/deck.js"></script>
+</body></html>
