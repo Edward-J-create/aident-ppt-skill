@@ -24,8 +24,8 @@
       "type": "motion-brand",
       "logos": [
         {
-          "src": "assets/logos/wordmark-light.svg",
-          "alt": "Replaceable example wordmark"
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout complete logo"
         }
       ],
       "notes": {
@@ -540,18 +540,18 @@
       "variant": "pair",
       "logos": [
         {
-          "src": "assets/logos/wordmark-light.svg",
-          "alt": "Replaceable example wordmark"
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout complete logo"
         },
         {
-          "src": "assets/motion/mark.svg",
-          "alt": "Replaceable example mark"
+          "placeholder": "YOUR LOGO",
+          "caption": "Replace with your brand"
         }
       ],
       "separator": "×",
       "notes": {
         "title": "Editable motion example",
-        "purpose": "Demonstrate this reusable layout with generic, replaceable content.",
+        "purpose": "Approved complete Aident logo plus an editable user-logo placeholder; two independent replaceable identities, not a partnership claim.",
         "talk": [
           "Replace copy, logos, and images before producing your own video."
         ]
@@ -594,6 +594,51 @@
         "alt": "Replaceable example design board",
         "fit": "contain"
       }
+    },
+    {
+      "id": "flow-three",
+      "type": "motion-workflow",
+      "title": "A clear sequence",
+      "items": [
+        {
+          "id": "collect",
+          "title": "Collect",
+          "image": "assets/motion/icons/history.svg"
+        },
+        {
+          "id": "review",
+          "title": "Review",
+          "image": "assets/motion/icons/action.svg"
+        },
+        {
+          "id": "share",
+          "title": "Share",
+          "image": "assets/motion/icons/key.svg"
+        }
+      ]
+    },
+    {
+      "id": "flow-four",
+      "type": "motion-workflow",
+      "title": "Four connected steps",
+      "items": [
+        {
+          "id": "collect",
+          "title": "Collect"
+        },
+        {
+          "id": "review",
+          "title": "Review"
+        },
+        {
+          "id": "decide",
+          "title": "Decide"
+        },
+        {
+          "id": "share",
+          "title": "Share"
+        }
+      ]
     }
   ]
 }

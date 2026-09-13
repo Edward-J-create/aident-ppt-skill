@@ -94,7 +94,7 @@ The handoff files start as explicit templates with `_status: "pending"`. Special
 
 Use the same initializer with `--formats html` (or `html,single-html`). In the narrative handoff, set `deck.meta.mode: "motion"` and use the Motion schema, not Presentation slide types. The lead must preserve this field during assembly. There is no separate `--mode` initializer option.
 
-- Narrative: read `motion/README.md`, `motion/scene-planning.md`, `motion/layouts.md`, and `motion/content.md`; keep EN/ZH copy budgets and the top-to-bottom list order.
+- Narrative: read `motion/README.md`, `motion/scene-planning.md`, `motion/layouts.md`, and `motion/content.md`, and `motion/editable-components.md`; distinguish linear Workflow from hub relationships; keep EN/ZH copy budgets and the top-to-bottom list order.
 - Assets: patch local `logos`, `hub.image`, `image`, and `items[index].image` by stable slide ID. Omit presentation-only `brand.rightText`, `header`, and item `icon` fields. Use normalized Motion SVGs via `image`.
 - Notes: use `{purpose,talk,transition}` for off-canvas narration; do not introduce an on-canvas footer or Callout.
 - HTML QA: use `motion/quality.md`; retain fixed Joint geometry, verify card docking and final list-row reachability, then test external animation ownership.

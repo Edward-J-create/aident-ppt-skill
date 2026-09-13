@@ -1,0 +1,273 @@
+{
+  "meta": {
+    "mode": "motion",
+    "language": "zh",
+    "title": "可编辑的动态镜头组件"
+  },
+  "slides": [
+    {
+      "id": "logo-pair",
+      "type": "motion-brand",
+      "variant": "pair",
+      "duration": 2,
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout 完整标志"
+        },
+        {
+          "placeholder": "你的 Logo",
+          "caption": "替换为你的品牌标志"
+        }
+      ],
+      "notes": {
+        "purpose": "完整 Aident 标志与可编辑用户 Logo 占位；两侧独立替换，不代表合作背书。"
+      }
+    },
+    {
+      "id": "blue-tags",
+      "type": "motion-synthesis",
+      "title": "保持一致的配色体系",
+      "groups": [
+        [
+          {
+            "title": "原始记录",
+            "tone": "info"
+          },
+          {
+            "title": "观察事实",
+            "tone": "info"
+          }
+        ],
+        [
+          {
+            "title": "比较观点",
+            "tone": "info"
+          },
+          {
+            "title": "核对证据",
+            "tone": "info"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "下一步行动",
+          "tone": "accent"
+        }
+      ]
+    },
+    {
+      "id": "category-tags",
+      "type": "motion-synthesis",
+      "title": "用颜色区分信息类别",
+      "groups": [
+        [
+          {
+            "title": "原始记录",
+            "tone": "info"
+          },
+          {
+            "title": "观察事实",
+            "tone": "info"
+          }
+        ],
+        [
+          {
+            "title": "比较观点",
+            "tone": "purple"
+          },
+          {
+            "title": "核对证据",
+            "tone": "purple"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "确认通过",
+          "tone": "success"
+        }
+      ],
+      "notes": {
+        "purpose": "蓝色表示来源，紫色表示处理，绿色表示通过；文字大小和宽度保持一致。"
+      }
+    },
+    {
+      "id": "hub-one",
+      "type": "motion-hub",
+      "title": "一个关联来源",
+      "hub": {
+        "title": "形成决策"
+      },
+      "items": [
+        {
+          "id": "source",
+          "title": "事实证据"
+        }
+      ]
+    },
+    {
+      "id": "hub-two",
+      "type": "motion-hub",
+      "title": "两个关联来源",
+      "hub": {
+        "title": "形成决策"
+      },
+      "items": [
+        {
+          "id": "source",
+          "title": "事实证据"
+        },
+        {
+          "id": "owner",
+          "title": "负责人"
+        }
+      ]
+    },
+    {
+      "id": "hub-slots",
+      "type": "motion-hub",
+      "title": "选择连接位置",
+      "hub": {
+        "title": "形成决策"
+      },
+      "items": [
+        {
+          "id": "source",
+          "title": "事实证据"
+        },
+        {
+          "id": "owner",
+          "title": "负责人"
+        }
+      ],
+      "connections": [
+        {
+          "id": "source-link",
+          "from": "hub",
+          "to": "source",
+          "slot": "top-left"
+        },
+        {
+          "id": "owner-link",
+          "from": "hub",
+          "to": "owner",
+          "slot": "bottom-right"
+        }
+      ]
+    },
+    {
+      "id": "flow-two",
+      "type": "motion-workflow",
+      "title": "从输入到输出",
+      "items": [
+        {
+          "id": "input",
+          "title": "收集事实证据",
+          "body": "从已经核实的材料开始。"
+        },
+        {
+          "id": "output",
+          "title": "分享明确结果",
+          "body": "说明下一步应该采取的行动。"
+        }
+      ]
+    },
+    {
+      "id": "flow-three",
+      "type": "motion-workflow",
+      "title": "清晰的单向流程",
+      "items": [
+        {
+          "id": "collect",
+          "title": "收集",
+          "image": "assets/motion/icons/history.svg"
+        },
+        {
+          "id": "review",
+          "title": "核对",
+          "image": "assets/motion/icons/action.svg"
+        },
+        {
+          "id": "share",
+          "title": "分享",
+          "image": "assets/motion/icons/key.svg"
+        }
+      ]
+    },
+    {
+      "id": "flow-four",
+      "type": "motion-workflow",
+      "title": "四个相连的步骤",
+      "items": [
+        {
+          "id": "collect",
+          "title": "收集"
+        },
+        {
+          "id": "review",
+          "title": "核对"
+        },
+        {
+          "id": "decide",
+          "title": "决策"
+        },
+        {
+          "id": "share",
+          "title": "分享"
+        }
+      ]
+    },
+    {
+      "id": "input-default",
+      "type": "motion-input",
+      "variant": "compact",
+      "label": "提问",
+      "prompt": "找出下一步有用的行动。",
+      "send": {
+        "state": "default"
+      }
+    },
+    {
+      "id": "input-hover",
+      "type": "motion-input",
+      "variant": "compact",
+      "label": "提问",
+      "prompt": "找出下一步有用的行动。",
+      "send": {
+        "state": "hover"
+      }
+    },
+    {
+      "id": "input-pressed",
+      "type": "motion-input",
+      "variant": "compact",
+      "label": "提问",
+      "prompt": "找出下一步有用的行动。",
+      "send": {
+        "state": "pressed"
+      },
+      "showCursor": true
+    },
+    {
+      "id": "input-sent",
+      "type": "motion-input",
+      "variant": "multiline",
+      "prompt": "整理已经核实的事实，并给出明确的下一步行动。",
+      "send": {
+        "state": "sent",
+        "ariaLabel": "请求已发送"
+      }
+    },
+    {
+      "id": "input-disabled",
+      "type": "motion-input",
+      "variant": "compact",
+      "prompt": "等待来源材料准备完成。",
+      "send": {
+        "state": "disabled"
+      }
+    }
+  ]
+}

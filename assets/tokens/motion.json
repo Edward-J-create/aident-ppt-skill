@@ -1,5 +1,10 @@
 {
   "version": 1,
+  "brand": {
+    "single": {"maxWidth": 777, "maxHeight": 147},
+    "pair": {"maxWidth": 597, "maxHeight": 113.062},
+    "gap": 64
+  },
   "canvas": {
     "width": 1920,
     "height": 1080,
@@ -185,6 +190,24 @@
       "fill": "rgba(30,234,234,0.12)"
     }
   },
+  "send": {
+    "states": {
+      "default": {"fill":"#1F1F23","text":"#FFFFFF"},
+      "hover": {"fill":"#008089","text":"#FFFFFF"},
+      "pressed": {"fill":"#005B62","text":"#FFFFFF"},
+      "sent": {"fill":"#007A26","text":"#FFFFFF"},
+      "disabled": {"fill":"#E0E3E2","text":"#636869"}
+    }
+  },
+  "hub": {
+    "slots": ["top-left","top-right","bottom-left","bottom-right","bottom"],
+    "defaultSlots": {
+      "1": ["bottom"],
+      "2": ["top-left","top-right"],
+      "3": ["top-left","top-right","bottom"],
+      "4": ["top-left","top-right","bottom-left","bottom-right"]
+    }
+  },
   "card": {
     "top": 429,
     "height": 450,
@@ -192,6 +215,27 @@
     "padding": 30,
     "radius": 20,
     "textGap": 10
+  },
+  "synthesis": {
+    "top": 380,
+    "width": 1700,
+    "height": 550,
+    "panelMaxWidth": 1120,
+    "panelPadding": 32,
+    "sceneGap": 44,
+    "groupGap": 24,
+    "tagGap": 16,
+    "compactPadding": 24,
+    "compactGap": 12,
+    "defaults": {
+      "arrangement": "columns",
+      "size": "medium",
+      "outputSize": "medium",
+      "tagWidth": "fill",
+      "align": "center",
+      "groupAlign": "start",
+      "density": "comfortable"
+    }
   },
   "list": {
     "width": 1300,

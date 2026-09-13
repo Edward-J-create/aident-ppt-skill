@@ -13,7 +13,7 @@
         "statement"
       ],
       "maxLines": 2,
-      "duration": 5,
+      "duration": 3,
       "fields": [
         "title",
         "highlight",
@@ -30,7 +30,7 @@
         1,
         2
       ],
-      "duration": 4,
+      "duration": 2,
       "fields": [
         "logos",
         "separator"
@@ -46,7 +46,7 @@
         3,
         4
       ],
-      "duration": 7,
+      "duration": 5,
       "fields": [
         "title",
         "kicker",
@@ -61,7 +61,7 @@
       "counts": [
         2
       ],
-      "duration": 7,
+      "duration": 5,
       "fields": [
         "title",
         "kicker",
@@ -74,13 +74,14 @@
         "multiline",
         "compact"
       ],
-      "duration": 7,
+      "duration": 4,
       "fields": [
         "prompt",
         "label",
         "image",
         "showCursor",
-        "showSend"
+        "showSend",
+        "send"
       ],
       "purpose": "A prompt entered into a conceptual UI"
     },
@@ -93,7 +94,7 @@
         "min": 1,
         "max": 24
       },
-      "duration": 8,
+      "duration": 6,
       "fields": [
         "items",
         "image",
@@ -107,39 +108,51 @@
         "stages",
         "many-to-few"
       ],
-      "duration": 8,
+      "duration": 5,
       "fields": [
         "title",
         "kicker",
         "groups",
-        "outputs"
+        "outputs",
+        "composition"
       ],
-      "purpose": "Information tags consolidated into outcomes"
+      "groupCounts": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "purpose": "Information groups consolidated into outcomes; typography is semantic, never assigned by column index"
     },
     "motion-hub": {
       "variants": [
+        "one",
+        "two",
         "three",
         "four"
       ],
       "counts": [
+        1,
+        2,
         3,
         4
       ],
-      "duration": 7,
+      "duration": 5,
       "fields": [
         "title",
         "kicker",
         "hub",
-        "items"
+        "items",
+        "connections"
       ],
-      "purpose": "Three/four satellites connected to one replaceable identity"
+      "purpose": "One to four satellites with explicit hub-to-node connections and immutable Joint geometry"
     },
     "motion-image": {
       "variants": [
         "split",
         "hero"
       ],
-      "duration": 6,
+      "duration": 4,
       "fields": [
         "title",
         "kicker",
@@ -153,7 +166,7 @@
       "variants": [
         "single"
       ],
-      "duration": 5,
+      "duration": 3,
       "fields": [
         "title",
         "value",
@@ -161,6 +174,25 @@
         "body"
       ],
       "purpose": "One user-supplied metric; provenance in notes",
+      "extension": true
+    },
+    "motion-workflow": {
+      "variants": [
+        "left-to-right"
+      ],
+      "counts": [
+        2,
+        3,
+        4
+      ],
+      "duration": 5,
+      "fields": [
+        "title",
+        "kicker",
+        "items",
+        "connections"
+      ],
+      "purpose": "Ordered left-to-right steps with independent original arrows; no central node",
       "extension": true
     }
   },
@@ -208,8 +240,41 @@
       "badgeOptional": true,
       "iconOptional": true
     },
+    "synthesis": {
+      "defaultsToken": "synthesis.defaults",
+      "arrangements": [
+        "columns",
+        "rows",
+        "wrap"
+      ],
+      "tagWidth": [
+        "fill",
+        "hug"
+      ],
+      "align": [
+        "left",
+        "center"
+      ],
+      "groupAlign": [
+        "start",
+        "center"
+      ],
+      "density": [
+        "comfortable",
+        "compact"
+      ],
+      "measurement": "Equal-width columns or per-row cells measured from live text after fonts load; never shrink text to force fit",
+      "height": "hug",
+      "maxInputGroups": 4,
+      "maxTagsPerGroup": 4,
+      "outputs": [
+        1,
+        2,
+        3
+      ]
+    },
     "tag": {
-      "width": "hug",
+      "width": "fill in aligned grids; hug in wrap/explicit hug mode; text always hugs",
       "height": "hug",
       "sizes": {
         "small": {
@@ -243,18 +308,72 @@
       "minWidth": 452,
       "maxWidth": 1273,
       "padding": 24,
-      "radius": 40
+      "radius": 40,
+      "send": {
+        "states": [
+          "default",
+          "hover",
+          "pressed",
+          "sent",
+          "disabled"
+        ],
+        "token": "send.states",
+        "targets": [
+          "input",
+          "input-surface",
+          "input-logo",
+          "input-label",
+          "prompt",
+          "send",
+          "send-icon",
+          "cursor"
+        ],
+        "click": "aident:send; no network submission or automatic state transition"
+      }
     },
     "logo": {
       "fit": "contain",
       "stretch": false,
       "crop": false,
       "slots": {
-        "brand": 144,
+        "brand": {
+          "single": {
+            "maxWidth": 777,
+            "maxHeight": 147
+          },
+          "pair": {
+            "maxWidth": 597,
+            "maxHeight": 113.062
+          },
+          "gap": 64
+        },
         "list": 150,
         "hub": 80,
         "satellite": 46,
         "input": 60
+      },
+      "pairTargets": [
+        "logo-0",
+        "separator",
+        "logo-1"
+      ],
+      "placeholder": {
+        "content": "live editable text, not a brand image",
+        "width": 440,
+        "minHeight": 144,
+        "padding": 24,
+        "fields": [
+          "placeholder",
+          "caption"
+        ],
+        "replacement": "replace entire entry with image object",
+        "pairRule": "Never split one identity into symbol × wordmark"
+      },
+      "identity": {
+        "brandDefault": "assets/motion/lockup.svg",
+        "compactDefault": "assets/motion/mark.svg",
+        "allowed": "approved complete lockup or standalone graphic; no extracted text-only identity",
+        "replacement": "both pair slots independent; preserve original ratio; no invented partners"
       }
     },
     "connector": {
@@ -263,7 +382,8 @@
       "separate": true,
       "sizing": "intrinsic; mirror only; never stretch or skew",
       "fit": "contain",
-      "binding": "content-hugging cards move to dock at fixed-size connector endpoints"
+      "binding": "content-hugging cards move to dock at fixed-size connector endpoints",
+      "topology": "Hub-to-satellite only; one edge per satellite; 1–4 satellites; explicit unique slots optional"
     },
     "listScene": {
       "clip": false,
@@ -273,6 +393,20 @@
       "trackTopWithLogo": 417,
       "defaultLogo": "assets/motion/mark.svg",
       "animation": "suggestions only; external animator owns distance, timing and camera"
+    },
+    "workflow": {
+      "direction": "left-to-right",
+      "counts": [
+        2,
+        3,
+        4
+      ],
+      "gap": 24,
+      "padding": 24,
+      "nodeWidth": "equal Fill, maximum440",
+      "nodeHeight": "shared tallest, text hug",
+      "connector": "original167×22.0919; independent; no stretch",
+      "edgeCount": "nodeCount-1"
     }
   }
 }

@@ -1,12 +1,18 @@
 # Semantic shot planning / 按语义选择镜头
 
-Read before drafting a Motion deck. The generator renders explicit `slide.type`; it does not select layouts, assign hidden weights, or infer a storyboard. The authoring Agent must do that work. The 18-page examples are a component catalog, not a recommended video sequence.
+Read before drafting a Motion deck. The generator renders explicit `slide.type`; it does not select layouts, assign hidden weights, or infer a storyboard. The authoring Agent must do that work. Start a new explainer/demo from [starter.en.json](../../examples/motion/starter.en.json) or [starter.zh.json](../../examples/motion/starter.zh.json), which includes actual Logo, Input, Joint, synthesis and list scenes. The 20-page examples are a component catalog, not a recommended video sequence. Remove or adapt starter shots that do not match the user's story; do not return to a generic title-and-card minimal deck by habit.
 
 ## Intake
 
-Establish audience, intended takeaway, language (English default), source content and whether this delivery is editable HTML or a separately requested finished animation. Ask once: “Keep the default Aident Logo, replace it with your own PNG/JPEG/WebP/SVG, or use no Logo?” Do not block when unanswered: use packaged `assets/motion/mark.svg` and disclose the default. Already supplied brand choices need no repeat question. Ask this when generating a user's deck, not when maintaining the Skill.
+Establish audience, intended takeaway, language (English default), source content and whether this delivery is editable HTML or a separately requested finished animation. Ask once: “Keep the default Aident Logo, replace it with your own PNG/JPEG/WebP/SVG, or use no Logo?” Do not block when unanswered: use packaged `assets/motion/lockup.svg` for brand shots and `assets/motion/mark.svg` for compact identities, and disclose the default. Already supplied brand choices need no repeat question. Ask this when generating a user's deck, not when maintaining the Skill.
 
 Only use user-supplied or approved logos to imply actual products/organizations. A pair-logo scene represents a real, specified relationship; do not invent a partner to fill the second slot. Never put a Logo on every scene solely for variety.
+
+Do not split one brand's symbol and wordmark into `Logo × Logo`. Use a complete identity in each populated slot. Template/demo pairs without a second supplied identity must show an explicit editable Logo placeholder (see [editable-components.md](editable-components.md)) or be omitted; do not reuse the same brand's alternate mark to manufacture a second identity.
+
+Aident identity may be its approved standalone graphic or approved complete graphic-plus-text lockup, not extracted text alone. Single/pair Logo shots default to the complete `assets/motion/lockup.svg`; list/input/diagram identities use `assets/motion/mark.svg` where compact branding is appropriate. Do not mistake the legacy text-only wordmark asset for a complete lockup or rebuild brand lettering with ordinary HTML text.
+
+The source artwork defines visual language, not a fixed number of examples. Keep variable tag counts, grouping and Fill/Hug compositions, and variable-node diagram capabilities. Extend counts through measured layout and topology-aware edges, not by copying a screenshot's coordinates or distorting its connectors. Current supported ranges are documented in the layout/schema contracts; they are implementation boundaries, not a ban on future reusable variants.
 
 ## Choose the visual relation first
 
@@ -15,8 +21,9 @@ Only use user-supplied or approved logos to imply actual products/organizations.
 | Identity, introduction, closing signature / 品牌亮相 | `motion-brand` single | Give an identity its own shot when it matters; no need for a heading above a Logo. Use default Aident if no replacement is supplied. |
 | Integration or collaboration / 品牌关系 | `motion-brand` pair | Two approved identities and an editable separator. No invented endorsement. |
 | A request, query, instruction / 输入问题 | `motion-input` compact or multiline | Show the actual prompt instead of a card saying “Enter a prompt.” Compact may include Logo/label; multiline supports a real readable request. |
-| One center connected to 3/4 actors / 连接关系 | `motion-hub` | Explain tools, roles, signals or relationships with live nodes and unchanged Joint connectors. Do not misuse this as a linear four-step chain. |
-| Many inputs becoming fewer outputs / 汇聚与转化 | `motion-synthesis` | Separate input tags, directional connector and output; not paragraph cards. Requires 3 input groups and 1–3 outputs. |
+| One center connected to 1–4 actors / 中心关系 | `motion-hub` | Explain tools, roles, signals or relationships with live nodes and unchanged Joint connectors. Do not misuse this as a linear four-step chain. |
+| Ordered steps from left to right / 单向流程 | `motion-workflow` | 2–4 nodes and one original arrow between adjacent nodes. No center. Split longer processes into coherent shots. |
+| Many inputs becoming fewer outputs / 汇聚与转化 | `motion-synthesis` | Separate input tags, directional connector and output; not paragraph cards. Supports 1–4 input groups and 1–3 outputs. Select a coherent [tag composition](synthesis-composition.md), not one size per column. |
 | Real screenshot, visual evidence / 画面证据 | `motion-image` | Hero for image focus, split for left text/right image. Ask for missing evidence instead of inventing a screenshot. |
 | A genuine contrast / 对比 | `motion-comparison` | Two distinct states; don't turn an ordinary list into a false before/after claim. |
 | Ordered repeated results / 连续清单 | `motion-list` | Keep full content beyond camera. No nested scrolling viewport. More rows need downstream camera travel, not tiny text. |
@@ -24,7 +31,7 @@ Only use user-supplied or approved logos to imply actual products/organizations.
 | Independent categories / 并列概念 | `motion-cards` | 2–4 genuinely parallel ideas. Not the default container for prompts, relationships or process transformations. |
 | A standalone claim or transition / 核心句 | `motion-title` | One short takeaway. Avoid repeating every scene's message as a separate title slide. |
 
-These are semantic choices, not numeric weights, mandatory percentages or a quota requiring every template. If no registered geometry fits (for example an arbitrary linear workflow), explain the mismatch and choose a supported truthful representation; do not disguise card columns as a connected flowchart or stretch Joint artwork.
+These are semantic choices, not numeric weights, mandatory percentages or a quota requiring every template. If no registered geometry fits (for example a cycle or multi-level graph), explain the mismatch and choose a supported truthful representation; do not disguise card columns as a connected flowchart or stretch Joint artwork.
 
 ## Draft a shot plan
 

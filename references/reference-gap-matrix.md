@@ -74,13 +74,15 @@ These limitations are explicit, tested, and do not create a Figma runtime depend
 
 | Contract | Canonical source | Executable evidence |
 |---|---|---|
-| 10 families, variants and editable slots | `assets/components/motion-registry.json`, `references/motion/layouts.md` | `validate-motion.mjs` checks matching 18-page EN/ZH coverage and rejects malformed content |
+| 11 families, variants and editable slots | `assets/components/motion-registry.json`, `references/motion/layouts.md` | `validate-motion.mjs` checks matching 20-page EN/ZH coverage and rejects malformed content |
 | Per-role fonts, line-height ratios, tracking, paint alpha, spacing | `assets/tokens/motion.json`, Motion typography/copy-budget tables | Browser font/line-height/overflow checks |
 | Original Joint curves; cards dock to endpoints | Motion layout and animation handoff docs, `assets/motion/curve.svg` | Three/four-satellite short/long EN/ZH replacement tests; original connector dimensions preserved |
 | Original icon glyphs without source surface shrinkage | `assets/motion/icons/manifest.json` | `normalize-motion-icons.mjs --check` verifies 10 extractions without redrawing |
 | Camera-only list scene, identity, track and rows independently editable | Motion content/schema and handoff docs | Full visibility at time0/seek; no nested mask or window; last row reachable through QA-only scene translation |
 | External animation ownership and stable layer IDs | `animation-handoff.json`, `references/motion/animation-handoff.md` | Deterministic seeking, duplicate-layer checks, no native opacity override in external mode |
-| Replaceable logos/images/content | Motion content schema, 18 examples per language | Local assets, intrinsic logo ratio and browser bounds checks |
+| Replaceable logos/images/content | Motion content schema, 20 examples per language | Local assets, intrinsic logo ratio and browser bounds checks |
 | Multi-agent mode routing | Role prompts and `references/multi-agent-workflow.md` | Shared initialization/assembly/release validation; Motion-specific semantic validator |
+| Peer-label composition rather than a mandatory size ramp | `references/motion/synthesis-composition.md`, synthesis tokens/schema/renderer | `validate-synthesis.mjs`:16 bilingual fixtures, width/alignment/padding/connector tests, live replacements and rejected broken layouts |
+| Motion-first story starters | `examples/motion/starter.en.json`, `starter.zh.json` | Logo/Input/Joint/synthesis/list vocabulary, full editability; user story decides what to retain |
 
 Motion currently provides light-theme scenes. It does not promise dark Motion variants, native Remotion/Hyperframes projects, completed video exports, or all advanced presenter features from the reference. The package prioritizes clear editable HTML and independently testable constraints over adding unrelated visual systems.

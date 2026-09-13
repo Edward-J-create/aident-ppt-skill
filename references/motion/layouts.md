@@ -7,13 +7,14 @@ All coordinates and dimensions are CSS pixels on a 1920×1080 canvas. Source-mat
 | Type | Variants / count | Content | Geometry and fit |
 |---|---|---|---|
 | `motion-title` | statement | title, exact-substring highlight, optional kicker | 1700px safe width; centered vertically; 116px display; 2 lines maximum |
-| `motion-brand` | single / pair | 1–2 logo images, editable separator | vertically/horizontally centered; logo height ≤144, width ≤760; pair gap 64 |
+| `motion-brand` | single / pair | 1–2 complete logo images, editable separator | centered; single ≤777×147; pair each ≤597×113.062; intrinsic ratio, pair gap64; default complete lockup |
 | `motion-cards` | 2 / 3 / 4 columns | optional label/image, title, body | x110, y429, width1700; gap30; shared height450; padding30; radius20 |
 | `motion-comparison` | 2 | baseline, target | same card geometry; left muted surface; right translucent gradient |
 | `motion-input` | multiline / compact | prompt, optional label/logo/cursor/send | centered; multiline width900 and hug height; compact hug width ≤1600; 24 padding; 77 send button |
 | `motion-list` | plain / checked, 1–24 items | default/replaceable logo; row title/body/badge/image/check | scene x310,y200,w1300,height auto; logo height150 + gap67; track starts y417 with logo or y200 without; row min137/hug; gap20 |
-| `motion-synthesis` | stages / many-to-few | 3 tag groups, 1–3 outputs | y380, 1700×550 zone; input panel hug; arrow in separate flex slot; output panel hug |
-| `motion-hub` | three / four satellites | central title and/or logo; satellite labels/images | x110,y360,w1700,h570; separate curved SVG connectors; cards hug content |
+| `motion-synthesis` | stages / many-to-few; columns / rows / wrap composition | 1–4 tag groups, 1–3 outputs | y380, 1700×550 zone; measured input width and hug height; fixed167×22.0919 arrow; output hug |
+| `motion-hub` | one / two / three / four satellites | central title and/or logo; satellite labels/images; explicit edges/slots optional | x110,y360,w1700,h570; separate original SVG connectors; cards hug content |
+| `motion-workflow` | left-to-right, 2 / 3 / 4 nodes | ordered title/label/body/image nodes, explicit adjacent edges optional | x110,w1700,centerY630; equal Fill nodes; hug text; original167px arrows with24px gaps |
 | `motion-image` | split / hero | title, image; optional body for split | split: left text760 + gap100 + right image840×472.5 at y390; hero image1160×580 at x380,y360 |
 | `motion-metric` | single | title, value, optional label/body | centered content1300px wide, y400; value200px Outfit; one verified or explicitly illustrative metric |
 
@@ -29,7 +30,7 @@ All coordinates and dimensions are CSS pixels on a 1920×1080 canvas. Source-mat
 | Card label | Noto Sans Semibold 18, 150%, −1% | Noto Sans SC Semibold 22, 150%, 0 | optional; one line |
 | List row title | Noto Sans Regular 36, 150%, −1% | Noto Sans SC Regular 36, 150%, 0 | source-specific body-family title role |
 | Prompt | Noto Sans Regular 42, 150%, −1% | Noto Sans SC Regular 42, 150%, 0 | multiline may wrap; compact stays one line |
-| Tags | Outfit Regular 24 / 30 / 50, 150% | Noto Sans SC Regular 24 / 30 / 50, 150% | small / medium / large; hug both axes |
+| Tags | Outfit Regular 24 / 30 / 50, 150% | Noto Sans SC Regular 24 / 30 / 50, 150% | optional roles, not a size ramp; medium peers default; containers Fill/Hug by composition, text always hug |
 | Badge | Outfit Medium 24, 150% | Noto Sans SC Medium 24, 150% | small list pill, width hugs text |
 
 150% means the font size times 1.5; a 54px card title has an 81px line box. Text height is auto; 450px is a card's coordinated container height, never a text-frame height. Do not horizontally scale text or silently switch fonts. Overflow requires shorter content or another count/layout.
@@ -54,6 +55,10 @@ All coordinates and dimensions are CSS pixels on a 1920×1080 canvas. Source-mat
 | Output tag | 22 characters | 10 characters |
 
 These are early character limits, not guarantees of pixel fit. Combined compact prompt + logo + label can exceed the width even when each field fits its individual budget. Browser QA is authoritative. Line breaks are allowed only in the two-line statement and multiline prompt/body roles. Preserve meaning when shortening; move supporting detail to notes when it is narration rather than screen content.
+
+Read [synthesis-composition.md](synthesis-composition.md) for tag layout. Peer short labels default to equal-width Fill cells, equal type/height/padding and centered text. Descriptive labels may use uniform left alignment; Hug keywords are a separate composition. Never use all available sizes/colors just because they exist. Inspect geometry and visual hierarchy separately.
+
+Read [editable-components.md](editable-components.md) for Workflow title budgets, two distinct connection topologies, count changes, Send states, Logo-pair animation targets and advisory timing. Linear workflow titles use the tag font at30px/150%, not54px presentation Card titles.
 
 ## Paint and surfaces
 

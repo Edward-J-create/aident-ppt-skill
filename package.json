@@ -9,6 +9,9 @@
     "url": "https://github.com/Edward-J-create/aident-ppt-skill.git"
   },
   "scripts": {
+    "motion:starter:en": "node scripts/generate-deck.mjs --input examples/motion/starter.en.json --out output/motion-starter-en",
+    "motion:starter:zh": "node scripts/generate-deck.mjs --input examples/motion/starter.zh.json --out output/motion-starter-zh",
+    "motion:synthesis:qa": "node scripts/validate-synthesis.mjs --browser",
     "motion:en": "node scripts/generate-deck.mjs --input examples/motion/deck.en.json --out output/motion-en",
     "motion:zh": "node scripts/generate-deck.mjs --input examples/motion/deck.zh.json --out output/motion-zh",
     "motion:qa:en": "node scripts/preflight.mjs --html output/motion-en/index.html --screenshots output/motion-en/qa",
@@ -37,10 +40,14 @@
     "preview:readme": "node scripts/build-readme-visuals.mjs",
     "preview": "npm run preview:readme",
     "assets": "node scripts/validate-assets.mjs",
-    "validate": "node scripts/normalize-icons.mjs --check && node scripts/normalize-motion-icons.mjs --check && node scripts/validate-assets.mjs && node scripts/validate-system.mjs && node scripts/validate-motion.mjs && node scripts/check-fonts.mjs",
+    "validate": "node scripts/normalize-icons.mjs --check && node scripts/normalize-motion-icons.mjs --check && node scripts/normalize-motion-lockup.mjs --check && node scripts/validate-assets.mjs && node scripts/validate-system.mjs && node scripts/validate-motion.mjs && node scripts/check-fonts.mjs",
     "run:init": "node scripts/init-multi-agent-run.mjs",
     "run:assemble": "node scripts/assemble-agent-run.mjs",
-    "run:validate": "node scripts/validate-agent-run.mjs"
+    "run:validate": "node scripts/validate-agent-run.mjs",
+    "motion:controls:qa": "node scripts/validate-motion-controls.mjs --browser",
+    "motion:controls:validate": "node scripts/validate-motion-controls.mjs"
   },
-  "engines": { "node": ">=20" }
+  "engines": {
+    "node": ">=20"
+  }
 }

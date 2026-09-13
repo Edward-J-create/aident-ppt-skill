@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "mode": "motion",
+    "language": "en",
+    "title": "From request to clear action",
+    "logo": {
+      "src": "assets/motion/mark.svg",
+      "alt": "Replaceable Aident default"
+    }
+  },
+  "slides": [
+    {
+      "id": "identity",
+      "type": "motion-brand",
+      "variant": "single",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout complete logo"
+        }
+      ],
+      "notes": {
+        "purpose": "Optional brand introduction. Replace all identity slots consistently, or omit this shot if branding is unwanted."
+      }
+    },
+    {
+      "id": "request",
+      "type": "motion-input",
+      "variant": "compact",
+      "label": "Request",
+      "prompt": "Turn these notes into one useful next step.",
+      "showSend": true,
+      "notes": {
+        "purpose": "Show the actual input, not a card describing an input field.",
+        "transition": "An animator may show submission; this HTML does not prescribe an effect."
+      }
+    },
+    {
+      "id": "relationships",
+      "type": "motion-hub",
+      "variant": "three",
+      "title": "Connect the context",
+      "hub": {
+        "title": "A clear decision"
+      },
+      "items": [
+        {
+          "title": "Evidence",
+          "image": {
+            "src": "assets/motion/icons/history.svg"
+          }
+        },
+        {
+          "title": "Constraints",
+          "image": {
+            "src": "assets/motion/icons/key.svg"
+          }
+        },
+        {
+          "title": "Ownership",
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          }
+        }
+      ],
+      "notes": {
+        "purpose": "Three relationships around one decision, not a fabricated linear process. Nodes and original Joint connectors stay editable."
+      }
+    },
+    {
+      "id": "synthesis",
+      "type": "motion-synthesis",
+      "title": "Turn evidence into action",
+      "composition": {
+        "arrangement": "columns",
+        "size": "medium",
+        "outputSize": "medium",
+        "tagWidth": "fill",
+        "align": "center"
+      },
+      "groups": [
+        [
+          {
+            "title": "Source notes"
+          },
+          {
+            "title": "Observed facts"
+          }
+        ],
+        [
+          {
+            "title": "Compare views"
+          },
+          {
+            "title": "Check evidence"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "Next action",
+          "tone": "accent"
+        }
+      ],
+      "notes": {
+        "purpose": "Two equal-weight groups use equal-width centered cells. Color, not arbitrary font growth, distinguishes the result."
+      }
+    },
+    {
+      "id": "results",
+      "type": "motion-list",
+      "variant": "checked",
+      "items": [
+        {
+          "title": "A visible outcome",
+          "body": "Name the result the audience should understand."
+        },
+        {
+          "title": "A clear owner",
+          "body": "Show who will take the next step."
+        },
+        {
+          "title": "A review point",
+          "body": "Agree when to check the evidence again."
+        }
+      ],
+      "notes": {
+        "purpose": "Optional result list. Keep all rows beyond the camera; use the chosen Logo or explicitly disable it.",
+        "transition": "Suggested item order is top-to-bottom; whole scene may move upward. The animation author chooses travel and timing."
+      }
+    },
+    {
+      "id": "signature",
+      "type": "motion-brand",
+      "variant": "single",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout complete logo"
+        }
+      ],
+      "notes": {
+        "purpose": "Optional closing identity. This starter is not a compulsory six-shot sequence."
+      }
+    }
+  ]
+}

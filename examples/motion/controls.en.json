@@ -1,0 +1,273 @@
+{
+  "meta": {
+    "mode": "motion",
+    "language": "en",
+    "title": "Editable motion components"
+  },
+  "slides": [
+    {
+      "id": "logo-pair",
+      "type": "motion-brand",
+      "variant": "pair",
+      "duration": 2,
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout complete logo"
+        },
+        {
+          "placeholder": "YOUR LOGO",
+          "caption": "Replace with your brand"
+        }
+      ],
+      "notes": {
+        "purpose": "Approved complete Aident logo plus an editable user-logo placeholder; two independent replaceable identities, not a partnership claim."
+      }
+    },
+    {
+      "id": "blue-tags",
+      "type": "motion-synthesis",
+      "title": "A consistent color family",
+      "groups": [
+        [
+          {
+            "title": "Source notes",
+            "tone": "info"
+          },
+          {
+            "title": "Observed facts",
+            "tone": "info"
+          }
+        ],
+        [
+          {
+            "title": "Compare views",
+            "tone": "info"
+          },
+          {
+            "title": "Check evidence",
+            "tone": "info"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "Next action",
+          "tone": "accent"
+        }
+      ]
+    },
+    {
+      "id": "category-tags",
+      "type": "motion-synthesis",
+      "title": "Color encodes a category",
+      "groups": [
+        [
+          {
+            "title": "Source notes",
+            "tone": "info"
+          },
+          {
+            "title": "Observed facts",
+            "tone": "info"
+          }
+        ],
+        [
+          {
+            "title": "Compare views",
+            "tone": "purple"
+          },
+          {
+            "title": "Check evidence",
+            "tone": "purple"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "Approved",
+          "tone": "success"
+        }
+      ],
+      "notes": {
+        "purpose": "Blue sources, purple processing, green approval. Typography and widths stay consistent."
+      }
+    },
+    {
+      "id": "hub-one",
+      "type": "motion-hub",
+      "title": "One connected source",
+      "hub": {
+        "title": "Decision"
+      },
+      "items": [
+        {
+          "id": "source",
+          "title": "Evidence"
+        }
+      ]
+    },
+    {
+      "id": "hub-two",
+      "type": "motion-hub",
+      "title": "Two connected sources",
+      "hub": {
+        "title": "Decision"
+      },
+      "items": [
+        {
+          "id": "source",
+          "title": "Evidence"
+        },
+        {
+          "id": "owner",
+          "title": "Owner"
+        }
+      ]
+    },
+    {
+      "id": "hub-slots",
+      "type": "motion-hub",
+      "title": "Choose connection positions",
+      "hub": {
+        "title": "Decision"
+      },
+      "items": [
+        {
+          "id": "source",
+          "title": "Evidence"
+        },
+        {
+          "id": "owner",
+          "title": "Owner"
+        }
+      ],
+      "connections": [
+        {
+          "id": "source-link",
+          "from": "hub",
+          "to": "source",
+          "slot": "top-left"
+        },
+        {
+          "id": "owner-link",
+          "from": "hub",
+          "to": "owner",
+          "slot": "bottom-right"
+        }
+      ]
+    },
+    {
+      "id": "flow-two",
+      "type": "motion-workflow",
+      "title": "From input to output",
+      "items": [
+        {
+          "id": "input",
+          "title": "Collect evidence",
+          "body": "Start with verified material."
+        },
+        {
+          "id": "output",
+          "title": "Share a result",
+          "body": "Make the next action clear."
+        }
+      ]
+    },
+    {
+      "id": "flow-three",
+      "type": "motion-workflow",
+      "title": "A clear sequence",
+      "items": [
+        {
+          "id": "collect",
+          "title": "Collect",
+          "image": "assets/motion/icons/history.svg"
+        },
+        {
+          "id": "review",
+          "title": "Review",
+          "image": "assets/motion/icons/action.svg"
+        },
+        {
+          "id": "share",
+          "title": "Share",
+          "image": "assets/motion/icons/key.svg"
+        }
+      ]
+    },
+    {
+      "id": "flow-four",
+      "type": "motion-workflow",
+      "title": "Four connected steps",
+      "items": [
+        {
+          "id": "collect",
+          "title": "Collect"
+        },
+        {
+          "id": "review",
+          "title": "Review"
+        },
+        {
+          "id": "decide",
+          "title": "Decide"
+        },
+        {
+          "id": "share",
+          "title": "Share"
+        }
+      ]
+    },
+    {
+      "id": "input-default",
+      "type": "motion-input",
+      "variant": "compact",
+      "label": "Ask",
+      "prompt": "Find one useful next step.",
+      "send": {
+        "state": "default"
+      }
+    },
+    {
+      "id": "input-hover",
+      "type": "motion-input",
+      "variant": "compact",
+      "label": "Ask",
+      "prompt": "Find one useful next step.",
+      "send": {
+        "state": "hover"
+      }
+    },
+    {
+      "id": "input-pressed",
+      "type": "motion-input",
+      "variant": "compact",
+      "label": "Ask",
+      "prompt": "Find one useful next step.",
+      "send": {
+        "state": "pressed"
+      },
+      "showCursor": true
+    },
+    {
+      "id": "input-sent",
+      "type": "motion-input",
+      "variant": "multiline",
+      "prompt": "Summarize the evidence and name a clear next action.",
+      "send": {
+        "state": "sent",
+        "ariaLabel": "Request sent"
+      }
+    },
+    {
+      "id": "input-disabled",
+      "type": "motion-input",
+      "variant": "compact",
+      "prompt": "Wait for the source material.",
+      "send": {
+        "state": "disabled"
+      }
+    }
+  ]
+}

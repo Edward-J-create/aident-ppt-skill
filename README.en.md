@@ -12,16 +12,25 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 ## Motion Slides / 视频用 HTML 版式
 
-Set `meta.mode: "motion"` for simpler, visual HTML scenes intended for later animation editing. The 10 layout families cover statement, brand, cards, comparison, input, scrolling list, synthesis, Joint/hub, image, and metric. English and Chinese have matching coverage; all text, logos and images are replaceable.
+Set `meta.mode: "motion"` for simpler, visual HTML scenes intended for later animation editing. The 11 layout families cover statement, brand, cards, comparison, input, scrolling list, synthesis, Joint/hub, left-to-right workflow, image, and metric. English and Chinese have matching coverage; all text, logos and images are replaceable.
 
 Plan by [visual meaning](./references/motion/scene-planning.md): Input for a real prompt, Logo for identity, Joint for connections, synthesis for transformation—not generic cards for every topic. HTML starts fully visible with no built-in entrance effects. The whole slide is the camera; long lists have no nested scroll window or prescribed travel. The Agent asks whether to replace the Logo; unspecified uses Aident, explicit no-Logo hides it. Animation tools own choreography later.
 
-设置 `meta.mode: "motion"`，可生成中英文可编辑视频版式；所有文案、Logo 和图片可替换，列表逐项从上到下出现，整体向上滚动。
+Start a new explainer with [starter.en.json](./examples/motion/starter.en.json) or [starter.zh.json](./examples/motion/starter.zh.json): Logo, Input, Joint, synthesis and list shots are ready to adapt. There is no compulsory template quota. [Tag composition rules](./references/motion/synthesis-composition.md) define equal-width Fill/centered peers, consistent left-aligned variants and Hug groups; size tokens are options, not a required ramp. Geometry pass is not aesthetic approval.
+
+中英文起步模板直接提供大 Logo、Input、Joint 连线图、汇聚和列表镜头，可按故事删改。标签默认同字号、等宽 Fill、文字居中，支持统一左对齐或 Hug 组合；几何检查通过不等于视觉质量通过。
+
+Logo defaults / 默认标志：品牌镜头使用完整图形＋文字 Logo；列表与流程节点保留独立图形。两侧可分别替换，不将同一品牌拆成两个 Logo。Brand shots use the complete lockup; compact identities use the standalone mark. Either pair slot can be replaced independently.
+
+Independent controls / 独立组件接口：Logo pairs allow replacing or animating either side; Input exposes separate text, Send button and inline arrow, with five explicit states. Linear workflows support 2–4 nodes without a center; hubs support 1–4 satellites. Tags offer six semantic colors, and timing defaults are shorter, overridable suggestions. 双 Logo 可分别替换和动画编辑；Input 文字、按钮和箭头独立，提供五种手动状态；单向流程与中心关系图分开选型，标签支持六种配色。详见 / See [editable component rules](./references/motion/editable-components.md) and [bilingual control examples](./examples/motion/controls.en.json).
 
 ![English Motion Slides / 英文视频版式](./assets/previews/motion-slides.en.webp)
 ![Chinese Motion Slides / 中文视频版式](./assets/previews/motion-slides.zh.webp)
 
 ```bash
+npm run motion:starter:en
+npm run motion:starter:zh
+# Full component catalog:
 npm run motion:en
 npm run motion:zh
 npm run motion:qa:en

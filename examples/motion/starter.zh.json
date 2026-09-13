@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "mode": "motion",
+    "language": "zh",
+    "title": "从输入到清晰行动",
+    "logo": {
+      "src": "assets/motion/mark.svg",
+      "alt": "可替换的默认 Aident 标志"
+    }
+  },
+  "slides": [
+    {
+      "id": "identity",
+      "type": "motion-brand",
+      "variant": "single",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout 完整标志"
+        }
+      ],
+      "notes": {
+        "purpose": "可选品牌开场。统一替换所有标志位置，不需要品牌时删除这个镜头。"
+      }
+    },
+    {
+      "id": "request",
+      "type": "motion-input",
+      "variant": "compact",
+      "label": "输入",
+      "prompt": "把这些记录整理成一个有用的下一步。",
+      "showSend": true,
+      "notes": {
+        "purpose": "直接展示真实请求，不用卡片描述输入框。",
+        "transition": "后续动画可展示提交行为，这份 HTML 不规定特效。"
+      }
+    },
+    {
+      "id": "relationships",
+      "type": "motion-hub",
+      "variant": "three",
+      "title": "连接做判断所需的背景",
+      "hub": {
+        "title": "清晰的判断"
+      },
+      "items": [
+        {
+          "title": "证据",
+          "image": {
+            "src": "assets/motion/icons/history.svg"
+          }
+        },
+        {
+          "title": "限制",
+          "image": {
+            "src": "assets/motion/icons/key.svg"
+          }
+        },
+        {
+          "title": "责任",
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          }
+        }
+      ],
+      "notes": {
+        "purpose": "围绕判断展示三种关系，不虚构线性步骤。节点与原始 Joint 线条保持独立可编辑。"
+      }
+    },
+    {
+      "id": "synthesis",
+      "type": "motion-synthesis",
+      "title": "让证据形成行动",
+      "composition": {
+        "arrangement": "columns",
+        "size": "medium",
+        "outputSize": "medium",
+        "tagWidth": "fill",
+        "align": "center"
+      },
+      "groups": [
+        [
+          {
+            "title": "原始记录"
+          },
+          {
+            "title": "观察事实"
+          }
+        ],
+        [
+          {
+            "title": "比较观点"
+          },
+          {
+            "title": "核对证据"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "下一步行动",
+          "tone": "accent"
+        }
+      ],
+      "notes": {
+        "purpose": "两组同级信息使用等宽居中标签，结果靠颜色区分，不随列号放大字号。"
+      }
+    },
+    {
+      "id": "results",
+      "type": "motion-list",
+      "variant": "checked",
+      "items": [
+        {
+          "title": "可见的结果",
+          "body": "说清观众需要理解的具体结果。"
+        },
+        {
+          "title": "明确的责任",
+          "body": "展示由谁执行下一步。"
+        },
+        {
+          "title": "约定的回顾",
+          "body": "约定何时重新检查证据。"
+        }
+      ],
+      "notes": {
+        "purpose": "可选结果清单。保留镜头外的全部行，使用选定的标志或明确关闭。",
+        "transition": "建议从上到下出现，整体向上移动；位移和时间由后续动画工具决定。"
+      }
+    },
+    {
+      "id": "signature",
+      "type": "motion-brand",
+      "variant": "single",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout 完整标志"
+        }
+      ],
+      "notes": {
+        "purpose": "可选品牌收尾。这不是必须照搬的六镜头顺序。"
+      }
+    }
+  ]
+}

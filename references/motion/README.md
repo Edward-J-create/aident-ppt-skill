@@ -8,14 +8,17 @@ Use this mode for simple, visual, editable HTML scenes intended for later video 
 
 ```bash
 node "$SKILL_DIR/scripts/generate-deck.mjs" \
-  --input "$SKILL_DIR/examples/motion/deck.en.json" \
+  --input "$SKILL_DIR/examples/motion/starter.en.json" \
   --out /absolute/path/motion-en
 
-# Chinese: use examples/motion/deck.zh.json.
+# Chinese: use examples/motion/starter.zh.json.
+# Full 20-page component catalog: examples/motion/deck.en.json or deck.zh.json.
 # Add --single-file to ALSO generate deck.single.html.
 ```
 
 Set `meta.mode: "motion"`, or use `--mode motion` if the JSON omits the mode. Never combine `motion-*` slides and ordinary presentation layouts in one input. If the user requests both, generate two decks using the appropriate mode.
+
+For a new explainer/demo use the bilingual starter, which includes Logo, Input, Joint relationship, synthesis and list shots. It is a starting vocabulary, not a compulsory sequence or a license to invent relationships. Replace all copy and identity slots, delete irrelevant shots, and choose the actual reading path before generating. Do not use the business Presentation minimal example as the Motion default.
 
 ## Read by task
 
@@ -23,7 +26,9 @@ Set `meta.mode: "motion"`, or use `--mode motion` if the JSON omits the mode. Ne
 |---|---|
 | Plan shots by meaning, not PPT outline | [scene-planning.md](scene-planning.md) |
 | Pick a layout and density | [layouts.md](layouts.md) |
+| Arrange tags, widths, peer alignment and emphasis | [synthesis-composition.md](synthesis-composition.md) |
 | Populate content and swap images/brands | [content.md](content.md), [deck.schema.json](deck.schema.json) |
+| Timing, tag colors, linear/hub edges, Send states, Logo pairs | [editable-components.md](editable-components.md) |
 | Exact typography, spacing, color, opacity | [motion.json](../../assets/tokens/motion.json) |
 | Component variants and slots | `assets/components/motion-registry.json` |
 | GSAP / Hyperframes / Remotion handoff | [animation-handoff.md](animation-handoff.md) |
@@ -38,9 +43,9 @@ Set `meta.mode: "motion"`, or use `--mode motion` if the JSON omits the mode. Ne
 5. `motion-list` retains every off-canvas row. Only the 1920×1080 camera clips; no internal fixed-height window, edge mask or scroll range. Suggested choreography: items appear top-to-bottom; the complete scene (identity + list) moves upward and may exit the camera entirely. External tools choose distance and timing.
 6. Keep foreground text live. Never flatten text, logos, tags, cards, or connectors into a full-slide PNG. Backgrounds alone can be rasterized; use packaged Lossless WebP.
 7. Separate animation targets from layout constraints. Keep list scene, identity, list track, and individual items independently addressable. Keep connectors behind and separate from connected nodes. Joint curves/stems retain original dimensions: move content-hugging cards to endpoints, never stretch lines to fill a gap.
-8. Ask whether to keep Aident, replace the Logo, or use no Logo during intake. Unspecified means packaged Aident, not an empty slot; explicit no-Logo hides it. Never interrupt a Skill-maintenance request to ask for the maintainer's Logo. Preserve intrinsic ratio. Example marks do not imply partnerships or customers.
+8. Ask whether to keep Aident, replace the Logo, or use no Logo during intake. Unspecified means packaged Aident, not an empty slot; explicit no-Logo hides it. Single/pair brand shots use the complete `assets/motion/lockup.svg`; compact list/diagram identities use `assets/motion/mark.svg`. Never split one identity into symbol × lettering or reconstruct lettering with a font. Never interrupt a Skill-maintenance request to ask for the maintainer's Logo. Preserve intrinsic ratio. Example marks do not imply partnerships or customers.
 9. Do not add complex motion presets merely to fill the library. Deliver clear static composition and precise editable targets. Animation tools can own choreography and video export later.
-10. Run `scripts/preflight.mjs`; it automatically selects the Motion Slides QA rules.
+10. Run `scripts/preflight.mjs`; it automatically selects the Motion Slides QA rules. Geometry pass is not aesthetic approval: inspect screenshots and resolve visual-review advisories. For synthesis, choose a coherent Fill/center, Fill/left or Hug system; no automatic column-based size ramp.
 
 ## Deliverables
 

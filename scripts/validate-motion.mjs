@@ -9,6 +9,7 @@ const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=rel=>fs.readFile(path.join(root,rel),'utf8').then(JSON.parse);
 const en=await read('examples/motion/deck.en.json'),zh=await read('examples/motion/deck.zh.json');
 assert.deepEqual(validateMotion(en),[]);assert.deepEqual(validateMotion(zh),[]);
+for(const d of [en,zh])for(const s of d.slides.filter(s=>s.type==='motion-brand')){assert.equal(s.logos[0].src,'assets/motion/lockup.svg');if(s.logos.length===2)assert.ok(s.logos[1].placeholder,'Catalog pair must use an explicit user-logo placeholder, not another Aident mark');}
 assert.deepEqual(en.slides.map(s=>[s.id,s.type,s.variant,s.items?.length]),zh.slides.map(s=>[s.id,s.type,s.variant,s.items?.length]));
 assert.deepEqual([...new Set(en.slides.map(s=>s.type))].sort(),Object.keys(registry.layouts).sort());
 const bad=(mutate)=>{const d=structuredClone(en);mutate(d);assert.ok(validateMotion(d).length>0);};
@@ -23,13 +24,15 @@ bad(d=>d.slides[1].logos[0].src='https://example.com/logo.svg');
 bad(d=>d.slides[1].title='Ignored text must fail');
 bad(d=>d.slides[12].variant='four');
 const mode=await read('references/motion/deck.schema.json');assert.ok(mode.$defs.slide.allOf.length===Object.keys(registry.layouts).length);
-const routes=['references/motion/README.md','references/motion/scene-planning.md','references/motion/layouts.md','references/motion/content.md','references/motion/animation-handoff.md','references/motion/quality.md'];
+for(const lang of ['en','zh']){const starter=await read(`examples/motion/starter.${lang}.json`);assert.deepEqual(validateMotion(starter),[]);for(const type of ['motion-brand','motion-input','motion-hub','motion-synthesis','motion-list'])assert.ok(starter.slides.some(s=>s.type===type),`Starter missing ${type}`);}
+for(const lang of ['en','zh'])assert.deepEqual(validateMotion(await read(`examples/motion/controls.${lang}.json`)),[]);
+const routes=['references/motion/README.md','references/motion/scene-planning.md','references/motion/synthesis-composition.md','references/motion/editable-components.md','references/motion/layouts.md','references/motion/content.md','references/motion/animation-handoff.md','references/motion/quality.md'];
 for(const file of routes){const content=await fs.readFile(path.join(root,file),'utf8');for(const match of content.matchAll(/\]\(([^)#]+)(?:#[^)]*)?\)/g)){const target=match[1];if(/^(?:https?:|#)/.test(target))continue;await fs.access(path.resolve(root,path.dirname(file),target));}}
 const temp=await fs.mkdtemp(path.join(os.tmpdir(),'aident-motion-contract-'));
 const base={meta:{mode:'motion',language:'en',title:'List regression'},slides:[{id:'list',type:'motion-list',items:[{title:'First result'},{title:'Second result'}]}]};
 const cases=[
  ['default',()=>{},true,'assets/motion/mark.svg'],
- ['custom',d=>d.meta.logo={src:'assets/logos/wordmark-light.svg'},true,'assets/logos/wordmark-light.svg'],
+ ['custom',d=>d.meta.logo={src:'assets/motion/lockup.svg'},true,'assets/motion/lockup.svg'],
  ['none',d=>d.meta.showLogo=false,false],
  ['override',d=>{d.meta.showLogo=false;d.slides[0].showLogo=true;},true,'assets/motion/mark.svg'],
  ['slide-none',d=>d.slides[0].showLogo=false,false]

@@ -34,7 +34,7 @@ The generator accepts only registered keys and validates counts and copy budgets
 | `slide.variant` | layout-specific named variant |
 | `slide.title` / `kicker` | visible heading / optional section label on compatible layouts |
 | `slide.background` | `content`, `title`, `elements`; defaults are layout-specific |
-| `slide.duration` | optional suggested shot length, 2–180 seconds |
+| `slide.duration` | optional suggested shot length; at least one frame at meta.fps, at most180s; overrides shorter per-layout defaults |
 | `slide.notes` | `{title,purpose,talk:[],transition}`; not painted on the canvas |
 
 ## Replace images and logos
@@ -47,7 +47,7 @@ A plain local path is shorthand for an image object. Paths resolve relative to t
 
 Supported replacement slots:
 
-- Single/pair brand page: `logos: [image]` or `[image,image]`; optional `separator`.
+- Single/pair brand page: `logos: [image]` or `[image,image]`; optional `separator`. Default Aident identity is the complete `assets/motion/lockup.svg`, not text-only lettering. A template slot may instead be `{placeholder:"YOUR LOGO",caption:"Replace with your brand"}`; this renders live text, not a fake partner image. Replace the entire entry with an image when supplied. Never pair one brand's symbol and wordmark as separate identities. Keep `mark.svg` for compact identity slots or an intentionally chosen graphic-only shot.
 - List page: `image` overrides `meta.logo`, then packaged Aident. `showLogo:false` hides this scene's identity; it overrides `meta.showLogo`. Row `items[].image` stays independently replaceable and is not hidden by this flag.
 - Card page: `items[].image` is an optional small visual, separate from title/body.
 - Input pill: `image`, `label`, `prompt`.
@@ -63,14 +63,17 @@ Choosing an existing `assets/icons/light/*.svg` for Motion Slides extracts the e
 | title | `title`; optional `highlight` must exactly match part of title; optional `kicker` |
 | brand | `logos`; optional `separator` default `×`; no heading |
 | cards / comparison | `title`, `items[].title`; optional `kicker`, item `label/body/image/tone` |
-| input | `prompt`; compact may include `label/image`; `showSend` default true; `showCursor` default false |
+| input | `prompt`; compact may include `label/image`; `showSend` default true; `showCursor` default false; `send:{state,ariaLabel}` optional |
 | list | `items[].title`; optional `image/showLogo`, row `body/badge/image/checked/tone`; checked variant applies check by default |
-| synthesis | `title`, 3 `groups` of 1–4 tag objects, 1–3 `outputs`; tag `title/tone/size` |
-| hub | `title`, `hub` title and/or image, 3/4 `items`; satellite title and/or image plus optional `label` |
+| synthesis | `title`, 1–4 `groups` of 1–4 tag objects, 1–3 `outputs`; tag `id/title/tone/size`; optional `composition` controls arrangement, role sizes, Fill/Hug and alignment |
+| hub | `title`, `hub` title and/or image, 1–4 `items`; satellite title and/or image plus optional `label`; optional explicit `connections` with slots |
+| workflow | `title`, 2–4 ordered `items` with `title`, optional `label/body/image`; optional adjacent `connections:{id,from,to}[]`; no central hub |
 | image | `title`, `image`; optional `body` on split, optional `kicker` |
 | metric | `title`, `value`; optional `label/body/kicker` |
 
 Do not put a property on a layout that has no visible slot for it. For example, `body` belongs to split-image copy, not a Logo-only scene. There is no callout/source/header property in this mode. Keep source attribution or evidence in notes unless it is itself the subject of visible user-provided copy.
+
+For synthesis, follow [synthesis-composition.md](synthesis-composition.md). Default peers and outputs are medium, not24→30→50 by column. Use one composition-level `size`, `tagWidth` and `align` for peers; changing each tag's size alone does not repair irregular widths or alignment. Explicit mixed roles remain supported when justified by the content.
 
 ## List sequencing and scroll
 
@@ -97,6 +100,8 @@ Legacy `motion: {enter,stagger,hold,exit,travel,preset}` is accepted only as adv
 Before generating a user's deck, ask whether to keep default Aident, replace the Logo, or omit it. Unanswered means Aident; do not block or render an empty identity. The list fallback is automatic. For `motion-brand`, the author supplies `logos` explicitly using the chosen/default asset; for compact Input or a hub identity, populate the appropriate image slot when the storyboard calls for it. Do not substitute Aident for a missing explicit custom file: missing paths must fail with an actionable error.
 
 ## Output editing workflow
+
+For exact timing, palette choices, explicit edge schemas, independent Logo-pair replacement and the Send state/click API, read [editable-components.md](editable-components.md). Source changes require regeneration; direct runtime state/color/transform editing belongs to the downstream animation author.
 
 1. Prefer editing the source JSON and regenerating for copy, logos, images, and counts.
 2. For direct motion authoring, use the generated folder. Edit its HTML/CSS or adapt it into the chosen animation project.

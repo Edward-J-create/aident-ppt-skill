@@ -17,7 +17,11 @@ This repository supports both single-agent and multi-agent deck production. When
 
 For `deck.meta.mode: "motion"`, narrative/asset/QA roles use `references/motion/README.md` and its linked layout, content, handoff and quality documents. Plan shots with `references/motion/scene-planning.md` (no hidden weights or cards-first default), confirm default/custom/no-Logo preference, and keep content static for external animation. Preserve centered Motion headings, independent connectors, and off-camera long-list tracks with clipping only at the slide boundary. The lead generates through the same CLI; preflight auto-routes by HTML mode. Assets handoffs may patch `logos`, `hub.image`, `image`, and `items[index].image`. HTML QA checks both static composition and the reachable final list row. Do not assign PPTX/PDF roles or claim a native video-engine project for an HTML-only Motion Slides request.
 
+Start new Motion narratives from `examples/motion/starter.en.json` or `starter.zh.json`, not the business-deck example or the exhaustive template catalog. Adapt the Logo, Input, connected workflow, synthesis and list shots to the actual message; no template quota applies. For synthesis use `references/motion/synthesis-composition.md`: peer labels default to equal-width Fill, shared typography and centered text; left alignment, semantic rows and Hug keyword groups are explicit alternatives. Never assign font sizes by column index or require all size tokens on one slide. Inspect screenshots and review warnings even when geometry checks pass.
+
 ## Default ownership
+
+For Motion controls read `references/motion/editable-components.md`: distinguish linear `motion-workflow` from center-based `motion-hub`, preserve stable node/edge IDs, two independent Logo slots and Input/Send targets. The native player must not own animations or automatically reset host-authored states.
 
 | Role | Writable output |
 |---|---|

@@ -16,18 +16,27 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 ## Motion Slides / 面向视频编辑的 HTML 版式
 
-Choose `meta.mode: "motion"` for simpler, more visual HTML scenes. English and Chinese share 10 layout families: statement, brand, cards, comparison, input, scrolling list, synthesis, Joint/hub, image and metric. All copy, logos and images are replaceable. Independent layers and a handoff manifest let GSAP, Hyperframes or Remotion author the animation later.
+Choose `meta.mode: "motion"` for simpler, more visual HTML scenes. English and Chinese share 11 layout families: statement, brand, cards, comparison, input, scrolling list, synthesis, Joint/hub, left-to-right workflow, image and metric. All copy, logos and images are replaceable. Independent layers and a handoff manifest let GSAP, Hyperframes or Remotion author the animation later.
 
 按[镜头语义](./references/motion/scene-planning.md)选模板：输入问题用 Input、品牌亮相用 Logo、连接关系用 Joint、汇聚转化用 synthesis，不默认套卡片。HTML 内容默认完整可见，无内置入场动画；整个画布就是镜头，长列表没有内部滚动窗口或预设位移。生成时询问是否替换 Logo，未指定默认 Aident，明确不要才隐藏。
 
 Choose layouts by visual meaning: Input for prompts, Logo for identity, Joint for connections and synthesis for transformation. HTML is static and fully visible by default. Lists clip only at the slide camera, with no prescribed travel. The Agent asks about Logo replacement; unspecified means Aident, explicit no-Logo hides it. Downstream tools own animation.
 
-设置 `meta.mode: "motion"`，即可生成更简洁、可视化的 HTML 场景。中英文共享 10 类版式，支持替换所有文案、Logo 和图片。文字、卡片、图标、连接线、列表窗口与滚动轨道均独立保留，方便后续动画工具接手；列表按从上到下的顺序逐项出现，整体向上滚动。
+新建讲解/演示优先从 [英文起步模板](./examples/motion/starter.en.json) 或 [中文起步模板](./examples/motion/starter.zh.json) 开始，直接包含大 Logo、Input、Joint 连线图、汇聚与列表；按实际故事删改，不强制每种都用。标签默认同级同字号、等宽 Fill、文字居中，也可统一左对齐或使用独立的 Hug 组合，详见[标签排版规范](./references/motion/synthesis-composition.md)。文字、图标、连接线、完整列表场景和轨道均可独立编辑；没有内部列表裁切窗口，动画只提供建议。
+
+Start explainers from the bilingual starters with Logo, Input, Joint, synthesis and list shots; adapt them to the story. Peer tags default to equal-width Fill, one size and centered text. Uniform left alignment and Hug compositions are supported. Geometry checks and visual review are separate requirements.
+
+Logo defaults / 默认标志：品牌镜头使用完整图形＋文字 Logo；列表与流程节点保留独立图形。两侧可分别替换，不将同一品牌拆成两个 Logo。Brand shots use the complete lockup; compact identities use the standalone mark. Either pair slot can be replaced independently.
+
+Independent controls / 独立组件接口：Logo pairs allow replacing or animating either side; Input exposes separate text, Send button and inline arrow, with five explicit states. Linear workflows support 2–4 nodes without a center; hubs support 1–4 satellites. Tags offer six semantic colors, and timing defaults are shorter, overridable suggestions. 双 Logo 可分别替换和动画编辑；Input 文字、按钮和箭头独立，提供五种手动状态；单向流程与中心关系图分开选型，标签支持六种配色。详见 / See [editable component rules](./references/motion/editable-components.md) and [bilingual control examples](./examples/motion/controls.en.json).
 
 ![English Motion Slides / 英文视频版式](./assets/previews/motion-slides.en.webp)
 ![Chinese Motion Slides / 中文视频版式](./assets/previews/motion-slides.zh.webp)
 
 ```bash
+npm run motion:starter:en
+npm run motion:starter:zh
+# Full component catalog / 完整组件目录：
 npm run motion:en
 npm run motion:zh
 # Optional browser QA / 可选运行示例检查（交付前必须检查）

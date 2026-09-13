@@ -4,13 +4,27 @@
     "source": "Approved internal Motion Slides design section; private source identifiers omitted",
     "tokens": "assets/tokens/motion.json",
     "components": "assets/components/motion-registry.json",
-    "vectors": "assets/motion/: original exported connectors, controls and identity mark",
+    "vectors": "assets/motion/: original exported connectors, controls, standalone mark and complete lockup",
     "icons": "assets/motion/icons/manifest.json: original packaged design-system glyphs, optically normalized without redrawing",
-    "backgrounds": ["assets/backgrounds/motion-content-light.webp", "assets/backgrounds/motion-title-light.webp"],
+    "backgrounds": [
+      "assets/backgrounds/motion-content-light.webp",
+      "assets/backgrounds/motion-title-light.webp"
+    ],
     "backgroundMethod": "Original decorative exports composited at 1920x1080; Lossless WebP verified against source render pixels",
     "connectorRule": "Original dimensions and curvature preserved; cards move to dock at endpoints",
-    "previews": ["assets/previews/motion-slides.en.webp", "assets/previews/motion-slides.zh.webp"],
-    "runtimeSourceAccessRequired": false
+    "previews": [
+      "assets/previews/motion-slides.en.webp",
+      "assets/previews/motion-slides.zh.webp"
+    ],
+    "runtimeSourceAccessRequired": false,
+    "lockup": {
+      "path": "assets/motion/lockup.svg",
+      "source": "Approved internal Motion single-Logo shot, complete Logo/Lockup export",
+      "normalization": "Exact lockup subtree and referenced definitions retained; export-only canvas and ancestor backgrounds removed; no redrawn paths or HTML lettering",
+      "scope": "Default for single/pair brand shots; compact list and diagram nodes use mark.svg",
+      "license": "Brand asset subject to NOTICE.md, not a general open-source brand license",
+      "sha256": "d41e95562e0a3b9c68ae58a853b891d48a264b5d0e34cbce0fd7db13af059aa2"
+    }
   },
   "runtimeDependsOnFigma": false,
   "figma": {

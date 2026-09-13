@@ -9,7 +9,9 @@ Requirements:
 - Run the format-specific automated checks.
 - Inspect every page/slide, not only the montage.
 - Report P0/P1/P2 findings with slide ID/page, evidence path, and recommended fix.
+- For synthesis, check actual cell widths/heights, padding, consistent center/left alignment, group edges and connector spacing. Read visual-review warnings and inspect screenshots. A 0-error preflight is geometry evidence, not a design-quality sign-off; record whether mixed roles/colors/empty cells support the message.
 - Do not implement fixes; the lead owns integration.
+- Motion controls: check n−1 independent arrows for left-to-right workflows, one edge per satellite for hubs, stable from/to bindings, separate Logo-pair targets, and Send state/click ownership. Both topologies must preserve original connectors and readable node content. See `references/motion/editable-components.md`.
 - Do not mark `pass: true` if any P0 or P1 finding remains.
 
 Output shape:

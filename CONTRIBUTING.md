@@ -31,9 +31,15 @@ npm run motion:en
 npm run motion:zh
 npm run motion:qa:en
 npm run motion:qa:zh
+npm run motion:starter:en
+npm run motion:starter:zh
+npm run motion:synthesis:qa
+npm run motion:controls:qa
 ```
 
 Use each mode's quality document and visually inspect every changed page, not only aggregate counts. Motion QA must retain intentional list overflow while blocking actual slide overflow. After changing shared generation or font/asset logic, test both modes and an optional single-file HTML export. Run presenter checks when its runtime changes. Run PDF/PPTX checks only when those adapters change or exports are requested.
+
+Synthesis QA exercises eight compositions in both languages, live short/long text replacement and deliberate failures (unequal Fill widths, mixed alignment, oversized text). Review its visual advisories separately: explicit semantic hierarchy may be valid; 0 geometry errors alone never approves design. Inspect starter Logo/Input/Joint/synthesis shots in both languages when routing changes.
 
 When changing multi-agent integration, initialize a fresh run and test pending-handoff rejection, planning, assembly and release validation. QA pass reports must describe real generated artifacts; example pass reports are protocol fixtures, never evidence for a new release.
 

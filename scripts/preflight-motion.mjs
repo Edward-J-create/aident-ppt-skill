@@ -3,6 +3,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {createRequire} from 'node:module';
 import {fileURLToPath,pathToFileURL} from 'node:url';
+import {auditSynthesis} from './lib/synthesis-audit.mjs';
 
 export async function preflightMotion(htmlPath,screenshotDir){
  const require=createRequire(import.meta.url),roots=[process.env.RUNTIME_NODE_MODULES,path.resolve('node_modules')].filter(Boolean);
@@ -11,7 +12,7 @@ export async function preflightMotion(htmlPath,screenshotDir){
  const exists=await fs.access(executable).then(()=>true).catch(()=>false);
  const browser=await chromium.launch({headless:true,...(exists?{executablePath:executable}:{})});
  const page=await browser.newPage({viewport:{width:1920,height:1080},deviceScaleFactor:1});
- const errors=[],captures=[];page.on('pageerror',e=>errors.push(e.message));
+ const errors=[],warnings=[],captures=[];page.on('pageerror',e=>errors.push(e.message));
  try{
   if(screenshotDir)await fs.mkdir(screenshotDir,{recursive:true});
   const url=new URL(pathToFileURL(path.resolve(htmlPath)));url.searchParams.set('capture','1');
@@ -25,7 +26,7 @@ export async function preflightMotion(htmlPath,screenshotDir){
    const visible=el=>{let n=el;while(n&&n!==slide){const cs=getComputedStyle(n);if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity===0)return false;n=n.parentElement;}const r=rect(el);return r.width>0&&r.height>0;};
    for(const el of slide.querySelectorAll('[data-motion],[data-list-item]'))if(!visible(el)||+getComputedStyle(el).opacity!==1)errors.push('Static content hidden/faded: '+el.dataset.layer);
    for(const im of slide.querySelectorAll('img'))if(!im.complete||!im.naturalWidth)errors.push('Broken image: '+im.getAttribute('src'));
-   for(const el of slide.querySelectorAll('[data-editable="text"],.m-card,.m-input,.m-satellite,.m-hub-center,.m-brand-slot,.m-tag-panel')){
+   for(const el of slide.querySelectorAll('[data-editable="text"],.m-card,.m-input,.m-satellite,.m-hub-center,.m-brand-slot,.m-tag-panel,.m-flow-node,.m-flow-edge')){
     if(!visible(el))continue;const r=rect(el),cs=getComputedStyle(el);
     if(!el.closest('[data-scroll-track]')&&(r.x<sr.x-1||r.y<sr.y-1||r.right>sr.right+1||r.bottom>sr.bottom+1))errors.push('Outside canvas: '+el.dataset.layer);
     if(el.matches('[data-one-line]')&&el.scrollWidth>el.clientWidth+2)errors.push('One-line overflow: '+el.textContent);
@@ -36,6 +37,25 @@ export async function preflightMotion(htmlPath,screenshotDir){
    }
    for(const im of slide.querySelectorAll('.replaceable-logo')){
     const r=rect(im);if(im.naturalWidth&&Math.abs((r.width/r.height)/(im.naturalWidth/im.naturalHeight)-1)>.015)errors.push('Logo distorted: '+im.dataset.layer);
+    if(im.classList.contains('m-brand-logo')){
+     const cs=getComputedStyle(im),w=parseFloat(cs.getPropertyValue('--brand-max-width')),h=parseFloat(cs.getPropertyValue('--brand-max-height'));
+     if(!Number.isFinite(w)||!Number.isFinite(h)||im.offsetWidth>w+1||im.offsetHeight>h+1)errors.push('Brand image exceeds variant bounds: '+im.dataset.layer);
+    }
+   }
+   const flow=slide.querySelector('[data-workflow]');
+   if(flow){
+    const nodes=[...flow.querySelectorAll('[data-node-id]')],edges=[...flow.querySelectorAll('[data-edge]')];
+    const scale=sr.width/1920,tol=2*scale;
+    if(edges.length!==nodes.length-1)errors.push('Workflow requires nodeCount-1 edges');
+    for(const [i,n] of nodes.entries()){
+     const r=rect(n),first=rect(nodes[0]);if(Math.abs(r.width-first.width)>tol||Math.abs(r.height-first.height)>tol)errors.push('Workflow peer card sizes differ');
+     for(const t of n.querySelectorAll('[data-editable="text"]')){const tr=rect(t);if(tr.x<r.x+24*scale-1||tr.right>r.right-24*scale+1||tr.bottom>r.bottom-24*scale+1)errors.push('Workflow text exceeds padded card');}
+     if(i<nodes.length-1){const e=edges.find(e=>e.dataset.from===n.dataset.nodeId&&e.dataset.to===nodes[i+1].dataset.nodeId);if(!e){errors.push('Workflow edge target mismatch');continue;}
+      const er=rect(e),nr=rect(nodes[i+1]);if(Math.abs(er.x-r.right-24*scale)>tol||Math.abs(nr.x-er.right-24*scale)>tol)errors.push('Workflow arrow spacing broken');
+      if(Math.abs(e.offsetWidth-167)>1||Math.abs(e.offsetHeight-22.0919)>1)errors.push('Workflow arrow distorted');
+      if(Math.abs((er.y+er.bottom-r.y-r.bottom)/2)>tol)errors.push('Workflow arrow not vertically aligned');
+     }
+    }
    }
    // Text boxes must not collide. Decorative containment and clipping are intentional.
    const text=[...slide.querySelectorAll('[data-editable="text"]')].filter(visible);
@@ -53,6 +73,9 @@ export async function preflightMotion(htmlPath,screenshotDir){
   for(let i=0;i<timeline.length;i++){
    const entry=timeline[i];
    const staticAudit=await audit(i,1,true);errors.push(...staticAudit.errors.map(e=>entry.id+': '+e));
+   if(entry.type==='motion-synthesis'){
+    const result=await page.evaluate(auditSynthesis,await page.$('.slide.is-active'));errors.push(...result.errors.map(e=>entry.id+': '+e));warnings.push(...result.warnings.map(e=>entry.id+': '+e));
+   }
    if(screenshotDir){const dest=path.join(screenshotDir,`${String(i+1).padStart(2,'0')}-${entry.id}.png`);await page.screenshot({path:dest});captures.push(dest);}
    const times=[0,.2,1.5,entry.duration-.5];
    for(const t of times){const result=await audit(i,t,false);errors.push(...result.errors.map(e=>`${entry.id}@${t.toFixed(2)}: ${e}`));}
@@ -78,15 +101,17 @@ export async function preflightMotion(htmlPath,screenshotDir){
     for(const word of ['A','Research context','研究与信息整理']){
      labels.forEach(n=>n.textContent=word);api.layout();
      const center=hub.querySelector('.m-hub-center').getBoundingClientRect();
-     for(const [i,sat] of [...hub.querySelectorAll('.m-satellite')].entries()){
-      const target=sat.getBoundingClientRect(),curve=hub.querySelector(`.curve-${i}`);
-      if(!curve){const stem=hub.querySelector('.m-stem'),r=stem.getBoundingClientRect(),im=stem.querySelector('img');
+     if(hub.querySelectorAll('[data-edge]').length!==hub.querySelectorAll('.m-satellite').length)issues.push('Workflow edge/node count mismatch');
+     for(const sat of hub.querySelectorAll('.m-satellite')){
+      const target=sat.getBoundingClientRect(),curve=[...hub.querySelectorAll('[data-edge]')].find(e=>e.dataset.to===sat.dataset.nodeId);
+      if(!curve){issues.push('Missing workflow edge');continue;}
+      if(curve.dataset.slot==='bottom'){const stem=curve,r=stem.getBoundingClientRect(),im=stem.querySelector('img');
        if(Math.abs(r.bottom-target.top)>1.5||Math.abs((r.left+r.right-target.left-target.right)/2)>1.5)issues.push('Stem not docked after text replacement');
        if(Math.abs(stem.offsetWidth-im.naturalWidth)>1||Math.abs(stem.offsetHeight-im.naturalHeight)>1)issues.push('Stem original dimensions changed');continue;}
       const r=curve.getBoundingClientRect(),left=(target.left+target.right)<(center.left+center.right);
       if(Math.abs((left?r.left:r.right)-(left?target.right:target.left))>1.5)issues.push('Connector not bound after text replacement');
       const im=curve.querySelector('img');if(Math.abs(curve.offsetWidth-im.naturalWidth)>1||Math.abs(curve.offsetHeight-im.naturalHeight)>1)issues.push('Connector original dimensions changed');
-      const dotY=i<2?r.top+5:r.bottom-5;
+      const dotY=curve.dataset.slot.startsWith('top')?r.top+5:r.bottom-5;
       if(Math.abs(dotY-(target.top+target.bottom)/2)>1.5)issues.push('Card not centered at connector endpoint');
       if(Math.min(target.right,center.right)-Math.max(target.left,center.left)>1&&Math.min(target.bottom,center.bottom)-Math.max(target.top,center.top)>1)issues.push('Satellite overlaps hub');
      }
@@ -107,10 +132,11 @@ export async function preflightMotion(htmlPath,screenshotDir){
    const r=await page.evaluate(()=>{const r=document.getElementById('deck').getBoundingClientRect();return {x:r.x,y:r.y,right:r.right,bottom:r.bottom,cx:(r.left+r.right)/2,cy:(r.top+r.bottom)/2};});
    if(r.x<-1||r.y<-1||r.right>vp.width+1||r.bottom>vp.height+1||Math.abs(r.cx-vp.width/2)>1||Math.abs(r.cy-vp.height/2)>1)errors.push(`Viewport clipping at ${vp.width}×${vp.height}`);
   }
-  const report={mode:'motion',slideCount:timeline.length,errors:[...new Set(errors)],screenshots:captures,deterministic};
+  const report={mode:'motion',slideCount:timeline.length,errors:[...new Set(errors)],warnings:[...new Set(warnings)],visualReview:'required; geometry pass is not a design-quality sign-off',screenshots:captures,deterministic};
   if(screenshotDir)await fs.writeFile(path.join(screenshotDir,'report.json'),JSON.stringify(report,null,2)+'\n');
   for(const error of report.errors)console.error('ERROR '+error);
-  console.log(`Motion preflight: ${timeline.length} slides, ${report.errors.length} errors; static visibility, camera-only lists, external ownership, deterministic seeks, and responsive viewports checked.`);
+  for(const warning of report.warnings)console.warn('REVIEW '+warning);
+  console.log(`Motion preflight: ${timeline.length} slides, ${report.errors.length} errors, ${report.warnings.length} visual-review advisories; static visibility, synthesis alignment, camera-only lists, external ownership, deterministic seeks, and responsive viewports checked. Geometry pass is not aesthetic approval.`);
   return report;
  }finally{await browser.close();}
 }

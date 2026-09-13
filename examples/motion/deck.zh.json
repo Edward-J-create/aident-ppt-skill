@@ -24,8 +24,8 @@
       "type": "motion-brand",
       "logos": [
         {
-          "src": "assets/logos/wordmark-light.svg",
-          "alt": "Replaceable example wordmark"
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout 完整标志"
         }
       ],
       "notes": {
@@ -540,18 +540,18 @@
       "variant": "pair",
       "logos": [
         {
-          "src": "assets/logos/wordmark-light.svg",
-          "alt": "Replaceable example wordmark"
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout 完整标志"
         },
         {
-          "src": "assets/motion/mark.svg",
-          "alt": "Replaceable example mark"
+          "placeholder": "你的 Logo",
+          "caption": "替换为你的品牌标志"
         }
       ],
       "separator": "×",
       "notes": {
         "title": "可编辑的动态版式示例",
-        "purpose": "使用通用且可替换的内容展示这一可复用版式。",
+        "purpose": "完整 Aident 标志与可编辑用户 Logo 占位；两侧独立替换，不代表合作背书。",
         "talk": [
           "制作你的视频前，请替换文字、标志和图片。"
         ]
@@ -594,6 +594,51 @@
         "alt": "可替换的示例设计板",
         "fit": "contain"
       }
+    },
+    {
+      "id": "flow-three",
+      "type": "motion-workflow",
+      "title": "清晰的单向流程",
+      "items": [
+        {
+          "id": "collect",
+          "title": "收集",
+          "image": "assets/motion/icons/history.svg"
+        },
+        {
+          "id": "review",
+          "title": "核对",
+          "image": "assets/motion/icons/action.svg"
+        },
+        {
+          "id": "share",
+          "title": "分享",
+          "image": "assets/motion/icons/key.svg"
+        }
+      ]
+    },
+    {
+      "id": "flow-four",
+      "type": "motion-workflow",
+      "title": "四个相连的步骤",
+      "items": [
+        {
+          "id": "collect",
+          "title": "收集"
+        },
+        {
+          "id": "review",
+          "title": "核对"
+        },
+        {
+          "id": "decide",
+          "title": "决策"
+        },
+        {
+          "id": "share",
+          "title": "分享"
+        }
+      ]
     }
   ]
 }
