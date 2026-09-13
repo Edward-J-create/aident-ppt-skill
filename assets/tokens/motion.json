@@ -196,14 +196,13 @@
   "list": {
     "width": 1300,
     "top": 417,
-    "windowHeight": 563,
+    "clipping": "slide-camera-only",
     "rowMinHeight": 137,
     "gap": 20,
     "padding": 20,
     "textGap": 8,
     "logoTop": 200,
-    "logoHeight": 150,
-    "maskFade": 36
+    "logoHeight": 150
   },
   "input": {
     "width": 900,
@@ -215,13 +214,7 @@
   },
   "motion": {
     "fps": 30,
-    "defaultDuration": 6,
-    "enter": 0.6,
-    "stagger": 0.18,
-    "hold": 1.2,
-    "exit": 0.3,
-    "travel": 24,
-    "scrollPixelsPerSecond": 100
+    "defaultDuration": 6
   },
   "backgrounds": {
     "content": "assets/backgrounds/motion-content-light.webp",

@@ -7,14 +7,14 @@ The Skill provides reusable HTML layouts, editable layers, local assets/fonts, a
 - Each slide is a `section.motion-slide[data-id="stable-slide-id"]`.
 - Components have `data-motion="heading|card-0|hub|satellite-0|connector-0|..."`.
 - Every text/image has `data-layer="slide-id/..."` and `data-editable="text|image"`.
-- List window: `[data-scroll-window]`; complete list track: `[data-scroll-track]`; rows: `[data-list-item]`.
+- Camera: `.motion-slide`; whole list scene (identity + track): `[data-list-scene]`; track: `[data-scroll-track]`; rows: `[data-list-item]`. No internal scroll window.
 - Background, texture, connectors, content, and identity are separate layers. Images are independent files. Text is ordinary HTML, not outlines or rasterized text.
 - `animation-handoff.json` lists the concrete selectors/assets; `timeline.json` provides shot order/durations and notes; `deck.resolved.json` is the content source.
 - Paths remain local/relative. No design-service connection is needed for generation or animation editing.
 
 ## External ownership
 
-Open `index.html?external=1&capture=1&slide=0` for a clean, fully visible static composition. After readiness, the native preview does not animate opacity, transforms, or the list track. The external animator owns those properties.
+Open `index.html?capture=1&slide=0` for a clean static composition. Static visibility is the default even without query options: the native preview never animates content opacity, transforms or list position. The external animator owns those properties. `timeline.json` and `animation-handoff.json` declare advisory timing; no scroll distance or animation range is supplied.
 
 ```js
 await window.AIDENT_MOTION.ready;
@@ -34,37 +34,36 @@ The internal preview is optional. You can remove its script when adapting HTML/C
 | `ready` | Promise for bundled fonts, images, and initial layout |
 | `seek(seconds)` | absolute deterministic preview time |
 | `seekSlide(idOrIndex, seconds)` | select a shot and local time |
-| `pause()` / `play()` | manual preview; no automatic playback by default |
-| `externalControl(true)` | pause and clear player-written transforms/opacity |
-| `staticSlide(index)` | select a fully visible static scene for editing |
+| `pause()` / `play()` | advisory clock/scene selection only; never content animation |
+| `externalControl(true)` | compatibility API: pause clock, retain external ownership; never clear host styles |
+| `staticSlide(index)` | pause and select scene; does not reset host-authored animation |
 | `layout()` | recalculate intrinsic logo sizes and Joint attachment boxes |
 | `getState()` | global/local time, current slide, fps, duration, ownership |
 | `duration`, `fps` | numeric timeline metadata |
 
-Query options: `?t=2.5&capture=1` selects an absolute time; `?slide=3&external=1&capture=1` selects a static editable scene. `autoplay=1` is optional. Reduced-motion preference suppresses decorative entrances. Deterministic frame capture should use an explicit clock, not wall-clock playback or browser scrolling.
+Query options: `?t=2.5&capture=1` selects an advisory absolute time; `?slide=3&capture=1` selects a static scene. Legacy `external` and `autoplay` flags never enable native entrance effects or automatic playback. Seeking alone does not render an animation: downstream frame capture must drive the host timeline explicitly, not wall-clock playback or browser scrolling.
 
 ## GSAP adaptation
 
 Use the official [GSAP skills](https://github.com/greensock/gsap-skills) when the user chooses that animation stack. Its core/timeline guidance supports scoped targets, sequencing and playback; the layout Skill supplies the actual editable targets.
 
-Typical integration inside a project that already installs GSAP:
+First expose targets to the chosen engine. This is a target-discovery example, not an animation preset:
 
 ```js
 await AIDENT_MOTION.ready;
 AIDENT_MOTION.externalControl(true);
 AIDENT_MOTION.seekSlide('results-list', 0);
-const scene = document.querySelector('[data-id="results-list"]');
-const rows = scene.querySelectorAll('[data-list-item]');
+const camera = document.querySelector('[data-id="results-list"]');
+const scene = camera.querySelector('[data-list-scene]');
 const track = scene.querySelector('[data-scroll-track]');
-const windowBox = scene.querySelector('[data-scroll-window]');
-const distance = Math.max(0, track.scrollHeight - windowBox.clientHeight);
-const tl = gsap.timeline({paused: true});
-tl.fromTo(rows, {opacity: 0}, {opacity: 1, duration: .4, stagger: .25}, 0);
-tl.fromTo(track, {y: 0}, {y: -distance, duration: 8, ease: 'none'}, 1.4);
-// An external frame clock can call tl.seek(frame / fps).
+const rows = [...scene.querySelectorAll('[data-list-item]')];
+// The animation author chooses timing, distance, easing and camera framing.
+// Animate scene to move identity + every row beyond the camera as one unit.
+// Animate rows separately for a top-to-bottom appearance sequence.
+// No scrollHeight-minus-window-height formula and no nested clipping window.
 ```
 
-Items reveal top-to-bottom; track scrolls upward. Both remain separately editable. This is a short integration example, not a required animation preset. Scope queries to the scene. For animated Joint nodes, either animate the node and its connected curve as a group or update both from the same geometry; keep endpoints attached throughout motion.
+Suggested items reveal top-to-bottom while the complete scene travels upward, possibly fully out of view. These are independent editable targets, not mandatory animation ranges. A downstream GSAP timeline may use its own frame clock. Scope queries to the selected camera. For animated Joint nodes, animate a node and its connected curve together or update both from the same geometry; keep endpoints attached without stretching original curves.
 
 ## Hyperframes adaptation
 

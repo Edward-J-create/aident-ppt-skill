@@ -9,10 +9,9 @@ Choose `meta.mode: "motion"`. Default `language` is `en`; choose `zh` for Chines
   "meta": {"mode":"motion", "language":"en", "title":"A clear story", "fps":30},
   "slides": [
     {"id":"opening", "type":"motion-title", "title":"Make the next step clear", "highlight":"clear"},
-    {"id":"method", "type":"motion-cards", "title":"Two useful moves", "items":[
-      {"label":"01", "title":"Collect inputs", "body":"Gather the material needed to make the decision."},
-      {"label":"02", "title":"Choose a step", "body":"Turn the evidence into one action with a clear owner."}
-    ]}
+    {"id":"question", "type":"motion-input", "variant":"multiline",
+      "prompt":"Summarize the evidence and suggest one useful next step.",
+      "notes":{"purpose":"Show the actual request, not a card describing an input."}}
   ]
 }
 ```
@@ -27,7 +26,8 @@ The generator accepts only registered keys and validates counts and copy budgets
 | `meta.mode` | `motion` |
 | `meta.language` | `en` default / `zh` |
 | `meta.fps` | 24,25,30,50,60; default30; downstream frame mapping |
-| `meta.logo` | optional image or `{light,dark}`; default identity for list scenes only |
+| `meta.logo` | optional image or `{light,dark}`; list identity falls back to packaged `assets/motion/mark.svg` when omitted |
+| `meta.showLogo` | list scenes only; defaults true; false only after explicit no-Logo choice |
 | `meta.brandName` | optional descriptive metadata; never replaces a missing supplied logo with a hardcoded brand |
 | `slide.id` | stable unique kebab-case; preserve it when editing copy |
 | `slide.type` | one of the motion-registry layout types |
@@ -48,7 +48,7 @@ A plain local path is shorthand for an image object. Paths resolve relative to t
 Supported replacement slots:
 
 - Single/pair brand page: `logos: [image]` or `[image,image]`; optional `separator`.
-- List page: `image` overrides `meta.logo`; each `items[].image` is independently replaceable.
+- List page: `image` overrides `meta.logo`, then packaged Aident. `showLogo:false` hides this scene's identity; it overrides `meta.showLogo`. Row `items[].image` stays independently replaceable and is not hidden by this flag.
 - Card page: `items[].image` is an optional small visual, separate from title/body.
 - Input pill: `image`, `label`, `prompt`.
 - Joint/hub: `hub.image`, `hub.title`, `items[].image`, `items[].title`, `items[].label`.
@@ -64,7 +64,7 @@ Choosing an existing `assets/icons/light/*.svg` for Motion Slides extracts the e
 | brand | `logos`; optional `separator` default `×`; no heading |
 | cards / comparison | `title`, `items[].title`; optional `kicker`, item `label/body/image/tone` |
 | input | `prompt`; compact may include `label/image`; `showSend` default true; `showCursor` default false |
-| list | `items[].title`; optional `image`, row `body/badge/image/checked/tone`; checked variant applies check by default |
+| list | `items[].title`; optional `image/showLogo`, row `body/badge/image/checked/tone`; checked variant applies check by default |
 | synthesis | `title`, 3 `groups` of 1–4 tag objects, 1–3 `outputs`; tag `title/tone/size` |
 | hub | `title`, `hub` title and/or image, 3/4 `items`; satellite title and/or image plus optional `label` |
 | image | `title`, `image`; optional `body` on split, optional `kicker` |
@@ -79,9 +79,7 @@ Do not put a property on a layout that has no visible slot for it. For example, 
   "id":"results", "type":"motion-list", "variant":"checked", "duration":16,
   "image":{"src":"./brand/mark.svg","alt":"Your brand"},
   "scroll":{
-    "enabled":true, "reveal":"sequential",
-    "itemOrder":"top-to-bottom", "itemDirection":"fade",
-    "direction":"up", "start":2, "end":14
+    "itemOrder":"top-to-bottom", "direction":"up"
   },
   "items":[
     {"title":"Define the outcome","body":"Start with one visible result.","badge":"Ready"},
@@ -90,11 +88,13 @@ Do not put a property on a layout that has no visible slot for it. For example, 
 }
 ```
 
-The two-item excerpt above fits without scrolling. Long lists keep all rows in the same track. Defaults: top-to-bottom appearance; fade per item; whole track moves upward. `itemDirection: "up"` or `"down"` describes only the small optional per-item entrance translation; it never changes list order or whole-track direction. `itemOrder` changes appearance order only when the user explicitly requests it.
+The excerpt shows two rows; longer lists keep ALL rows in the same auto-height track. The whole scene (Logo + track) may extend beyond the canvas, which is the sole camera boundary. No nested overflow-hidden/auto container, mask, fixed viewport height or scroll-distance calculation is permitted. Suggested order is top-to-bottom; suggested whole-scene travel is upward. All rows start fully visible in the DOM, though some are off-camera.
 
-`scroll.start/end` are seconds local to this slide. End must be greater than start and at least .3 seconds before slide end. When the content is shorter than the window, scroll distance is zero. With scroll disabled, only the clipped initial window is shown; do not use that for final long-list delivery unless the external animator owns the scroll.
+Legacy `scroll` keys (`enabled/start/end/reveal/itemDirection`) remain accepted for old content as advisory metadata only. They do not move, hide, crop or limit content. New examples omit preset ranges. Downstream tools choose travel, framing and timing; slide duration is an editable editorial suggestion, not a limit on motion design.
 
-`motion` is an optional preview setting: `{enter,stagger,hold,exit,travel,preset}`. Seconds are seconds, travel is pixels; presets are `rise`, `fade`, `none`. These are editorial timing hints and minimal preview behavior. The `exit` field reserves transition room; it does not apply a built-in exit effect. External animation tools may disregard these hints and author their own timeline.
+Legacy `motion: {enter,stagger,hold,exit,travel,preset}` is accepted only as advisory metadata (seconds/pixels; legacy preset names rise/fade/none). No defaults are injected and no effects are applied. Prefer plain-language ideas in `notes.transition`. New animation styles belong to the chosen animation engine, not to this renderer.
+
+Before generating a user's deck, ask whether to keep default Aident, replace the Logo, or omit it. Unanswered means Aident; do not block or render an empty identity. The list fallback is automatic. For `motion-brand`, the author supplies `logos` explicitly using the chosen/default asset; for compact Input or a hub identity, populate the appropriate image slot when the storyboard calls for it. Do not substitute Aident for a missing explicit custom file: missing paths must fail with an actionable error.
 
 ## Output editing workflow
 

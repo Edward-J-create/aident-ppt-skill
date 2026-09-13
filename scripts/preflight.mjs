@@ -167,7 +167,7 @@ async function main(){
   const args=parseArgs(process.argv);if(args.help){process.stdout.write(usage);return}if(!args.html)throw new Error(usage.trim());
   const htmlPath=path.resolve(args.html),html=await fs.readFile(htmlPath,'utf8');
   if(html.includes('data-mode="motion"')){
-    if(args.staticOnly)throw new Error('Motion Slides require browser preflight to validate the scrolling window.');
+    if(args.staticOnly)throw new Error('Motion Slides require browser preflight to validate camera-only list clipping and static visibility.');
     const {preflightMotion}=await import('./preflight-motion.mjs');
     const report=await preflightMotion(htmlPath,args.screenshots);if(report.errors.length)process.exitCode=1;return;
   }

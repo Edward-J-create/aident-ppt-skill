@@ -11,7 +11,7 @@ All coordinates and dimensions are CSS pixels on a 1920×1080 canvas. Source-mat
 | `motion-cards` | 2 / 3 / 4 columns | optional label/image, title, body | x110, y429, width1700; gap30; shared height450; padding30; radius20 |
 | `motion-comparison` | 2 | baseline, target | same card geometry; left muted surface; right translucent gradient |
 | `motion-input` | multiline / compact | prompt, optional label/logo/cursor/send | centered; multiline width900 and hug height; compact hug width ≤1600; 24 padding; 77 send button |
-| `motion-list` | plain / checked, 1–24 items | optional logo; row title/body/badge/image/check | logo y200, height150; window x310,y417,w1300,h563; row height hug, min137; gap20 |
+| `motion-list` | plain / checked, 1–24 items | default/replaceable logo; row title/body/badge/image/check | scene x310,y200,w1300,height auto; logo height150 + gap67; track starts y417 with logo or y200 without; row min137/hug; gap20 |
 | `motion-synthesis` | stages / many-to-few | 3 tag groups, 1–3 outputs | y380, 1700×550 zone; input panel hug; arrow in separate flex slot; output panel hug |
 | `motion-hub` | three / four satellites | central title and/or logo; satellite labels/images | x110,y360,w1700,h570; separate curved SVG connectors; cards hug content |
 | `motion-image` | split / hero | title, image; optional body for split | split: left text760 + gap100 + right image840×472.5 at y390; hero image1160×580 at x380,y360 |
@@ -70,18 +70,18 @@ These are early character limits, not guarantees of pixel fit. Combined compact 
 ## Scrolling list anatomy
 
 ```text
-slide (1920×1080, clipped canvas)
-  identity (optional, independent)
-  list-window (1300×563, overflow hidden, edge mask)
-    list-track (height hugs all rows; translateY moves the complete list)
+slide (1920×1080, sole camera clipping boundary)
+  list-scene (width1300, height auto, overflow visible; whole-shot motion target)
+    identity (default Aident / custom / explicitly hidden)
+    list-track (height hugs ALL rows, overflow visible; independently editable)
       row-0 (title / description / badge / optional check)
       row-1
       ... row-N (may start below the canvas)
 ```
 
-Item appearance order is top-to-bottom. Track travel is negative Y (bottom-to-top). They are separate targets and can overlap in time. Calculate travel from actual rendered track height after fonts/images load: `max(0, track.scrollHeight - window.clientHeight)`. At the end, the final row is fully reachable. Never measure only the initially visible rows. Keep row height hug/auto so replacing text does not leave stale fixed heights.
+Suggested item appearance order is top-to-bottom; suggested whole-scene motion is negative Y (upward). The outer scene includes both Logo and track so the complete content can leave the camera. Track and rows remain separate targets for alternative editorial choices. There is no internal clipping window, edge fade, maximum scroll distance, or automatically calculated travel. Downstream animation tools choose framing and movement, including moving the final row completely out of the camera. Keep every row in the DOM with hug/auto height; do not squeeze rows into the initial frame.
 
-The preview defaults to a fade for per-item appearance; direction can be changed independently. External animation tools may replace that preview behavior without changing the DOM structure.
+Static HTML exposes all rows at full opacity, including those naturally below the camera. Off-camera content is not a missing asset. Neither seeking nor the advisory preview clock moves or hides it. Test editability by temporarily moving the outer scene to inspect later rows, not by adding a permanent scroll container.
 
 ## Logo and image slots
 

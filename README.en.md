@@ -14,6 +14,8 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 Set `meta.mode: "motion"` for simpler, visual HTML scenes intended for later animation editing. The 10 layout families cover statement, brand, cards, comparison, input, scrolling list, synthesis, Joint/hub, image, and metric. English and Chinese have matching coverage; all text, logos and images are replaceable.
 
+Plan by [visual meaning](./references/motion/scene-planning.md): Input for a real prompt, Logo for identity, Joint for connections, synthesis for transformation—not generic cards for every topic. HTML starts fully visible with no built-in entrance effects. The whole slide is the camera; long lists have no nested scroll window or prescribed travel. The Agent asks whether to replace the Logo; unspecified uses Aident, explicit no-Logo hides it. Animation tools own choreography later.
+
 设置 `meta.mode: "motion"`，可生成中英文可编辑视频版式；所有文案、Logo 和图片可替换，列表逐项从上到下出现，整体向上滚动。
 
 ![English Motion Slides / 英文视频版式](./assets/previews/motion-slides.en.webp)
@@ -212,7 +214,7 @@ Release requires every requested artifact and a matching passing QA report. See 
 
 ## Presentation-mode design rules
 
-These rules apply to the business presentation mode. Motion Slides use their own [layout rules](./references/motion/layouts.md): centered headings, separate Joint connectors, and intentionally clipped long lists. Do not apply presentation-only alignment, logo heights, or icon surfaces to Motion Slides.
+These rules apply to the business presentation mode. Motion Slides use their own [layout rules](./references/motion/layouts.md): centered headings, separate Joint connectors, and off-camera long lists clipped only at the slide camera. Do not apply presentation-only alignment, logo heights, or icon surfaces to Motion Slides.
 
 - Only the cover title is centered; every inner-page title is left-aligned.
 - Every slide uses a registered background and texture treatment.

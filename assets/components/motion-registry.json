@@ -97,9 +97,10 @@
       "fields": [
         "items",
         "image",
-        "scroll"
+        "scroll",
+        "showLogo"
       ],
-      "purpose": "Sequential entry and upward scrolling list; off-canvas content is intentional"
+      "purpose": "Full off-canvas list with replaceable identity; animation suggestions only, no internal scroll window"
     },
     "motion-synthesis": {
       "variants": [
@@ -264,11 +265,14 @@
       "fit": "contain",
       "binding": "content-hugging cards move to dock at fixed-size connector endpoints"
     },
-    "scrollWindow": {
-      "clip": true,
-      "height": 563,
-      "top": 417,
-      "overflowAllowedOnlyInsideTrack": true
+    "listScene": {
+      "clip": false,
+      "height": "hug",
+      "cameraClip": "slide boundary only",
+      "identityTop": 200,
+      "trackTopWithLogo": 417,
+      "defaultLogo": "assets/motion/mark.svg",
+      "animation": "suggestions only; external animator owns distance, timing and camera"
     }
   }
 }

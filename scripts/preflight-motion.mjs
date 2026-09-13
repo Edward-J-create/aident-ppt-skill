@@ -21,10 +21,11 @@ export async function preflightMotion(htmlPath,screenshotDir){
    const api=window.AIDENT_MOTION;api.externalControl(external);api.seekSlide(i,t);
    const slide=document.querySelector('.slide.is-active'),errors=[];
    const rect=el=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom};};
-   const sr=rect(slide),win=slide.querySelector('[data-scroll-window]');
-   const visible=el=>{let n=el;while(n&&n!==slide){const cs=getComputedStyle(n);if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity===0)return false;n=n.parentElement;}const r=rect(el);if(win&&el.closest('[data-scroll-track]')){const w=rect(win);if(r.bottom<=w.y||r.y>=w.bottom)return false;}return r.width>0&&r.height>0;};
+   const sr=rect(slide),scene=slide.querySelector('[data-list-scene]');
+   const visible=el=>{let n=el;while(n&&n!==slide){const cs=getComputedStyle(n);if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity===0)return false;n=n.parentElement;}const r=rect(el);return r.width>0&&r.height>0;};
+   for(const el of slide.querySelectorAll('[data-motion],[data-list-item]'))if(!visible(el)||+getComputedStyle(el).opacity!==1)errors.push('Static content hidden/faded: '+el.dataset.layer);
    for(const im of slide.querySelectorAll('img'))if(!im.complete||!im.naturalWidth)errors.push('Broken image: '+im.getAttribute('src'));
-   for(const el of slide.querySelectorAll('[data-editable="text"],.m-card,.m-input,.m-satellite,.m-hub-center,.m-list-window,.m-brand-slot,.m-tag-panel')){
+   for(const el of slide.querySelectorAll('[data-editable="text"],.m-card,.m-input,.m-satellite,.m-hub-center,.m-brand-slot,.m-tag-panel')){
     if(!visible(el))continue;const r=rect(el),cs=getComputedStyle(el);
     if(!el.closest('[data-scroll-track]')&&(r.x<sr.x-1||r.y<sr.y-1||r.right>sr.right+1||r.bottom>sr.bottom+1))errors.push('Outside canvas: '+el.dataset.layer);
     if(el.matches('[data-one-line]')&&el.scrollWidth>el.clientWidth+2)errors.push('One-line overflow: '+el.textContent);
@@ -41,7 +42,10 @@ export async function preflightMotion(htmlPath,screenshotDir){
    for(let a=0;a<text.length;a++)for(let b=a+1;b<text.length;b++){
     const ar=rect(text[a]),br=rect(text[b]);if(Math.min(ar.right,br.right)-Math.max(ar.x,br.x)>2&&Math.min(ar.bottom,br.bottom)-Math.max(ar.y,br.y)>2)errors.push('Text overlap: '+text[a].dataset.layer+' / '+text[b].dataset.layer);
    }
-   if(win){const track=slide.querySelector('[data-scroll-track]'),rows=[...track.children];if(getComputedStyle(win).overflow!=='hidden')errors.push('List window must clip');
+   if(scene){const track=slide.querySelector('[data-scroll-track]'),rows=[...track.children];
+    for(let el=track;el&&el!==slide;el=el.parentElement){const cs=getComputedStyle(el);if(cs.overflowX!=='visible'||cs.overflowY!=='visible'||cs.maskImage!=='none'||cs.clipPath!=='none')errors.push('Internal list clipping/mask: '+el.className);}
+    if(!['hidden','clip'].includes(getComputedStyle(slide).overflow))errors.push('Camera must clip only at slide boundary');
+    if(scene.dataset.logoVisible!=='false'&&!scene.querySelector('.m-list-logo'))errors.push('List default/custom logo missing');
     for(const row of rows){for(const el of row.querySelectorAll('[data-editable="text"]')){const r=rect(el),rr=rect(row);if(r.right>rr.right+1||r.x<rr.x-1||r.bottom>rr.bottom+1)errors.push('List row content overflow: '+el.dataset.layer);}}
    }
    return {errors,id:slide.dataset.id};
@@ -50,12 +54,18 @@ export async function preflightMotion(htmlPath,screenshotDir){
    const entry=timeline[i];
    const staticAudit=await audit(i,1,true);errors.push(...staticAudit.errors.map(e=>entry.id+': '+e));
    if(screenshotDir){const dest=path.join(screenshotDir,`${String(i+1).padStart(2,'0')}-${entry.id}.png`);await page.screenshot({path:dest});captures.push(dest);}
-   const times=entry.type==='motion-list'?[.2,1.2,entry.scroll.start,(entry.scroll.start+entry.scroll.end)/2,entry.scroll.end]:[.2,1.5,entry.duration-.5];
+   const times=[0,.2,1.5,entry.duration-.5];
    for(const t of times){const result=await audit(i,t,false);errors.push(...result.errors.map(e=>`${entry.id}@${t.toFixed(2)}: ${e}`));}
    if(entry.type==='motion-list'){
-    const result=await page.evaluate(({i,entry})=>{const api=window.AIDENT_MOTION,slide=document.querySelectorAll('.slide')[i],track=slide.querySelector('[data-scroll-track]'),win=slide.querySelector('[data-scroll-window]');api.seekSlide(i,entry.scroll.start);const first=new DOMMatrix(getComputedStyle(track).transform).m42;api.seekSlide(i,entry.scroll.end);const last=new DOMMatrix(getComputedStyle(track).transform).m42;const row=track.lastElementChild.getBoundingClientRect(),wr=win.getBoundingClientRect();return {first,last,expected:Math.max(0,track.scrollHeight-win.clientHeight),bottom:row.bottom,windowBottom:wr.bottom};},{i,entry});
-    if(entry.scroll.enabled&&(Math.abs(result.last+result.expected)>1||result.last>result.first||result.bottom>result.windowBottom+1))errors.push(entry.id+': last item is not reachable through upward scrolling');
-    if(screenshotDir){await page.screenshot({path:path.join(screenshotDir,`${String(i+1).padStart(2,'0')}-list-end.png`)});}
+    // QA-only transforms prove reachability; no distance or animation range is shipped.
+    const issues=await page.evaluate(({i})=>{const slide=document.querySelectorAll('.slide')[i],scene=slide.querySelector('[data-list-scene]'),track=scene.querySelector('[data-scroll-track]'),row=track.lastElementChild,style=scene.getAttribute('style'),issues=[];
+     const r=row.getBoundingClientRect();scene.style.transform=`translateY(${540-(r.top+r.bottom)/2}px)`;
+     const last=row.getBoundingClientRect(),hit=document.elementFromPoint((last.left+last.right)/2,(last.top+last.bottom)/2);
+     if(!row.contains(hit))issues.push('Last row blocked by internal clip');
+     scene.style.transform=`translateY(${-scene.offsetTop-scene.offsetHeight-1}px)`;
+     if(scene.getBoundingClientRect().bottom>slide.getBoundingClientRect().top)issues.push('Whole list scene cannot leave camera');
+     if(style===null)scene.removeAttribute('style');else scene.setAttribute('style',style);return issues;
+    },{i});errors.push(...issues.map(e=>entry.id+': '+e));
    }
   }
   // Deterministic seeks in arbitrary order produce identical animation state.
@@ -82,9 +92,12 @@ export async function preflightMotion(htmlPath,screenshotDir){
      }
     }
     labels.forEach((n,i)=>n.textContent=original[i]);api.layout();
-    const animated=slide.querySelector('[data-motion="hub"]');animated.style.opacity='.42';animated.style.transform='translateY(7px)';
-    await new Promise(r=>setTimeout(r,60));if(animated.style.opacity!=='.42'&&animated.style.opacity!=='0.42')issues.push('Native player overwrites external opacity');
-    api.externalControl(true);
+   }
+   for(const [i,slide] of [...document.querySelectorAll('.motion-slide')].entries()){
+    const animated=slide.querySelector('[data-motion]'),style=animated.getAttribute('style');api.seekSlide(i,0);animated.style.opacity='.42';animated.style.transform='translateY(7px)';
+    api.seekSlide(i,1);api.externalControl(true);await new Promise(r=>setTimeout(r,60));
+    if(+animated.style.opacity!==.42||animated.style.transform!=='translateY(7px)')issues.push('Native player overwrites external animation: '+slide.dataset.id);
+    if(style===null)animated.removeAttribute('style');else animated.setAttribute('style',style);
    }
    const selectors=[...document.querySelectorAll('[data-layer]')].map(n=>n.dataset.layer);if(new Set(selectors).size!==selectors.length)issues.push('Duplicate editable layer IDs');
    return issues;
@@ -97,7 +110,7 @@ export async function preflightMotion(htmlPath,screenshotDir){
   const report={mode:'motion',slideCount:timeline.length,errors:[...new Set(errors)],screenshots:captures,deterministic};
   if(screenshotDir)await fs.writeFile(path.join(screenshotDir,'report.json'),JSON.stringify(report,null,2)+'\n');
   for(const error of report.errors)console.error('ERROR '+error);
-  console.log(`Motion preflight: ${timeline.length} slides, ${report.errors.length} errors; static, timed list scroll, deterministic seeks, and responsive viewports checked.`);
+  console.log(`Motion preflight: ${timeline.length} slides, ${report.errors.length} errors; static visibility, camera-only lists, external ownership, deterministic seeks, and responsive viewports checked.`);
   return report;
  }finally{await browser.close();}
 }

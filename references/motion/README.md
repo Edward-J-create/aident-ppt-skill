@@ -2,7 +2,7 @@
 
 Use this mode for simple, visual, editable HTML scenes intended for later video editing. English is the default; Chinese has the same layout coverage with its own type roles. The primary deliverable is an editable scene library, not a finished animation style or MP4.
 
-用于后续视频制作的简洁 HTML 版式。默认英文，中文提供相同的模板与独立字体层级。所有文案、Logo、图片、标签、结果与数字均来自内容 JSON；内置轻量播放器可关闭，由外部动画工具接管。
+用于后续视频制作的简洁 HTML 镜头素材。默认英文，中文提供相同模板与独立字体层级。所有文案、Logo、图片、标签、结果与数字均可替换。默认内容完整可见，不附带入场动画；时间预览仅切换镜头，后续动画由外部工具制作。
 
 ## Generate
 
@@ -21,6 +21,7 @@ Set `meta.mode: "motion"`, or use `--mode motion` if the JSON omits the mode. Ne
 
 | Task | Canonical reference |
 |---|---|
+| Plan shots by meaning, not PPT outline | [scene-planning.md](scene-planning.md) |
 | Pick a layout and density | [layouts.md](layouts.md) |
 | Populate content and swap images/brands | [content.md](content.md), [deck.schema.json](deck.schema.json) |
 | Exact typography, spacing, color, opacity | [motion.json](../../assets/tokens/motion.json) |
@@ -34,10 +35,10 @@ Set `meta.mode: "motion"`, or use `--mode motion` if the JSON omits the mode. Ne
 2. Centered inner headings are intentional in Motion Slides. The business-presentation rule “only cover titles are centered” does not apply to this mode.
 3. Titles use Outfit 100/110%, tracking −2% in English; Smiley Sans 100/120% in Chinese. Statement pages use 116px. Body uses packaged Noto Sans / Noto Sans SC. Never require SF Pro or MiSans installation.
 4. No default website header, source footer, pagination, or full-width Callout inside the captured canvas. Keep evidence and narration in notes. The small list badge is its own component, not the presentation Callout.
-5. `motion-list` intentionally contains off-canvas rows inside a clipped scrolling window. Items appear in top-to-bottom order; the entire list scrolls upward. Do not delete those rows, squeeze them into the canvas, or flag their clipped track as slide overflow.
+5. `motion-list` retains every off-canvas row. Only the 1920×1080 camera clips; no internal fixed-height window, edge mask or scroll range. Suggested choreography: items appear top-to-bottom; the complete scene (identity + list) moves upward and may exit the camera entirely. External tools choose distance and timing.
 6. Keep foreground text live. Never flatten text, logos, tags, cards, or connectors into a full-slide PNG. Backgrounds alone can be rasterized; use packaged Lossless WebP.
-7. Separate animation targets from layout constraints. Keep list window, list track, and individual items independent. Keep connectors behind and separate from the connected nodes. Joint curves/stems retain their original dimensions: move content-hugging cards to the endpoints, never stretch lines to fill a gap.
-8. Preserve logo ratio. All example marks can be replaced. Image placeholders are not proof of customers, partnerships, product features, or measured outcomes.
+7. Separate animation targets from layout constraints. Keep list scene, identity, list track, and individual items independently addressable. Keep connectors behind and separate from connected nodes. Joint curves/stems retain original dimensions: move content-hugging cards to endpoints, never stretch lines to fill a gap.
+8. Ask whether to keep Aident, replace the Logo, or use no Logo during intake. Unspecified means packaged Aident, not an empty slot; explicit no-Logo hides it. Never interrupt a Skill-maintenance request to ask for the maintainer's Logo. Preserve intrinsic ratio. Example marks do not imply partnerships or customers.
 9. Do not add complex motion presets merely to fill the library. Deliver clear static composition and precise editable targets. Animation tools can own choreography and video export later.
 10. Run `scripts/preflight.mjs`; it automatically selects the Motion Slides QA rules.
 
@@ -45,7 +46,7 @@ Set `meta.mode: "motion"`, or use `--mode motion` if the JSON omits the mode. Ne
 
 - `index.html`: editable, offline presentation and lightweight scrubber.
 - `deck.resolved.json`: all populated content and relative asset paths.
-- `timeline.json`: suggested shot order, durations, notes, optional preview timing.
+- `timeline.json`: advisory shot order, durations and notes; no automatic content animation or calculated scroll range.
 - `animation-handoff.json`: layer selectors, canvas, asset inventory, font manifest, scroll contract.
 - `assets/runtime/deck.css` and `deck.js`: readable layout CSS and optional standalone player.
 - Referenced images/icons/backgrounds only, plus required fonts and licenses.

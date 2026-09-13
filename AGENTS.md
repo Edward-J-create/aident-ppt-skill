@@ -15,7 +15,7 @@ This repository supports both single-agent and multi-agent deck production. When
 
 ## Motion Slides routing
 
-For `deck.meta.mode: "motion"`, narrative/asset/QA roles use `references/motion/README.md` and its linked layout, content, handoff and quality documents. Preserve centered Motion headings, independent connectors, and intentionally clipped long-list tracks. The lead generates through the same CLI; preflight auto-routes by HTML mode. Assets handoffs may patch `logos`, `hub.image`, `image`, and `items[index].image`. HTML QA checks both static composition and the reachable final list row. Do not assign PPTX/PDF roles or claim a native video-engine project for an HTML-only Motion Slides request.
+For `deck.meta.mode: "motion"`, narrative/asset/QA roles use `references/motion/README.md` and its linked layout, content, handoff and quality documents. Plan shots with `references/motion/scene-planning.md` (no hidden weights or cards-first default), confirm default/custom/no-Logo preference, and keep content static for external animation. Preserve centered Motion headings, independent connectors, and off-camera long-list tracks with clipping only at the slide boundary. The lead generates through the same CLI; preflight auto-routes by HTML mode. Assets handoffs may patch `logos`, `hub.image`, `image`, and `items[index].image`. HTML QA checks both static composition and the reachable final list row. Do not assign PPTX/PDF roles or claim a native video-engine project for an HTML-only Motion Slides request.
 
 ## Default ownership
 

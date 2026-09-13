@@ -35,6 +35,10 @@
         "brandName": {
           "type": "string"
         },
+        "showLogo": {
+          "type": "boolean",
+          "description": "List identity is shown by default; false only when the user explicitly requests no logo."
+        },
         "logo": {
           "oneOf": [
             {
@@ -303,6 +307,10 @@
           "minimum": 2,
           "maximum": 180
         },
+        "showLogo": {
+          "type": "boolean",
+          "description": "List-page override of meta.showLogo."
+        },
         "showCursor": {
           "type": "boolean"
         },
@@ -331,8 +339,7 @@
             },
             "travel": {
               "type": "number",
-              "minimum": 0,
-              "maximum": 80
+              "minimum": 0
             },
             "preset": {
               "enum": [
@@ -341,7 +348,8 @@
                 "none"
               ]
             }
-          }
+          },
+          "description": "Legacy advisory metadata only. No native animation is applied."
         },
         "scroll": {
           "type": "object",
@@ -372,8 +380,7 @@
                 "up",
                 "down",
                 "fade"
-              ],
-              "default": "fade"
+              ]
             },
             "itemOrder": {
               "enum": [
@@ -382,7 +389,8 @@
               ],
               "default": "top-to-bottom"
             }
-          }
+          },
+          "description": "Advisory choreography only. The entire slide is the camera; no internal scroll viewport or distance is prescribed."
         },
         "notes": {
           "$ref": "#/$defs/notes"

@@ -236,13 +236,8 @@
       ],
       "duration": 16,
       "scroll": {
-        "enabled": true,
-        "reveal": "sequential",
-        "direction": "up",
         "itemOrder": "top-to-bottom",
-        "itemDirection": "fade",
-        "start": 2,
-        "end": 14
+        "direction": "up"
       },
       "notes": {
         "title": "可编辑的动态版式示例",
@@ -290,13 +285,8 @@
       ],
       "duration": 11,
       "scroll": {
-        "enabled": true,
-        "reveal": "sequential",
-        "direction": "up",
         "itemOrder": "top-to-bottom",
-        "itemDirection": "fade",
-        "start": 2,
-        "end": 9
+        "direction": "up"
       },
       "notes": {
         "title": "可编辑的动态版式示例",

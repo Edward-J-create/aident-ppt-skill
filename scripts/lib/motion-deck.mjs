@@ -9,8 +9,8 @@ const txt=v=>String(v??'').trim();
 const len=v=>Array.from(txt(v)).length;
 const pick=(v,a,d)=>a.includes(v)?v:d;
 const keys={
- root:['meta','slides'],meta:['mode','title','language','brandName','logo','fps'],
- slide:['id','type','variant','title','kicker','highlight','body','value','label','prompt','items','groups','outputs','hub','logos','separator','image','background','duration','motion','scroll','showCursor','showSend','notes'],
+ root:['meta','slides'],meta:['mode','title','language','brandName','logo','showLogo','fps'],
+ slide:['id','type','variant','title','kicker','highlight','body','value','label','prompt','items','groups','outputs','hub','logos','separator','image','background','duration','motion','scroll','showLogo','showCursor','showSend','notes'],
  item:['id','title','body','label','badge','tone','image','checked','size'],
  motion:['enter','stagger','hold','exit','travel','preset'],scroll:['enabled','start','end','reveal','direction','itemDirection','itemOrder'],
  image:['src','alt','fit','position'],notes:['title','purpose','talk','transition']
@@ -24,6 +24,7 @@ export function validateMotion(deck){
  if(!['en','zh',undefined].includes(deck.meta.language))add('meta.language must be en or zh.');
  if(!txt(deck.meta.title))add('meta.title is required.');
  if(deck.meta.fps!==undefined&&![24,25,30,50,60].includes(deck.meta.fps))add('meta.fps must be 24/25/30/50/60.');
+ if(deck.meta.showLogo!==undefined&&typeof deck.meta.showLogo!=='boolean')add('meta.showLogo must be boolean.');
  const zh=deck.meta.language==='zh',ids=new Set();
  function image(v,p){if(v===undefined)return;const im=normalizeImage(v);if(!im||typeof im.src!=='string'||!im.src.trim()){add(`${p}.src is required`);return;}unknown(im,'image',p);if(im.fit&&!['contain','cover'].includes(im.fit))add(`${p}.fit must be contain/cover`);if(im.position&&!/^\d+(?:\.\d+)?% \d+(?:\.\d+)?%$/.test(im.position))add(`${p}.position must be two percentages`);if(/^(?:https?:|data:|javascript:)/i.test(im.src))add(`${p}: use a local PNG/JPEG/WebP/SVG for offline, deterministic capture`);if(!/\.(?:svg|png|jpe?g|webp)$/i.test(im.src))add(`${p}: unsupported image format`);}
  image(typeof deck.meta.logo==='object'&&!deck.meta.logo?.src?undefined:deck.meta.logo,'meta.logo');
@@ -33,7 +34,7 @@ export function validateMotion(deck){
   const p=`slides[${i}]`;if(!s||typeof s!=='object'){add(`${p} must be an object`);return;}unknown(s,'slide',p);
   const rule=registry.layouts[s.type];if(!rule){add(`${p}.type is not a motion layout`);return;}
   const base=['id','type','variant','background','duration','motion','notes'];
-  const extras={'motion-title':['kicker'],'motion-input':['showCursor','showSend'],'motion-image':['kicker'],'motion-metric':['kicker'],'motion-hub':['kicker']};
+  const extras={'motion-title':['kicker'],'motion-input':['showCursor','showSend'],'motion-image':['kicker'],'motion-metric':['kicker'],'motion-hub':['kicker'],'motion-list':['showLogo']};
   const used=new Set([...base,...rule.fields,...(extras[s.type]||[])]);
   for(const key of Object.keys(s))if(!used.has(key))add(`${p}.${key} has no visible or behavioral slot in ${s.type}`);
   if(s.type==='motion-image'&&s.variant==='hero'&&s.body)add(`${p}: body is available only in split image mode`);
@@ -51,7 +52,6 @@ export function validateMotion(deck){
   unknown(s.motion,'motion',`${p}.motion`);
   for(const k of ['enter','stagger','hold','exit','travel'])if(s.motion?.[k]!==undefined&&(!Number.isFinite(s.motion[k])||s.motion[k]<0))add(`${p}.motion.${k} must be a nonnegative number`);
   if(s.motion?.preset&&!['rise','fade','none'].includes(s.motion.preset))add(`${p}.motion.preset must be rise/fade/none`);
-  if((s.motion?.travel??24)>80)add(`${p}: motion travel maximum is 80px`);
   unknown(s.scroll,'scroll',`${p}.scroll`);
   if(s.scroll&&s.type!=='motion-list')add(`${p}.scroll applies only to motion-list`);
   if(s.scroll?.direction&&s.scroll.direction!=='up')add(`${p}: whole-list scrolling direction must be up`);
@@ -59,7 +59,7 @@ export function validateMotion(deck){
   if(s.scroll?.itemOrder&&!['top-to-bottom','bottom-to-top'].includes(s.scroll.itemOrder))add(`${p}.scroll.itemOrder is invalid`);
   if(s.scroll?.reveal&&!['sequential','all'].includes(s.scroll.reveal))add(`${p}.scroll.reveal must be sequential/all`);
   for(const k of ['start','end'])if(s.scroll?.[k]!==undefined&&(!Number.isFinite(s.scroll[k])||s.scroll[k]<0))add(`${p}.scroll.${k} must be a nonnegative number`);
-  for(const k of ['showCursor','showSend'])if(s[k]!==undefined&&typeof s[k]!=='boolean')add(`${p}.${k} must be boolean`);
+  for(const k of ['showLogo','showCursor','showSend'])if(s[k]!==undefined&&typeof s[k]!=='boolean')add(`${p}.${k} must be boolean`);
   for(const k of ['enabled'])if(s.scroll?.[k]!==undefined&&typeof s.scroll[k]!=='boolean')add(`${p}.scroll.${k} must be boolean`);
   const n=s.items?.length;
   if(['motion-cards','motion-comparison','motion-hub'].includes(s.type)&&!rule.counts.includes(n))add(`${p} requires ${rule.counts.join('/')} items`);
@@ -123,7 +123,7 @@ const label=v=>p(v,'m-label',true);
 function title(s){let t=esc(s.title);if(s.highlight)t=t.replace(esc(s.highlight),`<span class="m-highlight">${esc(s.highlight)}</span>`);return `<header class="m-heading" data-motion="heading">${p(s.kicker,'m-kicker',true)}<h1 class="${s.type==='motion-title'?'m-statement':'m-title'}"${s.type!=='motion-title'?' data-one-line':''}>${t}</h1></header>`;}
 function tag(t,size='medium',i=0){return node(`tag-${i}`,`m-tag tone-${t.tone||'neutral'} size-${t.size||size}`,p(t.title,'m-tag-text',true));}
 function card(t,i){return node(`card-${i}`,`m-card tone-${t.tone||'standard'}`,label(t.label)+img(t.image,'m-card-icon',true)+p(t.title,'m-item-title',true)+p(t.body,'m-body'));}
-function list(s,meta){const logo=s.image||meta.logo;return `${logo?node('identity','m-list-identity',img(logo,'m-list-logo',true)):''}<div class="m-list-window" data-scroll-window><div class="m-list-track" data-scroll-track>${s.items.map((t,i)=>`<article class="m-list-row ${t.tone==='accent'?'is-accent':''}" data-list-item="${i}">${(s.variant==='checked'||t.checked)&&t.checked!==false?`<span class="m-check">${img({src:tokens.assets.check})}</span>`:''}${img(t.image,'m-list-item-image',true)}<div class="m-list-copy">${p(t.title,'m-list-title',true)}${p(t.body,'m-body')}</div>${p(t.badge,'m-badge',true)}</article>`).join('')}</div></div>`;}
+function list(s,meta){const showLogo=(s.showLogo??meta.showLogo)!==false,logo=showLogo&&(s.image||meta.logo);return `<div class="m-list-scene" data-list-scene data-logo-visible="${showLogo}" data-motion="list-scene">${logo?node('identity','m-list-identity',img(logo,'m-list-logo',true)):''}<div class="m-list-track" data-scroll-track>${s.items.map((t,i)=>`<article class="m-list-row ${t.tone==='accent'?'is-accent':''}" data-list-item="${i}">${(s.variant==='checked'||t.checked)&&t.checked!==false?`<span class="m-check">${img({src:tokens.assets.check})}</span>`:''}${img(t.image,'m-list-item-image',true)}<div class="m-list-copy">${p(t.title,'m-list-title',true)}${p(t.body,'m-body')}</div>${p(t.badge,'m-badge',true)}</article>`).join('')}</div></div>`;}
 function input(s){const compact=s.variant==='compact';return node('input',`m-input-wrap ${compact?'compact':'multiline'}`,`<div class="m-input">${compact?img(s.image,'m-input-logo',true)+p(s.label,'m-input-label',true):''}<p class="m-input-text"${compact?' data-one-line':''}>${esc(s.prompt)}</p>${s.showSend===false?'':`<div class="m-send">${img({src:tokens.assets.send})}</div>`}</div>`)+(s.showCursor?node('cursor','m-cursor',img({src:tokens.assets.cursor})): '');}
 function synthesis(s){return `<div class="m-synthesis ${s.variant==='many-to-few'?'many-to-few':'stages'}"><div class="m-tag-panel">${s.groups.map((g,j)=>`<div class="m-tag-column">${g.map((t,i)=>tag(t,s.variant==='many-to-few'?'small':['small','medium','large'][j],`${j}-${i}`)).join('')}</div>`).join('')}</div>${node('connector','m-synthesis-arrow',img({src:tokens.assets.arrow}))}<div class="m-outputs ${s.outputs.length>1?'m-tag-panel':''}">${s.outputs.map((t,i)=>tag(t,'large',`out-${i}`)).join('')}</div></div>`;}
 function hub(s){const four=s.items.length===4;return `<div class="m-hub ${four?'four':'three'}"><div class="m-connector-layer" aria-hidden="true">${Array.from({length:four?4:2},(_,i)=>node(`connector-${i}`,`m-curve curve-${i}`,img({src:tokens.assets.curve}))).join('')}${four?'':node('connector-2','m-stem',img({src:tokens.assets.stem}))}</div>${node('hub','m-hub-center',img(s.hub.image,'m-hub-logo',true)+p(s.hub.title,'m-hub-text',true))}${s.items.map((t,i)=>node(`satellite-${i}`,`m-satellite satellite-${i}`,img(t.image,'m-satellite-logo',true)+p(t.title,'m-node-title',true)+p(t.label,'m-node-label',true))).join('')}</div>`;}
@@ -154,19 +154,16 @@ export async function generateMotionDeck(args,raw){
  const inputDir=path.dirname(args.input),outDir=path.resolve(args.out);
  if(outDir===skillRoot||outDir===path.parse(outDir).root||outDir===inputDir)throw Error('Use a dedicated output folder separate from the source JSON and Skill.');
  await fs.mkdir(outDir,{recursive:true});
- const deck=await materialize(structuredClone(raw),inputDir,outDir);deck.meta={...deck.meta,mode:'motion',language:deck.meta.language||'en',fps:deck.meta.fps||tokens.motion.fps};
+ const prepared=structuredClone(raw);
+ if(!prepared.meta.logo&&prepared.slides.some(s=>s.type==='motion-list'&&(s.showLogo??prepared.meta.showLogo)!==false&&!s.image))prepared.meta.logo={src:'assets/motion/mark.svg',alt:'Aident'};
+ const deck=await materialize(prepared,inputDir,outDir);deck.meta={...deck.meta,mode:'motion',language:deck.meta.language||'en',fps:deck.meta.fps||tokens.motion.fps};
  let start=0;
  const timeline=deck.slides.map(s=>{
-  const m={...tokens.motion,...s.motion};
-  const listExtra=s.type==='motion-list'?Math.max(0,s.items.length*(tokens.list.rowMinHeight+tokens.list.gap)-tokens.list.gap-tokens.list.windowHeight)/tokens.motion.scrollPixelsPerSecond:0;
-  const duration=s.duration||Math.max(registry.layouts[s.type].duration,m.enter+m.hold+listExtra+2+m.exit);
-  const scrollStart=s.scroll?.start??1.4,scrollEnd=s.scroll?.end??duration-1.4;
-  if(s.type==='motion-list'&&(scrollEnd<=scrollStart||scrollEnd>duration-.3))throw Error(`${s.id}: scroll.end must exceed start and leave at least .3 seconds before slide end`);
-  if(m.enter+m.exit>=duration)throw Error(`${s.id}: entrance and exit leave no visible hold`);
-  const itemCount=s.items?.length||1;if(m.enter+(itemCount-1)*m.stagger+m.exit>=duration&&s.type!=='motion-list')throw Error(`${s.id}: stagger sequence exceeds slide duration`);
-  const entry={id:s.id,type:s.type,start,duration,end:start+duration,motion:m,scroll:{enabled:true,reveal:'sequential',direction:'up',itemDirection:'fade',itemOrder:'top-to-bottom',...s.scroll,start:scrollStart,end:scrollEnd},notes:s.notes||{}};start+=duration;return entry;
+  const m={...s.motion};
+  const duration=s.duration||registry.layouts[s.type].duration;
+  const entry={id:s.id,type:s.type,start,duration,end:start+duration,advisory:true,motion:m,...(s.type==='motion-list'?{scroll:{...s.scroll,advisory:true,itemOrder:s.scroll?.itemOrder||'top-to-bottom',direction:'up'}}:{}),notes:s.notes||{}};start+=duration;return entry;
  });
- const data={meta:deck.meta,slides:timeline,duration:start,fps:deck.meta.fps};
+ const data={meta:deck.meta,slides:timeline,duration:start,fps:deck.meta.fps,animationOwnership:'external',timingAdvisory:true};
  const layers=[];
  const slideHtml=deck.slides.map((s,i)=>{
   let n=0;
@@ -190,6 +187,6 @@ export async function generateMotionDeck(args,raw){
  if(args.singleFile)await fs.writeFile(path.join(outDir,'deck.single.html'),await inlineHtml(html,outDir));
  await fs.writeFile(path.join(outDir,'deck.resolved.json'),JSON.stringify(deck,null,2)+'\n');
  await fs.writeFile(path.join(outDir,'timeline.json'),JSON.stringify(data,null,2)+'\n');
- await fs.writeFile(path.join(outDir,'animation-handoff.json'),JSON.stringify({version:1,mode:'motion',canvas:tokens.canvas,fps:data.fps,duration:data.duration,html:'index.html',content:'deck.resolved.json',timeline:'timeline.json',editMode:'?external=1&capture=1',runtimeGlobal:'AIDENT_MOTION',layers,assets:[...new Set(layers.filter(l=>l.src).map(l=>l.src))],fontManifest:'assets/fonts/manifest.json',listContract:{itemOrder:'top-to-bottom',trackDirection:'up',clipSelector:'[data-scroll-window]',trackSelector:'[data-scroll-track]',itemSelector:'[data-list-item]',overflow:'intentional inside the clipped track only'}},null,2)+'\n');
+ await fs.writeFile(path.join(outDir,'animation-handoff.json'),JSON.stringify({version:2,mode:'motion',canvas:tokens.canvas,fps:data.fps,duration:data.duration,timingAdvisory:true,animationOwnership:'external',html:'index.html',content:'deck.resolved.json',timeline:'timeline.json',editMode:'?capture=1',runtimeGlobal:'AIDENT_MOTION',layers,assets:[...new Set(layers.filter(l=>l.src).map(l=>l.src))],fontManifest:'assets/fonts/manifest.json',listContract:{suggestedItemOrder:'top-to-bottom',suggestedTrackDirection:'up',cameraSelector:'.motion-slide',sceneSelector:'[data-list-scene]',trackSelector:'[data-scroll-track]',itemSelector:'[data-list-item]',internalClip:false,scrollDistance:null,overflow:'full content retained beyond the camera; external animator chooses travel and framing'}},null,2)+'\n');
  console.log(`Generated ${deck.slides.length} Motion Slides (${start.toFixed(2)} seconds, ${data.fps} fps) at ${outDir}`);
 }

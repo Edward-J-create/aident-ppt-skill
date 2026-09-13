@@ -78,7 +78,7 @@ These limitations are explicit, tested, and do not create a Figma runtime depend
 | Per-role fonts, line-height ratios, tracking, paint alpha, spacing | `assets/tokens/motion.json`, Motion typography/copy-budget tables | Browser font/line-height/overflow checks |
 | Original Joint curves; cards dock to endpoints | Motion layout and animation handoff docs, `assets/motion/curve.svg` | Three/four-satellite short/long EN/ZH replacement tests; original connector dimensions preserved |
 | Original icon glyphs without source surface shrinkage | `assets/motion/icons/manifest.json` | `normalize-motion-icons.mjs --check` verifies 10 extractions without redrawing |
-| List window, track and rows independently editable | Motion content/schema and handoff docs | Timed start/mid/end checks, upward scroll, last row reachable |
+| Camera-only list scene, identity, track and rows independently editable | Motion content/schema and handoff docs | Full visibility at time0/seek; no nested mask or window; last row reachable through QA-only scene translation |
 | External animation ownership and stable layer IDs | `animation-handoff.json`, `references/motion/animation-handoff.md` | Deterministic seeking, duplicate-layer checks, no native opacity override in external mode |
 | Replaceable logos/images/content | Motion content schema, 18 examples per language | Local assets, intrinsic logo ratio and browser bounds checks |
 | Multi-agent mode routing | Role prompts and `references/multi-agent-workflow.md` | Shared initialization/assembly/release validation; Motion-specific semantic validator |

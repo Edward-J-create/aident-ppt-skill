@@ -18,6 +18,10 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 Choose `meta.mode: "motion"` for simpler, more visual HTML scenes. English and Chinese share 10 layout families: statement, brand, cards, comparison, input, scrolling list, synthesis, Joint/hub, image and metric. All copy, logos and images are replaceable. Independent layers and a handoff manifest let GSAP, Hyperframes or Remotion author the animation later.
 
+按[镜头语义](./references/motion/scene-planning.md)选模板：输入问题用 Input、品牌亮相用 Logo、连接关系用 Joint、汇聚转化用 synthesis，不默认套卡片。HTML 内容默认完整可见，无内置入场动画；整个画布就是镜头，长列表没有内部滚动窗口或预设位移。生成时询问是否替换 Logo，未指定默认 Aident，明确不要才隐藏。
+
+Choose layouts by visual meaning: Input for prompts, Logo for identity, Joint for connections and synthesis for transformation. HTML is static and fully visible by default. Lists clip only at the slide camera, with no prescribed travel. The Agent asks about Logo replacement; unspecified means Aident, explicit no-Logo hides it. Downstream tools own animation.
+
 设置 `meta.mode: "motion"`，即可生成更简洁、可视化的 HTML 场景。中英文共享 10 类版式，支持替换所有文案、Logo 和图片。文字、卡片、图标、连接线、列表窗口与滚动轨道均独立保留，方便后续动画工具接手；列表按从上到下的顺序逐项出现，整体向上滚动。
 
 ![English Motion Slides / 英文视频版式](./assets/previews/motion-slides.en.webp)
@@ -235,7 +239,7 @@ node scripts/validate-agent-run.mjs --run /absolute/path/run --phase release
 
 ## Presentation-mode design rules / 商务演示模式规则
 
-Motion Slides have separate [layout rules](./references/motion/layouts.md), including centered headings, unchanged Joint connectors and intentionally clipped lists. / 以下规则用于商务演示；Motion Slides 使用独立版式规则，包括居中标题、原始尺寸的 Joint 和允许超出窗口的长列表。不要混用两种模式的标题对齐、Logo 高度和图标底板规范。
+Motion Slides have separate [layout rules](./references/motion/layouts.md), including centered headings, unchanged Joint connectors and lists clipped only at the slide camera. / 以下规则用于商务演示；Motion Slides 使用独立版式规则，包括居中标题、原始尺寸的 Joint 和允许超出画布镜头、没有内部滚动窗口的长列表。不要混用两种模式的标题对齐、Logo 高度和图标底板规范。
 
 These rules are enforced by runtime validation or QA. / 以下关键规则会被运行时或 QA 强制检查：
 
