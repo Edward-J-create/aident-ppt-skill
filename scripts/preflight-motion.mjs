@@ -23,6 +23,18 @@ export async function preflightMotion(htmlPath,screenshotDir){
    const slide=document.querySelector('.slide.is-active'),errors=[];
    const rect=el=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom};};
    const sr=rect(slide),scene=slide.querySelector('[data-list-scene]');
+   if(!['light','dark'].includes(slide.dataset.theme))errors.push('Unknown Motion theme');
+   if(slide.dataset.theme==='dark'){
+    const lum=s=>{const rgb=s.trim().startsWith('#')?s.trim().slice(1).match(/../g).map(v=>parseInt(v,16)):s.match(/[\d.]+/g).slice(0,3).map(Number);return rgb.map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);};
+    const contrast=(a,b)=>(Math.max(lum(a),lum(b))+.05)/(Math.min(lum(a),lum(b))+.05);
+    for(const tag of slide.querySelectorAll('.m-tag')){const cs=getComputedStyle(tag);if(cs.backgroundImage==='none'&&contrast(cs.color,cs.backgroundColor)<4.5)errors.push('Dark tag contrast below 4.5: '+tag.textContent);}
+    for(const el of slide.querySelectorAll('.m-body,.m-result-value,.m-flow-title,.m-input-text'))if(contrast(getComputedStyle(el).color,getComputedStyle(slide).getPropertyValue('--m-surface'))<4.5)errors.push('Dark text contrast below 4.5 on its panel: '+el.textContent);
+   }
+   for(const group of slide.querySelectorAll('[data-workflow-rows]')){
+    if(group.offsetHeight>610)errors.push('Workflow rows exceed 610px content zone');
+    const rows=[...group.querySelectorAll('[data-workflow]')],first=[...rows[0].querySelectorAll('[data-node-id]')].map(rect);
+    for(const row of rows)for(const [i,n] of [...row.querySelectorAll('[data-node-id]')].entries()){const r=rect(n);if(!first[i]||Math.abs(r.x-first[i].x)>1||Math.abs(r.width-first[i].width)>1||Math.abs(r.height-first[i].height)>1)errors.push('Workflow row columns must align and share sizes');}
+   }
    const visible=el=>{let n=el;while(n&&n!==slide){const cs=getComputedStyle(n);if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity===0)return false;n=n.parentElement;}const r=rect(el);return r.width>0&&r.height>0;};
    for(const el of slide.querySelectorAll('[data-motion],[data-list-item]'))if(!visible(el)||+getComputedStyle(el).opacity!==1)errors.push('Static content hidden/faded: '+el.dataset.layer);
    for(const im of slide.querySelectorAll('img'))if(!im.complete||!im.naturalWidth)errors.push('Broken image: '+im.getAttribute('src'));
@@ -42,8 +54,7 @@ export async function preflightMotion(htmlPath,screenshotDir){
      if(!Number.isFinite(w)||!Number.isFinite(h)||im.offsetWidth>w+1||im.offsetHeight>h+1)errors.push('Brand image exceeds variant bounds: '+im.dataset.layer);
     }
    }
-   const flow=slide.querySelector('[data-workflow]');
-   if(flow){
+   for(const flow of slide.querySelectorAll('[data-workflow]')){
     const nodes=[...flow.querySelectorAll('[data-node-id]')],edges=[...flow.querySelectorAll('[data-edge]')];
     const scale=sr.width/1920,tol=2*scale;
     if(edges.length!==nodes.length-1)errors.push('Workflow requires nodeCount-1 edges');

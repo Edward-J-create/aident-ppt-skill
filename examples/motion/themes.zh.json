@@ -1,0 +1,332 @@
+{
+  "meta": {
+    "mode": "motion",
+    "title": "动态镜头主题与组合",
+    "language": "zh",
+    "theme": "dark"
+  },
+  "slides": [
+    {
+      "id": "brand-title",
+      "type": "motion-title",
+      "variant": "brand-title",
+      "theme": "light",
+      "title": "让每次行动\n都有意义",
+      "body": "清晰的想法，可编辑的视觉系统。",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout"
+        },
+        {
+          "placeholder": "你的 Logo"
+        }
+      ]
+    },
+    {
+      "id": "dark-input",
+      "type": "motion-input",
+      "variant": "compact",
+      "prompt": "找到一个有价值的下一步。",
+      "image": {
+        "src": "assets/motion/mark.svg",
+        "alt": "Aident"
+      },
+      "showCaret": true,
+      "showCursor": true,
+      "send": {
+        "state": "hover"
+      }
+    },
+    {
+      "id": "dark-hub",
+      "type": "motion-hub",
+      "palette": "teal",
+      "title": "用上下文连接工作",
+      "hub": {
+        "title": "上下文",
+        "image": {
+          "src": "assets/motion/mark.svg"
+        }
+      },
+      "items": [
+        {
+          "id": "evidence",
+          "title": "证据"
+        },
+        {
+          "id": "people",
+          "title": "团队"
+        },
+        {
+          "id": "action",
+          "title": "行动"
+        }
+      ]
+    },
+    {
+      "id": "workflow-rows",
+      "type": "motion-workflow",
+      "variant": "rows",
+      "title": "一个系统，多路协作",
+      "rows": [
+        {
+          "id": "research",
+          "items": [
+            {
+              "id": "owner",
+              "label": "负责人",
+              "title": "研究"
+            },
+            {
+              "id": "task",
+              "label": "任务",
+              "title": "发现信号"
+            },
+            {
+              "id": "result",
+              "label": "结果",
+              "title": "简报"
+            }
+          ]
+        },
+        {
+          "id": "operations",
+          "items": [
+            {
+              "id": "owner",
+              "label": "负责人",
+              "title": "运营"
+            },
+            {
+              "id": "task",
+              "label": "任务",
+              "title": "分配工作"
+            },
+            {
+              "id": "result",
+              "label": "结果",
+              "title": "队列"
+            }
+          ]
+        },
+        {
+          "id": "review",
+          "items": [
+            {
+              "id": "owner",
+              "label": "负责人",
+              "title": "审核"
+            },
+            {
+              "id": "task",
+              "label": "任务",
+              "title": "核验事实"
+            },
+            {
+              "id": "result",
+              "label": "结果",
+              "title": "决策"
+            }
+          ]
+        }
+      ],
+      "palette": "cobalt",
+      "background": "brand"
+    },
+    {
+      "id": "dark-tags",
+      "type": "motion-synthesis",
+      "title": "从信息信号到行动",
+      "groups": [
+        [
+          {
+            "title": "研究",
+            "tone": "info"
+          },
+          {
+            "title": "反馈",
+            "tone": "info"
+          }
+        ],
+        [
+          {
+            "title": "优先级",
+            "tone": "purple"
+          },
+          {
+            "title": "负责人",
+            "tone": "purple"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "下一步",
+          "tone": "accent"
+        }
+      ],
+      "palette": "teal",
+      "background": "brand-gradient"
+    },
+    {
+      "id": "result-table",
+      "type": "motion-synthesis",
+      "title": "将上下文转化为证据",
+      "composition": {
+        "size": "small",
+        "align": "left"
+      },
+      "groups": [
+        [
+          {
+            "title": "信号",
+            "tone": "info"
+          },
+          {
+            "title": "标准",
+            "tone": "purple"
+          },
+          {
+            "title": "核验",
+            "tone": "success"
+          }
+        ]
+      ],
+      "outputs": [],
+      "result": {
+        "title": "已审核结果",
+        "columns": [
+          "项目",
+          "状态",
+          "负责人"
+        ],
+        "columnWidths": [
+          4,
+          3,
+          3
+        ],
+        "accentColumn": 1,
+        "rows": [
+          [
+            "信号甲",
+            "就绪",
+            "研究"
+          ],
+          [
+            "信号乙",
+            "审核中",
+            "运营"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "result-list",
+      "type": "motion-synthesis",
+      "theme": "light",
+      "title": "清晰而简短的交接",
+      "groups": [
+        [
+          {
+            "title": "证据",
+            "tone": "info"
+          },
+          {
+            "title": "上下文",
+            "tone": "info"
+          }
+        ]
+      ],
+      "outputs": [],
+      "result": {
+        "type": "list",
+        "title": "下一步行动",
+        "items": [
+          "明确一位负责人",
+          "设定下一个检查点",
+          "分享已核验的结果"
+        ]
+      },
+      "palette": "teal",
+      "background": "brand"
+    },
+    {
+      "id": "dark-list",
+      "type": "motion-list",
+      "items": [
+        {
+          "title": "汇集可靠信号",
+          "body": "让证据进入共享视图。",
+          "tools": [
+            {
+              "src": "assets/motion/mark.svg",
+              "alt": "可替换工具"
+            }
+          ]
+        },
+        {
+          "title": "明确下一步行动",
+          "body": "让责任归属和标准始终可见。",
+          "badge": "就绪"
+        },
+        {
+          "title": "发布之前先核验",
+          "body": "指定一位明确的审核负责人。"
+        }
+      ],
+      "palette": "lime",
+      "background": "brand-gradient"
+    },
+    {
+      "id": "dark-comparison",
+      "type": "motion-comparison",
+      "title": "从分散到协同",
+      "items": [
+        {
+          "title": "分散的工作",
+          "tone": "muted",
+          "label": "之前",
+          "body": "上下文不断交接，却没有明确的负责人。"
+        },
+        {
+          "title": "共同的方向",
+          "tone": "accent",
+          "label": "之后",
+          "body": "让证据与责任归属一起流转。"
+        }
+      ],
+      "palette": "cobalt",
+      "background": "brand-gradient"
+    },
+    {
+      "id": "dark-metric",
+      "type": "motion-metric",
+      "theme": "light",
+      "palette": "lime",
+      "title": "一个清晰的下一步",
+      "value": "1",
+      "label": "示例数据",
+      "body": "聚焦的行动更容易核验。"
+    },
+    {
+      "id": "brand-statement",
+      "type": "motion-title",
+      "palette": "teal",
+      "background": "brand-gradient",
+      "title": "把清晰想法变成行动",
+      "highlight": "行动"
+    },
+    {
+      "id": "brand-input",
+      "type": "motion-input",
+      "palette": "cobalt",
+      "background": "brand-gradient",
+      "prompt": "找到可靠的证据。\n给出一个明确的建议。",
+      "showCaret": true,
+      "send": {
+        "state": "sent"
+      }
+    }
+  ]
+}

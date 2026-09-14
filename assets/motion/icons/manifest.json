@@ -3,83 +3,183 @@
   "icons": [
     {
       "name": "integration",
+      "theme": "light",
       "file": "assets/motion/icons/integration.svg",
       "source": "assets/icons/light/integration.svg",
       "box": 46,
       "viewBox": "16.6000 16.6000 26.8000 26.8000",
-      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
     },
     {
       "name": "history",
+      "theme": "light",
       "file": "assets/motion/icons/history.svg",
       "source": "assets/icons/light/history.svg",
       "box": 46,
       "viewBox": "15.0000 15.0000 30.0000 30.0000",
-      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
     },
     {
       "name": "skill",
+      "theme": "light",
       "file": "assets/motion/icons/skill.svg",
       "source": "assets/icons/light/skill.svg",
       "box": 46,
       "viewBox": "13.8000 14.7000 31.5000 31.5000",
-      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
     },
     {
       "name": "run-circle",
+      "theme": "light",
       "file": "assets/motion/icons/run-circle.svg",
       "source": "assets/icons/light/run-circle.svg",
       "box": 46,
       "viewBox": "15.0000 15.0000 30.0000 30.0000",
-      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
     },
     {
       "name": "download",
+      "theme": "light",
       "file": "assets/motion/icons/download.svg",
       "source": "assets/icons/light/download.svg",
       "box": 46,
       "viewBox": "16.6000 16.6000 26.8000 26.8000",
-      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
     },
     {
       "name": "copy",
+      "theme": "light",
       "file": "assets/motion/icons/copy.svg",
       "source": "assets/icons/light/copy.svg",
       "box": 46,
       "viewBox": "15.8000 15.8000 28.4000 28.4000",
-      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
     },
     {
       "name": "key",
+      "theme": "light",
       "file": "assets/motion/icons/key.svg",
       "source": "assets/icons/light/key.svg",
       "box": 46,
       "viewBox": "14.5000 13.8000 31.1000 31.1000",
-      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
     },
     {
       "name": "action",
+      "theme": "light",
       "file": "assets/motion/icons/action.svg",
       "source": "assets/icons/light/action.svg",
       "box": 46,
       "viewBox": "14.3000 14.8000 30.4000 30.4000",
-      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
     },
     {
       "name": "capabilities",
+      "theme": "light",
       "file": "assets/motion/icons/capabilities.svg",
       "source": "assets/icons/light/capabilities.svg",
       "box": 46,
       "viewBox": "16.8000 16.8000 26.4000 26.4000",
-      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
     },
     {
       "name": "help",
+      "theme": "light",
       "file": "assets/motion/icons/help.svg",
       "source": "assets/icons/light/help.svg",
       "box": 46,
       "viewBox": "15.0000 15.0000 30.0000 30.0000",
-      "policy": "Original paths; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "integration",
+      "theme": "dark",
+      "file": "assets/motion/icons/dark/integration.svg",
+      "source": "assets/icons/dark/integration.svg",
+      "box": 46,
+      "viewBox": "16.6000 16.6000 26.8000 26.8000",
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "history",
+      "theme": "dark",
+      "file": "assets/motion/icons/dark/history.svg",
+      "source": "assets/icons/dark/history.svg",
+      "box": 46,
+      "viewBox": "15.0000 15.0000 30.0000 30.0000",
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "skill",
+      "theme": "dark",
+      "file": "assets/motion/icons/dark/skill.svg",
+      "source": "assets/icons/dark/skill.svg",
+      "box": 46,
+      "viewBox": "13.8000 14.7000 31.5000 31.5000",
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "run-circle",
+      "theme": "dark",
+      "file": "assets/motion/icons/dark/run-circle.svg",
+      "source": "assets/icons/dark/run-circle.svg",
+      "box": 46,
+      "viewBox": "15.0000 15.0000 30.0000 30.0000",
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "download",
+      "theme": "dark",
+      "file": "assets/motion/icons/dark/download.svg",
+      "source": "assets/icons/dark/download.svg",
+      "box": 46,
+      "viewBox": "16.6000 16.6000 26.8000 26.8000",
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "copy",
+      "theme": "dark",
+      "file": "assets/motion/icons/dark/copy.svg",
+      "source": "assets/icons/dark/copy.svg",
+      "box": 46,
+      "viewBox": "15.8000 15.8000 28.4000 28.4000",
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "key",
+      "theme": "dark",
+      "file": "assets/motion/icons/dark/key.svg",
+      "source": "assets/icons/dark/key.svg",
+      "box": 46,
+      "viewBox": "14.5000 13.8000 31.1000 31.1000",
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "action",
+      "theme": "dark",
+      "file": "assets/motion/icons/dark/action.svg",
+      "source": "assets/icons/dark/action.svg",
+      "box": 46,
+      "viewBox": "14.3000 14.8000 30.4000 30.4000",
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "capabilities",
+      "theme": "dark",
+      "file": "assets/motion/icons/dark/capabilities.svg",
+      "source": "assets/icons/dark/capabilities.svg",
+      "box": 46,
+      "viewBox": "16.8000 16.8000 26.4000 26.4000",
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
+    },
+    {
+      "name": "help",
+      "theme": "dark",
+      "file": "assets/motion/icons/dark/help.svg",
+      "source": "assets/icons/dark/help.svg",
+      "box": 46,
+      "viewBox": "15.0000 15.0000 30.0000 30.0000",
+      "policy": "Original paths and source-theme colors; outer surface removed; square crop around measured alpha bounds plus 1.2 source-pixel margin."
     }
   ]
 }

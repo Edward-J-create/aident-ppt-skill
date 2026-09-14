@@ -63,3 +63,6 @@ Use neutral + one accent for unclassified peer labels. Multiple semantic colors 
 Preflight checks cell widths/heights, padded text containment, consistent alignment, panel bounds, connector spacing/ratio and centerlines. It reports visual-review advisories for mixed sizes, many colors or sparse grids. These are prompts for judgment, not universal bans.
 
 **0 errors is geometry pass, not design approval.** Inspect a1920×1080 screenshot and a thumbnail: does the audience see the intended reading path, equal-weight peers, one clear result, and purposeful blank space? Review warnings and record why any intentional exception is appropriate before delivery.
+
+## Inline result table
+A synthesis may use `outputs: []` plus `result: {title,image?,columns,rows,caption}`. This represents the result phase within the same use case. Use three columns, 1–4 short rows, an explicit preview/provenance caption, and the existing immutable connector. The editable 840px table reserves space on the right; shorten source tags to fit the remaining input region. Targets `result-row-N` and `result-cell-N-M` support later row/cell animation; static slides show the complete result.

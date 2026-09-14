@@ -10,14 +10,18 @@
   "layouts": {
     "motion-title": {
       "variants": [
-        "statement"
+        "statement",
+        "brand-title"
       ],
       "maxLines": 2,
       "duration": 3,
       "fields": [
         "title",
         "highlight",
-        "kicker"
+        "kicker",
+        "logos",
+        "separator",
+        "body"
       ],
       "purpose": "One memorable statement or section beat"
     },
@@ -81,7 +85,8 @@
         "image",
         "showCursor",
         "showSend",
-        "send"
+        "send",
+        "showCaret"
       ],
       "purpose": "A prompt entered into a conceptual UI"
     },
@@ -114,7 +119,8 @@
         "kicker",
         "groups",
         "outputs",
-        "composition"
+        "composition",
+        "result"
       ],
       "groupCounts": [
         1,
@@ -178,7 +184,8 @@
     },
     "motion-workflow": {
       "variants": [
-        "left-to-right"
+        "left-to-right",
+        "rows"
       ],
       "counts": [
         2,
@@ -190,7 +197,8 @@
         "title",
         "kicker",
         "items",
-        "connections"
+        "connections",
+        "rows"
       ],
       "purpose": "Ordered left-to-right steps with independent original arrows; no central node",
       "extension": true
@@ -326,9 +334,18 @@
           "prompt",
           "send",
           "send-icon",
-          "cursor"
+          "cursor",
+          "prompt-text",
+          "caret"
         ],
         "click": "aident:send; no network submission or automatic state transition"
+      },
+      "caret": {
+        "optional": true,
+        "field": "showCaret",
+        "target": "caret",
+        "typing": "AIDENT_MOTION.setPromptText(slideId,text)",
+        "animation": "external; no blink"
       }
     },
     "logo": {
@@ -350,7 +367,12 @@
         "list": 150,
         "hub": 80,
         "satellite": 46,
-        "input": 60
+        "input": 60,
+        "title": {
+          "maxWidth": 420,
+          "maxHeight": 80,
+          "gap": 32
+        }
       },
       "pairTargets": [
         "logo-0",
@@ -406,7 +428,64 @@
       "nodeWidth": "equal Fill, maximum440",
       "nodeHeight": "shared tallest, text hug",
       "connector": "original167×22.0919; independent; no stretch",
-      "edgeCount": "nodeCount-1"
+      "edgeCount": "nodeCount-1",
+      "rows": {
+        "top": 370,
+        "width": 1700,
+        "maxHeight": 610,
+        "rowGap": 24,
+        "nodePadding": 24,
+        "maxRows": 3,
+        "minNodes": 2,
+        "maxNodes": 4
+      }
+    },
+    "result": {
+      "variants": [
+        "table",
+        "list"
+      ],
+      "columns": [
+        2,
+        3,
+        4
+      ],
+      "rows": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "width": 840,
+      "captionOptional": true
+    },
+    "theme": {
+      "scope": "all-motion-layouts-and-variants",
+      "inheritance": ["slide", "meta", "default"],
+      "sharedFields": ["theme", "palette", "background"],
+      "backgroundScope": "slide-only; inferred from resolved palette and layout when omitted",
+      "preserveLayout": true,
+      "default": "light",
+      "override": "meta.theme / slide.theme",
+      "assets": "image.variants.light/dark; missing requested variant is an error; never invert a brand or add a plaque",
+      "palette": "meta.palette / slide.palette: neutral, teal, cobalt, lime",
+      "backgrounds": [
+        "content",
+        "title",
+        "elements",
+        "brand",
+        "brand-gradient"
+      ]
     }
-  }
+  },
+  "themes": [
+    "light",
+    "dark"
+  ],
+  "palettes": [
+    "neutral",
+    "teal",
+    "cobalt",
+    "lime"
+  ]
 }

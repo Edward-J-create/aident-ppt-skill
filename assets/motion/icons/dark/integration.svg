@@ -1,0 +1,17 @@
+<svg width="46" height="46" viewBox="16.6000 16.6000 26.8000 26.8000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Name=Integration, Theme=Dark">
+
+<g id="Aident DS / Integration">
+<g id="Integration">
+<path id="Icon" d="M33.0022 37.1691H41.2008M37.1015 41.2V33.1382M24.0713 18.8L29.3419 23.9826L24.0713 29.1652L18.8008 23.9826L24.0713 18.8ZM19.972 33.1382H28.1706V41.2H19.972V33.1382ZM37.0331 28.0135H37.1699C39.3961 28.0135 41.2008 26.2088 41.2008 23.9826C41.2008 21.7564 39.3961 19.9517 37.1699 19.9517H37.0331C34.8069 19.9517 33.0022 21.7564 33.0022 23.9826C33.0022 26.2088 34.8069 28.0135 37.0331 28.0135Z" stroke="url(#paint1_linear_0_1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint1_linear_0_1" x1="41.2008" y1="30" x2="18.8008" y2="30" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F3B6FF"/>
+<stop offset="0.509615" stop-color="#6DE4F9"/>
+<stop offset="1" stop-color="#77FAB4"/>
+</linearGradient>
+</defs>
+</svg>

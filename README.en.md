@@ -12,6 +12,17 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 ## Motion Slides / 视频用 HTML 版式
 
+Light/Dark themes and combined shots: brand + title,1–3 parallel workflow rows with2–4 nodes each, tags to editable table/list results, separate input caret and animation layers. Both languages support fully replaceable copy, logos and images. Components are optional, not a checklist. [Specification](./references/motion/themes-and-combinations.md).
+
+Backgrounds go beyond gray: neutral, teal, cobalt and lime palettes support Light/Dark, brand-color solid fills and atmosphere gradients. 背景不只有深灰：中性、青绿、钴蓝、黄绿四套配色支持深浅模式，以及品牌色实底／氛围渐变。
+
+All 11 Motion layout families and their variants support deck-level themes/palettes with per-slide overrides, without changing layout geometry. 所有 11 类 Motion 布局及组合变体均支持；主题与配色可整套设置、逐页覆盖，不改变排版。
+
+新增深浅主题与组合镜头：Logo＋标题、并行多行流程、标签到表格/清单结果、独立输入光标和动画层。中英文均支持，内容和品牌资源全部可替换；不强制使用所有组件。参阅[完整规则](./references/motion/themes-and-combinations.md)。
+
+![Light/Dark combinations · English / 深浅主题组合·英文](./assets/previews/motion-themes.en.webp)
+![Light/Dark combinations · Chinese / 深浅主题组合·中文](./assets/previews/motion-themes.zh.webp)
+
 Set `meta.mode: "motion"` for simpler, visual HTML scenes intended for later animation editing. The 11 layout families cover statement, brand, cards, comparison, input, scrolling list, synthesis, Joint/hub, left-to-right workflow, image, and metric. English and Chinese have matching coverage; all text, logos and images are replaceable.
 
 Plan by [visual meaning](./references/motion/scene-planning.md): Input for a real prompt, Logo for identity, Joint for connections, synthesis for transformation—not generic cards for every topic. HTML starts fully visible with no built-in entrance effects. The whole slide is the camera; long lists have no nested scroll window or prescribed travel. The Agent asks whether to replace the Logo; unspecified uses Aident, explicit no-Logo hides it. Animation tools own choreography later.

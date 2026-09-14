@@ -11,7 +11,11 @@
   const limits={ 'm-brand-logo':[760,144],'m-list-logo':[650,150],'m-hub-logo':[160,80],'m-satellite-logo':[92,46],'m-input-logo':[120,60],'m-list-item-image':[100,60],'m-card-icon':[120,60]};
   for(const im of document.querySelectorAll('.replaceable-logo')){
    const key=Object.keys(limits).find(k=>im.classList.contains(k));if(!key||!im.naturalWidth)continue;
-   const style=getComputedStyle(im),[w,h]=key==='m-brand-logo'?[parseFloat(style.getPropertyValue('--brand-max-width')),parseFloat(style.getPropertyValue('--brand-max-height'))]:limits[key],scale=Math.min(w/im.naturalWidth,h/im.naturalHeight);im.style.width=`${im.naturalWidth*scale}px`;im.style.height=`${im.naturalHeight*scale}px`;
+   const style=getComputedStyle(im),[w,h]=key==='m-brand-logo'?[parseFloat(style.getPropertyValue('--brand-max-width')),parseFloat(style.getPropertyValue('--brand-max-height'))]:key==='m-satellite-logo'&&im.closest('.m-flow-row')?[72,36]:limits[key],scale=Math.min(w/im.naturalWidth,h/im.naturalHeight);im.style.width=`${im.naturalWidth*scale}px`;im.style.height=`${im.naturalHeight*scale}px`;
+  }
+  for(const group of document.querySelectorAll('[data-workflow-rows]')){
+   const nodes=[...group.querySelectorAll('.m-flow-node')];nodes.forEach(n=>n.style.removeProperty('height'));
+   const height=Math.max(...nodes.map(n=>n.offsetHeight));nodes.forEach(n=>n.style.height=`${height}px`);
   }
   for(const scene of document.querySelectorAll('[data-synthesis]')){
    const panel=scene.querySelector('.m-synthesis-inputs'),groups=[...panel.children],outputs=scene.querySelector('.m-outputs'),arrow=scene.querySelector('.m-synthesis-arrow');
@@ -71,6 +75,12 @@
   if(!button)throw Error('No send button on this slide');
   button.dataset.state=state;button.disabled=state==='disabled';return state;
  }
+ function setPromptText(slideId,text){
+  if(typeof text!=='string')throw Error('Prompt text must be a string');
+  const prompt=slides.find(s=>s.dataset.id===slideId)?.querySelector('[data-motion="prompt-text"]');
+  if(!prompt)throw Error('No prompt on this slide');
+  prompt.textContent=text;return text;
+ }
  function select(i){active=clamp(Math.trunc(i),0,slides.length-1);slides.forEach((s,j)=>{s.classList.toggle('is-active',j===active);s.setAttribute('aria-hidden',String(j!==active));});}
  function render(){
   const i=data.slides.findIndex(s=>time<s.end);select(i<0?slides.length-1:i);
@@ -97,7 +107,7 @@
   if(params.has('t'))seek(finite(params.get('t')));else seekSlide(clamp(Math.trunc(finite(params.get('slide'))),0,slides.length-1),0);
   document.documentElement.dataset.motionReady='true';
  })();
- window.AIDENT_MOTION={ready,seek,seekSlide,play,pause,getState:state,externalControl,staticSlide,layout,setSendState,duration:data.duration,fps:data.fps};
+ window.AIDENT_MOTION={ready,seek,seekSlide,play,pause,getState:state,externalControl,staticSlide,layout,setSendState,setPromptText,duration:data.duration,fps:data.fps};
  document.querySelectorAll('.m-send').forEach(button=>button.addEventListener('click',()=>{
   if(button.disabled)return;
   window.dispatchEvent(new CustomEvent('aident:send',{detail:{slideId:button.closest('.motion-slide').dataset.id,state:button.dataset.state}}));

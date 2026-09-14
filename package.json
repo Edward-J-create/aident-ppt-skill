@@ -45,7 +45,10 @@
     "run:assemble": "node scripts/assemble-agent-run.mjs",
     "run:validate": "node scripts/validate-agent-run.mjs",
     "motion:controls:qa": "node scripts/validate-motion-controls.mjs --browser",
-    "motion:controls:validate": "node scripts/validate-motion-controls.mjs"
+    "motion:controls:validate": "node scripts/validate-motion-controls.mjs",
+    "motion:themes:qa": "node scripts/validate-motion-themes.mjs --browser",
+    "motion:themes:validate": "node scripts/validate-motion-themes.mjs",
+    "motion:themes:preview": "node scripts/build-motion-preview.mjs --themes"
   },
   "engines": {
     "node": ">=20"

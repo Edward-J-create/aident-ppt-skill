@@ -1,5 +1,7 @@
 # Editable handoff to animation tools
 
+Version3 adds explicit theme, layout-owner, input and first-frame contracts; see [themes-and-combinations.md](themes-and-combinations.md). For diagram reveals target named `-visual` children, not the coordinate-owning node shell. The whole `diagram` or `workflow-group` target moves connected content together. A single animated node does not trigger live edge routing. Original connector SVG files remain linked and editable: a downstream stroke-draw adapter can inline their exact paths with unique IDs, preserving intrinsic dimensions; the Skill does not replace them with redrawn lines.
+
 The Skill provides reusable HTML layouts, editable layers, local assets/fonts, and a lightweight preview clock. It does not require GSAP, Hyperframes or Remotion. Do not expand a layout request into a video-rendering project unless the user asks.
 
 ## Contract

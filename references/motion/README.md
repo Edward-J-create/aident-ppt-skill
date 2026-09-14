@@ -29,12 +29,15 @@ For a new explainer/demo use the bilingual starter, which includes Logo, Input, 
 | Arrange tags, widths, peer alignment and emphasis | [synthesis-composition.md](synthesis-composition.md) |
 | Populate content and swap images/brands | [content.md](content.md), [deck.schema.json](deck.schema.json) |
 | Timing, tag colors, linear/hub edges, Send states, Logo pairs | [editable-components.md](editable-components.md) |
+| Light/Dark themes, brand-title, parallel workflows, result panels | [themes-and-combinations.md](themes-and-combinations.md) |
 | Exact typography, spacing, color, opacity | [motion.json](../../assets/tokens/motion.json) |
 | Component variants and slots | `assets/components/motion-registry.json` |
 | GSAP / Hyperframes / Remotion handoff | [animation-handoff.md](animation-handoff.md) |
 | Browser, crop, scroll, font checks | [quality.md](quality.md) |
 
 ## Mode-specific rules
+
+Every registered Motion layout and variant supports the shared theme/palette/background system—not just opening shots. Set `meta.theme` / `meta.palette` for deck defaults and override either independently on a slide. `background` is slide-only. Read [coverage and precedence](themes-and-combinations.md#layout-coverage-and-precedence--全版式覆盖与优先级); changing colors preserves layout and still requires suitable logo assets.
 
 1. Canvas is 1920×1080. The foreground safe width is 1700px, x=110. Responsive preview scales the entire canvas uniformly and centers it.
 2. Centered inner headings are intentional in Motion Slides. The business-presentation rule “only cover titles are centered” does not apply to this mode.

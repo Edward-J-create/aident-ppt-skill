@@ -21,6 +21,8 @@ Start new Motion narratives from `examples/motion/starter.en.json` or `starter.z
 
 ## Default ownership
 
+For Motion themes/combined scenes, all roles read `references/motion/themes-and-combinations.md`. The asset curator supplies suitable theme variants without inverting brands or adding backing plaques. The narrative role chooses theme and optional composition by meaning, without quotas. HTML QA runs the theme matrix and inspects bilingual captures, workflow row alignment, result content and layout-shell/visual-layer separation. The maintainer must update tokens, registry, schema, renderer, examples and rules together.
+
 For Motion controls read `references/motion/editable-components.md`: distinguish linear `motion-workflow` from center-based `motion-hub`, preserve stable node/edge IDs, two independent Logo slots and Input/Send targets. The native player must not own animations or automatically reset host-authored states.
 
 | Role | Writable output |

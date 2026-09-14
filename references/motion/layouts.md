@@ -1,6 +1,6 @@
 # Motion layout and component catalog
 
-All coordinates and dimensions are CSS pixels on a 1920×1080 canvas. Source-matched families are light-theme layouts. Dark variants are not inferred from the business deck. `motion-image` and `motion-metric` are explicitly documented extensions for user images and single-value scenes.
+All coordinates and dimensions are CSS pixels on a 1920×1080 canvas. Source-matched families began as Light layouts; maintained Light/Dark themes now apply across the same components via `meta.theme` and per-slide `theme`. Dark paints/backgrounds are explicit packaged tokens, not guessed per slide. See [themes-and-combinations.md](themes-and-combinations.md) for theme assets, brand-title, parallel workflows and table/list result panels. `motion-image` and `motion-metric` are documented extensions for user images and single-value scenes.
 
 ## Layout routing
 

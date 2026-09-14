@@ -1,0 +1,17 @@
+<svg width="46" height="46" viewBox="15.8000 15.8000 28.4000 28.4000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Name=Copy, Theme=Dark">
+
+<g id="Aident DS / Copy">
+<g id="Copy">
+<path id="Icon" d="M21.6 33.6H20.4C19.7635 33.6 19.153 33.3471 18.7029 32.8971C18.2529 32.447 18 31.8365 18 31.2V20.4C18 19.7635 18.2529 19.153 18.7029 18.7029C19.153 18.2529 19.7635 18 20.4 18H31.2C31.8365 18 32.447 18.2529 32.8971 18.7029C33.3471 19.153 33.6 19.7635 33.6 20.4V21.6M28.8 26.4H39.6C40.9255 26.4 42 27.4745 42 28.8V39.6C42 40.9255 40.9255 42 39.6 42H28.8C27.4745 42 26.4 40.9255 26.4 39.6V28.8C26.4 27.4745 27.4745 26.4 28.8 26.4Z" stroke="url(#paint1_linear_0_1)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint1_linear_0_1" x1="42" y1="30" x2="18" y2="30" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F3B6FF"/>
+<stop offset="0.509615" stop-color="#6DE4F9"/>
+<stop offset="1" stop-color="#77FAB4"/>
+</linearGradient>
+</defs>
+</svg>

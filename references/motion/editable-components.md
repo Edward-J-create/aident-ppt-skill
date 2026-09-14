@@ -16,6 +16,8 @@ Use this reference when customizing Motion duration, tag colors, workflow topolo
 
 ## Semantic tag colors / 标签配色
 
+The table below describes the original Light palette. Dark uses explicit theme-specific paints and bright semantic text; see [themes-and-combinations.md](themes-and-combinations.md). Do not carry Light text colors unchanged onto dark panels.
+
 Gray is a fallback, not a required art style. Set `tone` on each input/output tag; layout size/alignment remains unchanged.
 
 | `tone` | Text | Fill |
@@ -71,6 +73,8 @@ For reorder-stable animation bindings, give each item an `id` and each explicit 
 }
 ```
 
+When every connection points down, the hub center uses `hub.bottomOnlyCenterY` (120px within the diagram zone) so the complete relationship sits higher on the slide. Mixed upper/lower layouts retain their original center. Connector dimensions stay unchanged.
+
 Slots are unique. `bottom` cannot coexist with `bottom-left/right` because their content regions conflict. Missing/duplicate targets, duplicate IDs, incompatible counts and unrecognized slots fail validation. Explicit connections must cover every satellite; removing a node requires removing its edge. Regenerate to add/remove DOM nodes/edges; `layout()` remeasures existing elements, it does not infer new topology from arbitrary DOM edits. Resolved connections are saved in `deck.resolved.json`.
 
 Selectors: `[data-motion="hub"]`, `[data-motion="satellite-evidence"]`, `[data-motion="connector-evidence-link"]`; scope them to the slide. Each connector also has `data-from`, `data-to`, `data-slot`. Without explicit IDs, numeric fallbacks preserve existing simple examples but may change after reordering. Original curve211.249×106.192 and stem10×129 stay unscaled; cards move to endpoints. Text replacement recomputes attachment geometry. Too-wide nodes or collisions block delivery rather than stretching artwork.
@@ -123,4 +127,9 @@ Fade, move, scale, recolor a suitable vector, or swap one Logo independently; th
 
 ## Examples and verification
 
+For brand-title, aligned workflow rows, result panels, theme-specific image selection and input caret/visual-layer targets, use [themes-and-combinations.md](themes-and-combinations.md) and `validate-motion-themes.mjs --browser` in addition to the tests below.
+
 See `examples/motion/controls.en.json` and `controls.zh.json` for bilingual timing, color, count/slot and Input-state examples. Run `node scripts/validate-motion-controls.mjs --browser` for source contracts, count/edge correspondence, replacement Logos, Send activation/state ownership and screenshot checks. Geometry pass still requires a visual review.
+
+## List tool icons
+List items may specify `tools: [{src,alt}, ...]` with 1–3 product assets. They sit to the right of the copy and retain intrinsic ratios. Animation targets are `tools-ROW` and `tool-ROW-INDEX`.

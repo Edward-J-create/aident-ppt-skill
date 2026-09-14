@@ -24,6 +24,23 @@
       "scope": "Default for single/pair brand shots; compact list and diagram nodes use mark.svg",
       "license": "Brand asset subject to NOTICE.md, not a general open-source brand license",
       "sha256": "d41e95562e0a3b9c68ae58a853b891d48a264b5d0e34cbce0fd7db13af059aa2"
+    },
+    "themeExtensions": {
+      "source": "Maintained Motion Light/Dark extension using existing packaged backgrounds and original design-system glyphs",
+      "tokens": "assets/tokens/motion.json",
+      "darkBackgrounds": [
+        "assets/backgrounds/dark-ink.webp",
+        "assets/backgrounds/dark-aurora.webp",
+        "assets/backgrounds/dark-elements-inner.webp"
+      ],
+      "icons": "assets/motion/icons/dark/: exact paths and paints extracted from dark design-system icons",
+      "connectors": "assets/motion/dark/: original geometry, paint replaced with themes.dark.colors.accent only",
+      "logoPolicy": "Full packaged lockup is light-surface artwork; no guessed dark variant or automatic inversion",
+      "previews": [
+        "assets/previews/motion-themes.en.webp",
+        "assets/previews/motion-themes.zh.webp"
+      ],
+      "palettePolicy": "Neutral/teal/cobalt/lime; reviewed production teal #07525B, cobalt #2536CA and bright lime #B9F64F inform optional editorial presets, not universal corporate-brand claims. CSS gradients and coordinated panel paints are maintained extensions; no extra raster backgrounds."
     }
   },
   "runtimeDependsOnFigma": false,

@@ -1,0 +1,332 @@
+{
+  "meta": {
+    "mode": "motion",
+    "title": "Motion themes and combinations",
+    "language": "en",
+    "theme": "dark"
+  },
+  "slides": [
+    {
+      "id": "brand-title",
+      "type": "motion-title",
+      "variant": "brand-title",
+      "theme": "light",
+      "title": "Make every action\ncount",
+      "body": "A clear idea. An editable visual system.",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout"
+        },
+        {
+          "placeholder": "YOUR LOGO"
+        }
+      ]
+    },
+    {
+      "id": "dark-input",
+      "type": "motion-input",
+      "variant": "compact",
+      "prompt": "Find a useful next step.",
+      "image": {
+        "src": "assets/motion/mark.svg",
+        "alt": "Aident"
+      },
+      "showCaret": true,
+      "showCursor": true,
+      "send": {
+        "state": "hover"
+      }
+    },
+    {
+      "id": "dark-hub",
+      "type": "motion-hub",
+      "palette": "teal",
+      "title": "Context connects the work",
+      "hub": {
+        "title": "Context",
+        "image": {
+          "src": "assets/motion/mark.svg"
+        }
+      },
+      "items": [
+        {
+          "id": "evidence",
+          "title": "Evidence"
+        },
+        {
+          "id": "people",
+          "title": "People"
+        },
+        {
+          "id": "action",
+          "title": "Action"
+        }
+      ]
+    },
+    {
+      "id": "workflow-rows",
+      "type": "motion-workflow",
+      "variant": "rows",
+      "title": "One system, parallel work",
+      "rows": [
+        {
+          "id": "research",
+          "items": [
+            {
+              "id": "owner",
+              "label": "OWNER",
+              "title": "Research"
+            },
+            {
+              "id": "task",
+              "label": "TASK",
+              "title": "Find signals"
+            },
+            {
+              "id": "result",
+              "label": "RESULT",
+              "title": "Brief"
+            }
+          ]
+        },
+        {
+          "id": "operations",
+          "items": [
+            {
+              "id": "owner",
+              "label": "OWNER",
+              "title": "Operations"
+            },
+            {
+              "id": "task",
+              "label": "TASK",
+              "title": "Route work"
+            },
+            {
+              "id": "result",
+              "label": "RESULT",
+              "title": "Queue"
+            }
+          ]
+        },
+        {
+          "id": "review",
+          "items": [
+            {
+              "id": "owner",
+              "label": "OWNER",
+              "title": "Review"
+            },
+            {
+              "id": "task",
+              "label": "TASK",
+              "title": "Check facts"
+            },
+            {
+              "id": "result",
+              "label": "RESULT",
+              "title": "Decision"
+            }
+          ]
+        }
+      ],
+      "palette": "cobalt",
+      "background": "brand"
+    },
+    {
+      "id": "dark-tags",
+      "type": "motion-synthesis",
+      "title": "Organize signals into action",
+      "groups": [
+        [
+          {
+            "title": "Research",
+            "tone": "info"
+          },
+          {
+            "title": "Feedback",
+            "tone": "info"
+          }
+        ],
+        [
+          {
+            "title": "Priority",
+            "tone": "purple"
+          },
+          {
+            "title": "Owner",
+            "tone": "purple"
+          }
+        ]
+      ],
+      "outputs": [
+        {
+          "title": "Next step",
+          "tone": "accent"
+        }
+      ],
+      "palette": "teal",
+      "background": "brand-gradient"
+    },
+    {
+      "id": "result-table",
+      "type": "motion-synthesis",
+      "title": "Turn context into evidence",
+      "composition": {
+        "size": "small",
+        "align": "left"
+      },
+      "groups": [
+        [
+          {
+            "title": "Signals",
+            "tone": "info"
+          },
+          {
+            "title": "Criteria",
+            "tone": "purple"
+          },
+          {
+            "title": "Review",
+            "tone": "success"
+          }
+        ]
+      ],
+      "outputs": [],
+      "result": {
+        "title": "Reviewed results",
+        "columns": [
+          "Item",
+          "Status",
+          "Owner"
+        ],
+        "columnWidths": [
+          4,
+          3,
+          3
+        ],
+        "accentColumn": 1,
+        "rows": [
+          [
+            "Signal A",
+            "Ready",
+            "Research"
+          ],
+          [
+            "Signal B",
+            "Review",
+            "Operations"
+          ]
+        ]
+      }
+    },
+    {
+      "id": "result-list",
+      "type": "motion-synthesis",
+      "theme": "light",
+      "title": "A short, actionable handoff",
+      "groups": [
+        [
+          {
+            "title": "Evidence",
+            "tone": "info"
+          },
+          {
+            "title": "Context",
+            "tone": "info"
+          }
+        ]
+      ],
+      "outputs": [],
+      "result": {
+        "type": "list",
+        "title": "Next actions",
+        "items": [
+          "Confirm one owner",
+          "Define the next checkpoint",
+          "Share the reviewed result"
+        ]
+      },
+      "palette": "teal",
+      "background": "brand"
+    },
+    {
+      "id": "dark-list",
+      "type": "motion-list",
+      "items": [
+        {
+          "title": "Gather reliable signals",
+          "body": "Bring evidence into one shared view.",
+          "tools": [
+            {
+              "src": "assets/motion/mark.svg",
+              "alt": "Replaceable tool"
+            }
+          ]
+        },
+        {
+          "title": "Make the next action clear",
+          "body": "Keep ownership and criteria visible.",
+          "badge": "READY"
+        },
+        {
+          "title": "Review before publishing",
+          "body": "Choose one accountable reviewer."
+        }
+      ],
+      "palette": "lime",
+      "background": "brand-gradient"
+    },
+    {
+      "id": "dark-comparison",
+      "type": "motion-comparison",
+      "title": "From scattered to connected",
+      "items": [
+        {
+          "title": "Scattered work",
+          "tone": "muted",
+          "label": "BEFORE",
+          "body": "Context changes hands without a clear owner."
+        },
+        {
+          "title": "Shared direction",
+          "tone": "accent",
+          "label": "AFTER",
+          "body": "Evidence and ownership travel together."
+        }
+      ],
+      "palette": "cobalt",
+      "background": "brand-gradient"
+    },
+    {
+      "id": "dark-metric",
+      "type": "motion-metric",
+      "theme": "light",
+      "palette": "lime",
+      "title": "One visible next step",
+      "value": "1",
+      "label": "ILLUSTRATIVE",
+      "body": "A focused action is easier to review."
+    },
+    {
+      "id": "brand-statement",
+      "type": "motion-title",
+      "palette": "teal",
+      "background": "brand-gradient",
+      "title": "Turn clarity into action",
+      "highlight": "action"
+    },
+    {
+      "id": "brand-input",
+      "type": "motion-input",
+      "palette": "cobalt",
+      "background": "brand-gradient",
+      "prompt": "Find the right evidence.\nMake one clear recommendation.",
+      "showCaret": true,
+      "send": {
+        "state": "sent"
+      }
+    }
+  ]
+}

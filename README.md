@@ -16,6 +16,17 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 ## Motion Slides / 面向视频编辑的 HTML 版式
 
+新增深浅主题与组合镜头：同一模板可选 Light/Dark；支持 Logo＋标题、1–3 行并行流程（每行2–4节点）、标签到表格/清单结果、独立输入光标和动画层。中英文均支持，所有文字、Logo 和图片都可替换；不强制每页用完所有组件。完整规则见 [主题与组合](./references/motion/themes-and-combinations.md)。
+
+背景不只有深灰：可选中性、青绿、钴蓝、黄绿四套配色，分别支持深浅模式，以及品牌色实底／氛围渐变。Backgrounds go beyond gray: neutral, teal, cobalt and lime palettes support Light/Dark, brand-color solid fills and atmosphere gradients.
+
+所有 11 类 Motion 布局及其组合变体均支持；主题与配色可整套设置、逐页覆盖，底色变化不改变排版。All 11 Motion layout families and their variants support deck-level themes/palettes with per-slide overrides, without changing layout geometry.
+
+Light/Dark themes and combined shots: brand + title,1–3 parallel workflow rows with2–4 nodes each, tags to editable table/list results, separate input caret and animation layers. Both languages support fully replaceable copy, logos and images. Components are optional, not a checklist. [Specification](./references/motion/themes-and-combinations.md).
+
+![Light/Dark combinations · English / 深浅主题组合·英文](./assets/previews/motion-themes.en.webp)
+![Light/Dark combinations · Chinese / 深浅主题组合·中文](./assets/previews/motion-themes.zh.webp)
+
 Choose `meta.mode: "motion"` for simpler, more visual HTML scenes. English and Chinese share 11 layout families: statement, brand, cards, comparison, input, scrolling list, synthesis, Joint/hub, left-to-right workflow, image and metric. All copy, logos and images are replaceable. Independent layers and a handoff manifest let GSAP, Hyperframes or Remotion author the animation later.
 
 按[镜头语义](./references/motion/scene-planning.md)选模板：输入问题用 Input、品牌亮相用 Logo、连接关系用 Joint、汇聚转化用 synthesis，不默认套卡片。HTML 内容默认完整可见，无内置入场动画；整个画布就是镜头，长列表没有内部滚动窗口或预设位移。生成时询问是否替换 Logo，未指定默认 Aident，明确不要才隐藏。

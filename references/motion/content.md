@@ -1,5 +1,9 @@
 # Motion content contract
 
+`meta.palette` / `slide.palette`: `neutral | teal | cobalt | lime`. Theme controls contrast independently; a non-neutral palette defaults to `background:"brand"` or can use `"brand-gradient"`. The original `content/title/elements` image backgrounds remain available. See the brand-color section in [themes-and-combinations.md](themes-and-combinations.md).
+
+Theme and composition extensions: `meta.theme` / `slide.theme` select Light or Dark. Images may use strict `variants:{light,dark}` path maps. `motion-title` supports `brand-title` with1–2 replaceable logos above the statement; workflow `rows` supports1–3 matched rows ×2–4 nodes; synthesis `result` supports editable table/list variants. Optional `showCaret` is separate from `showCursor`. Read [themes-and-combinations.md](themes-and-combinations.md) for complete fields, defaults, budgets and examples.
+
 Choose `meta.mode: "motion"`. Default `language` is `en`; choose `zh` for Chinese. Every visible string is an input field or a localized player control. No user brand or commercial content is baked into the background. This schema is separate from the business-presentation schema.
 
 ## Minimal input

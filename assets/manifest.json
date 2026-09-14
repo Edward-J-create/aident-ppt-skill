@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-13T15:58:29.607Z",
-  "fileCount": 98,
-  "totalBytes": 70748007,
+  "generatedAt": "2026-09-14T10:12:10.416Z",
+  "fileCount": 113,
+  "totalBytes": 71654023,
   "files": [
     {
       "path": "assets/asset-sources.json",
-      "bytes": 4315,
-      "sha256": "1a7aeb35f023aaa349d1795a5161fc31606761cb21785c9d9341ac2ed9dcdc7d"
+      "bytes": 5462,
+      "sha256": "b18a63b7aaa0ed6deec985544435b646401defef7a556816cac45e9a7d0c538e"
     },
     {
       "path": "assets/backgrounds/dark-aurora.webp",
@@ -66,8 +66,8 @@
     },
     {
       "path": "assets/components/motion-registry.json",
-      "bytes": 8881,
-      "sha256": "c701ec4e242087673606321a2611a6626db0bf2ffa3abde6ee971a2c53731100"
+      "bytes": 10686,
+      "sha256": "776705fff253e7d69d70f025f9ddc0309d03accee7945b2b9d6d2928c538f5ec"
     },
     {
       "path": "assets/components/registry.json",
@@ -325,6 +325,21 @@
       "sha256": "7b287bd902eff319a231a9ae6482fc2d831ae44a2d7d2c9cece73fe0e760c888"
     },
     {
+      "path": "assets/motion/dark/arrow.svg",
+      "bytes": 722,
+      "sha256": "76b8dd6adb36c5bc6c77aeb8c241de8985c38a9a27ccc24a35b3a11ac5fa05d3"
+    },
+    {
+      "path": "assets/motion/dark/curve.svg",
+      "bytes": 475,
+      "sha256": "2d8c9919fdbce4b1a41b77f66a61f76ee75347a0cd62564188abdbad2b572393"
+    },
+    {
+      "path": "assets/motion/dark/stem.svg",
+      "bytes": 348,
+      "sha256": "a158f95c47ebd4ae5fefa00fba0faa268a3ced969087e040b474a478a14397bb"
+    },
+    {
       "path": "assets/motion/icons/action.svg",
       "bytes": 1320,
       "sha256": "1ba5ab791977b8e9819bb8277437037681640bbc5f5df67eb20934471d028998"
@@ -338,6 +353,56 @@
       "path": "assets/motion/icons/copy.svg",
       "bytes": 744,
       "sha256": "9bb71307ecae6d33b3da33df6d8120a6803945f74f95705a3c9a5892bb32d09b"
+    },
+    {
+      "path": "assets/motion/icons/dark/action.svg",
+      "bytes": 1587,
+      "sha256": "bafc18d8192f369d12a93f9b7953add07d0a1514e936ce017246f840d604c75c"
+    },
+    {
+      "path": "assets/motion/icons/dark/capabilities.svg",
+      "bytes": 2375,
+      "sha256": "4825bc69d03478c5ed61dc2af57f500ba210904bc0400807ddbae6535f52fa12"
+    },
+    {
+      "path": "assets/motion/icons/dark/copy.svg",
+      "bytes": 1011,
+      "sha256": "b23aba0475a61a7d9b6919cfb97924599099fafcf97861d7a6d56ec901582e54"
+    },
+    {
+      "path": "assets/motion/icons/dark/download.svg",
+      "bytes": 892,
+      "sha256": "f756cace6e155f32f4655619a99e882f468912b8f396b199be7013a47b1036bd"
+    },
+    {
+      "path": "assets/motion/icons/dark/help.svg",
+      "bytes": 1027,
+      "sha256": "4699e40872101564cc158c50baa6d8aa4120db30bf74ba5b819540eb73668c2e"
+    },
+    {
+      "path": "assets/motion/icons/dark/history.svg",
+      "bytes": 941,
+      "sha256": "a6e2192ace4c38a18016a6005f4a7ba94211b22289b2d4f2dd31af4c4182d98b"
+    },
+    {
+      "path": "assets/motion/icons/dark/integration.svg",
+      "bytes": 1004,
+      "sha256": "e282b17bef655bde4fb50eb88c19e0cc8e261f8fde73f1d384f0da05c55514b7"
+    },
+    {
+      "path": "assets/motion/icons/dark/key.svg",
+      "bytes": 1330,
+      "sha256": "b3ed32a25126176dc0cc10354eabc124c3a6a536391a7cb1842ff12e516b333c"
+    },
+    {
+      "path": "assets/motion/icons/dark/run-circle.svg",
+      "bytes": 940,
+      "sha256": "a3ba82b4bbc13233b41aec8c826c5d405f21158de4eb6f2318fb49ad033baeb2"
+    },
+    {
+      "path": "assets/motion/icons/dark/skill.svg",
+      "bytes": 1969,
+      "sha256": "4247f1a62729f5c87c2988b8ff694a68804864562588434d2687b00e15a14450"
     },
     {
       "path": "assets/motion/icons/download.svg",
@@ -366,8 +431,8 @@
     },
     {
       "path": "assets/motion/icons/manifest.json",
-      "bytes": 3376,
-      "sha256": "c5550f791a7267797b4514759fd09e98b3006d08c27ce98d4d5e8d376a167038"
+      "bytes": 7706,
+      "sha256": "a8766ee14c65b6815717b82b5a346b2a1eff7bd87e74ba6bbda25acdd3d9379b"
     },
     {
       "path": "assets/motion/icons/run-circle.svg",
@@ -435,6 +500,16 @@
       "sha256": "00e68e57bb58cf2386a43263fbad357893a767e3c75686b4cf5a914f70d7010e"
     },
     {
+      "path": "assets/previews/motion-themes.en.webp",
+      "bytes": 440784,
+      "sha256": "2e1acf4a6ae0fc2a7097e5c42516f972b7e3621f1d104c837855c265c3b8451e"
+    },
+    {
+      "path": "assets/previews/motion-themes.zh.webp",
+      "bytes": 432018,
+      "sha256": "8c695cb1e06510d9ddd2878a5ad1ec5fab23be8911b70a78cc6d7bdad01fcad8"
+    },
+    {
       "path": "assets/runtime/deck.css",
       "bytes": 24408,
       "sha256": "16edb8c386937f9cedb18aaa5b11fd1a7d5a02b53b7cb7e795617f0a86c4d5e6"
@@ -446,13 +521,13 @@
     },
     {
       "path": "assets/runtime/motion.css",
-      "bytes": 13132,
-      "sha256": "f45c8728c36a2d49c45ba3bc27b9c36811f832a0a60fd3b9b89db152388dc28f"
+      "bytes": 16810,
+      "sha256": "8af98036556acd17bc61b36a6a454a907ec374fc12ea743167e7d5b56f76f0c9"
     },
     {
       "path": "assets/runtime/motion.js",
-      "bytes": 10668,
-      "sha256": "275617add989874e102b89262fb34d4e533c49962acb50accd365b4a98368e4e"
+      "bytes": 11344,
+      "sha256": "9821e474d5ed118e974d63f6ff9af72524f73798aee66b816c6bf971e6ad2a5a"
     },
     {
       "path": "assets/templates/deck-shell.html",
@@ -486,8 +561,8 @@
     },
     {
       "path": "assets/tokens/motion.json",
-      "bytes": 6338,
-      "sha256": "fc7788646e4c79d1d9cc31278f43c212bc6215201e358f1185fa49e3e5e89968"
+      "bytes": 13295,
+      "sha256": "19b7e27fc8916cfb1ef980a8e9502dafeb9a1279fb30d15c44d92a75460100d0"
     },
     {
       "path": "assets/tokens/tokens.json",

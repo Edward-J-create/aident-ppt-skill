@@ -1,5 +1,7 @@
 # Semantic shot planning / 按语义选择镜头
 
+Theme is an explicit editorial option, not a template weight: use Light/Dark to clarify contrast or mark a meaningful beat, never alternate mechanically. Consider a compact brand-title opening rather than separate redundant Logo/title shots; combine parallel workflows in aligned rows when they share columns; show an actual result table/list within synthesis instead of repeating the same outcome on another slide. See [themes-and-combinations.md](themes-and-combinations.md). No combination is compulsory.
+
 Read before drafting a Motion deck. The generator renders explicit `slide.type`; it does not select layouts, assign hidden weights, or infer a storyboard. The authoring Agent must do that work. Start a new explainer/demo from [starter.en.json](../../examples/motion/starter.en.json) or [starter.zh.json](../../examples/motion/starter.zh.json), which includes actual Logo, Input, Joint, synthesis and list scenes. The 20-page examples are a component catalog, not a recommended video sequence. Remove or adapt starter shots that do not match the user's story; do not return to a generic title-and-card minimal deck by habit.
 
 ## Intake

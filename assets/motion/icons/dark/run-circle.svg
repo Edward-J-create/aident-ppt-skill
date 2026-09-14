@@ -1,0 +1,17 @@
+<svg width="46" height="46" viewBox="15.0000 15.0000 30.0000 30.0000" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Name=Run circle, Theme=Dark">
+
+<g id="Aident DS / Run circle">
+<g id="Run circle">
+<path id="Vector" d="M29.9992 17.2C37.0684 17.2 42.7992 22.9308 42.7992 30C42.7992 37.0692 37.0684 42.8 29.9992 42.8C22.93 42.8 17.1992 37.0692 17.1992 30C17.1992 22.9308 22.93 17.2 29.9992 17.2ZM27.3471 24.5688C26.6365 24.1432 25.733 24.6549 25.7326 25.4833V34.5167C25.733 35.3451 26.6365 35.8569 27.3471 35.4313L34.8743 30.9146C35.5647 30.5003 35.5647 29.4997 34.8743 29.0854L27.3471 24.5688Z" stroke="url(#paint1_linear_0_1)" stroke-width="2"/>
+</g>
+</g>
+</g>
+<defs>
+<linearGradient id="paint1_linear_0_1" x1="42.7992" y1="30" x2="17.1992" y2="30" gradientUnits="userSpaceOnUse">
+<stop stop-color="#F3B6FF"/>
+<stop offset="0.509615" stop-color="#6DE4F9"/>
+<stop offset="1" stop-color="#77FAB4"/>
+</linearGradient>
+</defs>
+</svg>
