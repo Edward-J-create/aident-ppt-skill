@@ -9,6 +9,10 @@ import {preflightMotion} from './preflight-motion.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=rel=>fs.readFile(path.join(root,rel),'utf8').then(JSON.parse);
 const decks=await Promise.all(['en','zh'].map(l=>read(`examples/motion/themes.${l}.json`)));
+for(const [palette,variants] of Object.entries(tokens.palettes))for(const [theme,paints] of Object.entries(variants)){
+ if(palette==='cobalt'&&theme==='dark')assert.match(paints.gradient,/linear-gradient/);
+ else assert.equal(paints.gradient,paints.canvas,'Only dark cobalt retains an optional brand gradient');
+}
 assert.deepEqual(decks[0].slides.map(s=>[s.id,s.type]),decks[1].slides.map(s=>[s.id,s.type]));
 const bad=fn=>{const d=structuredClone(decks[0]);fn(d);assert.ok(validateMotion(d).length);};
 bad(d=>d.meta.theme='blue');
@@ -61,6 +65,23 @@ if(browserMode){
  const browser=await chromium.launch({headless:true,executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH||'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome'});
  try{for(const lang of ['en','zh']){
   const page=await browser.newPage({viewport:{width:1920,height:1080}});
+  await page.goto(pathToFileURL(path.join(root,`output/playwright/motion-themes-${lang}/index.html`)).href+'?capture=1');await page.evaluate(()=>AIDENT_MOTION.ready);
+  const paintIssues=await page.evaluate(()=>{
+   const errors=[],alpha=v=>{const n=v.match(/[\d.]+/g).map(Number);return n[3]??1};
+   for(const slide of document.querySelectorAll('.motion-slide')){
+    const dark=slide.dataset.theme==='dark',lime=!dark&&slide.dataset.palette==='lime';
+    for(const el of slide.querySelectorAll('.m-card,.m-list-row,.m-input,.m-tag-panel,.m-node-visual,.m-result,.m-result-list-row')){
+     const cs=getComputedStyle(el),comparison=slide.classList.contains('motion-comparison')&&el.matches('.m-card');
+     let expected;
+     if(dark)expected=comparison?(el.matches('.tone-accent')?.20:.04):el.matches('.tone-muted,.m-result-list-row')?.04:.06;
+     else if(lime)expected=.65;
+     else if(slide.dataset.palette==='neutral'&&comparison&&el.matches('.tone-muted'))expected=.04;
+     if(expected!==undefined&&(Math.abs(alpha(cs.backgroundColor)-expected)>.001||cs.backgroundImage!=='none'))errors.push(slide.dataset.id+': wrong surface '+el.className);
+     if((dark||lime)&&cs.opacity!=='1')errors.push(slide.dataset.id+': faded whole panel');
+    }
+   }
+   return errors;
+  });assert.deepEqual(paintIssues,[]);
   await page.goto(pathToFileURL(path.join(root,`output/motion-themes-${lang}/index.html`)).href+'?capture=1');await page.evaluate(()=>AIDENT_MOTION.ready);
   const issues=await page.evaluate(()=>{
    const errors=[],api=AIDENT_MOTION;

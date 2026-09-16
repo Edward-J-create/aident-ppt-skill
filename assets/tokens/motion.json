@@ -492,7 +492,7 @@
         "secondary": "#28554E",
         "accent": "#075C54",
         "kicker": "linear-gradient(90deg,#102C29,#075C54)",
-        "gradient": "radial-gradient(ellipse at 85% 15%,#A7EEE4 0%,transparent 55%),linear-gradient(135deg,#DEF8D9,#BCF3E9 65%,#D8E9FF)"
+        "gradient": "#BCF3E9"
       }
     },
     "cobalt": {
@@ -509,7 +509,7 @@
         "secondary": "#37466D",
         "accent": "#2536A0",
         "kicker": "linear-gradient(90deg,#192343,#2536A0)",
-        "gradient": "radial-gradient(ellipse at 85% 15%,#C7C0FF 0%,transparent 55%),linear-gradient(135deg,#E1E9FF,#CDD5FF 65%,#C6F0F6)"
+        "gradient": "#CDD5FF"
       }
     },
     "lime": {
@@ -522,7 +522,9 @@
         "canvas": "#B9F64F",
         "primary": "#102019",
         "secondary": "#233D2E",
-        "accent": "#175D42",
+        "accent": "#102019",
+        "badgeFill": "rgba(16,32,25,0.08)",
+        "accentCard": "rgba(255,255,255,0.65)",
         "surface": "rgba(255,255,255,0.65)",
         "cardFill": "rgba(255,255,255,0.65)",
         "cardStroke": "rgba(16,32,25,0.22)",

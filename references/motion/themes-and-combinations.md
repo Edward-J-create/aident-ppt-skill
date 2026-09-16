@@ -35,6 +35,8 @@ Theme changes should signal a narrative beat, contrast or focus. They are not co
 
 Dark component surfaces use white paint at 6% fill and 20% stroke; muted fill is 4%. Accent rows/cards keep the same 6% fill and raise the stroke to 40%. Text and the component itself remain opacity1. Comparison is intentionally separate: baseline 4% fill / 20% stroke and target 20% fill / 60% stroke. Do not use opaque white cards on dark backgrounds and do not lower the whole component opacity.
 
+The stronger dark comparison target uses primary white for its body text as well as its heading, retaining readable contrast on the20% white fill over brand teal. Contrast checks composite actual ancestor paints rather than assuming every panel uses the ordinary6% surface. Image/gradient backgrounds still require visual review.
+
 Dark List status badges and checks use the packaged brand cyan `#1EEAEA` with a 12% same-color fill. The dark check SVG is a mechanical recolor of the existing path; its geometry is unchanged. Do not substitute a film-specific green. Bright-lime Light scenes use white at 65% for panels, dark ink at 22% for strokes (40% emphasis), and dark text so cards and rows stay distinct from the field.
 
 ### Brand-color backgrounds / 品牌色背景

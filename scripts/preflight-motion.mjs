@@ -29,9 +29,12 @@ export async function preflightMotion(htmlPath,screenshotDir){
     const composite=(front,back)=>{const f=rgba(front),b=rgba(back),a=f[3];return `rgb(${f.slice(0,3).map((v,i)=>Math.round(v*a+b[i]*(1-a))).join(',')})`};
     const lum=s=>{const rgb=rgba(s).slice(0,3);return rgb.map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);};
     const contrast=(a,b)=>(Math.max(lum(a),lum(b))+.05)/(Math.min(lum(a),lum(b))+.05);
-    const sc=getComputedStyle(slide),canvas=sc.getPropertyValue('--m-canvas'),surface=composite(sc.getPropertyValue('--m-surface'),canvas);
-    for(const tag of slide.querySelectorAll('.m-tag')){const cs=getComputedStyle(tag);if(cs.backgroundImage==='none'&&contrast(cs.color,composite(cs.backgroundColor,canvas))<4.5)errors.push('Dark tag contrast below 4.5: '+tag.textContent);}
-    for(const el of slide.querySelectorAll('.m-body,.m-result-value,.m-flow-title,.m-input-text'))if(contrast(getComputedStyle(el).color,surface)<4.5)errors.push('Dark text contrast below 4.5 on its panel: '+el.textContent);
+    const canvas=getComputedStyle(slide).getPropertyValue('--m-canvas');
+    // Composite the actual ancestor fills, including comparison targets and nested rows.
+    // Image/gradient backdrops still require the documented screenshot review.
+    const backgroundAt=el=>{const chain=[];for(let n=el;n&&n!==slide;n=n.parentElement)chain.unshift(n);return chain.reduce((bg,n)=>composite(getComputedStyle(n).backgroundColor,bg),canvas)};
+    for(const tag of slide.querySelectorAll('.m-tag')){const cs=getComputedStyle(tag);if(cs.backgroundImage==='none'&&contrast(cs.color,backgroundAt(tag))<4.5)errors.push('Dark tag contrast below 4.5: '+tag.textContent);}
+    for(const el of slide.querySelectorAll('.m-body,.m-result-value,.m-flow-title,.m-input-text'))if(contrast(getComputedStyle(el).color,backgroundAt(el))<4.5)errors.push('Dark text contrast below 4.5 on its panel: '+el.textContent);
    }
    for(const group of slide.querySelectorAll('[data-workflow-rows]')){
     if(group.offsetHeight>610)errors.push('Workflow rows exceed 610px content zone');
