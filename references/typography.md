@@ -142,6 +142,7 @@ These page-title budgets preserve the fixed media/component height and structura
 
 - Gradient text: width hugs content; never use a full-width fixed box unless the intended gradient is defined for that width.
 - Inner H1/subtitle: fixed safe width, auto height within the heading zone.
+- Gradient H1/cover titles retain their specified line height, but add `padding-bottom:.12em; margin-bottom:-.12em` as paint-only descent bleed. Outfit's `g/j/p/q/y` can extend below a 110% line box; `background-clip:text` otherwise cuts off the bottom even with `overflow:visible`. The cancelling margin preserves baseline positions and subtitle spacing. Do not replace this with a fixed height, hidden overflow, or changed line-height token. Run `scripts/validate-title-paint.mjs --html <generated-presentation/index.html>` after title/font/CSS changes.
 - Small titles: fixed column width, one line, no manual line break.
 - Description: fixed column width, auto/hug height within its component budget.
 - Callout: fixed 1700px outer width and hug/auto height; default body-only uses a 70px minimum, while labeled or Accent variants use an 88px minimum.

@@ -139,6 +139,8 @@ Review montage for:
 
 Also resize the browser through the registered landscape and 4:3 QA viewports. Grid/overview mode is not a substitute for a correctly fitted single-slide view: every normal slide must remain fully visible without switching modes.
 
+DOM bounds alone do not detect glyph paint clipping. After changes to Presentation title CSS/fonts, run `npm run title:qa:en` and `npm run title:qa:zh` against newly generated examples. The pixel test compares gradient-painted glyph coverage to ordinary text across Light/Dark, cover/inner and single/multiline titles; its English negative fixture must reject missing descent bleed. Inspect `g/j/p/q/y` at full size. Keep the established line-height tokens; extend the paint area rather than changing typography or cropping overflow.
+
 Inspect at full size:
 
 - cover;
@@ -279,7 +281,7 @@ Verify:
 
 - 8 registered Lossless WebP background variants and no committed compiled PPTX duplicates;
 - 3 Lossless WebP texture/source images;
-- 4 Lossless WebP Presentation README/Hero/Showcase previews plus 2 bilingual Motion montages;
+- 4 Lossless WebP Presentation README/Hero/Showcase previews plus 3 bilingual Motion montage sets (catalog, themes, metrics/CTA); preview manifest lists every file with current dimensions and source;
 - 2 additional Motion atmospheric backgrounds, original Joint/control vectors, and 10 normalized Motion glyphs;
 - Foundation preview keeps every base-color and gradient swatch plus its label inside the white Color tokens panel; the preview renderer's overlap/overflow guard passes;
 - 4 logos;

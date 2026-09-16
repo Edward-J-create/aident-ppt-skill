@@ -35,6 +35,9 @@ npm run motion:starter:en
 npm run motion:starter:zh
 npm run motion:synthesis:qa
 npm run motion:controls:qa
+npm run motion:promotional:qa
+npm run title:qa:en
+npm run title:qa:zh
 ```
 
 Use each mode's quality document and visually inspect every changed page, not only aggregate counts. Motion QA must retain intentional list overflow while blocking actual slide overflow. After changing shared generation or font/asset logic, test both modes and an optional single-file HTML export. Run presenter checks when its runtime changes. Run PDF/PPTX checks only when those adapters change or exports are requested.
@@ -44,6 +47,8 @@ Synthesis QA exercises eight compositions in both languages, live short/long tex
 When changing multi-agent integration, initialize a fresh run and test pending-handoff rejection, planning, assembly and release validation. QA pass reports must describe real generated artifacts; example pass reports are protocol fixtures, never evidence for a new release.
 
 ## Preview and asset updates
+
+Run `npm run size` before publication to report the uncompressed source-package size, excluding local output/dependencies/Git history. Optional `node scripts/package-size.mjs --max-mb N` enforces a release-specific budget. Reuse bundled fonts/backgrounds instead of copying them for a new variant; keep bilingual montages Lossless WebP. Do not include generated QA decks or trim required font glyphs to reduce size.
 
 - Preserve original vector paths and logos. Joint connectors never stretch; cards dock to fixed endpoints.
 - Keep backgrounds, textures and README previews Lossless WebP. Re-export before/after at the same resolution and compare decoded pixels when changing encoding.

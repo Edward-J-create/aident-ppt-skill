@@ -23,12 +23,12 @@ bad(d=>d.slides[8].callout={body:'Wrong mode'});
 bad(d=>d.slides[1].logos[0].src='https://example.com/logo.svg');
 bad(d=>d.slides[1].title='Ignored text must fail');
 bad(d=>d.slides[12].variant='four');
-const mode=await read('references/motion/deck.schema.json');assert.ok(mode.$defs.slide.allOf.length===Object.keys(registry.layouts).length);
+const mode=await read('references/motion/deck.schema.json');for(const [type,rule] of Object.entries(registry.layouts))assert.deepEqual(mode.$defs.slide.allOf.find(v=>v.if?.properties?.type?.const===type).then.properties.variant.enum,rule.variants);
 assert.equal(registry.components.theme.scope,'all-motion-layouts-and-variants');
 assert.equal(registry.styleRouting.contract,'recommendation-not-validation');
 assert.ok(registry.styleRouting.rules.some(r=>r.purpose==='large-number-or-keyword'&&r.preferred[0]==='light/lime'));
 assert.ok(registry.styleRouting.rules.some(r=>r.purpose==='ordered-list'&&r.preferred[0]==='dark/teal'));
-assert.ok(registry.styleRouting.rules.some(r=>r.purpose==='opening-or-closing'&&r.preferred[0]==='light/neutral'));
+assert.ok(registry.styleRouting.rules.some(r=>r.purpose==='closing'&&JSON.stringify(r.preferred)===JSON.stringify(['light/neutral'])));
 assert.deepEqual(registry.themes,Object.keys(tokens.themes));
 assert.deepEqual(registry.palettes,Object.keys(tokens.palettes));
 for(const field of ['theme','palette']){
@@ -47,7 +47,8 @@ for(const language of [en,zh])for(const theme of registry.themes)for(const palet
 for(const lang of ['en','zh']){const starter=await read(`examples/motion/starter.${lang}.json`);assert.deepEqual(validateMotion(starter),[]);for(const type of ['motion-brand','motion-input','motion-hub','motion-synthesis','motion-list'])assert.ok(starter.slides.some(s=>s.type===type),`Starter missing ${type}`);const list=starter.slides.find(s=>s.type==='motion-list');assert.deepEqual([list.theme,list.palette,list.background],['dark','teal','brand']);}
 for(const lang of ['en','zh'])assert.deepEqual(validateMotion(await read(`examples/motion/controls.${lang}.json`)),[]);
 for(const lang of ['en','zh'])assert.deepEqual(validateMotion(await read(`examples/motion/themes.${lang}.json`)),[]);
-const routes=['references/motion/README.md','references/motion/scene-planning.md','references/motion/synthesis-composition.md','references/motion/editable-components.md','references/motion/themes-and-combinations.md','references/motion/layouts.md','references/motion/content.md','references/motion/animation-handoff.md','references/motion/quality.md'];
+for(const lang of ['en','zh'])assert.deepEqual(validateMotion(await read(`examples/motion/promotional.${lang}.json`)),[]);
+const routes=['references/motion/README.md','references/motion/scene-planning.md','references/motion/synthesis-composition.md','references/motion/editable-components.md','references/motion/themes-and-combinations.md','references/motion/layouts.md','references/motion/content.md','references/motion/animation-handoff.md','references/motion/quality.md','references/motion/metrics-and-cta.md'];
 for(const file of routes){const content=await fs.readFile(path.join(root,file),'utf8');for(const match of content.matchAll(/\]\(([^)#]+)(?:#[^)]*)?\)/g)){const target=match[1];if(/^(?:https?:|#)/.test(target))continue;await fs.access(path.resolve(root,path.dirname(file),target));}}
 const temp=await fs.mkdtemp(path.join(os.tmpdir(),'aident-motion-contract-'));
 const base={meta:{mode:'motion',language:'en',title:'List regression'},slides:[{id:'list',type:'motion-list',items:[{title:'First result'},{title:'Second result'}]}]};

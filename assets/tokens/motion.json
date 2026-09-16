@@ -91,6 +91,55 @@
         "weight": 400,
         "lineHeight": 1.5,
         "tracking": -0.02
+      },
+      "metricValue": {
+        "family": "Outfit",
+        "size": 200,
+        "weight": 400,
+        "lineHeight": 1.1,
+        "tracking": -0.02
+      },
+      "metricCard": {
+        "family": "Outfit",
+        "size": 132,
+        "weight": 400,
+        "lineHeight": 1,
+        "tracking": -0.045
+      },
+      "metricBody": {
+        "family": "Noto Sans",
+        "size": 26,
+        "weight": 400,
+        "lineHeight": 1.4,
+        "tracking": -0.01
+      },
+      "heroNumber": {
+        "family": "Outfit",
+        "size": 360,
+        "weight": 500,
+        "lineHeight": 1,
+        "tracking": -0.06
+      },
+      "heroWord": {
+        "family": "Outfit",
+        "size": 200,
+        "weight": 400,
+        "lineHeight": 1.1,
+        "tracking": -0.02
+      },
+      "cta": {
+        "family": "Outfit",
+        "size": 30,
+        "weight": 400,
+        "lineHeight": 1.4,
+        "tracking": 0
+      },
+      "ctaLabel": {
+        "family": "Noto Sans",
+        "size": 20,
+        "weight": 400,
+        "lineHeight": 1.4,
+        "tracking": 0.08
       }
     },
     "zh": {
@@ -156,6 +205,55 @@
         "weight": 400,
         "lineHeight": 1.5,
         "tracking": 0
+      },
+      "metricValue": {
+        "family": "Outfit",
+        "size": 200,
+        "weight": 400,
+        "lineHeight": 1.1,
+        "tracking": -0.02
+      },
+      "metricCard": {
+        "family": "Outfit",
+        "size": 132,
+        "weight": 400,
+        "lineHeight": 1,
+        "tracking": -0.045
+      },
+      "metricBody": {
+        "family": "Noto Sans SC",
+        "size": 26,
+        "weight": 400,
+        "lineHeight": 1.4,
+        "tracking": 0
+      },
+      "heroNumber": {
+        "family": "Outfit",
+        "size": 360,
+        "weight": 500,
+        "lineHeight": 1,
+        "tracking": -0.06
+      },
+      "heroWord": {
+        "family": "Smiley Sans",
+        "size": 200,
+        "weight": 400,
+        "lineHeight": 1.2,
+        "tracking": 0
+      },
+      "cta": {
+        "family": "Noto Sans SC",
+        "size": 30,
+        "weight": 400,
+        "lineHeight": 1.4,
+        "tracking": 0
+      },
+      "ctaLabel": {
+        "family": "Noto Sans SC",
+        "size": 20,
+        "weight": 400,
+        "lineHeight": 1.4,
+        "tracking": 0
       }
     }
   },
@@ -178,7 +276,11 @@
     "tableHeader": "#EFF5F1",
     "tableRule": "#D8E3DD",
     "onEmphasis": "#111114",
-    "inputLabel": "#0863C9"
+    "inputLabel": "#0863C9",
+    "ctaFill": "#007E86",
+    "ctaText": "#FFFFFF",
+    "ctaStroke": "rgba(0,90,100,0.2)",
+    "ctaShadow": "0 10px 28px rgba(0,91,104,0.14)"
   },
   "tags": {
     "neutral": {
@@ -410,7 +512,11 @@
         "tableRule": "rgba(255,255,255,0.20)",
         "emphasis": "rgba(30,234,234,0.04)",
         "onEmphasis": "#1EEAEA",
-        "inputLabel": "#1EEAEA"
+        "inputLabel": "#1EEAEA",
+        "ctaFill": "#1EEAEA",
+        "ctaText": "#101B27",
+        "ctaStroke": "transparent",
+        "ctaShadow": "none"
       },
       "backgrounds": {
         "content": "assets/backgrounds/dark-ink.webp",
@@ -539,5 +645,24 @@
         "gradient": "#B9F64F"
       }
     }
+  },
+  "metric": {
+    "cardMinHeight": 330,
+    "cardPaddingY": 44,
+    "cardPaddingX": 48,
+    "gap": 16,
+    "heroTop": 365
+  },
+  "cta": {
+    "minWidth": 400,
+    "minHeight": 82,
+    "paddingX": 34,
+    "paddingY": 18,
+    "radius": 16,
+    "gap": 24,
+    "labelGap": 16,
+    "brandGap": 110,
+    "arrowSize": 30,
+    "arrowRotation": "45deg"
   }
 }

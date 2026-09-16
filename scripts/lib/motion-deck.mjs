@@ -12,13 +12,13 @@ const pick=(v,a,d)=>a.includes(v)?v:d;
 const keys={
  root:['meta','slides'],meta:['mode','title','language','brandName','logo','showLogo','fps','theme','palette'],
  slide:['id','type','variant','title','kicker','highlight','body','value','label','prompt','items','groups','outputs','composition','hub','connections','send','logos','separator','image','background','duration','motion','scroll','showLogo','showCursor','showSend','result','notes'],
- send:['state','ariaLabel'],connection:['id','from','to','slot'],
+ send:['state','ariaLabel'],cta:['text','href','showArrow'],connection:['id','from','to','slot'],
  composition:['arrangement','size','outputSize','tagWidth','align','groupAlign','density'],
  item:['id','title','body','label','badge','tone','image','checked','size','tools'],
  motion:['enter','stagger','hold','exit','travel','preset'],scroll:['enabled','start','end','reveal','direction','itemDirection','itemOrder'],
  image:['src','alt','fit','position','variants'],notes:['title','purpose','talk','transition']
 };
-keys.slide.push('theme','rows','showCaret','palette');
+keys.slide.push('theme','rows','showCaret','palette','cta');
 const themeFor=(s,meta)=>s.theme||meta.theme||'light';
 const paletteFor=(s,meta)=>s.palette||meta.palette||'neutral';
 const backgroundFor=(s,meta)=>s.background||(paletteFor(s,meta)!=='neutral'?'brand':themeFor(s,meta)==='dark'?'solid':['motion-title','motion-brand'].includes(s.type)?'title':s.type==='motion-synthesis'?'elements':'content');
@@ -147,11 +147,32 @@ export function validateMotion(deck){
   }
   if(s.type==='motion-list'&&(!n||n>24))add(`${p}: list requires 1–24 items`);
   if(s.type==='motion-input'&&(!txt(s.prompt)||len(s.prompt)>(s.variant==='compact'?(zh?30:66):(zh?70:150))))add(`${p}.prompt is empty or exceeds its layout budget`);
-  if(s.type==='motion-metric'&&(!txt(s.value)||len(s.value)>12))add(`${p}.value requires 1–12 characters`);
+  if(s.type==='motion-metric'){
+   if(s.variant==='cards'){
+    if(!Array.isArray(s.items)||s.items.length!==2)add(`${p}: metric cards requires exactly two independent items`);
+    for(const key of ['value','label','body'])if(s[key]!==undefined)add(`${p}.${key}: metric cards uses items[].value/label/body, not a combined metric`);
+   }else {
+    if(s.items!==undefined)add(`${p}: metric items belongs to cards variant`);
+    const max=s.variant==='hero-number'?6:s.variant==='hero-word'?(zh?6:12):12;
+    if(!txt(s.value)||len(s.value)>max)add(`${p}.value requires 1–${max} characters`);
+   }
+  }
   if(s.type==='motion-image'&&!s.image)add(`${p}.image is required`);
   if(len(s.body)>(zh?65:160))add(`${p}.body too long`);
   if(s.type==='motion-brand'&&(!Array.isArray(s.logos)||![1,2].includes(s.logos.length)))add(`${p}.logos requires 1 or 2 local logo images`);
-  if(s.type==='motion-brand'&&s.variant&&s.logos?.length!==(s.variant==='pair'?2:1))add(`${p}: brand variant and logo count disagree`);
+  if(s.type==='motion-brand'&&['single','pair'].includes(s.variant)&&s.logos?.length!==(s.variant==='pair'?2:1))add(`${p}: brand variant and logo count disagree`);
+  if(s.type==='motion-brand'){
+   if(s.variant==='cta'){
+    if(!s.cta||typeof s.cta!=='object'||Array.isArray(s.cta))add(`${p}.cta is required for the CTA variant`);
+    else {
+     unknown(s.cta,'cta',`${p}.cta`);
+     if(typeof s.cta.text!=='string'||!txt(s.cta.text)||len(s.cta.text)>(zh?32:64))add(`${p}.cta.text exceeds its nonempty one-line budget`);
+     if(s.cta.href!==undefined&&(typeof s.cta.href!=='string'||!/^(?:https?:\/\/[^\s]+|mailto:[^\s]+|#[a-z0-9-]+)$/i.test(s.cta.href)))add(`${p}.cta.href must be an http(s), mailto or fragment link`);
+     if(s.cta.showArrow!==undefined&&typeof s.cta.showArrow!=='boolean')add(`${p}.cta.showArrow must be boolean`);
+    }
+    if(len(s.label)>(zh?24:48))add(`${p}.label too long for CTA eyebrow`);
+   }else if(s.cta!==undefined||s.label!==undefined)add(`${p}: cta/label belongs to the brand cta variant; no implicit closing-page substitution`);
+  }
   if(s.type==='motion-title'){
    if(s.variant==='brand-title'&&(!Array.isArray(s.logos)||![1,2].includes(s.logos.length)))add(`${p}: brand-title requires 1–2 logo slots`);
    if(s.variant!=='brand-title'&&(s.logos||s.separator||s.body))add(`${p}: logos/body belong to brand-title`);
@@ -187,6 +208,13 @@ export function validateMotion(deck){
   }
   if(s.type==='motion-hub'&&!s.hub)add(`${p}.hub is required`);
   function item(v,ref){
+   if(s.type==='motion-metric'&&s.variant==='cards'){
+    if(!v||typeof v!=='object'||Array.isArray(v)){add(`${ref} must be a metric object`);return;}
+    for(const key of Object.keys(v))if(!['value','label','body'].includes(key))add(`${ref}.${key} has no metric-card slot`);
+    for(const [key,max] of Object.entries({value:8,label:zh?14:28,body:zh?36:80}))if(v[key]!==undefined&&(typeof v[key]!=='string'||len(v[key])>max))add(`${ref}.${key} exceeds its text budget`);
+    if(!txt(v.value))add(`${ref}.value is required`);
+    return;
+   }
    if(!v||typeof v!=='object'||Array.isArray(v)){add(`${ref} must be an object`);return;}unknown(v,'item',ref);
    if(!txt(v.title)&&!v.image)add(`${ref} needs title or image`);
    for(const field of ['id','title','body','label','badge','tone','size'])if(v[field]!==undefined&&typeof v[field]!=='string')add(`${ref}.${field} must be text`);
@@ -261,6 +289,19 @@ function brands(s,compact=false){return `<div class="m-brands${compact?' m-title
 function title(s){let t=esc(s.title);if(s.highlight)t=t.replace(esc(s.highlight),`<span class="m-highlight">${esc(s.highlight)}</span>`);return `<header class="m-heading${s.variant==='brand-title'?' m-brand-heading':''}" data-motion="heading">${s.variant==='brand-title'?brands(s,true):''}${p(s.kicker,'m-kicker',true)}<h1 class="${s.type==='motion-title'?'m-statement':'m-title'}"${s.type!=='motion-title'?' data-one-line':''}>${t}</h1>${s.variant==='brand-title'?p(s.body,'m-lead'):''}</header>`;}
 function tag(t,size='medium',i=0){return node(`tag-${i}`,`m-tag tone-${t.tone||'neutral'} size-${t.size||size}`,p(t.title,'m-tag-text',true));}
 function card(t,i){return node(`card-${i}`,`m-card tone-${t.tone||'standard'}`,label(t.label)+img(t.image,'m-card-icon',true)+p(t.title,'m-item-title',true)+p(t.body,'m-body'));}
+function metric(s){
+ const text=(v,cls,id,one=false)=>p(v,cls,one).replace('<p ',`<p data-motion="${id}" `);
+ if(s.variant==='cards'){
+  const valueRow=s.items.some(v=>txt(v.label))?2:1,rows=valueRow+(s.items.some(v=>txt(v.body))?1:0);
+  return `<div class="m-cards m-metric-cards" data-motion="metrics" style="--columns:2;--metric-rows:${rows};--metric-value-row:${valueRow};--metric-body-row:${valueRow+1}">${s.items.map((v,i)=>node(`metric-card-${i}`,'m-card m-metric-card',text(v.label,'m-label',`metric-label-${i}`,true)+text(v.value,'m-card-value',`metric-value-${i}`,true)+text(v.body,'m-metric-body',`metric-body-${i}`))).join('')}</div>`;
+ }
+ return node('metric',`m-metric ${s.variant==='hero-number'?'m-hero-number':s.variant==='hero-word'?'m-hero-word':''}`,text(s.label,'m-label','metric-label',true)+text(s.value,'m-metric-value','metric-value',true)+text(s.body,'m-lead','metric-body'));
+}
+function brandCta(s){
+ const c=s.cta,tag=c.href?'a':'button';
+ const arrow=c.showArrow===false?'':`<span class="m-cta-arrow" data-motion="cta-arrow" aria-hidden="true">${sendSvg.replace('class="m-send-icon" data-motion="send-icon"','class="m-cta-icon" data-motion="cta-icon"')}</span>`;
+ return node('brand-cta','m-brand-cta',brands(s)+node('cta-group','m-cta-group',p(s.label,'m-cta-label',true).replace('<p ','<p data-motion="cta-label" ')+`<${tag} class="m-cta" data-motion="cta" ${c.href?`href="${esc(c.href)}"`:'type="button"'}><span class="m-cta-text" data-motion="cta-text" data-text-leaf>${esc(c.text)}</span>${arrow}</${tag}>`));
+}
 function list(s,meta){const showLogo=(s.showLogo??meta.showLogo)!==false,logo=showLogo&&(s.image||meta.logo),check=s.theme==='dark'?tokens.assets.checkDark:tokens.assets.check;return `<div class="m-list-scene" data-list-scene data-logo-visible="${showLogo}" data-motion="list-scene">${logo?node('identity','m-list-identity',img(logo,'m-list-logo',true)):''}<div class="m-list-track" data-scroll-track>${s.items.map((t,i)=>`<article class="m-list-row ${t.tone==='accent'?'is-accent':''}" data-list-item="${i}">${(s.variant==='checked'||t.checked)&&t.checked!==false?`<span class="m-check">${img({src:check})}</span>`:''}${img(t.image,'m-list-item-image',true)}<div class="m-list-copy">${p(t.title,'m-list-title',true)}${p(t.body,'m-body')}</div>${t.tools?node(`tools-${i}`,'m-list-tools',t.tools.map((im,j)=>node(`tool-${i}-${j}`,'m-tool-icon',img(im,'m-tool-logo',true))).join('')):''}${p(t.badge,'m-badge',true)}</article>`).join('')}</div></div>`;}
 function input(s,meta){const compact=s.variant==='compact',state=s.send?.state||'default';return node('input',`m-input-wrap ${compact?'compact':'multiline'}`,`<div class="m-input" data-motion="input-surface">${compact?(s.image?node('input-logo','m-input-logo-slot',img(s.image,'m-input-logo',true)):'')+p(s.label,'m-input-label',true).replace('<p ','<p data-motion="input-label" '):''}<p class="m-input-text" data-motion="prompt"${compact?' data-one-line':''}><span class="m-prompt-copy" data-motion="prompt-text">${esc(s.prompt)}</span>${s.showCaret?'<span class="m-caret" data-motion="caret" aria-hidden="true"></span>':''}</p>${s.showSend===false?'':`<button type="button" class="m-send" data-motion="send" data-state="${state}" aria-label="${esc(s.send?.ariaLabel||(meta.language==='zh'?'发送':'Send'))}"${state==='disabled'?' disabled':''}>${sendSvg}</button>`}</div>`)+(s.showCursor?node('cursor','m-cursor',img({src:tokens.assets.cursor})): '');}
 export function resolveConnections(s){return s.connections||(s.type==='motion-workflow'?s.items.slice(0,-1).map((v,i)=>({id:String(i),from:v.id??String(i),to:s.items[i+1].id??String(i+1)})):s.items.map((v,i)=>({id:String(i),from:'hub',to:v.id??String(i),slot:tokens.hub.defaultSlots[s.items.length][i]})));}
@@ -279,7 +320,7 @@ function render(s,meta,i){
  const layout=registry.layouts[s.type];let body='';
  switch(s.type){
  case 'motion-title':body=title(s);break;
- case 'motion-brand':body=brands(s);break;
+ case 'motion-brand':body=s.variant==='cta'?brandCta(s):brands(s);break;
  case 'motion-cards':case 'motion-comparison':body=title(s)+`<div class="m-cards" style="--columns:${s.items.length}">${s.items.map(card).join('')}</div>`;break;
  case 'motion-input':body=input(s,meta);break;
  case 'motion-list':body=list(s,meta);break;
@@ -287,7 +328,7 @@ function render(s,meta,i){
  case 'motion-hub':body=title(s)+hub(s);break;
  case 'motion-workflow':body=title(s)+workflow(s);break;
  case 'motion-image':body=title(s)+(s.variant==='hero'?node('image','m-hero-image',img(s.image)): `<div class="m-split">${node('copy','m-split-copy',p(s.body,'m-lead'))}${node('image','m-split-image',img(s.image))}</div>`);break;
- case 'motion-metric':body=title(s)+node('metric','m-metric',label(s.label)+p(s.value,'m-metric-value',true)+p(s.body,'m-lead'));break;
+ case 'motion-metric':body=title(s)+metric(s);break;
  }
  const palette=paletteFor(s,meta),bg=backgroundFor(s,meta);
  const theme=themeFor(s,meta);
@@ -298,6 +339,7 @@ function render(s,meta,i){
 
 function cssTokens(lang){const t=tokens;let css=':root{';for(const [k,v] of Object.entries(t.colors))css+=`--m-${k}:${v};`;
  for(const variant of ['single','pair'])css+=`--brand-${variant}-width:${t.brand[variant].maxWidth}px;--brand-${variant}-height:${t.brand[variant].maxHeight}px;`;
+ for(const group of ['metric','cta'])for(const [key,v] of Object.entries(t[group]))css+=`--${group}-${key}:${typeof v==='number'?v+'px':v};`;
  css+=`--brand-gap:${t.brand.gap}px;--hub-bottom-only-center-y:${t.hub.bottomOnlyCenterY}px;`;
  for(const [k,v] of Object.entries(t.type[lang]))css+=`--m-${k}-font:"${v.family}";--m-${k}-size:${v.size}px;--m-${k}-weight:${v.weight};--m-${k}-lh:${v.lineHeight};--m-${k}-tracking:${v.tracking}em;`;
  for(const [k,v] of Object.entries(t.synthesis))if(typeof v==='number')css+=`--synthesis-${k}:${v}px;`;
@@ -319,6 +361,7 @@ export async function generateMotionDeck(args,raw){
  const prepared=structuredClone(raw);
  for(const s of prepared.slides)s.background=backgroundFor(s,prepared.meta);
  for(const s of prepared.slides)if(s.type==='motion-synthesis')s.composition=resolveSynthesis(s);
+ for(const s of prepared.slides)if(s.type==='motion-comparison')s.items=s.items.map((v,i)=>({...v,tone:v.tone|| (i?'accent':'muted')}));
  for(const s of prepared.slides)if(['motion-hub','motion-workflow'].includes(s.type)&&s.variant!=='rows')s.connections=resolveConnections(s);
  if(!prepared.meta.logo&&prepared.slides.some(s=>s.type==='motion-list'&&(s.showLogo??prepared.meta.showLogo)!==false&&!s.image))prepared.meta.logo={src:'assets/motion/mark.svg',alt:'Aident'};
  const deck=await materialize(prepared,inputDir,outDir);deck.meta={...deck.meta,mode:'motion',language:deck.meta.language||'en',fps:deck.meta.fps||tokens.motion.fps};
@@ -332,11 +375,11 @@ export async function generateMotionDeck(args,raw){
  const layers=[];
  const slideHtml=deck.slides.map((s,i)=>{
   let n=0;
-  return render(s,deck.meta,i).replace(/<(div|p|h1|img|article|header|span|button|svg|path|tr)\b([^>]*)>/g,(full,tag,attrs)=>{
+  return render(s,deck.meta,i).replace(/<(div|p|h1|img|article|header|span|button|a|svg|path|tr)\b([^>]*)>/g,(full,tag,attrs)=>{
    const selfClosing=attrs.endsWith('/');if(selfClosing)attrs=attrs.slice(0,-1);
    const component=attrs.match(/data-motion="([^"]+)"/)?.[1];
    const row=attrs.match(/data-list-item="([^"]+)"/)?.[1];
-   const kind=tag==='img'?'image':['p','h1'].includes(tag)?'text':component?'component':row!==undefined?'list-item':'layout';
+   const kind=tag==='img'?'image':['p','h1'].includes(tag)&&component!=='prompt'||attrs.includes('data-text-leaf')||component==='prompt-text'?'text':component?'component':row!==undefined?'list-item':'layout';
    const id=`${s.id}/${component|| (row!==undefined?'row-'+row:kind+'-'+n++)}`;
    layers.push({id,slideId:s.id,kind,selector:`[data-layer="${id}"]`,...(tag==='img'?{src:attrs.match(/src="([^"]+)"/)?.[1]}:{})});
    return `<${tag}${attrs} data-layer="${id}"${kind==='text'?' data-editable="text"':kind==='image'?' data-editable="image"':''}${selfClosing?' /':''}>`;
@@ -353,6 +396,6 @@ export async function generateMotionDeck(args,raw){
  if(args.singleFile)await fs.writeFile(path.join(outDir,'deck.single.html'),await inlineHtml(html,outDir));
  await fs.writeFile(path.join(outDir,'deck.resolved.json'),JSON.stringify(deck,null,2)+'\n');
  await fs.writeFile(path.join(outDir,'timeline.json'),JSON.stringify(data,null,2)+'\n');
- await fs.writeFile(path.join(outDir,'animation-handoff.json'),JSON.stringify({version:3,themeContract:{default:deck.meta.theme||'light',scenes:deck.slides.map(s=>({id:s.id,theme:s.theme,palette:s.palette,background:s.background||(s.palette!=='neutral'?'brand':'layout-default')})),assetPolicy:'select supplied theme variant; no inversion or automatic plaque'},layoutContract:{owner:'[data-layout-owner]',animate:'[data-animation-target]',diagram:'[data-motion=diagram], [data-motion=workflow-group]',rule:'Animate visual inner layers for reveals; move a connected diagram as one group. Call layout only before animation or after content changes, never each frame.'},inputContract:{text:'[data-motion=prompt-text]',caret:'[data-motion=caret]',pointer:'[data-motion=cursor]',send:'[data-motion=send]',typing:'setPromptText(slideId, text); caret is inline and follows live text; no built-in blink'},firstFrame:'All content visible at t=0; downstream animator must author a legible poster/first frame.',mode:'motion',canvas:tokens.canvas,fps:data.fps,duration:data.duration,timingAdvisory:true,animationOwnership:'external',html:'index.html',content:'deck.resolved.json',timeline:'timeline.json',editMode:'?capture=1',runtimeGlobal:'AIDENT_MOTION',layers,assets:[...new Set(layers.filter(l=>l.src).map(l=>l.src))],fontManifest:'assets/fonts/manifest.json',listContract:{suggestedItemOrder:'top-to-bottom',suggestedTrackDirection:'up',cameraSelector:'.motion-slide',sceneSelector:'[data-list-scene]',trackSelector:'[data-scroll-track]',itemSelector:'[data-list-item]',internalClip:false,scrollDistance:null,overflow:'full content retained beyond the camera; external animator chooses travel and framing'}},null,2)+'\n');
+ await fs.writeFile(path.join(outDir,'animation-handoff.json'),JSON.stringify({version:3,metricContract:{cards:'[data-motion^=metric-card-]',values:'[data-motion^=metric-value-]',rule:'Two independent values in equal-weight cards; do not combine into a slash string.'},ctaContract:{group:'[data-motion=brand-cta]',button:'[data-motion=cta]',text:'[data-motion=cta-text]',arrow:'[data-motion=cta-arrow]',label:'[data-motion=cta-label]',rule:'CTA is separate from heading/body. Without href it is an inert button; downstream animation owns interaction states.'},themeContract:{default:deck.meta.theme||'light',scenes:deck.slides.map(s=>({id:s.id,theme:s.theme,palette:s.palette,background:s.background||(s.palette!=='neutral'?'brand':'layout-default')})),assetPolicy:'select supplied theme variant; no inversion or automatic plaque'},layoutContract:{owner:'[data-layout-owner]',animate:'[data-animation-target]',diagram:'[data-motion=diagram], [data-motion=workflow-group]',rule:'Animate visual inner layers for reveals; move a connected diagram as one group. Call layout only before animation or after content changes, never each frame.'},inputContract:{text:'[data-motion=prompt-text]',caret:'[data-motion=caret]',pointer:'[data-motion=cursor]',send:'[data-motion=send]',typing:'setPromptText(slideId, text); caret is inline and follows live text; no built-in blink'},firstFrame:'All content visible at t=0; downstream animator must author a legible poster/first frame.',mode:'motion',canvas:tokens.canvas,fps:data.fps,duration:data.duration,timingAdvisory:true,animationOwnership:'external',html:'index.html',content:'deck.resolved.json',timeline:'timeline.json',editMode:'?capture=1',runtimeGlobal:'AIDENT_MOTION',layers,assets:[...new Set(layers.filter(l=>l.src).map(l=>l.src))],fontManifest:'assets/fonts/manifest.json',listContract:{suggestedItemOrder:'top-to-bottom',suggestedTrackDirection:'up',cameraSelector:'.motion-slide',sceneSelector:'[data-list-scene]',trackSelector:'[data-scroll-track]',itemSelector:'[data-list-item]',internalClip:false,scrollDistance:null,overflow:'full content retained beyond the camera; external animator chooses travel and framing'}},null,2)+'\n');
  console.log(`Generated ${deck.slides.length} Motion Slides (${start.toFixed(2)} seconds, ${data.fps} fps) at ${outDir}`);
 }

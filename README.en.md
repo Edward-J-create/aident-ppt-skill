@@ -12,13 +12,20 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 ## Motion Slides / 视频用 HTML 版式
 
+**Paired large-number Cards and hero numbers/keywords** support Light/Dark themes; **Logo + CTA endings** use Light/neutral only. All are registered bilingual templates with replaceable logos, copy and links. 双 Card 独立大数字、超大数字／关键词支持深浅主题；Logo＋CTA 尾页统一浅色中性底。均为可替换内容的中英文正式模板，无需生成后打补丁。See [specification and examples / 规则与示例](./references/motion/metrics-and-cta.md).
+
+![Metrics and CTA · English / 大数字与行动尾页·英文](./assets/previews/motion-promotional.en.webp)
+![Metrics and CTA · Chinese / 大数字与行动尾页·中文](./assets/previews/motion-promotional.zh.webp)
+
+End cards use Light/neutral only; no Dark or lime endings, whether Logo-only or Logo + CTA. 尾页统一浅色中性底；深色和亮绿色不用于纯 Logo 或 CTA 尾页。
+
 Light/Dark themes and combined shots: brand + title,1–3 parallel workflow rows with2–4 nodes each, tags to editable table/list results, separate input caret and animation layers. Both languages support fully replaceable copy, logos and images. Components are optional, not a checklist. [Specification](./references/motion/themes-and-combinations.md).
 
 Backgrounds offer neutral, teal, deep blue and lime palettes in Light/Dark; brand fills default to solid colors, with an optional deep-blue gradient. 背景提供中性、青绿、深蓝、黄绿四套配色及深浅模式；品牌色优先纯色，深蓝另有可选渐变。
 
 All 11 Motion layout families and their variants support deck-level themes/palettes with per-slide overrides, without changing layout geometry. 所有 11 类 Motion 布局及组合变体均支持；主题与配色可整套设置、逐页覆盖，不改变排版。
 
-Recommended pairings favor lime for large metrics/keywords, solid brand colors for Lists, and Light or solid brand colors for openings/closings. Other combinations remain supported. 默认搭配有明确倾向：亮绿优先大数字／关键词，List 优先品牌纯色，开场与结尾优先浅色或品牌纯色；其他组合仍可显式选用。See [style routing / 配色与版式倾向](./references/motion/scene-planning.md#choose-the-default-style-deliberately).
+Recommended pairings favor lime for large metrics/keywords, solid brand colors for Lists, and Light or solid brand colors for openings, and Light/neutral only for endings. Other combinations remain supported. 默认搭配有明确倾向：亮绿优先大数字／关键词，List 优先品牌纯色，开场优先浅色或品牌纯色，尾页统一浅色中性底；其他组合仍可显式选用。See [style routing / 配色与版式倾向](./references/motion/scene-planning.md#choose-the-default-style-deliberately).
 
 新增深浅主题与组合镜头：Logo＋标题、并行多行流程、标签到表格/清单结果、独立输入光标和动画层。中英文均支持，内容和品牌资源全部可替换；不强制使用所有组件。参阅[完整规则](./references/motion/themes-and-combinations.md)。
 

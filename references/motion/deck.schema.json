@@ -309,7 +309,14 @@
         "items": {
           "type": "array",
           "items": {
-            "$ref": "#/$defs/item"
+            "oneOf": [
+              {
+                "$ref": "#/$defs/item"
+              },
+              {
+                "$ref": "#/$defs/metricItem"
+              }
+            ]
           }
         },
         "groups": {
@@ -748,6 +755,27 @@
             "lime"
           ],
           "default": "neutral"
+        },
+        "cta": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "text"
+          ],
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 64
+            },
+            "href": {
+              "type": "string",
+              "pattern": "^(https?://[^\\s]+|mailto:[^\\s]+|#[a-z0-9-]+)$"
+            },
+            "showArrow": {
+              "type": "boolean"
+            }
+          }
         }
       },
       "required": [
@@ -818,10 +846,77 @@
               "variant": {
                 "enum": [
                   "single",
-                  "pair"
+                  "pair",
+                  "cta"
                 ]
+              },
+              "title": false,
+              "body": false,
+              "kicker": false
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "variant": {
+                      "const": "cta"
+                    }
+                  },
+                  "required": [
+                    "variant"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "cta"
+                  ]
+                },
+                "else": {
+                  "properties": {
+                    "cta": false,
+                    "label": false
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "variant": {
+                      "const": "single"
+                    }
+                  },
+                  "required": [
+                    "variant"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "logos": {
+                      "maxItems": 1
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "variant": {
+                      "const": "pair"
+                    }
+                  },
+                  "required": [
+                    "variant"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "logos": {
+                      "minItems": 2
+                    }
+                  }
+                }
               }
-            }
+            ]
           }
         },
         {
@@ -1035,16 +1130,80 @@
           },
           "then": {
             "required": [
-              "title",
-              "value"
+              "title"
             ],
             "properties": {
               "variant": {
                 "enum": [
-                  "single"
+                  "single",
+                  "hero-number",
+                  "hero-word",
+                  "cards"
                 ]
               }
-            }
+            },
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "variant": {
+                      "const": "cards"
+                    }
+                  },
+                  "required": [
+                    "variant"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "items"
+                  ],
+                  "properties": {
+                    "items": {
+                      "minItems": 2,
+                      "maxItems": 2,
+                      "items": {
+                        "$ref": "#/$defs/metricItem"
+                      }
+                    },
+                    "value": false,
+                    "label": false,
+                    "body": false
+                  }
+                },
+                "else": {
+                  "required": [
+                    "value"
+                  ],
+                  "properties": {
+                    "items": false,
+                    "value": {
+                      "minLength": 1,
+                      "maxLength": 12
+                    }
+                  }
+                }
+              },
+              {
+                "if": {
+                  "properties": {
+                    "variant": {
+                      "const": "hero-number"
+                    }
+                  },
+                  "required": [
+                    "variant"
+                  ]
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "maxLength": 6
+                    }
+                  }
+                }
+              }
+            ]
           }
         },
         {
@@ -1099,6 +1258,23 @@
               }
             ]
           }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-brand"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "else": {
+            "properties": {
+              "cta": false
+            }
+          }
         }
       ]
     },
@@ -1133,6 +1309,28 @@
             "medium",
             "large"
           ]
+        }
+      }
+    },
+    "metricItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value"
+      ],
+      "properties": {
+        "value": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 8
+        },
+        "label": {
+          "type": "string",
+          "maxLength": 28
+        },
+        "body": {
+          "type": "string",
+          "maxLength": 80
         }
       }
     }

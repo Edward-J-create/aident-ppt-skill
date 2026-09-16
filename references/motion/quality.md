@@ -29,6 +29,8 @@ The preview clock only selects scenes; it is not animation art direction. Review
 
 ## Maintenance
 
+Run `scripts/validate-motion-promotional.mjs --browser` for paired metrics, hero-number/word and Logo + CTA variants. Confirm equal-weight independent values, no unsolicited closing heading/body, both Logo replacements, content-hugging CTA, padded component text, and actual handoff-selector parity. Do not report a patched HTML as a reproducible Skill output until regeneration retains the same registered variant.
+
 Run `scripts/validate-motion-themes.mjs --browser` for the Light/Dark matrix and [combination contracts](themes-and-combinations.md). Review primary/secondary/tag contrast on actual backgrounds, including gradient output text; confirm no invented logo plaques/inversion, correct theme variants, matching workflow columns across rows and zero row-group overflow. Capture the first frame, final long-list row and short/long text replacements. A custom logo still requires visual contrast review even if it loads and preserves ratio.
 
 Update `assets/tokens/motion.json`, `assets/components/motion-registry.json`, renderer/CSS, schema, examples, and these references together. Use `scripts/normalize-motion-icons.mjs --check` to verify exact extraction of existing design-system paths. Background changes remain lossless and require a visual comparison to the approved source. Refresh `assets/manifest.json` with `scripts/validate-assets.mjs`.

@@ -135,6 +135,8 @@
     {
       "id": "signature",
       "type": "motion-brand",
+      "theme": "light",
+      "palette": "neutral",
       "variant": "single",
       "logos": [
         {
@@ -143,7 +145,7 @@
         }
       ],
       "notes": {
-        "purpose": "Optional closing identity. This starter is not a compulsory six-shot sequence."
+        "purpose": "Optional Light/neutral closing identity; never inherit a Dark or lime deck palette. This starter is not a compulsory six-shot sequence."
       }
     }
   ]

@@ -109,12 +109,32 @@ p,h1{overflow-wrap:normal}
 .m-stem img{width:100%;height:100%;object-fit:contain!important}
 .m-split{position:absolute;left:110px;top:390px;width:1700px;display:grid;grid-template-columns:760px 840px;gap:100px;align-items:center}
 .m-lead{font:400 36px/1.5 var(--m-body-font);color:var(--m-secondary)}
-.m-split-image{width:840px;height:472.5px;overflow:hidden;border-radius:24px;background:rgba(255,255,255,.6)}
+.m-split-image{width:840px;height:472.5px;overflow:hidden;border-radius:24px;background:var(--m-surface)}
 .m-split-image img{width:100%;height:100%}
 .m-hero-image{position:absolute;top:360px;left:380px;width:1160px;height:580px;border-radius:24px;overflow:hidden}
 .m-hero-image img{width:100%;height:100%}
 .m-metric{position:absolute;left:310px;top:400px;width:1300px;display:flex;flex-direction:column;align-items:center;gap:20px;text-align:center}
-.m-metric-value{font:400 200px/1.1 "Outfit",sans-serif;letter-spacing:-.02em;color:var(--m-accent)}
+.m-metric-value{font:var(--m-metricValue-weight) var(--m-metricValue-size)/var(--m-metricValue-lh) var(--m-metricValue-font),var(--m-body-font),sans-serif;letter-spacing:var(--m-metricValue-tracking);color:var(--m-accent)}
+.m-metric-cards{align-items:stretch;min-height:var(--metric-cardMinHeight);grid-template-rows:repeat(var(--metric-rows),auto);row-gap:var(--metric-gap)}
+.m-metric-card{display:grid;grid-row:span var(--metric-rows);grid-template-rows:subgrid;align-items:center;justify-content:stretch;height:auto;min-height:var(--metric-cardMinHeight);padding:var(--metric-cardPaddingY) var(--metric-cardPaddingX);gap:var(--metric-gap);text-align:left}
+.m-metric-card .m-label{grid-row:1}
+.m-metric-card .m-card-value{grid-row:var(--metric-value-row)}
+.m-metric-card .m-metric-body{grid-row:var(--metric-body-row)}
+.m-card-value{width:100%;font:var(--m-metricCard-weight) var(--m-metricCard-size)/var(--m-metricCard-lh) var(--m-metricCard-font),var(--m-body-font),sans-serif;letter-spacing:var(--m-metricCard-tracking);color:var(--m-primary)}
+.m-metric-body{width:100%;font:var(--m-metricBody-weight) var(--m-metricBody-size)/var(--m-metricBody-lh) var(--m-metricBody-font),sans-serif;letter-spacing:var(--m-metricBody-tracking);color:var(--m-secondary)}
+.m-hero-number,.m-hero-word{top:var(--metric-heroTop)}
+.m-hero-number .m-metric-value{font:var(--m-heroNumber-weight) var(--m-heroNumber-size)/var(--m-heroNumber-lh) var(--m-heroNumber-font),var(--m-body-font),sans-serif;letter-spacing:var(--m-heroNumber-tracking)}
+.m-hero-word .m-metric-value{font:var(--m-heroWord-weight) var(--m-heroWord-size)/var(--m-heroWord-lh) var(--m-heroWord-font),sans-serif;letter-spacing:var(--m-heroWord-tracking)}
+.m-hero-number .m-lead,.m-hero-word .m-lead{font-size:32px}
+.m-brand-cta{position:absolute;left:110px;top:50%;translate:0 -50%;width:1700px;display:flex;flex-direction:column;align-items:center;gap:var(--cta-brandGap)}
+.m-brand-cta .m-brands{position:relative;inset:auto;padding:0;width:100%}
+.m-cta-group{max-width:100%;display:flex;flex-direction:column;align-items:center;gap:var(--cta-labelGap)}
+.m-cta-label{font:var(--m-ctaLabel-weight) var(--m-ctaLabel-size)/var(--m-ctaLabel-lh) var(--m-ctaLabel-font),sans-serif;letter-spacing:var(--m-ctaLabel-tracking);color:var(--m-secondary);text-align:center}
+.m-cta{display:flex;align-items:center;justify-content:center;gap:var(--cta-gap);min-width:var(--cta-minWidth);max-width:100%;min-height:var(--cta-minHeight);padding:var(--cta-paddingY) var(--cta-paddingX);border-radius:var(--cta-radius);border:1px solid var(--m-ctaStroke);background:var(--m-ctaFill);color:var(--m-ctaText);box-shadow:var(--m-ctaShadow);text-decoration:none;font:var(--m-cta-weight) var(--m-cta-size)/var(--m-cta-lh) var(--m-cta-font),sans-serif}
+.m-cta-text{white-space:nowrap;letter-spacing:var(--m-cta-tracking)}
+.m-cta-arrow,.m-cta-icon{display:block;flex:none;width:var(--cta-arrowSize);height:var(--cta-arrowSize)}
+.m-cta-icon{transform:rotate(var(--cta-arrowRotation))}
+.m-cta:focus-visible{outline:3px solid var(--m-accent);outline-offset:6px}
 #motion-controls{position:fixed;left:50%;bottom:14px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;padding:10px 16px;border-radius:16px;background:rgba(20,22,24,.92);color:#fff;font:14px/1.3 Arial;z-index:10}
 button{cursor:pointer}
 #motion-controls button{border:0;border-radius:7px;background:#3a4044;color:white;padding:8px 13px}

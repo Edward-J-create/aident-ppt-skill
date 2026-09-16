@@ -68,7 +68,7 @@ The saturated teal/lime/cobalt starting colors are reusable editorial options in
  ]}
 ```
 
-The original Light design is still the default for old input. Brand backgrounds are available to **all** registered families, not only cover/title. Availability is not a recommendation to mix them freely: openings/closings prefer Light or a solid brand color, Lists prefer a solid brand color, and lime prefers a large metric/keyword. First-frame, readability and asset-theme rules apply equally.
+The original Light design is still the default for old input. Brand backgrounds are available to **all** registered families, not only cover/title. Availability is not a recommendation to mix them freely: openings prefer Light or a solid brand color; closings use Light/neutral only, never Dark or bright lime, with or without CTA, Lists prefer a solid brand color, and lime prefers a large metric/keyword. First-frame, readability and asset-theme rules apply equally.
 
 ### Layout coverage and precedence / 全版式覆盖与优先级
 

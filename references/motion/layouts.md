@@ -1,13 +1,13 @@
 # Motion layout and component catalog
 
-All coordinates and dimensions are CSS pixels on a 1920×1080 canvas. Source-matched families began as Light layouts; maintained Light/Dark themes now apply across the same components via `meta.theme` and per-slide `theme`. Dark paints/backgrounds are explicit packaged tokens, not guessed per slide. See [themes-and-combinations.md](themes-and-combinations.md) for theme assets, brand-title, parallel workflows and table/list result panels. `motion-image` and `motion-metric` are documented extensions for user images and single-value scenes.
+All coordinates and dimensions are CSS pixels on a 1920×1080 canvas. Source-matched families began as Light layouts; maintained Light/Dark themes now apply across the same components via `meta.theme` and per-slide `theme`. Dark paints/backgrounds are explicit packaged tokens, not guessed per slide. See [themes-and-combinations.md](themes-and-combinations.md) for theme assets, brand-title, parallel workflows and table/list result panels. See [metrics-and-cta.md](metrics-and-cta.md) for independent paired data Cards, single hero values and Logo + CTA endings.
 
 ## Layout routing
 
 | Type | Variants / count | Content | Geometry and fit |
 |---|---|---|---|
 | `motion-title` | statement | title, exact-substring highlight, optional kicker | 1700px safe width; centered vertically; 116px display; 2 lines maximum |
-| `motion-brand` | single / pair | 1–2 complete logo images, editable separator | centered; single ≤777×147; pair each ≤597×113.062; intrinsic ratio, pair gap64; default complete lockup |
+| `motion-brand` | single / pair / cta | 1–2 complete logo images, editable separator; CTA adds optional label + independent button | centered; single ≤777×147; pair each ≤597×113.062; intrinsic ratio, pair gap64; [CTA geometry](metrics-and-cta.md) |
 | `motion-cards` | 2 / 3 / 4 columns | optional label/image, title, body | x110, y429, width1700; gap30; shared height450; padding30; radius20 |
 | `motion-comparison` | 2 | baseline, target | same card geometry; left muted surface; right emphasized theme fill/stroke; gradient is Light-only |
 | `motion-input` | multiline / compact | prompt, optional label/logo/cursor/send | centered; multiline width900 and hug height; compact hug width ≤1600; 24 padding; 77 send button |
@@ -16,7 +16,7 @@ All coordinates and dimensions are CSS pixels on a 1920×1080 canvas. Source-mat
 | `motion-hub` | one / two / three / four satellites | central title and/or logo; satellite labels/images; explicit edges/slots optional | x110,y360,w1700,h570; separate original SVG connectors; cards hug content |
 | `motion-workflow` | left-to-right, 2 / 3 / 4 nodes | ordered title/label/body/image nodes, explicit adjacent edges optional | x110,w1700,centerY630; equal Fill nodes; hug text; original167px arrows with24px gaps |
 | `motion-image` | split / hero | title, image; optional body for split | split: left text760 + gap100 + right image840×472.5 at y390; hero image1160×580 at x380,y360 |
-| `motion-metric` | single | title, value, optional label/body | centered content1300px wide, y400; value200px Outfit; one verified or explicitly illustrative metric |
+| `motion-metric` | single / hero-number / hero-word / cards | title; single value or two independent items; optional labels/body | [Metric geometry](metrics-and-cta.md): 200px single,360px hero number,200px keyword, two835px cards with132px values |
 
 ## Typography
 

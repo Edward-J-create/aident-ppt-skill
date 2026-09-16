@@ -17,6 +17,13 @@
       "assets/previews/motion-slides.zh.webp"
     ],
     "runtimeSourceAccessRequired": false,
+    "promotionalVariants": {
+      "source": "Approved metric and CTA review layouts promoted to reusable registered variants; no scene-ID patches",
+      "reference": "references/motion/metrics-and-cta.md",
+      "previews": ["assets/previews/motion-promotional.en.webp", "assets/previews/motion-promotional.zh.webp"],
+      "method": "Browser captures from generated bilingual HTML, resized montage, Lossless WebP; no new fonts or background copies",
+      "ctaArrow": "Original packaged Send SVG, currentColor, independently rotated 45 degrees to point upper-right"
+    },
     "lockup": {
       "path": "assets/motion/lockup.svg",
       "source": "Approved internal Motion single-Logo shot, complete Logo/Lockup export",
@@ -40,7 +47,7 @@
         "assets/previews/motion-themes.en.webp",
         "assets/previews/motion-themes.zh.webp"
       ],
-      "palettePolicy": "Neutral/teal/cobalt/lime remain available across every Motion layout. Default authoring prefers bright lime #B9F64F for large metrics/keywords, solid teal #07525B or deep blue #14236F for Lists, and Light or solid brand color for openings/closings. Only deep blue keeps a distinct optional gradient (#101B27 to #14236F); other brand-gradient values resolve to solid colors. Dark panels use translucent white paint rather than opaque white cards."
+      "palettePolicy": "Neutral/teal/cobalt/lime remain available across every Motion layout. Default authoring prefers bright lime #B9F64F for large metrics/keywords, solid teal #07525B or deep blue #14236F for Lists, and Light or solid brand color for openings; Light/neutral only for end cards, excluding Dark and bright lime even for Logo-only endings. Only deep blue keeps a distinct optional gradient (#101B27 to #14236F); other brand-gradient values resolve to solid colors. Dark panels use translucent white paint rather than opaque white cards."
     }
   },
   "runtimeDependsOnFigma": false,

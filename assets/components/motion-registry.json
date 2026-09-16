@@ -9,32 +9,76 @@
   ],
   "styleRouting": {
     "contract": "recommendation-not-validation",
-    "supported": "Every registered layout remains compatible with every registered palette and theme when explicitly selected.",
+    "supported": "Every registered layout remains technically compatible with every registered palette and theme for non-closing scenes. End cards use Light/neutral only.",
     "rules": [
       {
-        "purpose": "opening-or-closing",
+        "purpose": "opening",
+        "layouts": [
+          "motion-title",
+          "motion-brand"
+        ],
+        "preferred": [
+          "light/neutral",
+          "dark/teal",
+          "dark/cobalt"
+        ],
+        "avoidByDefault": [
+          "light/lime"
+        ],
+        "reason": "Open with the quiet light system or a solid brand-color identity beat."
+      },
+      {
+        "purpose": "closing",
         "layouts": ["motion-title", "motion-brand"],
-        "preferred": ["light/neutral", "dark/teal", "dark/cobalt"],
-        "avoidByDefault": ["light/lime"],
-        "reason": "Open and close with the quiet light system or a solid brand-color identity beat."
+        "preferred": ["light/neutral"],
+        "reason": "End cards explicitly override deck defaults with Light/neutral. No Dark or bright-lime endings, whether Logo-only, Logo + CTA, or a statement."
       },
       {
         "purpose": "large-number-or-keyword",
-        "layouts": ["motion-metric", "motion-title"],
-        "preferred": ["light/lime", "light/neutral", "dark/teal", "dark/cobalt"],
+        "layouts": [
+          "motion-metric",
+          "motion-title"
+        ],
+        "preferred": [
+          "light/lime",
+          "light/neutral",
+          "dark/teal",
+          "dark/cobalt"
+        ],
         "reason": "Bright lime is a high-emphasis field best reserved for one large focal value or phrase."
       },
       {
         "purpose": "ordered-list",
-        "layouts": ["motion-list"],
-        "preferred": ["dark/teal", "dark/cobalt", "light/neutral"],
-        "avoidByDefault": ["light/lime"],
+        "layouts": [
+          "motion-list"
+        ],
+        "preferred": [
+          "dark/teal",
+          "dark/cobalt",
+          "light/neutral"
+        ],
+        "avoidByDefault": [
+          "light/lime"
+        ],
         "reason": "Lists read best on a stable solid brand field; lime remains an explicit exception."
       },
       {
         "purpose": "information-scene",
-        "layouts": ["motion-cards", "motion-comparison", "motion-input", "motion-synthesis", "motion-hub", "motion-workflow", "motion-image"],
-        "preferred": ["light/neutral", "dark/neutral", "dark/teal", "dark/cobalt"],
+        "layouts": [
+          "motion-cards",
+          "motion-comparison",
+          "motion-input",
+          "motion-synthesis",
+          "motion-hub",
+          "motion-workflow",
+          "motion-image"
+        ],
+        "preferred": [
+          "light/neutral",
+          "dark/neutral",
+          "dark/teal",
+          "dark/cobalt"
+        ],
         "reason": "Use calm neutral or solid brand backgrounds for sustained reading."
       }
     ],
@@ -61,7 +105,8 @@
     "motion-brand": {
       "variants": [
         "single",
-        "pair"
+        "pair",
+        "cta"
       ],
       "counts": [
         1,
@@ -70,9 +115,11 @@
       "duration": 2,
       "fields": [
         "logos",
-        "separator"
+        "separator",
+        "label",
+        "cta"
       ],
-      "purpose": "Replaceable single brand or partnership identity"
+      "purpose": "Single/pair identity, or logos plus an independent CTA; not a giant closing title"
     },
     "motion-cards": {
       "variants": [
@@ -203,16 +250,20 @@
     },
     "motion-metric": {
       "variants": [
-        "single"
+        "single",
+        "hero-number",
+        "hero-word",
+        "cards"
       ],
       "duration": 3,
       "fields": [
         "title",
         "value",
         "label",
-        "body"
+        "body",
+        "items"
       ],
-      "purpose": "One user-supplied metric; provenance in notes",
+      "purpose": "One focal value/keyword, or two independent equal-weight metric cards; never merge separate measures into one slash-delimited string",
       "extension": true
     },
     "motion-workflow": {
@@ -498,8 +549,16 @@
     },
     "theme": {
       "scope": "all-motion-layouts-and-variants",
-      "inheritance": ["slide", "meta", "default"],
-      "sharedFields": ["theme", "palette", "background"],
+      "inheritance": [
+        "slide",
+        "meta",
+        "default"
+      ],
+      "sharedFields": [
+        "theme",
+        "palette",
+        "background"
+      ],
       "backgroundScope": "slide-only; inferred from resolved palette and layout when omitted",
       "preserveLayout": true,
       "default": "light",
@@ -514,6 +573,50 @@
         "brand",
         "brand-gradient"
       ]
+    },
+    "metric": {
+      "cards": {
+        "count": 2,
+        "fields": [
+          "value",
+          "label",
+          "body"
+        ],
+        "alignment": "left",
+        "independentLayers": true
+      },
+      "variants": [
+        "single",
+        "hero-number",
+        "hero-word",
+        "cards"
+      ]
+    },
+    "cta": {
+      "defaultTheme": "light",
+      "endingPalette": "neutral",
+      "closingPolicy": "Light/neutral only; no Dark or bright-lime endings, with or without CTA",
+      "logos": [
+        1,
+        2
+      ],
+      "fields": [
+        "text",
+        "href",
+        "showArrow"
+      ],
+      "optionalLabel": true,
+      "heading": false,
+      "body": false,
+      "editableTargets": [
+        "cta",
+        "cta-text",
+        "cta-arrow",
+        "cta-label",
+        "logo-0",
+        "logo-1"
+      ],
+      "timing": "external"
     }
   },
   "themes": [

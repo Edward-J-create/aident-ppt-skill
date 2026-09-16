@@ -144,7 +144,10 @@ check(backgrounds.format?.type==='webp'&&backgrounds.format?.lossless===true,'Ba
 check(backgrounds.treatments?.length===8&&backgrounds.treatments.every(entry=>entry.source.endsWith('.webp')),'All eight canonical backgrounds must be WebP.');
 check(backgrounds.pptxRasterization?.committedCompiledCopies===false,'Background manifest must reject committed compiled PPTX copies.');
 check(textures.format?.type==='webp'&&textures.format?.lossless===true&&textures.textures.every(entry=>entry.file.endsWith('.webp')),'All canonical textures must be Lossless WebP.');
-check(previews.format?.type==='webp'&&previews.format?.lossless===true&&previews.items?.length===6&&previews.items.every(entry=>entry.path.endsWith('.webp')),'README/Hero/Showcase and bilingual Motion previews must be Lossless WebP.');
+check(previews.format?.type==='webp'&&previews.format?.lossless===true&&previews.items?.length>0&&previews.items.every(entry=>entry.path.endsWith('.webp')),'README/Hero/Showcase and bilingual Motion previews must be Lossless WebP.');
+const previewFiles=(await walk(path.join(root,'assets/previews'))).filter(file=>file.endsWith('.webp')).map(file=>path.relative(root,file).split(path.sep).join('/')).sort();
+const indexedPreviews=previews.items.map(entry=>entry.path).sort();
+check(JSON.stringify(previewFiles)===JSON.stringify(indexedPreviews),'Preview manifest must index every published WebP exactly once, with no missing/stale entries.');
 check(fontManifest.families.every(family=>Array.isArray(family.web)&&family.web.length>0),'Every bundled family must declare at least one runtime web face.');
 
 for(const theme of ['light','dark'])for(const entry of iconManifest.icons||[]){

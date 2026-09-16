@@ -16,6 +16,8 @@ The Skill provides reusable HTML layouts, editable layers, local assets/fonts, a
 
 ## External ownership
 
+Metric-card values and the CTA are registered targets, not arbitrary post-render additions. See [metrics-and-cta.md](metrics-and-cta.md). The generated handoff includes CTA container/text/arrow/optional label and independent metric-card/value selectors. Preflight compares the complete index with the actual DOM; removed or unindexed layers fail. Prompt copy is indexed at its text leaf, separate from its caret/container.
+
 Open `index.html?capture=1&slide=0` for a clean static composition. Static visibility is the default even without query options: the native preview never animates content opacity, transforms or list position. The external animator owns those properties. `timeline.json` and `animation-handoff.json` declare advisory timing; no scroll distance or animation range is supplied.
 
 ```js

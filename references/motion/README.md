@@ -26,6 +26,7 @@ For a new explainer/demo use the bilingual starter, which includes Logo, Input, 
 |---|---|
 | Plan shots by meaning, not PPT outline | [scene-planning.md](scene-planning.md) |
 | Pick a layout and density | [layouts.md](layouts.md) |
+| Paired large-number cards, hero number/keyword, Logo + CTA ending | [metrics-and-cta.md](metrics-and-cta.md), bilingual `examples/motion/promotional.*.json` |
 | Arrange tags, widths, peer alignment and emphasis | [synthesis-composition.md](synthesis-composition.md) |
 | Populate content and swap images/brands | [content.md](content.md), [deck.schema.json](deck.schema.json) |
 | Timing, tag colors, linear/hub edges, Send states, Logo pairs | [editable-components.md](editable-components.md) |
