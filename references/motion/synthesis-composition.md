@@ -58,7 +58,7 @@ After text/font/image changes call `AIDENT_MOTION.layout()` before animation. It
 
 ## Color and visual review
 
-Use neutral + one accent for unclassified peer labels. Multiple semantic colors are allowed when they encode actual categories; document that meaning rather than coloring every item for variety. An accent result can stand out without a50px font. Gradient text always hugs its glyph width; a deliberate gradient container follows its chosen Fill/Hug scope.
+Use neutral + one accent for unclassified peer labels. Dark specifically uses translucent white peers and brand-cyan emphasis, including single outputs; never import Light category chips or its output gradient onto a dark card. In Light, multiple semantic colors are allowed when they encode actual categories; document that meaning rather than coloring every item for variety. An accent result can stand out without a50px font. Gradient text always hugs its glyph width; a deliberate Light gradient container follows its chosen Fill/Hug scope.
 
 Preflight checks cell widths/heights, padded text containment, consistent alignment, panel bounds, connector spacing/ratio and centerlines. It reports visual-review advisories for mixed sizes, many colors or sparse grids. These are prompts for judgment, not universal bans.
 

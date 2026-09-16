@@ -142,21 +142,21 @@
         [
           {
             "title": "Research",
-            "tone": "info"
+            "tone": "neutral"
           },
           {
             "title": "Feedback",
-            "tone": "info"
+            "tone": "neutral"
           }
         ],
         [
           {
             "title": "Priority",
-            "tone": "purple"
+            "tone": "neutral"
           },
           {
             "title": "Owner",
-            "tone": "purple"
+            "tone": "neutral"
           }
         ]
       ],
@@ -166,8 +166,8 @@
           "tone": "accent"
         }
       ],
-      "palette": "teal",
-      "background": "brand-gradient"
+      "palette": "neutral",
+      "background": "solid"
     },
     {
       "id": "result-table",
@@ -181,15 +181,15 @@
         [
           {
             "title": "Signals",
-            "tone": "info"
+            "tone": "neutral"
           },
           {
             "title": "Criteria",
-            "tone": "purple"
+            "tone": "neutral"
           },
           {
             "title": "Review",
-            "tone": "success"
+            "tone": "neutral"
           }
         ]
       ],
@@ -219,7 +219,8 @@
             "Operations"
           ]
         ]
-      }
+      },
+      "background": "solid"
     },
     {
       "id": "result-list",
@@ -275,8 +276,8 @@
           "body": "Choose one accountable reviewer."
         }
       ],
-      "palette": "lime",
-      "background": "brand-gradient"
+      "palette": "teal",
+      "background": "brand"
     },
     {
       "id": "dark-comparison",
@@ -297,7 +298,7 @@
         }
       ],
       "palette": "cobalt",
-      "background": "brand-gradient"
+      "background": "brand"
     },
     {
       "id": "dark-metric",
@@ -313,7 +314,7 @@
       "id": "brand-statement",
       "type": "motion-title",
       "palette": "teal",
-      "background": "brand-gradient",
+      "background": "brand",
       "title": "Turn clarity into action",
       "highlight": "action"
     },

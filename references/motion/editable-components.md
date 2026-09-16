@@ -16,7 +16,7 @@ Use this reference when customizing Motion duration, tag colors, workflow topolo
 
 ## Semantic tag colors / 标签配色
 
-The table below describes the original Light palette. Dark uses explicit theme-specific paints and bright semantic text; see [themes-and-combinations.md](themes-and-combinations.md). Do not carry Light text colors unchanged onto dark panels.
+The table below describes the original Light palette only. Dark uses white text on 8% white fill for peer tags, and brand cyan `#1EEAEA` on 4% cyan fill for `accent`. Legacy `info/success/warning/purple` names remain accepted but resolve to the neutral Dark treatment; they must not generate opaque colored chips. A single Dark output uses the same cyan accent, not the Light gradient. See [themes-and-combinations.md](themes-and-combinations.md).
 
 Gray is a fallback, not a required art style. Set `tone` on each input/output tag; layout size/alignment remains unchanged.
 
@@ -29,7 +29,7 @@ Gray is a fallback, not a required art style. Set `tone` on each input/output ta
 | `purple` | purple `#6155FF` | purple12% |
 | `accent` | teal `#008089` | cyan12% on inputs; full packaged gradient on a single standalone output |
 
-Useful choices: blue peers + accent result; blue sources + purple processing + green approved results; orange only for an actual caution. Same category uses the same color across scenes. Do not use different colors merely because tag lengths differ. Multiple output tags inside their panel use semantic fills, not an automatic full gradient. Custom branding can override `--tag-fill` and `--tag-color` in the generated CSS, retaining readable contrast and consistent categories; arbitrary color strings are not accepted as `tone` JSON values.
+For Light only: blue peers + accent result, or meaningful category colors; orange only for an actual caution. For Dark: neutral peers + one cyan result/emphasis. Encode category/status meaning in copy and grouping, not color alone. Do not use different colors merely because tag lengths differ. Multiple output tags inside their panel use theme fills, not an automatic full gradient. Custom branding can override `--tag-fill` and `--tag-color` in the generated CSS, retaining readable contrast and consistent categories; arbitrary color strings are not accepted as `tone` JSON values.
 
 ## Workflow nodes and edges / 节点和连线
 

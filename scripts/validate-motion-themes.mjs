@@ -9,11 +9,23 @@ import {preflightMotion} from './preflight-motion.mjs';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const read=rel=>fs.readFile(path.join(root,rel),'utf8').then(JSON.parse);
 const decks=await Promise.all(['en','zh'].map(l=>read(`examples/motion/themes.${l}.json`)));
+for(const [tone,paint] of Object.entries(tokens.themes.dark.tags)){
+ assert.deepEqual(paint,tone==='accent'?{text:'#1EEAEA',fill:'rgba(30,234,234,0.04)'}:{text:'#FFFFFF',fill:'rgba(255,255,255,0.08)'},'Dark tag treatment must not inherit opaque semantic chips');
+}
+assert.equal(tokens.themes.dark.colors.emphasis,tokens.themes.dark.tags.accent.fill);
+assert.equal(tokens.themes.dark.colors.onEmphasis,tokens.themes.dark.tags.accent.text);
+assert.equal(new Set(Object.values(tokens.themes.dark.send).map(v=>v.fill)).size,5,'Send states stay independently styled within the brand system');
 for(const [palette,variants] of Object.entries(tokens.palettes))for(const [theme,paints] of Object.entries(variants)){
  if(palette==='cobalt'&&theme==='dark')assert.match(paints.gradient,/linear-gradient/);
  else assert.equal(paints.gradient,paints.canvas,'Only dark cobalt retains an optional brand gradient');
 }
 assert.deepEqual(decks[0].slides.map(s=>[s.id,s.type]),decks[1].slides.map(s=>[s.id,s.type]));
+for(const deck of decks){
+ const list=deck.slides.find(s=>s.id==='dark-list');assert.deepEqual([list.palette,list.background],['teal','brand']);
+ const ink=deck.slides.find(s=>s.id==='dark-tags');assert.deepEqual([ink.palette,ink.background],['neutral','solid']);
+ assert.equal(deck.slides.filter(s=>s.background==='brand-gradient').length,1,'Showcase uses one optional blue gradient, not a palette rotation');
+ for(const s of deck.slides.filter(s=>(s.theme||deck.meta.theme)==='dark'))for(const t of (s.groups||[]).flat())assert.ok(['neutral','accent'].includes(t.tone||'neutral'));
+}
 const bad=fn=>{const d=structuredClone(decks[0]);fn(d);assert.ok(validateMotion(d).length);};
 bad(d=>d.meta.theme='blue');
 bad(d=>d.meta.palette='unregistered');
@@ -49,6 +61,7 @@ for(const d of decks){
   if(theme==='dark'&&s.logos)s.logos=s.logos.map(v=>v.placeholder?v:{src:'assets/motion/mark.svg'});sweep.slides.push(s);
  }
  // Count-variable rows, result tables and two theme-specific image paths.
+ for(const palette of ['neutral','teal','cobalt','lime'])sweep.slides.push({id:`tag-paints-${palette}`,type:'motion-synthesis',theme:'dark',palette,background:palette==='neutral'?'content':'brand',title:lang==='en'?'One coherent tag system':'一致的标签系统',groups:[['neutral','info','success'],['warning','purple','accent']].map(g=>g.map(tone=>({title:lang==='en'?tone:'标签',tone}))),outputs:[{title:lang==='en'?'Result':'结果',tone:'accent'},{title:lang==='en'?'Review':'审核',tone:'neutral'}]});
  for(const rows of [1,2,3])for(const count of [2,3,4])sweep.slides.push({id:`rows-${rows}-${count}`,type:'motion-workflow',variant:'rows',theme:count===3?'light':'dark',title:lang==='en'?'A clear sequence':'清晰的顺序',rows:Array.from({length:rows},(_,i)=>({id:'r'+i,items:Array.from({length:count},(_,j)=>({id:'n'+j,title:lang==='en'?'Step '+j:'步骤'+j}))}))});
  for(const count of [2,4]){const s=structuredClone(d.slides[5]);s.id='table-'+count;s.result.columns=Array.from({length:count},(_,i)=>'C'+i);s.result.rows=[s.result.columns];delete s.result.columnWidths;sweep.slides.push(s);}
  sweep.slides.push({id:'asset-variant',type:'motion-input',variant:'compact',theme:'dark',prompt:'Hello',image:{src:'assets/motion/mark.svg',variants:{light:'assets/motion/mark.svg',dark:'assets/motion/icons/help.svg'}}});
@@ -70,6 +83,16 @@ if(browserMode){
    const errors=[],alpha=v=>{const n=v.match(/[\d.]+/g).map(Number);return n[3]??1};
    for(const slide of document.querySelectorAll('.motion-slide')){
     const dark=slide.dataset.theme==='dark',lime=!dark&&slide.dataset.palette==='lime';
+    if(slide.dataset.background==='solid'){
+     const fill=slide.querySelector('.m-brand-background');
+     if(!fill||getComputedStyle(fill).backgroundImage!=='none'||slide.querySelector('.background,.texture'))errors.push(slide.dataset.id+': solid canvas covered by artwork');
+     if(dark&&slide.dataset.palette==='neutral'&&getComputedStyle(fill).backgroundColor!=='rgb(16, 27, 39)')errors.push(slide.dataset.id+': ink must be #101B27');
+    }
+    if(dark)for(const tag of slide.querySelectorAll('.m-tag')){
+     const cs=getComputedStyle(tag),accent=tag.classList.contains('tone-accent');
+     const fill=accent?'rgba(30, 234, 234, 0.04)':'rgba(255, 255, 255, 0.08)',color=accent?'rgb(30, 234, 234)':'rgb(255, 255, 255)';
+     if(cs.backgroundColor!==fill||cs.color!==color||cs.backgroundImage!=='none'||cs.opacity!=='1')errors.push(slide.dataset.id+': dark tag paint drift '+tag.className);
+    }
     for(const el of slide.querySelectorAll('.m-card,.m-list-row,.m-input,.m-tag-panel,.m-node-visual,.m-result,.m-result-list-row')){
      const cs=getComputedStyle(el),comparison=slide.classList.contains('motion-comparison')&&el.matches('.m-card');
      let expected;

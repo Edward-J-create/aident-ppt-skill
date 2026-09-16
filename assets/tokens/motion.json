@@ -408,8 +408,9 @@
         "panelStroke": "rgba(255,255,255,0.20)",
         "tableHeader": "rgba(255,255,255,0.06)",
         "tableRule": "rgba(255,255,255,0.20)",
-        "onEmphasis": "#111114",
-        "inputLabel": "#82BDFF"
+        "emphasis": "rgba(30,234,234,0.04)",
+        "onEmphasis": "#1EEAEA",
+        "inputLabel": "#1EEAEA"
       },
       "backgrounds": {
         "content": "assets/backgrounds/dark-ink.webp",
@@ -418,28 +419,28 @@
       },
       "tags": {
         "neutral": {
-          "text": "#D1D9DE",
-          "fill": "#303A43"
+          "text": "#FFFFFF",
+          "fill": "rgba(255,255,255,0.08)"
         },
         "info": {
-          "text": "#9CCCFF",
-          "fill": "#243D59"
+          "text": "#FFFFFF",
+          "fill": "rgba(255,255,255,0.08)"
         },
         "success": {
-          "text": "#A0EBC0",
-          "fill": "#214838"
+          "text": "#FFFFFF",
+          "fill": "rgba(255,255,255,0.08)"
         },
         "warning": {
-          "text": "#FFD0A0",
-          "fill": "#513821"
+          "text": "#FFFFFF",
+          "fill": "rgba(255,255,255,0.08)"
         },
         "purple": {
-          "text": "#D6C3FF",
-          "fill": "#3D3157"
+          "text": "#FFFFFF",
+          "fill": "rgba(255,255,255,0.08)"
         },
         "accent": {
-          "text": "#9DEDF3",
-          "fill": "#20454B"
+          "text": "#1EEAEA",
+          "fill": "rgba(30,234,234,0.04)"
         }
       },
       "send": {
@@ -448,15 +449,15 @@
           "text": "#101216"
         },
         "hover": {
-          "fill": "#6DE4F9",
+          "fill": "#1EEAEA",
           "text": "#101216"
         },
         "pressed": {
-          "fill": "#40B4C4",
+          "fill": "rgba(30,234,234,0.8)",
           "text": "#101216"
         },
         "sent": {
-          "fill": "#8CE4B0",
+          "fill": "rgba(30,234,234,0.92)",
           "text": "#101216"
         },
         "disabled": {
