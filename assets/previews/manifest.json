@@ -1,13 +1,16 @@
 {
-  "version": 3,
-  "format": { "type": "webp", "lossless": true },
+  "version": 4,
+  "format": {
+    "type": "webp",
+    "lossless": true
+  },
   "items": [
     {
       "id": "motion-slides-en",
       "path": "assets/previews/motion-slides.en.webp",
       "width": 2016,
-      "height": 2328,
-      "purpose": "English Motion Slides: 18 scenes across 10 layout families",
+      "height": 2712,
+      "purpose": "English Motion slides: 20 browser-verified scenes",
       "runtimeRequired": false,
       "derivedFrom": "examples/motion/deck.en.json browser preflight screenshots"
     },
@@ -15,8 +18,8 @@
       "id": "motion-slides-zh",
       "path": "assets/previews/motion-slides.zh.webp",
       "width": 2016,
-      "height": 2328,
-      "purpose": "Chinese Motion Slides: the same 18 scenes and 10 layout families",
+      "height": 2712,
+      "purpose": "Chinese Motion slides: 20 browser-verified scenes",
       "runtimeRequired": false,
       "derivedFrom": "examples/motion/deck.zh.json browser preflight screenshots"
     },
@@ -55,6 +58,42 @@
       "purpose": "README overview of all nine generated Chinese example slides",
       "runtimeRequired": false,
       "derivedFrom": "examples/deck.example.zh.json HTML preflight screenshots"
+    },
+    {
+      "id": "motion-promotional-en",
+      "path": "assets/previews/motion-promotional.en.webp",
+      "width": 2016,
+      "height": 792,
+      "purpose": "English Motion promotional: 6 browser-verified scenes; end cards use Light/neutral only",
+      "runtimeRequired": false,
+      "derivedFrom": "examples/motion/promotional.en.json browser preflight screenshots"
+    },
+    {
+      "id": "motion-promotional-zh",
+      "path": "assets/previews/motion-promotional.zh.webp",
+      "width": 2016,
+      "height": 792,
+      "purpose": "Chinese Motion promotional: 6 browser-verified scenes; end cards use Light/neutral only",
+      "runtimeRequired": false,
+      "derivedFrom": "examples/motion/promotional.zh.json browser preflight screenshots"
+    },
+    {
+      "id": "motion-themes-en",
+      "path": "assets/previews/motion-themes.en.webp",
+      "width": 2016,
+      "height": 1560,
+      "purpose": "English Motion themes: 12 browser-verified scenes",
+      "runtimeRequired": false,
+      "derivedFrom": "examples/motion/themes.en.json browser preflight screenshots"
+    },
+    {
+      "id": "motion-themes-zh",
+      "path": "assets/previews/motion-themes.zh.webp",
+      "width": 2016,
+      "height": 1560,
+      "purpose": "Chinese Motion themes: 12 browser-verified scenes",
+      "runtimeRequired": false,
+      "derivedFrom": "examples/motion/themes.zh.json browser preflight screenshots"
     }
   ]
 }

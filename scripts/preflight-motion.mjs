@@ -17,6 +17,17 @@ export async function preflightMotion(htmlPath,screenshotDir){
   if(screenshotDir)await fs.mkdir(screenshotDir,{recursive:true});
   const url=new URL(pathToFileURL(path.resolve(htmlPath)));url.searchParams.set('capture','1');
   await page.goto(url.href);await page.evaluate(()=>window.AIDENT_MOTION.ready);
+  // Validate the actual published index, not just uniqueness of whatever DOM survived a patch.
+  try{
+   const handoff=JSON.parse(await fs.readFile(path.join(path.dirname(htmlPath),'animation-handoff.json'),'utf8'));
+   errors.push(...await page.evaluate(layers=>{
+    const issues=[],indexed=new Set(layers.map(l=>l.id));
+    for(const layer of layers)if(document.querySelectorAll(layer.selector).length!==1)issues.push('Handoff selector does not resolve uniquely: '+layer.id);
+    for(const el of document.querySelectorAll('[data-layer]'))if(!indexed.has(el.dataset.layer))issues.push('Unindexed animation layer: '+el.dataset.layer);
+    for(const el of document.querySelectorAll('.motion-slide [data-motion],.motion-slide [data-editable]'))if(!el.dataset.layer)issues.push('Editable/animation target lacks an indexed layer: '+(el.dataset.motion||el.className));
+    return issues;
+   },handoff.layers));
+  }catch(e){errors.push('Animation handoff unavailable: '+e.message);}
   const timeline=await page.evaluate(()=>window.AIDENT_DECK.slides);
   const audit=async(i,t,external)=>page.evaluate(({i,t,external})=>{
    const api=window.AIDENT_MOTION;api.externalControl(external);api.seekSlide(i,t);
@@ -34,7 +45,7 @@ export async function preflightMotion(htmlPath,screenshotDir){
     // Image/gradient backdrops still require the documented screenshot review.
     const backgroundAt=el=>{const chain=[];for(let n=el;n&&n!==slide;n=n.parentElement)chain.unshift(n);return chain.reduce((bg,n)=>composite(getComputedStyle(n).backgroundColor,bg),canvas)};
     for(const tag of slide.querySelectorAll('.m-tag')){const cs=getComputedStyle(tag);if(cs.backgroundImage==='none'&&contrast(cs.color,backgroundAt(tag))<4.5)errors.push('Dark tag contrast below 4.5: '+tag.textContent);}
-    for(const el of slide.querySelectorAll('.m-body,.m-result-value,.m-flow-title,.m-input-text'))if(contrast(getComputedStyle(el).color,backgroundAt(el))<4.5)errors.push('Dark text contrast below 4.5 on its panel: '+el.textContent);
+    for(const el of slide.querySelectorAll('.m-body,.m-result-value,.m-flow-title,.m-input-text,.m-metric-body,.m-cta-text'))if(contrast(getComputedStyle(el).color,backgroundAt(el))<4.5)errors.push('Dark text contrast below 4.5 on its panel: '+el.textContent);
    }
    for(const group of slide.querySelectorAll('[data-workflow-rows]')){
     if(group.offsetHeight>610)errors.push('Workflow rows exceed 610px content zone');
@@ -75,6 +86,19 @@ export async function preflightMotion(htmlPath,screenshotDir){
     }
    }
    // Text boxes must not collide. Decorative containment and clipping are intentional.
+   for(const card of slide.querySelectorAll('.m-card,.m-cta')){
+    const cr=rect(card),cs=getComputedStyle(card),scale=sr.width/1920;
+    for(const child of card.querySelectorAll('[data-editable="text"]')){
+     const r=rect(child);if(r.x<cr.x+parseFloat(cs.paddingLeft)*scale-2||r.right>cr.right-parseFloat(cs.paddingRight)*scale+2||r.y<cr.y+parseFloat(cs.paddingTop)*scale-2||r.bottom>cr.bottom-parseFloat(cs.paddingBottom)*scale+2)errors.push('Text outside padded component: '+child.dataset.layer);
+    }
+   }
+   const heading=slide.querySelector('.m-heading'),content=slide.querySelector('.m-cards,.m-synthesis,.m-hub,.m-split,.m-hero-image,.m-metric,[data-workflow-rows]');
+   if(slide.querySelector('.m-metric-cards')){
+    const cards=[...slide.querySelectorAll('.m-metric-card')],values=cards.map(c=>rect(c.querySelector('.m-card-value')));
+    if(cards.length!==2||Math.abs(rect(cards[0]).height-rect(cards[1]).height)>1||Math.abs(rect(cards[0]).width-rect(cards[1]).width)>1||Math.abs(values[0].y-values[1].y)>1)errors.push('Paired metrics must keep equal Card geometry and aligned values after optional-copy changes');
+   }
+   if(heading&&content&&rect(content).y-rect(heading).bottom<48*sr.width/1920-2)errors.push('Heading/content gap below 48px');
+   const statement=slide.querySelector('.m-statement');if(statement&&statement.offsetHeight>parseFloat(getComputedStyle(statement).lineHeight)*2+2)errors.push('Statement exceeds two lines');
    const text=[...slide.querySelectorAll('[data-editable="text"]')].filter(visible);
    for(let a=0;a<text.length;a++)for(let b=a+1;b<text.length;b++){
     const ar=rect(text[a]),br=rect(text[b]);if(Math.min(ar.right,br.right)-Math.max(ar.x,br.x)>2&&Math.min(ar.bottom,br.bottom)-Math.max(ar.y,br.y)>2)errors.push('Text overlap: '+text[a].dataset.layer+' / '+text[b].dataset.layer);

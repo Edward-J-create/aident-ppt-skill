@@ -135,6 +135,8 @@
     {
       "id": "signature",
       "type": "motion-brand",
+      "theme": "light",
+      "palette": "neutral",
       "variant": "single",
       "logos": [
         {
@@ -143,7 +145,7 @@
         }
       ],
       "notes": {
-        "purpose": "可选品牌收尾。这不是必须照搬的六镜头顺序。"
+        "purpose": "可选浅色中性品牌收尾，不继承深色或亮绿色的全局配色。这不是必须照搬的六镜头顺序。"
       }
     }
   ]

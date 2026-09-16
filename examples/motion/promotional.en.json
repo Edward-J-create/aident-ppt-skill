@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "mode": "motion",
+    "language": "en",
+    "title": "Metrics and action layouts"
+  },
+  "slides": [
+    {
+      "id": "paired-metrics",
+      "type": "motion-metric",
+      "variant": "cards",
+      "title": "Two signals, one clear picture",
+      "items": [
+        {
+          "label": "ILLUSTRATIVE",
+          "value": "20M+",
+          "body": "Replace with the first verified measure."
+        },
+        {
+          "label": "ILLUSTRATIVE",
+          "value": "75+",
+          "body": "Keep the second measure independently readable."
+        }
+      ]
+    },
+    {
+      "id": "paired-metrics-dark",
+      "type": "motion-metric",
+      "variant": "cards",
+      "title": "Two signals, one clear picture",
+      "items": [
+        {
+          "label": "ILLUSTRATIVE",
+          "value": "20M+",
+          "body": "Replace with the first verified measure."
+        },
+        {
+          "label": "ILLUSTRATIVE",
+          "value": "75+",
+          "body": "Keep the second measure independently readable."
+        }
+      ],
+      "theme": "dark",
+      "palette": "cobalt",
+      "background": "brand"
+    },
+    {
+      "id": "hero-number",
+      "type": "motion-metric",
+      "variant": "hero-number",
+      "title": "One clear next step",
+      "palette": "lime",
+      "value": "01",
+      "body": "Replace with your own verified information."
+    },
+    {
+      "id": "hero-word",
+      "type": "motion-metric",
+      "variant": "hero-word",
+      "title": "Bring the work together",
+      "value": "READY",
+      "body": "One short promise, not another paragraph."
+    },
+    {
+      "id": "brand-cta",
+      "type": "motion-brand",
+      "variant": "cta",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout"
+        }
+      ],
+      "label": "ASK YOUR AGENT",
+      "cta": {
+        "text": "Visit your getting-started page",
+        "href": "https://example.com/start"
+      },
+      "theme": "light",
+      "palette": "neutral"
+    },
+    {
+      "id": "pair-cta",
+      "type": "motion-brand",
+      "variant": "cta",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout"
+        },
+        {
+          "placeholder": "YOUR LOGO"
+        }
+      ],
+      "label": "ASK YOUR AGENT",
+      "cta": {
+        "text": "Visit your getting-started page",
+        "href": "https://example.com/start"
+      },
+      "separator": "×",
+      "theme": "light",
+      "palette": "neutral"
+    }
+  ]
+}

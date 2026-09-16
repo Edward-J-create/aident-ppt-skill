@@ -1,0 +1,105 @@
+{
+  "meta": {
+    "mode": "motion",
+    "language": "zh",
+    "title": "数据与行动版式"
+  },
+  "slides": [
+    {
+      "id": "paired-metrics",
+      "type": "motion-metric",
+      "variant": "cards",
+      "title": "两项数据，一目了然",
+      "items": [
+        {
+          "label": "示例数据",
+          "value": "20M+",
+          "body": "在这里填入第一项已核实的数据。"
+        },
+        {
+          "label": "示例数据",
+          "value": "75+",
+          "body": "另一项独立数据，保持同等视觉权重。"
+        }
+      ]
+    },
+    {
+      "id": "paired-metrics-dark",
+      "type": "motion-metric",
+      "variant": "cards",
+      "title": "两项数据，一目了然",
+      "items": [
+        {
+          "label": "示例数据",
+          "value": "20M+",
+          "body": "在这里填入第一项已核实的数据。"
+        },
+        {
+          "label": "示例数据",
+          "value": "75+",
+          "body": "另一项独立数据，保持同等视觉权重。"
+        }
+      ],
+      "theme": "dark",
+      "palette": "cobalt",
+      "background": "brand"
+    },
+    {
+      "id": "hero-number",
+      "type": "motion-metric",
+      "variant": "hero-number",
+      "title": "一个清晰的下一步",
+      "palette": "lime",
+      "value": "01",
+      "body": "用真实、可核实的数据替换示例。"
+    },
+    {
+      "id": "hero-word",
+      "type": "motion-metric",
+      "variant": "hero-word",
+      "title": "让工作井然有序",
+      "value": "就绪",
+      "body": "一个简洁承诺，而非另一段说明。"
+    },
+    {
+      "id": "brand-cta",
+      "type": "motion-brand",
+      "variant": "cta",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout"
+        }
+      ],
+      "label": "让你的 AGENT 开始行动",
+      "cta": {
+        "text": "访问你的开始页面",
+        "href": "https://example.com/start"
+      },
+      "theme": "light",
+      "palette": "neutral"
+    },
+    {
+      "id": "pair-cta",
+      "type": "motion-brand",
+      "variant": "cta",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "alt": "Aident Loadout"
+        },
+        {
+          "placeholder": "你的 LOGO"
+        }
+      ],
+      "label": "让你的 AGENT 开始行动",
+      "cta": {
+        "text": "访问你的开始页面",
+        "href": "https://example.com/start"
+      },
+      "separator": "×",
+      "theme": "light",
+      "palette": "neutral"
+    }
+  ]
+}

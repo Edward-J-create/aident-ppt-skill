@@ -22,7 +22,8 @@ Select the layout from the information relationship first. Then use these prefer
 
 | Shot purpose | Preferred style order | Default caution |
 |---|---|---|
-| Opening or closing identity/statement | Light neutral → solid brand deep teal → solid deep blue | Do not default to lime; keep the first/last frame quiet or clearly branded. |
+| Opening identity/statement | Light neutral → solid brand deep teal → solid deep blue | Keep the opening quiet or clearly branded. |
+| Closing / end card, with or without CTA | Light neutral only | Do not use Dark or bright lime, including Logo-only endings. Override deck theme/palette explicitly. |
 | One large number or keyword | Bright lime → Light neutral → solid brand color | Bright lime is primarily for `motion-metric` or a short `motion-title`, with one dominant center focal point. |
 | Ordered long/checked list | Solid brand deep teal → solid deep blue → Light neutral | Do not default lists to lime. Rows use the theme surface recipe; dark tags/checks use brand cyan `#1EEAEA`. |
 | Cards, Input, synthesis, workflow, hub, comparison, image | Light neutral → Dark neutral → solid brand deep teal/deep blue | Prefer sustained readability over color variety. |
@@ -42,11 +43,15 @@ Do not alternate palettes merely because multiple tokens exist. In a typical sho
 | Real screenshot, visual evidence / 画面证据 | `motion-image` | Hero for image focus, split for left text/right image. Ask for missing evidence instead of inventing a screenshot. |
 | A genuine contrast / 对比 | `motion-comparison` | Two distinct states; don't turn an ordinary list into a false before/after claim. |
 | Ordered repeated results / 连续清单 | `motion-list` | Keep full content beyond camera. No nested scrolling viewport. More rows need downstream camera travel, not tiny text. |
-| A meaningful number / 数值 | `motion-metric` | One verified or clearly illustrative number. No metric merely to create a closing page. |
+| A meaningful number or keyword / 数值或关键词 | `motion-metric` single / hero-number / hero-word | One verified or clearly illustrative focal value; larger variants are explicit, not a font-size patch. |
+| Two independent measures / 并列数据 | `motion-metric` cards | Exactly two equal-weight Cards, each with a large independent value. Never concatenate measures to satisfy the single-value variant. |
+| Identity plus a real action / 行动尾页 | `motion-brand` cta | 1–2 Logos + optional small label + independent CTA. Do not replace an approved CTA with brand-title, body copy or a Logo-only scene. |
 | Independent categories / 并列概念 | `motion-cards` | 2–4 genuinely parallel ideas. Not the default container for prompts, relationships or process transformations. |
 | A standalone claim or transition / 核心句 | `motion-title` | One short takeaway. Avoid repeating every scene's message as a separate title slide. |
 
 These are semantic choices, not numeric weights, mandatory percentages or a quota requiring every template. If no registered geometry fits (for example a cycle or multi-level graph), explain the mismatch and choose a supported truthful representation; do not disguise card columns as a connected flowchart or stretch Joint artwork.
+
+Closing/end cards use `theme:"light", palette:"neutral"` explicitly. Neither Dark nor bright lime is an ending option, regardless of whether it contains a single Logo, two Logos, CTA or statement. These colors remain available for interior scenes; technical palette compatibility must not be mistaken for ending guidance.
 
 ## Draft a shot plan
 
@@ -54,7 +59,7 @@ For each shot record: narrative purpose, visible subject, visual relation, chose
 
 Before generation review whether prompt, identity or relationship content was flattened into cards. If so, select Input, Logo or Joint/synthesis as appropriate. Repeated layouts are allowed when the story needs repetition; avoid mechanically mapping one source heading to one page. Keep one dominant visual idea per shot; move narration into notes. Labels, numbering and explanatory body copy are optional, not required decorations.
 
-An illustrative AI explainer might use: Logo introduction → actual Input prompt → Joint relationships → synthesis/result → a short list → Logo closing. This is not a fixed sequence: omit branding if explicitly unwanted, and only include relationships/transformation supported by the source. Both EN and ZH follow the same planning process.
+An illustrative AI explainer might use: Logo introduction → actual Input prompt → Joint relationships → synthesis/result → a short list → Light/neutral Logo closing. This is not a fixed sequence: omit branding if explicitly unwanted, and only include relationships/transformation supported by the source. Both EN and ZH follow the same planning process.
 
 ## Animation ownership
 

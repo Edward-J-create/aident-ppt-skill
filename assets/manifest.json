@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-16T15:39:22.274Z",
-  "fileCount": 114,
-  "totalBytes": 71270269,
+  "generatedAt": "2026-09-16T16:51:44.947Z",
+  "fileCount": 116,
+  "totalBytes": 71752813,
   "files": [
     {
       "path": "assets/asset-sources.json",
-      "bytes": 5637,
-      "sha256": "aa03021a6b03e2ec6d5aeec7188bfd0b824b8f3210e764a75b2bfc166ead1d5b"
+      "bytes": 6297,
+      "sha256": "2d1271a9a714902202e4ec1ffafea123073671aa19941a501a418b8b82420960"
     },
     {
       "path": "assets/backgrounds/dark-aurora.webp",
@@ -66,8 +66,8 @@
     },
     {
       "path": "assets/components/motion-registry.json",
-      "bytes": 12928,
-      "sha256": "32bbb91e0edf1db94298b90fd46dbb2b214cb1bfebe9be41a1ff6e9e64b03791"
+      "bytes": 14825,
+      "sha256": "75c254dd4419a3f865bec822f8e23ff354ded7e2387fa68b11d943e73dbe683c"
     },
     {
       "path": "assets/components/registry.json",
@@ -471,13 +471,13 @@
     },
     {
       "path": "assets/previews/aident-ppt-hero.webp",
-      "bytes": 478046,
-      "sha256": "e8b5d93f4d9054370927e74733b8d9a0a91481435b20d59d1d7df3018302eb9c"
+      "bytes": 478066,
+      "sha256": "06a996e4821bebf9fd28a3c12af4798a6d4de0d825fcde69fd26a37eae96b939"
     },
     {
       "path": "assets/previews/aident-ppt-showcase.webp",
-      "bytes": 827730,
-      "sha256": "6f719e9bd0232c1f94e15256459d683893d91f6a7c253e707aecbb1241041aef"
+      "bytes": 827266,
+      "sha256": "8d68fb7cfd022866ae9f78d543a6a303dd57bcc5d60acffd358459a9e4d4e6c0"
     },
     {
       "path": "assets/previews/aident-ppt-showcase.zh.webp",
@@ -491,18 +491,28 @@
     },
     {
       "path": "assets/previews/manifest.json",
-      "bytes": 2178,
-      "sha256": "372f3cb02b2f1a2fe6cfd489b1dfcfa031584718aec644604b26e0c6ddff1e0f"
+      "bytes": 3584,
+      "sha256": "76e4fb6ebbf8236ede73103fc866d20238f4786395bf65e4d3b79607942e84a8"
+    },
+    {
+      "path": "assets/previews/motion-promotional.en.webp",
+      "bytes": 242970,
+      "sha256": "893dc6d679edc3a81e59450999059eb39e24fb51ad936fae2ead10b792f4ab50"
+    },
+    {
+      "path": "assets/previews/motion-promotional.zh.webp",
+      "bytes": 233104,
+      "sha256": "eb99c8ec28807af8c1d0febf429b21d2373b010303783f1e055326bcac3d27ba"
     },
     {
       "path": "assets/previews/motion-slides.en.webp",
-      "bytes": 861484,
-      "sha256": "6a76e3a36e100db3f04091bdc69128913cfdff8cb5cc0df81a0e499e910c0b2d"
+      "bytes": 859650,
+      "sha256": "5c253be7526923f77f3d3b2ef50dacec5f4e4dc1ba767536b19f13ada1f0a8ec"
     },
     {
       "path": "assets/previews/motion-slides.zh.webp",
-      "bytes": 819358,
-      "sha256": "f2f028baf0c12b6cd8028816eac6510778787ffaaece0bcee64abc91822dcbee"
+      "bytes": 818238,
+      "sha256": "ddd39fa6adf86ae1312a03ad5cc986e7a6b621944a0661929ce24aec5a5fc331"
     },
     {
       "path": "assets/previews/motion-themes.en.webp",
@@ -516,8 +526,8 @@
     },
     {
       "path": "assets/runtime/deck.css",
-      "bytes": 24408,
-      "sha256": "16edb8c386937f9cedb18aaa5b11fd1a7d5a02b53b7cb7e795617f0a86c4d5e6"
+      "bytes": 24556,
+      "sha256": "237833d11d355d76a031cb815871fdc9adaa940a1878bd54d6a4363c75621f1b"
     },
     {
       "path": "assets/runtime/deck.js",
@@ -526,8 +536,8 @@
     },
     {
       "path": "assets/runtime/motion.css",
-      "bytes": 17275,
-      "sha256": "88263fdcaa0ca53ca91afdc79fa445ae9dfc0641d2b03a3557e8c68da226a85e"
+      "bytes": 20255,
+      "sha256": "adfdb91c2a2640f8856a5e5f6f616f7d616060e9212b5151fa1b7aed102d8935"
     },
     {
       "path": "assets/runtime/motion.js",
@@ -566,8 +576,8 @@
     },
     {
       "path": "assets/tokens/motion.json",
-      "bytes": 12902,
-      "sha256": "4149b0eb69cd30c32e3149ee5e998c0fdbcd54d8372b4b359d1caa7f586ad5bd"
+      "bytes": 15679,
+      "sha256": "d587fbda2530ebdfbb8adf17a27814c4087e6c6323f00c5b6985e408467511ae"
     },
     {
       "path": "assets/tokens/tokens.json",

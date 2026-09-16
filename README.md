@@ -16,13 +16,20 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 ## Motion Slides / 面向视频编辑的 HTML 版式
 
+正式支持**双 Card 独立大数字、单个超大数字／关键词、Logo＋CTA 尾页**；数据与关键词内页支持深浅主题，尾页统一浅色中性底。中英文、Logo／文字／按钮链接均可替换。Paired metrics and hero values support Light/Dark; Logo + CTA endings use Light/neutral only. All are registered, editable bilingual templates—not post-render patches. See [规则与示例 / specification](./references/motion/metrics-and-cta.md).
+
+![Metrics and CTA · English / 大数字与行动尾页·英文](./assets/previews/motion-promotional.en.webp)
+![Metrics and CTA · Chinese / 大数字与行动尾页·中文](./assets/previews/motion-promotional.zh.webp)
+
+尾页统一使用浅色中性底；深色和亮绿色不用于尾页，无论纯 Logo 还是 Logo＋CTA。End cards use Light/neutral only; no Dark or lime endings, with or without CTA.
+
 新增深浅主题与组合镜头：同一模板可选 Light/Dark；支持 Logo＋标题、1–3 行并行流程（每行2–4节点）、标签到表格/清单结果、独立输入光标和动画层。中英文均支持，所有文字、Logo 和图片都可替换；不强制每页用完所有组件。完整规则见 [主题与组合](./references/motion/themes-and-combinations.md)。
 
 背景提供中性、青绿、深蓝、黄绿四套配色及深浅模式；品牌色优先纯色，深蓝另有可选渐变。Backgrounds offer neutral, teal, deep blue and lime palettes in Light/Dark; brand fills default to solid colors, with an optional deep-blue gradient.
 
 所有 11 类 Motion 布局及其组合变体均支持；主题与配色可整套设置、逐页覆盖，底色变化不改变排版。All 11 Motion layout families and their variants support deck-level themes/palettes with per-slide overrides, without changing layout geometry.
 
-默认搭配有明确倾向：亮绿优先大数字／关键词，List 优先品牌纯色，开场与结尾优先浅色或品牌纯色；其他组合仍可显式选用。Recommended pairings favor lime for large metrics/keywords, solid brand colors for Lists, and Light or solid brand colors for openings/closings. Other combinations remain supported. See [style routing / 配色与版式倾向](./references/motion/scene-planning.md#choose-the-default-style-deliberately).
+默认搭配有明确倾向：亮绿优先大数字／关键词，List 优先品牌纯色，开场优先浅色或品牌纯色，尾页统一浅色中性底；其他组合仍可显式选用。Recommended pairings favor lime for large metrics/keywords, solid brand colors for Lists, and Light or solid brand colors for openings, and Light/neutral only for endings. Other combinations remain supported. See [style routing / 配色与版式倾向](./references/motion/scene-planning.md#choose-the-default-style-deliberately).
 
 Light/Dark themes and combined shots: brand + title,1–3 parallel workflow rows with2–4 nodes each, tags to editable table/list results, separate input caret and animation layers. Both languages support fully replaceable copy, logos and images. Components are optional, not a checklist. [Specification](./references/motion/themes-and-combinations.md).
 

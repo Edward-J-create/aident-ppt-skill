@@ -1,6 +1,6 @@
 # Motion content contract
 
-`meta.palette` / `slide.palette`: `neutral | teal | cobalt | lime`. Theme controls contrast independently; a non-neutral palette defaults to `background:"brand"` or can explicitly use `"brand-gradient"`. All palettes remain supported across all layouts, but authoring follows the preference routing in [scene planning](scene-planning.md#choose-the-default-style-deliberately): lime primarily for a large metric/keyword, Lists primarily on solid brand color, and openings/closings primarily Light or solid brand color. The original `content/title/elements` image backgrounds remain available. See [themes and combinations](themes-and-combinations.md).
+`meta.palette` / `slide.palette`: `neutral | teal | cobalt | lime`. Theme controls contrast independently; a non-neutral palette defaults to `background:"brand"` or can explicitly use `"brand-gradient"`. All palettes remain supported across all layouts, but authoring follows the preference routing in [scene planning](scene-planning.md#choose-the-default-style-deliberately): lime primarily for a large metric/keyword, Lists primarily on solid brand color, and openings primarily Light or solid brand color, and closings explicitly Light/neutral only (no Dark or bright-lime end cards). The original `content/title/elements` image backgrounds remain available. See [themes and combinations](themes-and-combinations.md).
 
 Theme and composition extensions: `meta.theme` / `slide.theme` select Light or Dark. Images may use strict `variants:{light,dark}` path maps. `motion-title` supports `brand-title` with1–2 replaceable logos above the statement; workflow `rows` supports1–3 matched rows ×2–4 nodes; synthesis `result` supports editable table/list variants. Optional `showCaret` is separate from `showCursor`. Read [themes-and-combinations.md](themes-and-combinations.md) for complete fields, defaults, budgets and examples.
 
@@ -65,7 +65,7 @@ Choosing an existing `assets/icons/light/*.svg` for Motion Slides extracts the e
 | Type | Required and optional visible fields |
 |---|---|
 | title | `title`; optional `highlight` must exactly match part of title; optional `kicker` |
-| brand | `logos`; optional `separator` default `×`; no heading |
+| brand | `logos`; optional `separator` default `×`; no heading. Variant `cta` requires `cta.text`, supports `cta.href/showArrow` and optional `label`; no title/body. See [metrics-and-cta.md](metrics-and-cta.md). |
 | cards / comparison | `title`, `items[].title`; optional `kicker`, item `label/body/image/tone` |
 | input | `prompt`; compact may include `label/image`; `showSend` default true; `showCursor` default false; `send:{state,ariaLabel}` optional |
 | list | `items[].title`; optional `image/showLogo`, row `body/badge/image/checked/tone`; checked variant applies check by default |
@@ -73,7 +73,7 @@ Choosing an existing `assets/icons/light/*.svg` for Motion Slides extracts the e
 | hub | `title`, `hub` title and/or image, 1–4 `items`; satellite title and/or image plus optional `label`; optional explicit `connections` with slots |
 | workflow | `title`, 2–4 ordered `items` with `title`, optional `label/body/image`; optional adjacent `connections:{id,from,to}[]`; no central hub |
 | image | `title`, `image`; optional `body` on split, optional `kicker` |
-| metric | `title`, `value`; optional `label/body/kicker` |
+| metric | `title`, `value`; optional `label/body/kicker`. Variant `cards` instead requires exactly two `items[].value` with optional item `label/body`; no top-level value/label/body. Variants `hero-number/hero-word` enlarge a single focal value. See [metrics-and-cta.md](metrics-and-cta.md). |
 
 Do not put a property on a layout that has no visible slot for it. For example, `body` belongs to split-image copy, not a Logo-only scene. There is no callout/source/header property in this mode. Keep source attribution or evidence in notes unless it is itself the subject of visible user-provided copy.
 

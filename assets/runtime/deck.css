@@ -49,6 +49,8 @@ button{cursor:pointer}
 .slide[data-theme="dark"] .kicker{background-image:var(--brand-dark)}
 .slide-title{margin:0;font-family:var(--font-en-display);font-weight:400;font-size:100px;line-height:1.1;letter-spacing:-.02em;max-width:1580px;text-wrap:balance;background:linear-gradient(90deg,#40484a,#111114);-webkit-background-clip:text;background-clip:text;color:transparent}
 .slide[data-theme="dark"] .slide-title{background-image:linear-gradient(90deg,#ebfefc,#ebe3ff)}
+/* Extend gradient paint for Outfit descenders; cancel only the paint padding in layout. */
+.slide-title{padding-bottom:.12em;margin-bottom:-.12em}
 .brand-right,.kicker,.slide-title,.metric-value,.comparison-card .item-label,.callout-metric{-webkit-text-fill-color:transparent;background-repeat:no-repeat}
 body[data-lang="zh"] .slide-title{font-family:var(--font-zh-display);font-style:oblique;font-size:100px;line-height:1.2;letter-spacing:0}
 .slide-subtitle{margin:0;max-width:1420px;font-size:30px;line-height:1.5;letter-spacing:-.01em;color:var(--muted-light)}
