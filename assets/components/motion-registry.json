@@ -334,6 +334,10 @@
           "radius": 24
         }
       },
+      "themeTreatment": {
+        "light": "Six semantic colors; use only meaningful categories, not a color per tag.",
+        "dark": "Neutral white text / 8% white fill; accent brand cyan text / 4% cyan fill. Legacy info/success/warning/purple names resolve to neutral, not opaque colored chips. Single output uses the same accent, never the Light gradient."
+      },
       "tones": [
         "neutral",
         "info",
@@ -506,6 +510,7 @@
         "content",
         "title",
         "elements",
+        "solid",
         "brand",
         "brand-gradient"
       ]

@@ -37,7 +37,7 @@ The generator accepts only registered keys and validates counts and copy budgets
 | `slide.type` | one of the motion-registry layout types |
 | `slide.variant` | layout-specific named variant |
 | `slide.title` / `kicker` | visible heading / optional section label on compatible layouts |
-| `slide.background` | `content`, `title`, `elements`; defaults are layout-specific |
+| `slide.background` | `solid`, `content`, `title`, `elements`, `brand`, `brand-gradient`; neutral Dark defaults to solid ink `#101B27`, non-neutral to solid `brand`, neutral Light to layout artwork |
 | `slide.duration` | optional suggested shot length; at least one frame at meta.fps, at most180s; overrides shorter per-layout defaults |
 | `slide.notes` | `{title,purpose,talk:[],transition}`; not painted on the canvas |
 

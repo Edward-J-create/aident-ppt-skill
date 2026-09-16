@@ -26,6 +26,10 @@ Dark does not mean gray only. `meta.palette` / `slide.palette` select `neutral`,
 
 Theme and palette are shared capabilities of **every registered Motion layout and variant**, including brand-title, workflow rows and synthesis result panels—not cover-only options. Resolve each field independently: slide override → deck meta default → Light/neutral. Choose the layout for its information structure, then select the background; changing color must not change node counts, alignment, spacing or optional content. `background` is a per-slide field, not a supported `meta` field. All families share its choices; brand backgrounds require a non-neutral palette and theme-suitable logos/images.
 
+Neutral Dark Motion defaults to solid ink `#101B27` (`background:"solid"`), distinct from brand teal and deep blue. Do not cover an exact ink background with the legacy gray/aurora images. Explicit artwork backgrounds remain optional.
+
+For Dark Motion tags, use translucent white peers and brand-cyan emphasis, including nested and standalone outputs. Do not inherit Light semantic-color chips or rainbow output gradients. Legacy tone names remain compatible but resolve to the quiet Dark treatment; see `references/motion/themes-and-combinations.md`. README previews must demonstrate these rules, not the exhaustive palette test matrix.
+
 ## Presentation mode: non-negotiable outcomes
 
 - Build at exactly 1920×1080, 16:9.

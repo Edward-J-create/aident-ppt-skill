@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-16T15:21:07.716Z",
+  "generatedAt": "2026-09-16T15:39:22.274Z",
   "fileCount": 114,
-  "totalBytes": 71327928,
+  "totalBytes": 71270269,
   "files": [
     {
       "path": "assets/asset-sources.json",
@@ -66,8 +66,8 @@
     },
     {
       "path": "assets/components/motion-registry.json",
-      "bytes": 12540,
-      "sha256": "0b64288ab1f11074deeb05b866ca23805b0b8d0023456282be4ef45edea549e2"
+      "bytes": 12928,
+      "sha256": "32bbb91e0edf1db94298b90fd46dbb2b214cb1bfebe9be41a1ff6e9e64b03791"
     },
     {
       "path": "assets/components/registry.json",
@@ -496,23 +496,23 @@
     },
     {
       "path": "assets/previews/motion-slides.en.webp",
-      "bytes": 862674,
-      "sha256": "a4ab519409c7136ce2bdced61baeb224ce04cdd03e6d0c852303e65f410debaf"
+      "bytes": 861484,
+      "sha256": "6a76e3a36e100db3f04091bdc69128913cfdff8cb5cc0df81a0e499e910c0b2d"
     },
     {
       "path": "assets/previews/motion-slides.zh.webp",
-      "bytes": 819394,
-      "sha256": "00e68e57bb58cf2386a43263fbad357893a767e3c75686b4cf5a914f70d7010e"
+      "bytes": 819358,
+      "sha256": "f2f028baf0c12b6cd8028816eac6510778787ffaaece0bcee64abc91822dcbee"
     },
     {
       "path": "assets/previews/motion-themes.en.webp",
-      "bytes": 275536,
-      "sha256": "e211704aa2d61665e36560dbd65404c15b2c8cdfe2fefa6cfe8e50ff36565b1b"
+      "bytes": 247652,
+      "sha256": "af273da3edfd5c869daac4f77ebb7cc41ed73ddb945ae6fa6bb81b96bbc1fd5c"
     },
     {
       "path": "assets/previews/motion-themes.zh.webp",
-      "bytes": 268908,
-      "sha256": "f0503417798da0686be3b941a519f46bd4c2366171b66ca22b2b911013187a86"
+      "bytes": 239810,
+      "sha256": "a02079b3e73da0395e56c7d84a0b3285fcbc09324514240b476e257051359201"
     },
     {
       "path": "assets/runtime/deck.css",
@@ -566,8 +566,8 @@
     },
     {
       "path": "assets/tokens/motion.json",
-      "bytes": 12741,
-      "sha256": "8198727d8445f1fabddfb7969f86eacd9cc4314ecee3ffe902165bfa5826ebe1"
+      "bytes": 12902,
+      "sha256": "4149b0eb69cd30c32e3149ee5e998c0fdbcd54d8372b4b359d1caa7f586ad5bd"
     },
     {
       "path": "assets/tokens/tokens.json",

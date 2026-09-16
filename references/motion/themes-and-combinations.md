@@ -12,19 +12,19 @@ Set `meta.theme: "light" | "dark"` for the deck default; `slide.theme` overrides
 | Secondary text | `#5E6263` | `#D9E4ED` |
 | Accent / connectors | `#008089` | `#1EEAEA` |
 | Panel / Input / workflow node | `#FFFFFF` | white at 6% fill / 20% stroke |
-| Neutral tag | gray on translucent light fill | `#D1D9DE` on `#303A43` |
-| Info tag | blue | `#9CCCFF` on `#243D59` |
-| Success tag | green | `#A0EBC0` on `#214838` |
-| Warning tag | orange | `#FFD0A0` on `#513821` |
-| Purple tag | purple | `#D6C3FF` on `#3D3157` |
-| Accent tag | teal | `#9DEDF3` on `#20454B` |
+| Neutral tag | gray on translucent light fill | white text on white at 8% fill |
+| Info / success / warning / purple tag | original semantic category colors | legacy names resolve to the same neutral white treatment |
+| Accent tag (input or output) | teal; a single standalone output retains the original Light gradient | brand cyan `#1EEAEA` on cyan at 4% fill; no gradient |
 
-Exact paints, gradients and Send states live in `assets/tokens/motion.json`, under `themes`. The single bright gradient output retains dark `onEmphasis` text in **both** themes: white text on that bright gradient would be unreadable. Semantic colors name categories, not row positions. Keep a category consistent across scenes; two or three purposeful categories usually suffice.
+Exact paints, gradients and Send states live in `assets/tokens/motion.json`, under `themes`. Dark uses one quiet tag system: white/translucent peers and a brand-cyan emphasis, not solid dark green, purple, blue or brown chips. This also applies to tags inside cards, output panels and standalone outputs. The 4% cyan tag fill is intentionally lower than a List badge's 12%: nested tags must retain at least 4.5:1 text contrast over the translucent panel on deep teal. Text itself stays fully opaque.
+
+Legacy category names remain accepted so old decks do not fail, but do not promise distinct color encodings in Dark. Use text and grouping to communicate categories; do not rely only on color for warning/success meaning. Light keeps the source category paints and its single bright gradient output with dark text. Dark outputs do not inherit that gradient. Dark Input labels and active Send states use the same brand cyan, not unrelated blue/green shades.
 
 `background` keeps the same keys with theme-aware assets:
 
 | Key | Light asset | Dark asset |
 |---|---|---|
+| `solid` | theme/palette canvas token, no image | neutral ink `#101B27`, or selected palette canvas; no image/texture |
 | `content` | motion-content-light.webp | dark-ink.webp |
 | `title` | motion-title-light.webp | dark-aurora.webp |
 | `elements` | light-elements-inner.webp | dark-elements-inner.webp |
@@ -45,7 +45,7 @@ Dark is **not synonymous with gray**. Theme controls foreground contrast; palett
 
 | Palette | Light solid canvas | Dark solid canvas | Use |
 |---|---|---|---|
-| `neutral` (default) | original pale artwork | original ink artwork | Quiet baseline |
+| `neutral` (default) | original pale artwork | solid ink `#101B27` | Quiet baseline, distinct from deep teal and cobalt |
 | `teal` | `#BCF3E9` | `#07525B` | Brand-tinted workflow, identity, statement |
 | `cobalt` | `#CDD5FF` | `#14236F` | Solid deep-blue brand/information beat; one optional deep-blue gradient |
 | `lime` | `#B9F64F` | `#244C2C` | Bright offer/metric or deep green information scene |
@@ -53,10 +53,11 @@ Dark is **not synonymous with gray**. Theme controls foreground contrast; palett
 The saturated teal/lime/cobalt starting colors are reusable editorial options informed by the reviewed production example, **not mandatory corporate palette claims for every user**. Related lighter/darker component paints are maintained extensions. Choose a palette that suits the user's brand. Do not automatically equate any supplied logo with one preset. For a custom exact palette, a maintainer must add complete Light/Dark tokens and corresponding contrast tests rather than allowing an arbitrary hex to bypass quality checks.
 
 - Non-neutral palettes default to `background: "brand"` (solid color).
+- Neutral Dark defaults to `background: "solid"`: the exact ink canvas `#101B27`, with no image or texture covering it. Explicit `content/title/elements` remain available artwork alternatives; do not use them to demonstrate the exact ink swatch. `solid` is supported in every theme/palette and preserves layout.
 - `background: "brand-gradient"` remains technically accepted for compatibility. Only Dark `cobalt` has a distinct recommended gradient (`#101B27 → #14236F`); other palettes resolve this field to their solid brand color and should not be selected merely for variety. The removed dark-green multi-color gradient must not return.
 - Existing `content/title/elements` remain explicit background choices. To obtain a visibly brand-colored canvas, use `brand` or `brand-gradient`; an existing neutral background image will otherwise cover the palette's base fill.
 - `brand` / `brand-gradient` require a non-neutral palette. `palette:"neutral"` restores the original neutral behavior even if a deck-level brand palette is set.
-- Panel, Input, card, muted fill, stroke, table header/rule and secondary text follow the selected palette; semantic tag categories retain their readable, consistent theme colors. Bright gradient result tags still use dark text.
+- Panel, Input, card, muted fill, stroke, table header/rule and secondary text follow the selected palette. Dark tags use neutral white plus brand-cyan emphasis across every palette. Light retains its semantic category paints and dark text on bright gradient result tags.
 - Deep teal/blue/green use `theme:"dark"` and light text. A bright lime offer uses `theme:"light",palette:"lime"` and dark text. Never force white text onto a bright brand background merely because adjacent shots are Dark. Bright lime is preferentially routed to a large centered metric/keyword, not to a list or dense multi-card page; explicit exceptions remain supported.
 
 ```json
@@ -73,7 +74,7 @@ The original Light design is still the default for old input. Brand backgrounds 
 
 The shared background system applies to `motion-title`, `motion-brand`, `motion-cards`, `motion-comparison`, `motion-input`, `motion-list`, `motion-synthesis`, `motion-hub`, `motion-workflow`, `motion-image` and `motion-metric`, including their registered variants (brand-title, parallel workflow rows and table/list results). There is no per-layout color whitelist. Image scenes retain their user image; a photograph covering part of the canvas does not recolor with the background.
 
-Resolve `theme` and `palette` **independently**: slide field → matching meta field → `light` / `neutral`. `background` is slide-only; when omitted, a non-neutral palette chooses `brand`, otherwise the layout chooses its original background. Do not invent `meta.background`. To set one explicit treatment throughout a deck, populate `background` on each slide. `brand` / `brand-gradient` still require a non-neutral palette.
+Resolve `theme` and `palette` **independently**: slide field → matching meta field → `light` / `neutral`. `background` is slide-only; when omitted, a non-neutral palette chooses `brand`, neutral Dark chooses `solid`, and neutral Light chooses the layout's original artwork. The resolved background is recorded in JSON and animation handoff. Do not invent `meta.background`. To set one explicit treatment throughout a deck, populate `background` on each slide. `brand` / `brand-gradient` still require a non-neutral palette; `solid` does not.
 
 Selecting another background must preserve layout geometry, text roles, counts, optional fields and edit targets. Never switch a workflow into cards, force a Callout or move imagery just to obtain a color. Logo/theme suitability is an asset constraint, not a restriction on the page family. This contract is indexed in `motion-registry.json` → `components.theme` and exercised by the theme matrix tests.
 

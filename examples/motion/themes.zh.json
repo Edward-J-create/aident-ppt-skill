@@ -142,21 +142,21 @@
         [
           {
             "title": "研究",
-            "tone": "info"
+            "tone": "neutral"
           },
           {
             "title": "反馈",
-            "tone": "info"
+            "tone": "neutral"
           }
         ],
         [
           {
             "title": "优先级",
-            "tone": "purple"
+            "tone": "neutral"
           },
           {
             "title": "负责人",
-            "tone": "purple"
+            "tone": "neutral"
           }
         ]
       ],
@@ -166,8 +166,8 @@
           "tone": "accent"
         }
       ],
-      "palette": "teal",
-      "background": "brand-gradient"
+      "palette": "neutral",
+      "background": "solid"
     },
     {
       "id": "result-table",
@@ -181,15 +181,15 @@
         [
           {
             "title": "信号",
-            "tone": "info"
+            "tone": "neutral"
           },
           {
             "title": "标准",
-            "tone": "purple"
+            "tone": "neutral"
           },
           {
             "title": "核验",
-            "tone": "success"
+            "tone": "neutral"
           }
         ]
       ],
@@ -219,7 +219,8 @@
             "运营"
           ]
         ]
-      }
+      },
+      "background": "solid"
     },
     {
       "id": "result-list",
@@ -275,8 +276,8 @@
           "body": "指定一位明确的审核负责人。"
         }
       ],
-      "palette": "lime",
-      "background": "brand-gradient"
+      "palette": "teal",
+      "background": "brand"
     },
     {
       "id": "dark-comparison",
@@ -297,7 +298,7 @@
         }
       ],
       "palette": "cobalt",
-      "background": "brand-gradient"
+      "background": "brand"
     },
     {
       "id": "dark-metric",
@@ -313,7 +314,7 @@
       "id": "brand-statement",
       "type": "motion-title",
       "palette": "teal",
-      "background": "brand-gradient",
+      "background": "brand",
       "title": "把清晰想法变成行动",
       "highlight": "行动"
     },

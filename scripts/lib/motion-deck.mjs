@@ -21,6 +21,7 @@ const keys={
 keys.slide.push('theme','rows','showCaret','palette');
 const themeFor=(s,meta)=>s.theme||meta.theme||'light';
 const paletteFor=(s,meta)=>s.palette||meta.palette||'neutral';
+const backgroundFor=(s,meta)=>s.background||(paletteFor(s,meta)!=='neutral'?'brand':themeFor(s,meta)==='dark'?'solid':['motion-title','motion-brand'].includes(s.type)?'title':s.type==='motion-synthesis'?'elements':'content');
 export function validateMotion(deck){
  const errors=[],add=s=>errors.push(s),unknown=(v,k,p)=>{if(v&&typeof v==='object'&&!Array.isArray(v))for(const x of Object.keys(v))if(!keys[k].includes(x))add(`${p}.${x}: unknown field`);};
  if(!deck||typeof deck!=='object'||Array.isArray(deck))return ['Deck must be an object.'];
@@ -69,7 +70,7 @@ export function validateMotion(deck){
   if(s.type==='motion-input'&&s.variant!=='compact'&&(s.label||s.image))add(`${p}: input label/logo belongs to compact mode`);
   if(!/^[a-z0-9][a-z0-9-]*$/.test(s.id||'')||ids.has(s.id))add(`${p}.id must be unique kebab-case`);ids.add(s.id);
   if(s.variant&&!rule.variants.includes(s.variant))add(`${p}.variant must be ${rule.variants.join('/')}`);
-  if(s.background&&!Object.hasOwn(tokens.backgrounds,s.background)&&!['brand','brand-gradient'].includes(s.background))add(`${p}.background must be content/title/elements/brand/brand-gradient`);
+  if(s.background&&!registry.components.theme.backgrounds.includes(s.background))add(`${p}.background must be ${registry.components.theme.backgrounds.join('/')}`);
   const titleRequired=!['motion-brand','motion-input','motion-list'].includes(s.type);
   if(titleRequired&&!txt(s.title))add(`${p}.title is required`);
   if(len(s.title)>(s.type==='motion-title'?(zh?26:80):(zh?17:44)))add(`${p}.title exceeds ${zh?'Chinese':'English'} budget; shorten the takeaway`);
@@ -288,10 +289,10 @@ function render(s,meta,i){
  case 'motion-image':body=title(s)+(s.variant==='hero'?node('image','m-hero-image',img(s.image)): `<div class="m-split">${node('copy','m-split-copy',p(s.body,'m-lead'))}${node('image','m-split-image',img(s.image))}</div>`);break;
  case 'motion-metric':body=title(s)+node('metric','m-metric',label(s.label)+p(s.value,'m-metric-value',true)+p(s.body,'m-lead'));break;
  }
- const palette=paletteFor(s,meta),bg=s.background||(palette!=='neutral'?'brand':['motion-title','motion-brand'].includes(s.type)?'title':s.type==='motion-synthesis'?'elements':'content');
+ const palette=paletteFor(s,meta),bg=backgroundFor(s,meta);
  const theme=themeFor(s,meta);
  if(theme==='dark')for(const name of ['arrow','curve','stem'])body=body.replaceAll(`src="${tokens.assets[name]}"`,`src="assets/motion/dark/${name}.svg"`);
- const backdrop=bg.startsWith('brand')?'<div class="m-brand-background" data-motion="background" aria-hidden="true"></div>':`<img class="background" src="${tokens.themes[theme].backgrounds[bg]}" alt="">${bg==='title'?'':`<img class="texture" src="assets/textures/light-overlay.webp" alt="">`}`;
+ const backdrop=bg==='solid'||bg.startsWith('brand')?'<div class="m-brand-background" data-motion="background" aria-hidden="true"></div>':`<img class="background" src="${tokens.themes[theme].backgrounds[bg]}" alt="">${bg==='title'?'':`<img class="texture" src="assets/textures/light-overlay.webp" alt="">`}`;
  return `<section class="slide motion-slide ${s.type}" data-id="${esc(s.id)}" data-type="${s.type}" data-index="${i}" data-theme="${theme}" data-palette="${palette}" data-background="${bg}" aria-hidden="true" aria-label="${esc(s.title||s.notes?.title||s.id)}">${backdrop}<div class="m-canvas">${body}</div></section>`;
 }
 
@@ -316,6 +317,7 @@ export async function generateMotionDeck(args,raw){
  if(outDir===skillRoot||outDir===path.parse(outDir).root||outDir===inputDir)throw Error('Use a dedicated output folder separate from the source JSON and Skill.');
  await fs.mkdir(outDir,{recursive:true});
  const prepared=structuredClone(raw);
+ for(const s of prepared.slides)s.background=backgroundFor(s,prepared.meta);
  for(const s of prepared.slides)if(s.type==='motion-synthesis')s.composition=resolveSynthesis(s);
  for(const s of prepared.slides)if(['motion-hub','motion-workflow'].includes(s.type)&&s.variant!=='rows')s.connections=resolveConnections(s);
  if(!prepared.meta.logo&&prepared.slides.some(s=>s.type==='motion-list'&&(s.showLogo??prepared.meta.showLogo)!==false&&!s.image))prepared.meta.logo={src:'assets/motion/mark.svg',alt:'Aident'};

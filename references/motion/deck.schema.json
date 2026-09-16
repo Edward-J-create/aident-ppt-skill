@@ -450,6 +450,7 @@
             "content",
             "title",
             "elements",
+            "solid",
             "brand",
             "brand-gradient"
           ]

@@ -9,7 +9,7 @@ All coordinates and dimensions are CSS pixels on a 1920×1080 canvas. Source-mat
 | `motion-title` | statement | title, exact-substring highlight, optional kicker | 1700px safe width; centered vertically; 116px display; 2 lines maximum |
 | `motion-brand` | single / pair | 1–2 complete logo images, editable separator | centered; single ≤777×147; pair each ≤597×113.062; intrinsic ratio, pair gap64; default complete lockup |
 | `motion-cards` | 2 / 3 / 4 columns | optional label/image, title, body | x110, y429, width1700; gap30; shared height450; padding30; radius20 |
-| `motion-comparison` | 2 | baseline, target | same card geometry; left muted surface; right translucent gradient |
+| `motion-comparison` | 2 | baseline, target | same card geometry; left muted surface; right emphasized theme fill/stroke; gradient is Light-only |
 | `motion-input` | multiline / compact | prompt, optional label/logo/cursor/send | centered; multiline width900 and hug height; compact hug width ≤1600; 24 padding; 77 send button |
 | `motion-list` | plain / checked, 1–24 items | default/replaceable logo; row title/body/badge/image/check | scene x310,y200,w1300,height auto; logo height150 + gap67; track starts y417 with logo or y200 without; row min137/hug; gap20 |
 | `motion-synthesis` | stages / many-to-few; columns / rows / wrap composition | 1–4 tag groups, 1–3 outputs | y380, 1700×550 zone; measured input width and hug height; fixed167×22.0919 arrow; output hug |
@@ -66,10 +66,11 @@ Read [editable-components.md](editable-components.md) for Workflow title budgets
 - Standard point/card: cyan `rgba(30,234,234,.06)`, border `rgba(0,128,137,.30)`.
 - Muted comparison card: `rgba(17,17,20,.04)`, border `rgba(17,17,20,.20)`.
 - Dark comparison cards distinguish states primarily by white-paint alpha: baseline 4% fill /20% stroke; target20% fill /60% stroke. Text and whole-card opacity stay at1. The packaged pastel gradient remains an explicit optional emphasis treatment, not the default dark comparison paint. This is separate from the presentation Callout's16% fill.
-- Output emphasis tag: same color direction at full fill; text stays primary.
+- Output emphasis tag: Light retains the original gradient with dark text; Dark uses 4% brand-cyan fill and `#1EEAEA` text, never the Light gradient.
 - Badge: cyan at20%; primary accent text; pill radius; padding16.
 - Semantic tag fills: neutral / info / success / warning / purple / accent from `motion.json`. Apply alpha only to fills; never fade an entire component to simulate paint opacity.
 - `content` background: source-exported atmospheric layers composited at their original scale and positions; `title`: more visible diagonal atmosphere; `elements`: packaged right-weighted elements.
+- `solid`: exact theme/palette canvas without an image or texture. Neutral Dark defaults to ink `#101B27`; it is not the legacy gray `dark-ink.webp` artwork. Teal `#07525B` and cobalt `#14236F` are separate solid choices.
 - Text remains outside background artwork. Texture stays a separate subtle overlay. All new raster resources use Lossless WebP with decoded-pixel verification.
 
 ## Scrolling list anatomy

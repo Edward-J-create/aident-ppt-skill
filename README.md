@@ -26,6 +26,8 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 Light/Dark themes and combined shots: brand + title,1–3 parallel workflow rows with2–4 nodes each, tags to editable table/list results, separate input caret and animation layers. Both languages support fully replaceable copy, logos and images. Components are optional, not a checklist. [Specification](./references/motion/themes-and-combinations.md).
 
+深色预览包含纯墨蓝 `#101B27`、品牌深青 `#07525B` 与深蓝 `#14236F`；最后一张展示可选深蓝渐变。Dark previews include solid ink, brand teal and deep blue; only the final scene demonstrates the optional blue gradient.
+
 ![Light/Dark combinations · English / 深浅主题组合·英文](./assets/previews/motion-themes.en.webp)
 ![Light/Dark combinations · Chinese / 深浅主题组合·中文](./assets/previews/motion-themes.zh.webp)
 
@@ -41,7 +43,7 @@ Start explainers from the bilingual starters with Logo, Input, Joint, synthesis 
 
 Logo defaults / 默认标志：品牌镜头使用完整图形＋文字 Logo；列表与流程节点保留独立图形。两侧可分别替换，不将同一品牌拆成两个 Logo。Brand shots use the complete lockup; compact identities use the standalone mark. Either pair slot can be replaced independently.
 
-Independent controls / 独立组件接口：Logo pairs allow replacing or animating either side; Input exposes separate text, Send button and inline arrow, with five explicit states. Linear workflows support 2–4 nodes without a center; hubs support 1–4 satellites. Tags offer six semantic colors, and timing defaults are shorter, overridable suggestions. 双 Logo 可分别替换和动画编辑；Input 文字、按钮和箭头独立，提供五种手动状态；单向流程与中心关系图分开选型，标签支持六种配色。详见 / See [editable component rules](./references/motion/editable-components.md) and [bilingual control examples](./examples/motion/controls.en.json).
+Independent controls / 独立组件接口：Logo pairs allow replacing or animating either side; Input exposes separate text, Send button and inline arrow, with five explicit states. Linear workflows support 2–4 nodes without a center; hubs support 1–4 satellites. Light tags offer six semantic colors; Dark uses translucent white peers and brand-cyan emphasis, without opaque green/purple chips or rainbow output. Timing defaults are shorter, overridable suggestions. 双 Logo 可分别替换和动画编辑；Input 文字、按钮和箭头独立，提供五种手动状态；单向流程与中心关系图分开选型，浅色标签支持六种分类色；深色使用半透明白色同级标签与品牌亮青色强调，不使用深绿／深紫色块或彩虹输出渐变。详见 / See [editable component rules](./references/motion/editable-components.md) and [bilingual control examples](./examples/motion/controls.en.json).
 
 ![English Motion Slides / 英文视频版式](./assets/previews/motion-slides.en.webp)
 ![Chinese Motion Slides / 中文视频版式](./assets/previews/motion-slides.zh.webp)
