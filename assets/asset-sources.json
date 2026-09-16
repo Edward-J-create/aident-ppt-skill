@@ -40,7 +40,7 @@
         "assets/previews/motion-themes.en.webp",
         "assets/previews/motion-themes.zh.webp"
       ],
-      "palettePolicy": "Neutral/teal/cobalt/lime; reviewed production teal #07525B, cobalt #2536CA and bright lime #B9F64F inform optional editorial presets, not universal corporate-brand claims. CSS gradients and coordinated panel paints are maintained extensions; no extra raster backgrounds."
+      "palettePolicy": "Neutral/teal/cobalt/lime remain available across every Motion layout. Default authoring prefers bright lime #B9F64F for large metrics/keywords, solid teal #07525B or deep blue #14236F for Lists, and Light or solid brand color for openings/closings. Only deep blue keeps a distinct optional gradient (#101B27 to #14236F); other brand-gradient values resolve to solid colors. Dark panels use translucent white paint rather than opaque white cards."
     }
   },
   "runtimeDependsOnFigma": false,

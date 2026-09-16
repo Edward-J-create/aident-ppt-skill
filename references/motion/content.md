@@ -1,6 +1,6 @@
 # Motion content contract
 
-`meta.palette` / `slide.palette`: `neutral | teal | cobalt | lime`. Theme controls contrast independently; a non-neutral palette defaults to `background:"brand"` or can use `"brand-gradient"`. The original `content/title/elements` image backgrounds remain available. See the brand-color section in [themes-and-combinations.md](themes-and-combinations.md).
+`meta.palette` / `slide.palette`: `neutral | teal | cobalt | lime`. Theme controls contrast independently; a non-neutral palette defaults to `background:"brand"` or can explicitly use `"brand-gradient"`. All palettes remain supported across all layouts, but authoring follows the preference routing in [scene planning](scene-planning.md#choose-the-default-style-deliberately): lime primarily for a large metric/keyword, Lists primarily on solid brand color, and openings/closings primarily Light or solid brand color. The original `content/title/elements` image backgrounds remain available. See [themes and combinations](themes-and-combinations.md).
 
 Theme and composition extensions: `meta.theme` / `slide.theme` select Light or Dark. Images may use strict `variants:{light,dark}` path maps. `motion-title` supports `brand-title` with1–2 replaceable logos above the statement; workflow `rows` supports1–3 matched rows ×2–4 nodes; synthesis `result` supports editable table/list variants. Optional `showCaret` is separate from `showCursor`. Read [themes-and-combinations.md](themes-and-combinations.md) for complete fields, defaults, budgets and examples.
 

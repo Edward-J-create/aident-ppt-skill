@@ -25,10 +25,13 @@ export async function preflightMotion(htmlPath,screenshotDir){
    const sr=rect(slide),scene=slide.querySelector('[data-list-scene]');
    if(!['light','dark'].includes(slide.dataset.theme))errors.push('Unknown Motion theme');
    if(slide.dataset.theme==='dark'){
-    const lum=s=>{const rgb=s.trim().startsWith('#')?s.trim().slice(1).match(/../g).map(v=>parseInt(v,16)):s.match(/[\d.]+/g).slice(0,3).map(Number);return rgb.map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);};
+    const rgba=s=>{const v=s.trim();if(v.startsWith('#'))return [...v.slice(1).match(/../g).map(x=>parseInt(x,16)),1];const n=v.match(/[\d.]+/g).map(Number);return [n[0],n[1],n[2],n[3]??1]};
+    const composite=(front,back)=>{const f=rgba(front),b=rgba(back),a=f[3];return `rgb(${f.slice(0,3).map((v,i)=>Math.round(v*a+b[i]*(1-a))).join(',')})`};
+    const lum=s=>{const rgb=rgba(s).slice(0,3);return rgb.map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);};
     const contrast=(a,b)=>(Math.max(lum(a),lum(b))+.05)/(Math.min(lum(a),lum(b))+.05);
-    for(const tag of slide.querySelectorAll('.m-tag')){const cs=getComputedStyle(tag);if(cs.backgroundImage==='none'&&contrast(cs.color,cs.backgroundColor)<4.5)errors.push('Dark tag contrast below 4.5: '+tag.textContent);}
-    for(const el of slide.querySelectorAll('.m-body,.m-result-value,.m-flow-title,.m-input-text'))if(contrast(getComputedStyle(el).color,getComputedStyle(slide).getPropertyValue('--m-surface'))<4.5)errors.push('Dark text contrast below 4.5 on its panel: '+el.textContent);
+    const sc=getComputedStyle(slide),canvas=sc.getPropertyValue('--m-canvas'),surface=composite(sc.getPropertyValue('--m-surface'),canvas);
+    for(const tag of slide.querySelectorAll('.m-tag')){const cs=getComputedStyle(tag);if(cs.backgroundImage==='none'&&contrast(cs.color,composite(cs.backgroundColor,canvas))<4.5)errors.push('Dark tag contrast below 4.5: '+tag.textContent);}
+    for(const el of slide.querySelectorAll('.m-body,.m-result-value,.m-flow-title,.m-input-text'))if(contrast(getComputedStyle(el).color,surface)<4.5)errors.push('Dark text contrast below 4.5 on its panel: '+el.textContent);
    }
    for(const group of slide.querySelectorAll('[data-workflow-rows]')){
     if(group.offsetHeight>610)errors.push('Workflow rows exceed 610px content zone');

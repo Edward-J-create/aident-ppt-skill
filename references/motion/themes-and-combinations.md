@@ -8,10 +8,10 @@ Set `meta.theme: "light" | "dark"` for the deck default; `slide.theme` overrides
 
 | Role | Light | Dark |
 |---|---|---|
-| Primary text | `#111114` | `#F3F6F7` |
-| Secondary text | `#5E6263` | `#BDC7CA` |
-| Accent / connectors | `#008089` | `#6DE4F9` |
-| Panel / Input / workflow node | `#FFFFFF` | `#1C242C` |
+| Primary text | `#111114` | `#FFFFFF` |
+| Secondary text | `#5E6263` | `#D9E4ED` |
+| Accent / connectors | `#008089` | `#1EEAEA` |
+| Panel / Input / workflow node | `#FFFFFF` | white at 6% fill / 20% stroke |
 | Neutral tag | gray on translucent light fill | `#D1D9DE` on `#303A43` |
 | Info tag | blue | `#9CCCFF` on `#243D59` |
 | Success tag | green | `#A0EBC0` on `#214838` |
@@ -31,7 +31,11 @@ Exact paints, gradients and Send states live in `assets/tokens/motion.json`, und
 
 Dark backgrounds reuse the packaged Lossless WebP assets; no compiled duplicates. Dark glyphs are mechanically extracted from the existing dark design-system icon assets, retaining paths and colors. Dark arrows/curves/stems retain **every original coordinate and dimension**; only their semantic paint changes. `normalize-motion-icons.mjs --check` verifies both. No CSS filter recoloring of brands.
 
-Theme changes should signal a narrative beat, contrast or focus. They are not compulsory alternating cuts. There is no fixed quota of dark scenes and no template-selection weight. Dense material may use the quiet `content` backdrop in either theme.
+Theme changes should signal a narrative beat, contrast or focus. They are not compulsory alternating cuts. There is no fixed quota. The authoring preference table in [scene planning](scene-planning.md#choose-the-default-style-deliberately) guides defaults without reducing technical layout coverage. Dense material may use the quiet `content` backdrop in either theme.
+
+Dark component surfaces use white paint at 6% fill and 20% stroke; muted fill is 4%. Accent rows/cards keep the same 6% fill and raise the stroke to 40%. Text and the component itself remain opacity1. Comparison is intentionally separate: baseline 4% fill / 20% stroke and target 20% fill / 60% stroke. Do not use opaque white cards on dark backgrounds and do not lower the whole component opacity.
+
+Dark List status badges and checks use the packaged brand cyan `#1EEAEA` with a 12% same-color fill. The dark check SVG is a mechanical recolor of the existing path; its geometry is unchanged. Do not substitute a film-specific green. Bright-lime Light scenes use white at 65% for panels, dark ink at 22% for strokes (40% emphasis), and dark text so cards and rows stay distinct from the field.
 
 ### Brand-color backgrounds / 品牌色背景
 
@@ -41,17 +45,17 @@ Dark is **not synonymous with gray**. Theme controls foreground contrast; palett
 |---|---|---|---|
 | `neutral` (default) | original pale artwork | original ink artwork | Quiet baseline |
 | `teal` | `#BCF3E9` | `#07525B` | Brand-tinted workflow, identity, statement |
-| `cobalt` | `#CDD5FF` | `#2536CA` | Strong capability/contrast beat |
+| `cobalt` | `#CDD5FF` | `#14236F` | Solid deep-blue brand/information beat; one optional deep-blue gradient |
 | `lime` | `#B9F64F` | `#244C2C` | Bright offer/metric or deep green information scene |
 
 The saturated teal/lime/cobalt starting colors are reusable editorial options informed by the reviewed production example, **not mandatory corporate palette claims for every user**. Related lighter/darker component paints are maintained extensions. Choose a palette that suits the user's brand. Do not automatically equate any supplied logo with one preset. For a custom exact palette, a maintainer must add complete Light/Dark tokens and corresponding contrast tests rather than allowing an arbitrary hex to bypass quality checks.
 
 - Non-neutral palettes default to `background: "brand"` (solid color).
-- `background: "brand-gradient"` uses a packaged CSS radial/linear atmosphere treatment. It is an independent editable background layer, not a flattened slide image; no bitmap duplication, CSS filters or animation is injected.
+- `background: "brand-gradient"` remains technically accepted for compatibility. Only Dark `cobalt` has a distinct recommended gradient (`#101B27 → #14236F`); other palettes resolve this field to their solid brand color and should not be selected merely for variety. The removed dark-green multi-color gradient must not return.
 - Existing `content/title/elements` remain explicit background choices. To obtain a visibly brand-colored canvas, use `brand` or `brand-gradient`; an existing neutral background image will otherwise cover the palette's base fill.
 - `brand` / `brand-gradient` require a non-neutral palette. `palette:"neutral"` restores the original neutral behavior even if a deck-level brand palette is set.
 - Panel, Input, card, muted fill, stroke, table header/rule and secondary text follow the selected palette; semantic tag categories retain their readable, consistent theme colors. Bright gradient result tags still use dark text.
-- Deep teal/blue/green use `theme:"dark"` and light text. A bright lime offer uses `theme:"light",palette:"lime"` and dark text. Never force white text onto a bright brand background merely because adjacent shots are Dark.
+- Deep teal/blue/green use `theme:"dark"` and light text. A bright lime offer uses `theme:"light",palette:"lime"` and dark text. Never force white text onto a bright brand background merely because adjacent shots are Dark. Bright lime is preferentially routed to a large centered metric/keyword, not to a list or dense multi-card page; explicit exceptions remain supported.
 
 ```json
 {"meta":{"mode":"motion","title":"Brand-colored scenes","language":"en","theme":"dark","palette":"teal"},
@@ -61,7 +65,7 @@ The saturated teal/lime/cobalt starting colors are reusable editorial options in
  ]}
 ```
 
-The original Light design is still the default for old input. Brand backgrounds are available to **all** registered families, not only cover/title. First-frame, readability and asset-theme rules apply equally.
+The original Light design is still the default for old input. Brand backgrounds are available to **all** registered families, not only cover/title. Availability is not a recommendation to mix them freely: openings/closings prefer Light or a solid brand color, Lists prefer a solid brand color, and lime prefers a large metric/keyword. First-frame, readability and asset-theme rules apply equally.
 
 ### Layout coverage and precedence / 全版式覆盖与优先级
 

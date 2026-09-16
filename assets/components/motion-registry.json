@@ -7,6 +7,39 @@
     "en",
     "zh"
   ],
+  "styleRouting": {
+    "contract": "recommendation-not-validation",
+    "supported": "Every registered layout remains compatible with every registered palette and theme when explicitly selected.",
+    "rules": [
+      {
+        "purpose": "opening-or-closing",
+        "layouts": ["motion-title", "motion-brand"],
+        "preferred": ["light/neutral", "dark/teal", "dark/cobalt"],
+        "avoidByDefault": ["light/lime"],
+        "reason": "Open and close with the quiet light system or a solid brand-color identity beat."
+      },
+      {
+        "purpose": "large-number-or-keyword",
+        "layouts": ["motion-metric", "motion-title"],
+        "preferred": ["light/lime", "light/neutral", "dark/teal", "dark/cobalt"],
+        "reason": "Bright lime is a high-emphasis field best reserved for one large focal value or phrase."
+      },
+      {
+        "purpose": "ordered-list",
+        "layouts": ["motion-list"],
+        "preferred": ["dark/teal", "dark/cobalt", "light/neutral"],
+        "avoidByDefault": ["light/lime"],
+        "reason": "Lists read best on a stable solid brand field; lime remains an explicit exception."
+      },
+      {
+        "purpose": "information-scene",
+        "layouts": ["motion-cards", "motion-comparison", "motion-input", "motion-synthesis", "motion-hub", "motion-workflow", "motion-image"],
+        "preferred": ["light/neutral", "dark/neutral", "dark/teal", "dark/cobalt"],
+        "reason": "Use calm neutral or solid brand backgrounds for sustained reading."
+      }
+    ],
+    "selection": "Choose layout from information meaning first, then choose the first preferred style compatible with the narrative beat. Do not rotate palettes for variety. An explicit lower-priority combination remains valid and should be documented in notes.purpose."
+  },
   "layouts": {
     "motion-title": {
       "variants": [
@@ -71,7 +104,7 @@
         "kicker",
         "items"
       ],
-      "purpose": "Muted baseline paired with gradient target"
+      "purpose": "Muted baseline paired with a stronger fill/stroke target; gradient emphasis is optional, not assumed"
     },
     "motion-input": {
       "variants": [

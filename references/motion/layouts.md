@@ -65,7 +65,7 @@ Read [editable-components.md](editable-components.md) for Workflow title budgets
 - Base canvas: `#F2F4F0`; primary text `#111114`; secondary `#5E6263`; accent `#008089`.
 - Standard point/card: cyan `rgba(30,234,234,.06)`, border `rgba(0,128,137,.30)`.
 - Muted comparison card: `rgba(17,17,20,.04)`, border `rgba(17,17,20,.20)`.
-- Accent comparison card: green `#77FAB4` → cyan `#6DE4F9` at 49.038% → pink `#F3B6FF`, **20% stop alpha**, border accent at60%. This is not the presentation Callout's 16% fill.
+- Dark comparison cards distinguish states primarily by white-paint alpha: baseline 4% fill /20% stroke; target20% fill /60% stroke. Text and whole-card opacity stay at1. The packaged pastel gradient remains an explicit optional emphasis treatment, not the default dark comparison paint. This is separate from the presentation Callout's16% fill.
 - Output emphasis tag: same color direction at full fill; text stays primary.
 - Badge: cyan at20%; primary accent text; pill radius; padding16.
 - Semantic tag fills: neutral / info / success / warning / purple / accent from `motion.json`. Apply alpha only to fills; never fade an entire component to simulate paint opacity.

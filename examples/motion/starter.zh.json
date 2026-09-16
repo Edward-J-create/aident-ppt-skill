@@ -110,6 +110,9 @@
       "id": "results",
       "type": "motion-list",
       "variant": "checked",
+      "theme": "dark",
+      "palette": "teal",
+      "background": "brand",
       "items": [
         {
           "title": "可见的结果",
@@ -125,7 +128,7 @@
         }
       ],
       "notes": {
-        "purpose": "可选结果清单。保留镜头外的全部行，使用选定的标志或明确关闭。",
+        "purpose": "可选结果清单。Starter 展示优先推荐的品牌纯色清单样式；其他已支持 palette 仍可显式选择。保留镜头外的全部行，使用选定的标志或明确关闭。",
         "transition": "建议从上到下出现，整体向上移动；位移和时间由后续动画工具决定。"
       }
     },

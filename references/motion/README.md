@@ -37,7 +37,7 @@ For a new explainer/demo use the bilingual starter, which includes Logo, Input, 
 
 ## Mode-specific rules
 
-Every registered Motion layout and variant supports the shared theme/palette/background system—not just opening shots. Set `meta.theme` / `meta.palette` for deck defaults and override either independently on a slide. `background` is slide-only. Read [coverage and precedence](themes-and-combinations.md#layout-coverage-and-precedence--全版式覆盖与优先级); changing colors preserves layout and still requires suitable logo assets.
+Every registered Motion layout and variant supports the shared theme/palette/background system—not just opening shots. Set `meta.theme` / `meta.palette` for deck defaults and override either independently on a slide. `background` is slide-only. Support does not mean random mixing: read the [default style routing](scene-planning.md#choose-the-default-style-deliberately) and [coverage and precedence](themes-and-combinations.md#layout-coverage-and-precedence--全版式覆盖与优先级). Changing colors preserves layout and still requires suitable logo assets.
 
 1. Canvas is 1920×1080. The foreground safe width is 1700px, x=110. Responsive preview scales the entire canvas uniformly and centers it.
 2. Centered inner headings are intentional in Motion Slides. The business-presentation rule “only cover titles are centered” does not apply to this mode.

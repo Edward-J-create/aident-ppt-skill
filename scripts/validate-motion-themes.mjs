@@ -64,15 +64,22 @@ if(browserMode){
   await page.goto(pathToFileURL(path.join(root,`output/motion-themes-${lang}/index.html`)).href+'?capture=1');await page.evaluate(()=>AIDENT_MOTION.ready);
   const issues=await page.evaluate(()=>{
    const errors=[],api=AIDENT_MOTION;
-   const rgb=s=>s.trim().startsWith('#')?s.trim().slice(1).match(/../g).map(v=>parseInt(v,16)):s.match(/[\d.]+/g).slice(0,3).map(Number);
-   const lum=s=>rgb(s).map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);
+   const rgba=s=>{const v=s.trim();if(v.startsWith('#'))return [...v.slice(1).match(/../g).map(x=>parseInt(x,16)),1];const n=v.match(/[\d.]+/g).map(Number);return [n[0],n[1],n[2],n[3]??1]};
+   const composite=(front,back)=>{const f=rgba(front),b=rgba(back),a=f[3];return `rgb(${f.slice(0,3).map((v,i)=>Math.round(v*a+b[i]*(1-a))).join(',')})`};
+   const lum=s=>rgba(s).slice(0,3).map(v=>v/255).map(v=>v<=.04045?v/12.92:((v+.055)/1.055)**2.4).reduce((a,v,i)=>a+v*[.2126,.7152,.0722][i],0);
    const contrast=(a,b)=>(Math.max(lum(a),lum(b))+.05)/(Math.min(lum(a),lum(b))+.05);
    for(const slide of document.querySelectorAll('[data-theme="dark"]')){
     api.seekSlide(slide.dataset.id,0);
-    for(const tag of slide.querySelectorAll('.m-tag')){const cs=getComputedStyle(tag);if(cs.backgroundImage==='none'&&contrast(cs.color,cs.backgroundColor)<4.5)errors.push('Dark tag contrast: '+tag.textContent);}
-    for(const el of slide.querySelectorAll('.m-body,.m-result-value,.m-flow-title,.m-input-text')){if(contrast(getComputedStyle(el).color,getComputedStyle(slide).getPropertyValue('--m-surface'))<4.5)errors.push('Dark text contrast: '+el.textContent);}
+    const sc=getComputedStyle(slide),canvas=sc.getPropertyValue('--m-canvas'),surface=composite(sc.getPropertyValue('--m-surface'),canvas);
+    for(const tag of slide.querySelectorAll('.m-tag')){const cs=getComputedStyle(tag),bg=composite(cs.backgroundColor,canvas);if(cs.backgroundImage==='none'&&contrast(cs.color,bg)<4.5)errors.push('Dark tag contrast: '+tag.textContent);}
+    for(const el of slide.querySelectorAll('.m-body,.m-result-value,.m-flow-title,.m-input-text')){if(contrast(getComputedStyle(el).color,surface)<4.5)errors.push('Dark text contrast: '+el.textContent);}
+    for(const el of slide.querySelectorAll('.m-card,.m-list-row,.m-input,.m-tag-panel,.m-node-visual,.m-result')){const cs=getComputedStyle(el),alpha=rgba(cs.backgroundColor)[3];if(slide.classList.contains('motion-comparison')&&el.matches('.m-card'))continue;if(Math.abs(alpha-.06)>.001)errors.push('Dark surface must use 6% fill: '+el.className);if(cs.opacity!=='1')errors.push('Dark component opacity must remain 1: '+el.className);}
+    if(slide.classList.contains('motion-comparison')){const cards=[...slide.querySelectorAll('.m-card')];cards.forEach((card,i)=>{const cs=getComputedStyle(card);if(Math.abs(rgba(cs.backgroundColor)[3]-[.04,.20][i])>.001||Math.abs(rgba(cs.borderTopColor)[3]-[.20,.60][i])>.001)errors.push('Comparison alpha contract drift');});}
+    for(const badge of slide.querySelectorAll('.m-list-row .m-badge'))if(getComputedStyle(badge).color!=='rgb(30, 234, 234)')errors.push('Dark List badge must use brand cyan');
+    for(const check of slide.querySelectorAll('.m-list-row .m-check img'))if(!check.src.endsWith('/assets/motion/dark/check.svg'))errors.push('Dark List check must use packaged brand-cyan SVG');
     for(const im of slide.querySelectorAll('.replaceable-logo'))if(getComputedStyle(im).filter!=='none')errors.push('Unexpected brand filter');
    }
+   for(const slide of document.querySelectorAll('[data-theme="light"][data-palette="lime"]'))for(const el of slide.querySelectorAll('.m-card,.m-list-row,.m-input,.m-tag-panel,.m-node-visual,.m-result')){const cs=getComputedStyle(el);if(Math.abs(rgba(cs.backgroundColor)[3]-.65)>.001)errors.push('Bright-lime panel must use 65% white fill: '+el.className);if(cs.color!=='rgb(16, 32, 25)')errors.push('Bright-lime panel must use dark text: '+el.className);}
    api.seekSlide('dark-input',0);api.setPromptText('dark-input','A');
    const caret=document.querySelector('[data-id="dark-input"] [data-motion="caret"]'),x=caret.getBoundingClientRect().x;
    api.setPromptText('dark-input','A longer prompt');if(caret.getBoundingClientRect().x<=x)errors.push('Caret does not follow text');
