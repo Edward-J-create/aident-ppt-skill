@@ -110,6 +110,9 @@
       "id": "results",
       "type": "motion-list",
       "variant": "checked",
+      "theme": "dark",
+      "palette": "teal",
+      "background": "brand",
       "items": [
         {
           "title": "A visible outcome",
@@ -125,7 +128,7 @@
         }
       ],
       "notes": {
-        "purpose": "Optional result list. Keep all rows beyond the camera; use the chosen Logo or explicitly disable it.",
+        "purpose": "Optional result list. The starter demonstrates the preferred solid brand-color list treatment; other supported palettes remain explicit options. Keep all rows beyond the camera; use the chosen Logo or explicitly disable it.",
         "transition": "Suggested item order is top-to-bottom; whole scene may move upward. The animation author chooses travel and timing."
       }
     },

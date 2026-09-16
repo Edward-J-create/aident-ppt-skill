@@ -31,5 +31,11 @@ for(const name of ['arrow','curve','stem']){
  if(check){if(svg!==await fs.readFile(path.join(root,dest),'utf8'))throw Error('Dark connector drift: '+dest);}
  else {await fs.mkdir(path.dirname(path.join(root,dest)),{recursive:true});await fs.writeFile(path.join(root,dest),svg);}
 }
+{
+ const source=tokens.assets.check,dest=tokens.assets.checkDark;
+ const svg=(await fs.readFile(path.join(root,source),'utf8')).replaceAll('#0C8C22',tokens.themes.dark.colors.listAccent);
+ if(check){if(svg!==await fs.readFile(path.join(root,dest),'utf8'))throw Error('Dark list check drift: '+dest);}
+ else {await fs.mkdir(path.dirname(path.join(root,dest)),{recursive:true});await fs.writeFile(path.join(root,dest),svg);}
+}
 if(!check)await fs.writeFile(path.join(root,'assets/motion/icons/manifest.json'),JSON.stringify({version:1,icons:entries},null,2)+'\n');
 console.log(`${check?'Verified':'Extracted'} ${entries.length} original motion glyphs; no paths redrawn.`);

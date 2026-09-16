@@ -25,6 +25,10 @@ bad(d=>d.slides[1].title='Ignored text must fail');
 bad(d=>d.slides[12].variant='four');
 const mode=await read('references/motion/deck.schema.json');assert.ok(mode.$defs.slide.allOf.length===Object.keys(registry.layouts).length);
 assert.equal(registry.components.theme.scope,'all-motion-layouts-and-variants');
+assert.equal(registry.styleRouting.contract,'recommendation-not-validation');
+assert.ok(registry.styleRouting.rules.some(r=>r.purpose==='large-number-or-keyword'&&r.preferred[0]==='light/lime'));
+assert.ok(registry.styleRouting.rules.some(r=>r.purpose==='ordered-list'&&r.preferred[0]==='dark/teal'));
+assert.ok(registry.styleRouting.rules.some(r=>r.purpose==='opening-or-closing'&&r.preferred[0]==='light/neutral'));
 assert.deepEqual(registry.themes,Object.keys(tokens.themes));
 assert.deepEqual(registry.palettes,Object.keys(tokens.palettes));
 for(const field of ['theme','palette']){
@@ -40,7 +44,7 @@ for(const language of [en,zh])for(const theme of registry.themes)for(const palet
  }
  assert.deepEqual(validateMotion(d),[],`Inherited ${theme}/${palette} must work across all families`);
 }
-for(const lang of ['en','zh']){const starter=await read(`examples/motion/starter.${lang}.json`);assert.deepEqual(validateMotion(starter),[]);for(const type of ['motion-brand','motion-input','motion-hub','motion-synthesis','motion-list'])assert.ok(starter.slides.some(s=>s.type===type),`Starter missing ${type}`);}
+for(const lang of ['en','zh']){const starter=await read(`examples/motion/starter.${lang}.json`);assert.deepEqual(validateMotion(starter),[]);for(const type of ['motion-brand','motion-input','motion-hub','motion-synthesis','motion-list'])assert.ok(starter.slides.some(s=>s.type===type),`Starter missing ${type}`);const list=starter.slides.find(s=>s.type==='motion-list');assert.deepEqual([list.theme,list.palette,list.background],['dark','teal','brand']);}
 for(const lang of ['en','zh'])assert.deepEqual(validateMotion(await read(`examples/motion/controls.${lang}.json`)),[]);
 for(const lang of ['en','zh'])assert.deepEqual(validateMotion(await read(`examples/motion/themes.${lang}.json`)),[]);
 const routes=['references/motion/README.md','references/motion/scene-planning.md','references/motion/synthesis-composition.md','references/motion/editable-components.md','references/motion/themes-and-combinations.md','references/motion/layouts.md','references/motion/content.md','references/motion/animation-handoff.md','references/motion/quality.md'];

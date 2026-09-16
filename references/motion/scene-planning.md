@@ -1,6 +1,6 @@
 # Semantic shot planning / 按语义选择镜头
 
-Theme is an explicit editorial option, not a template weight: use Light/Dark to clarify contrast or mark a meaningful beat, never alternate mechanically. Consider a compact brand-title opening rather than separate redundant Logo/title shots; combine parallel workflows in aligned rows when they share columns; show an actual result table/list within synthesis instead of repeating the same outcome on another slide. See [themes-and-combinations.md](themes-and-combinations.md). No combination is compulsory.
+Theme and palette are editorial choices with recommended defaults, not a random rotation or a hard whitelist. Use Light/Dark to clarify contrast or mark a meaningful beat, then follow the style-routing table below. Every registered layout can still use every supported palette when explicitly chosen. Consider a compact brand-title opening rather than separate redundant Logo/title shots; combine parallel workflows in aligned rows when they share columns; show an actual result table/list within synthesis instead of repeating the same outcome on another slide. See [themes-and-combinations.md](themes-and-combinations.md).
 
 Read before drafting a Motion deck. The generator renders explicit `slide.type`; it does not select layouts, assign hidden weights, or infer a storyboard. The authoring Agent must do that work. Start a new explainer/demo from [starter.en.json](../../examples/motion/starter.en.json) or [starter.zh.json](../../examples/motion/starter.zh.json), which includes actual Logo, Input, Joint, synthesis and list scenes. The 20-page examples are a component catalog, not a recommended video sequence. Remove or adapt starter shots that do not match the user's story; do not return to a generic title-and-card minimal deck by habit.
 
@@ -15,6 +15,19 @@ Do not split one brand's symbol and wordmark into `Logo × Logo`. Use a complete
 Aident identity may be its approved standalone graphic or approved complete graphic-plus-text lockup, not extracted text alone. Single/pair Logo shots default to the complete `assets/motion/lockup.svg`; list/input/diagram identities use `assets/motion/mark.svg` where compact branding is appropriate. Do not mistake the legacy text-only wordmark asset for a complete lockup or rebuild brand lettering with ordinary HTML text.
 
 The source artwork defines visual language, not a fixed number of examples. Keep variable tag counts, grouping and Fill/Hug compositions, and variable-node diagram capabilities. Extend counts through measured layout and topology-aware edges, not by copying a screenshot's coordinates or distorting its connectors. Current supported ranges are documented in the layout/schema contracts; they are implementation boundaries, not a ban on future reusable variants.
+
+## Choose the default style deliberately
+
+Select the layout from the information relationship first. Then use these preferences unless the content or supplied brand requires another supported combination. These are tendencies, not slide quotas and not validation errors.
+
+| Shot purpose | Preferred style order | Default caution |
+|---|---|---|
+| Opening or closing identity/statement | Light neutral → solid brand deep teal → solid deep blue | Do not default to lime; keep the first/last frame quiet or clearly branded. |
+| One large number or keyword | Bright lime → Light neutral → solid brand color | Bright lime is primarily for `motion-metric` or a short `motion-title`, with one dominant center focal point. |
+| Ordered long/checked list | Solid brand deep teal → solid deep blue → Light neutral | Do not default lists to lime. Rows use the theme surface recipe; dark tags/checks use brand cyan `#1EEAEA`. |
+| Cards, Input, synthesis, workflow, hub, comparison, image | Light neutral → Dark neutral → solid brand deep teal/deep blue | Prefer sustained readability over color variety. |
+
+Do not alternate palettes merely because multiple tokens exist. In a typical short sequence, let one neutral system carry most information scenes and reserve one saturated beat for emphasis. If an explicit lower-priority combination is useful, keep it and state the reason in `notes.purpose`; do not block generation.
 
 ## Choose the visual relation first
 

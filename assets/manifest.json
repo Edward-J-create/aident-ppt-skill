@@ -1,13 +1,13 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-14T10:12:10.416Z",
-  "fileCount": 113,
-  "totalBytes": 71654023,
+  "generatedAt": "2026-09-16T15:21:07.716Z",
+  "fileCount": 114,
+  "totalBytes": 71327928,
   "files": [
     {
       "path": "assets/asset-sources.json",
-      "bytes": 5462,
-      "sha256": "b18a63b7aaa0ed6deec985544435b646401defef7a556816cac45e9a7d0c538e"
+      "bytes": 5637,
+      "sha256": "aa03021a6b03e2ec6d5aeec7188bfd0b824b8f3210e764a75b2bfc166ead1d5b"
     },
     {
       "path": "assets/backgrounds/dark-aurora.webp",
@@ -66,8 +66,8 @@
     },
     {
       "path": "assets/components/motion-registry.json",
-      "bytes": 10686,
-      "sha256": "776705fff253e7d69d70f025f9ddc0309d03accee7945b2b9d6d2928c538f5ec"
+      "bytes": 12540,
+      "sha256": "0b64288ab1f11074deeb05b866ca23805b0b8d0023456282be4ef45edea549e2"
     },
     {
       "path": "assets/components/registry.json",
@@ -327,17 +327,22 @@
     {
       "path": "assets/motion/dark/arrow.svg",
       "bytes": 722,
-      "sha256": "76b8dd6adb36c5bc6c77aeb8c241de8985c38a9a27ccc24a35b3a11ac5fa05d3"
+      "sha256": "f547c27aeaa40a51b2e1b739e39f06c889ccd03535e2267fc4c939497d3f3df0"
+    },
+    {
+      "path": "assets/motion/dark/check.svg",
+      "bytes": 323,
+      "sha256": "bbcd06c59c5246c3ed404179de9f3340bf305aa2c2561628c7f561979f772a70"
     },
     {
       "path": "assets/motion/dark/curve.svg",
       "bytes": 475,
-      "sha256": "2d8c9919fdbce4b1a41b77f66a61f76ee75347a0cd62564188abdbad2b572393"
+      "sha256": "696af49f3f90ec2192c0147c46a75fc0eaeb049d662e036541aeacf5b8b4cc60"
     },
     {
       "path": "assets/motion/dark/stem.svg",
       "bytes": 348,
-      "sha256": "a158f95c47ebd4ae5fefa00fba0faa268a3ced969087e040b474a478a14397bb"
+      "sha256": "8dab782d86f9ed94c94f3823b989ea01f74ffe17a30477e9ad5613b2a0c004d2"
     },
     {
       "path": "assets/motion/icons/action.svg",
@@ -501,13 +506,13 @@
     },
     {
       "path": "assets/previews/motion-themes.en.webp",
-      "bytes": 440784,
-      "sha256": "2e1acf4a6ae0fc2a7097e5c42516f972b7e3621f1d104c837855c265c3b8451e"
+      "bytes": 275536,
+      "sha256": "e211704aa2d61665e36560dbd65404c15b2c8cdfe2fefa6cfe8e50ff36565b1b"
     },
     {
       "path": "assets/previews/motion-themes.zh.webp",
-      "bytes": 432018,
-      "sha256": "8c695cb1e06510d9ddd2878a5ad1ec5fab23be8911b70a78cc6d7bdad01fcad8"
+      "bytes": 268908,
+      "sha256": "f0503417798da0686be3b941a519f46bd4c2366171b66ca22b2b911013187a86"
     },
     {
       "path": "assets/runtime/deck.css",
@@ -521,8 +526,8 @@
     },
     {
       "path": "assets/runtime/motion.css",
-      "bytes": 16810,
-      "sha256": "8af98036556acd17bc61b36a6a454a907ec374fc12ea743167e7d5b56f76f0c9"
+      "bytes": 17275,
+      "sha256": "88263fdcaa0ca53ca91afdc79fa445ae9dfc0641d2b03a3557e8c68da226a85e"
     },
     {
       "path": "assets/runtime/motion.js",
@@ -561,8 +566,8 @@
     },
     {
       "path": "assets/tokens/motion.json",
-      "bytes": 13295,
-      "sha256": "19b7e27fc8916cfb1ef980a8e9502dafeb9a1279fb30d15c44d92a75460100d0"
+      "bytes": 12741,
+      "sha256": "8198727d8445f1fabddfb7969f86eacd9cc4314ecee3ffe902165bfa5826ebe1"
     },
     {
       "path": "assets/tokens/tokens.json",

@@ -18,9 +18,11 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 新增深浅主题与组合镜头：同一模板可选 Light/Dark；支持 Logo＋标题、1–3 行并行流程（每行2–4节点）、标签到表格/清单结果、独立输入光标和动画层。中英文均支持，所有文字、Logo 和图片都可替换；不强制每页用完所有组件。完整规则见 [主题与组合](./references/motion/themes-and-combinations.md)。
 
-背景不只有深灰：可选中性、青绿、钴蓝、黄绿四套配色，分别支持深浅模式，以及品牌色实底／氛围渐变。Backgrounds go beyond gray: neutral, teal, cobalt and lime palettes support Light/Dark, brand-color solid fills and atmosphere gradients.
+背景提供中性、青绿、深蓝、黄绿四套配色及深浅模式；品牌色优先纯色，深蓝另有可选渐变。Backgrounds offer neutral, teal, deep blue and lime palettes in Light/Dark; brand fills default to solid colors, with an optional deep-blue gradient.
 
 所有 11 类 Motion 布局及其组合变体均支持；主题与配色可整套设置、逐页覆盖，底色变化不改变排版。All 11 Motion layout families and their variants support deck-level themes/palettes with per-slide overrides, without changing layout geometry.
+
+默认搭配有明确倾向：亮绿优先大数字／关键词，List 优先品牌纯色，开场与结尾优先浅色或品牌纯色；其他组合仍可显式选用。Recommended pairings favor lime for large metrics/keywords, solid brand colors for Lists, and Light or solid brand colors for openings/closings. Other combinations remain supported. See [style routing / 配色与版式倾向](./references/motion/scene-planning.md#choose-the-default-style-deliberately).
 
 Light/Dark themes and combined shots: brand + title,1–3 parallel workflow rows with2–4 nodes each, tags to editable table/list results, separate input caret and animation layers. Both languages support fully replaceable copy, logos and images. Components are optional, not a checklist. [Specification](./references/motion/themes-and-combinations.md).
 
