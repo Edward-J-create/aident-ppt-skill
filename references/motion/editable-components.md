@@ -104,6 +104,41 @@ window.addEventListener('aident:send', ({detail}) => {
 
 Pointer click and keyboard activation emit `aident:send`; disabled buttons do not. `setSendState` also updates actual button disability, rejects unknown states, and does not alter timing or animation transforms. Seek does not reset host-authored state. For reproducible video capture the external timeline must explicitly set state at each requested time, including backward seeks. For pure color customization use the button's CSS variables without changing all slide colors.
 
+### Cursor-to-Send targeting / 鼠标指尖与按钮的点击对齐
+
+**Current runtime limitation:** `cursor` and `send` are independent targets, not automatically position-bound. The cursor's CSS position is a static illustration/rest pose, not a click endpoint. Setting animation transforms to `x: 0, y: 0` returns it to that pose; it does not move it onto Send. Neither `layout()` nor `setSendState()` calculates a cursor target. This is an animation handoff requirement, not a new runtime API or fixed animation preset.
+
+When authoring a click:
+
+1. Scope `[data-motion="cursor"]` and `[data-motion="send"]` to the same slide. Wait for `AIDENT_MOTION.ready`, replacement image decoding and final text/layout; select a renderable scene and reset host transforms to a known measurement state. Do not measure a hidden scene or reuse another example's coordinates.
+2. Identify the **visible fingertip hotspot**, not the wrapper's corner or center. The bundled 59×59 hand artwork has an approximate SVG-local fingertip at `(24, 12)`; verify visually. Replacement artwork needs its own hotspot. Include intrinsic image sizing, contain offsets and transforms.
+3. Map the button center and fingertip into the **same coordinate system**. Convert viewport measurements into the animation parent's local coordinates before deriving local `x/y`. For a uniformly scaled, unrotated parent, divide viewport deltas by its scale; more complex transforms require an inverse coordinate transform. Raw `getBoundingClientRect()` deltas are not automatically local animation coordinates. Account for existing cursor transforms rather than assuming zero.
+4. Compute the endpoint from the button's actual geometry at the intended click time. Recalculate after prompt/language/variant/Logo/layout/scale changes. If the camera or button moves during approach, use its click-time pose or a shared coordinate mapping. Do not call `layout()` every animation frame.
+5. Finish approach before the click cue; derive the click cue from approach completion rather than independently hard-coding overlapping times. A short settling hold is optional. Anchor pointer press scaling at its hotspot so the fingertip stays attached. Start pointer press, button press and optional click feedback from the same timeline cue/frame. Timing, easing, feedback and subsequent state remain host choices; no mandatory ripple or submission.
+6. Missing/hidden targets or disabled Send must omit the click or report an unresolved target, never silently fall back to `(0, 0)` and depict success. Restore transforms and Send state deterministically on backward as well as forward seeks.
+
+**Geometric contact and visual alignment are separate checks.** A hand icon has an asymmetric body and transparent padding: placing its fingertip at the button center does not center the whole artwork. Do not silently switch to wrapper-center alignment and still claim fingertip-center alignment. Default to a real fingertip contact; if art direction explicitly chooses a centered hand overlay, record that choice and verify its visible fingertip still contacts the button throughout press. Choose size/placement against the actual rendered artwork, not its SVG bounding box alone. Inspect arrival, press onset, maximum press and release at final export resolution, with a magnified crop as supporting evidence. A temporary hotspot/target overlay can measure residual error in canvas units; remove it from delivery. Automated runtime/layout checks alone cannot certify this.
+
+Verify the regenerated HTML and the actual exported frames, not only an edited source script or a stale preview. A corrected source does not prove the current MP4 contains that correction.
+
+中文要点：初始鼠标位置不是点击位置；按实际布局将指尖与按钮中心换算到同一坐标系，到位后再触发按压。内容或缩放变化后重新计算。指尖接触准确和整只手视觉上对准是两项检查，最终必须看新导出的实际帧，不能只看源码或坐标值。
+
+### Typing caret lifecycle / 输入光标跟随与显隐
+
+`caret` is the inline text insertion mark; `cursor` is the independent mouse pointer. Do not substitute one for the other. `showCaret: true` only adds a **static, visible caret after the complete prompt**. It does not install typing, blink, focus or an end-of-typing lifecycle. The existing `setPromptText(slideId, text)` updates the live text leaf; it does not control caret visibility.
+
+For a downstream typing animation:
+
+- Prefer keeping `[data-motion="caret"]` inline immediately after `[data-motion="prompt-text"]`. At each sampled time, put only the currently revealed text prefix into the live leaf using `setPromptText`; preserve the caret node. Do not leave the full sentence in layout and reveal only its opacity, mask or width while retaining the static end caret. Do not replace the whole `prompt` container's `innerHTML` and destroy its caret. An external character-reveal adapter may instead retain complete text geometry, but must explicitly position the caret at the current revealed grapheme's measured end, including line changes, spaces and coordinate transforms; fixed sample coordinates are not sufficient.
+- Derive the prefix from timeline time/frame, not an accumulating timer or repeated append. Segment text by grapheme (for example `Intl.Segmenter`) so Chinese, emoji and combining characters are not split. At typing start, empty text places the caret at the insertion start; intermediate frames place it after the actual prefix; wrapped lines must carry it with the current text end, not leave it on a separate empty line.
+- Author visibility separately: normally hide before focus/typing, show while entering text, then hide on blur/submission or after the chosen finish hold. A deliberate focused idle/blink state is allowed, not compulsory. Do not let the caret remain at the full sentence's end throughout the shot merely because `showCaret` is enabled. Blink, if requested, must use the host timeline rather than a free-running CSS animation for deterministic capture.
+- Reserve suitable Input width/height for the intended final content before typing so compact centering or multiline wrapping does not unintentionally move the whole scene. Preserve live inline text flow; do not call global `layout()` on every keystroke. Re-evaluate Send targeting after final text/layout changes. If simultaneous Input resizing and pointer movement are intentional, both use the same time-dependent geometry.
+- On every forward/backward seek, explicitly restore text prefix, caret visibility/blink phase and Send state. Hiding the caret with opacity/visibility retains its inline footprint; removing it from layout can change wrapping, so validate the chosen method.
+
+中文要点：光标必须跟随“当前已打出的文字”，不是完整句子的末尾；进入输入阶段才显示，完成、失焦或发送后按镜头需要隐藏。静态 HTML 保持完整展示，动画阶段由后续动画工具控制，不强制添加打字或闪烁效果。
+
+Acceptance for animated Input: inspect pre-typing, first character, mid-typing, a line wrap, final character, click and post-send frames. Test short/long EN/ZH prompts, compact/multiline variants, replacement Logos, preview/camera scales and backward seeking. Verify fingertip contact during press and caret position/visibility independently. Static preflight and controls tests do **not** prove this downstream animated behavior.
+
 ## Logo × Logo / 双 Logo
 
 Both entries in `logos:[left,right]` are replaceable PNG/JPEG/WebP/SVG files. Replace `logos[0]`, `logos[1]`, or both; preserve array order. `separator` is separately editable text (default `×`). Two populated slots are required in pair mode; do not invent a partner. Keep packaged Aident on one side only if that is the intended relationship/default placeholder.
