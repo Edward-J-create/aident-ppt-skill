@@ -46,6 +46,8 @@ Logo defaults / 默认标志：品牌镜头使用完整图形＋文字 Logo；�
 
 Independent controls / 独立组件接口：Logo pairs allow replacing or animating either side; Input exposes separate text, Send button and inline arrow, with five explicit states. Linear workflows support 2–4 nodes without a center; hubs support 1–4 satellites. Light tags offer six semantic colors; Dark uses translucent white peers and brand-cyan emphasis, without opaque green/purple chips or rainbow output. Timing defaults are shorter, overridable suggestions. 双 Logo 可分别替换和动画编辑；Input 文字、按钮和箭头独立，提供五种手动状态；单向流程与中心关系图分开选型，浅色标签支持六种分类色；深色使用半透明白色同级标签与品牌亮青色强调，不使用深绿／深紫色块或彩虹输出渐变。详见 / See [editable component rules](./references/motion/editable-components.md) and [bilingual control examples](./examples/motion/controls.en.json).
 
+Input animation / 输入动画：typing carets are off by default; mouse and Send remain independent. Optional [geometry binding](./references/motion/input-binding.md) waits for real fonts/assets, reserves the final prompt size and checks fingertip contact within 1 canvas pixel. It adds no animation preset and does not replace final-video QA. 默认关闭输入竖线光标；定位辅助等待真实字体和素材后预留最终文案空间，并检查鼠标指尖与 Send 的点击误差，不预设动效、不代替成片验收。
+
 ![English Motion Slides / 英文视频版式](./assets/previews/motion-slides.en.webp)
 ![Chinese Motion Slides / 中文视频版式](./assets/previews/motion-slides.zh.webp)
 

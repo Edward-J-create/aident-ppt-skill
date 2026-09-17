@@ -106,12 +106,12 @@ Pointer click and keyboard activation emit `aident:send`; disabled buttons do no
 
 ### Cursor-to-Send targeting / 鼠标指尖与按钮的点击对齐
 
-**Current runtime limitation:** `cursor` and `send` are independent targets, not automatically position-bound. The cursor's CSS position is a static illustration/rest pose, not a click endpoint. Setting animation transforms to `x: 0, y: 0` returns it to that pose; it does not move it onto Send. Neither `layout()` nor `setSendState()` calculates a cursor target. This is an animation handoff requirement, not a new runtime API or fixed animation preset.
+`cursor` and `send` remain independent targets, with no automatic animation or tracking. Use the optional [Input binding helper](input-binding.md) to wait for actual fonts/assets, reserve full-prompt geometry, measure a fingertip-to-Send translation and assert contact error at sampled frames. The CSS mouse pose and `x:0,y:0` are not click endpoints. Neither `layout()` nor `setSendState()` positions the mouse. A successful static preflight does not certify a downstream click.
 
 When authoring a click:
 
 1. Scope `[data-motion="cursor"]` and `[data-motion="send"]` to the same slide. Wait for `AIDENT_MOTION.ready`, replacement image decoding and final text/layout; select a renderable scene and reset host transforms to a known measurement state. Do not measure a hidden scene or reuse another example's coordinates.
-2. Identify the **visible fingertip hotspot**, not the wrapper's corner or center. The bundled 59×59 hand artwork has an approximate SVG-local fingertip at `(24, 12)`; verify visually. Replacement artwork needs its own hotspot. Include intrinsic image sizing, contain offsets and transforms.
+2. Identify the **visible fingertip hotspot**, not the wrapper's corner or center. The bundled 59×59 hand uses the authored contact point `(23, 12)` from `tokens.input.pointer`; verify visually. Replacement artwork needs its own hotspot. Include intrinsic image sizing, contain offsets and transforms.
 3. Map the button center and fingertip into the **same coordinate system**. Convert viewport measurements into the animation parent's local coordinates before deriving local `x/y`. For a uniformly scaled, unrotated parent, divide viewport deltas by its scale; more complex transforms require an inverse coordinate transform. Raw `getBoundingClientRect()` deltas are not automatically local animation coordinates. Account for existing cursor transforms rather than assuming zero.
 4. Compute the endpoint from the button's actual geometry at the intended click time. Recalculate after prompt/language/variant/Logo/layout/scale changes. If the camera or button moves during approach, use its click-time pose or a shared coordinate mapping. Do not call `layout()` every animation frame.
 5. Finish approach before the click cue; derive the click cue from approach completion rather than independently hard-coding overlapping times. A short settling hold is optional. Anchor pointer press scaling at its hotspot so the fingertip stays attached. Start pointer press, button press and optional click feedback from the same timeline cue/frame. Timing, easing, feedback and subsequent state remain host choices; no mandatory ripple or submission.
@@ -127,7 +127,11 @@ Verify the regenerated HTML and the actual exported frames, not only an edited s
 
 `caret` is the inline text insertion mark; `cursor` is the independent mouse pointer. Do not substitute one for the other. `showCaret: true` only adds a **static, visible caret after the complete prompt**. It does not install typing, blink, focus or an end-of-typing lifecycle. The existing `setPromptText(slideId, text)` updates the live text leaf; it does not control caret visibility.
 
-For a downstream typing animation:
+**Default: no typing caret.** Omit `showCaret` or set it to `false`; progressive text alone communicates typing. Downstream adapters must respect this choice and must not add a caret via extra DOM, pseudo-elements or a blinking border. `showCursor` (mouse pointer) and Send remain independent. Enable `showCaret: true` only when explicitly requested. Existing animation projects must remove their own caret layers/timeline tracks separately; regenerating the Skill HTML cannot change an existing MP4.
+
+中文默认：不显示输入文字末尾的竖线光标；逐字出现可独立保留。只有明确要求时才开启，鼠标指针和发送按钮不受影响。
+
+For a downstream typing animation **with an explicitly requested caret**:
 
 - Prefer keeping `[data-motion="caret"]` inline immediately after `[data-motion="prompt-text"]`. At each sampled time, put only the currently revealed text prefix into the live leaf using `setPromptText`; preserve the caret node. Do not leave the full sentence in layout and reveal only its opacity, mask or width while retaining the static end caret. Do not replace the whole `prompt` container's `innerHTML` and destroy its caret. An external character-reveal adapter may instead retain complete text geometry, but must explicitly position the caret at the current revealed grapheme's measured end, including line changes, spaces and coordinate transforms; fixed sample coordinates are not sufficient.
 - Derive the prefix from timeline time/frame, not an accumulating timer or repeated append. Segment text by grapheme (for example `Intl.Segmenter`) so Chinese, emoji and combining characters are not split. At typing start, empty text places the caret at the insertion start; intermediate frames place it after the actual prefix; wrapped lines must carry it with the current text end, not leave it on a separate empty line.

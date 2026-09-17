@@ -403,6 +403,11 @@
     "logoHeight": 150
   },
   "input": {
+    "pointer": {
+      "hotspot": {"x": 23, "y": 12},
+      "viewBox": {"width": 59, "height": 59},
+      "tolerance": 1
+    },
     "width": 900,
     "compactMaxWidth": 1600,
     "padding": 24,

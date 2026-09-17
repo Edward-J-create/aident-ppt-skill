@@ -31,7 +31,7 @@ Do not call `layout()` each animation frame; it measures layout and should not f
 
 The internal preview is optional. You can remove its script when adapting HTML/CSS into another project, but retain its intrinsic image sizing, synthesis composition measurement and card-docking logic or implement equivalent layout binding. Joint curves and stems keep their original dimensions. Do not freeze cards to coordinates measured from one example's text and then stretch connectors to reach them.
 
-For animated Input, read **Cursor-to-Send targeting** and **Typing caret lifecycle** in [editable-components.md](editable-components.md). The mouse pointer has no automatic positional binding to Send; `x: 0, y: 0` is not a click endpoint. The typing caret follows live text, not a visual reveal mask over a complete sentence. The adapter owns measured click targeting, incremental text, caret visibility and deterministic state on seeks. Static preflight does not validate these animation behaviors.
+For animated Input, read **Cursor-to-Send targeting** and **Typing caret lifecycle** in [editable-components.md](editable-components.md). The mouse pointer has no automatic positional binding to Send; `x: 0, y: 0` is not a click endpoint. The typing caret is omitted by default (`showCaret: false`); animate text without adding a caret. The handoff records each Input scene's caret choice. Only an explicitly enabled caret follows live text, not a visual reveal mask over a complete sentence. The adapter owns measured click targeting, incremental text, caret visibility and deterministic state on seeks. Static preflight does not validate these animation behaviors.
 
 ## Minimal player interface
 
@@ -46,6 +46,7 @@ For animated Input, read **Cursor-to-Send targeting** and **Typing caret lifecyc
 | `layout()` | recalculate intrinsic logo sizes, synthesis tag grids and Joint attachment boxes |
 | `getState()` | global/local time, current slide, fps, duration, ownership |
 | `setSendState(slideId,state)` | apply one explicit Send state; does not animate or submit; seek never resets it |
+| `inputBinding(slideId)` | optional [font-ready Input reservation and pointer measurement](input-binding.md); no animation or automatic tracking |
 | `setPromptText(slideId,text)` | update the live prompt text leaf; inline caret follows its text end, but visibility/blink remain host-owned |
 | `duration`, `fps` | numeric timeline metadata |
 

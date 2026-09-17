@@ -718,7 +718,9 @@
           "default": "light"
         },
         "showCaret": {
-          "type": "boolean"
+          "type": "boolean",
+          "default": false,
+          "description": "Optional typing caret; enable only on explicit request. Independent of showCursor."
         },
         "rows": {
           "type": "array",

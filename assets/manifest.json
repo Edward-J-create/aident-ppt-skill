@@ -1,8 +1,8 @@
 {
   "version": 1,
-  "generatedAt": "2026-09-16T16:51:44.947Z",
-  "fileCount": 116,
-  "totalBytes": 71752813,
+  "generatedAt": "2026-09-17T02:32:00.217Z",
+  "fileCount": 117,
+  "totalBytes": 71760145,
   "files": [
     {
       "path": "assets/asset-sources.json",
@@ -66,8 +66,8 @@
     },
     {
       "path": "assets/components/motion-registry.json",
-      "bytes": 14825,
-      "sha256": "75c254dd4419a3f865bec822f8e23ff354ded7e2387fa68b11d943e73dbe683c"
+      "bytes": 14851,
+      "sha256": "acae8b3d7b2ec5cd248136de12ff435a0a8f5b46cad28ebbfb8d730471bd96f5"
     },
     {
       "path": "assets/components/registry.json",
@@ -516,13 +516,13 @@
     },
     {
       "path": "assets/previews/motion-themes.en.webp",
-      "bytes": 247652,
-      "sha256": "af273da3edfd5c869daac4f77ebb7cc41ed73ddb945ae6fa6bb81b96bbc1fd5c"
+      "bytes": 248100,
+      "sha256": "3cbd59380916265e07d870c80eea624582f751b893942ae6d34e80699811f509"
     },
     {
       "path": "assets/previews/motion-themes.zh.webp",
-      "bytes": 239810,
-      "sha256": "a02079b3e73da0395e56c7d84a0b3285fcbc09324514240b476e257051359201"
+      "bytes": 239500,
+      "sha256": "9f0f2144b59dc8f5f5d8e096554ddaa63a0a4d2cf3680decd1664f3fa92b883a"
     },
     {
       "path": "assets/runtime/deck.css",
@@ -535,14 +535,19 @@
       "sha256": "32b82db457916e5c82ff89897529a96550a723d0902d670b811641a847fa30c2"
     },
     {
+      "path": "assets/runtime/motion-input.js",
+      "bytes": 6866,
+      "sha256": "a6ed52edaa69f7e3c6018831fc783f94d8d69c5af82965b859dcd52dfe624bb5"
+    },
+    {
       "path": "assets/runtime/motion.css",
       "bytes": 20255,
       "sha256": "adfdb91c2a2640f8856a5e5f6f616f7d616060e9212b5151fa1b7aed102d8935"
     },
     {
       "path": "assets/runtime/motion.js",
-      "bytes": 11344,
-      "sha256": "9821e474d5ed118e974d63f6ff9af72524f73798aee66b816c6bf971e6ad2a5a"
+      "bytes": 11463,
+      "sha256": "3b078cfb1c85bb3a2ea2f2eb3e5fb81e43f163914b2ca653206031258da53502"
     },
     {
       "path": "assets/templates/deck-shell.html",
@@ -551,8 +556,8 @@
     },
     {
       "path": "assets/templates/motion-shell.html",
-      "bytes": 912,
-      "sha256": "b5612c0446b3610ecc8c6585ab5419e536d4fe1035526301142b2ffa1ec23c0b"
+      "bytes": 967,
+      "sha256": "d00777f2520d8d38c982c2087aa08bd7d2f01d5ea1f6c48b797db9852c9eb557"
     },
     {
       "path": "assets/textures/dark-overlay.webp",
@@ -576,8 +581,8 @@
     },
     {
       "path": "assets/tokens/motion.json",
-      "bytes": 15679,
-      "sha256": "d587fbda2530ebdfbb8adf17a27814c4087e6c6323f00c5b6985e408467511ae"
+      "bytes": 15807,
+      "sha256": "19224fba95ea459c38a4f1bbdd447305d4d7445e7119ebddfb08ac43fb64197e"
     },
     {
       "path": "assets/tokens/tokens.json",

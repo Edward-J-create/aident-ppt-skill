@@ -32,7 +32,7 @@
         "src": "assets/motion/mark.svg",
         "alt": "Aident"
       },
-      "showCaret": true,
+      "showCaret": false,
       "showCursor": true,
       "send": {
         "state": "hover"
@@ -324,7 +324,7 @@
       "palette": "cobalt",
       "background": "brand-gradient",
       "prompt": "找到可靠的证据。\n给出一个明确的建议。",
-      "showCaret": true,
+      "showCaret": false,
       "send": {
         "state": "sent"
       }

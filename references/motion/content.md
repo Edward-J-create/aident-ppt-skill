@@ -67,7 +67,7 @@ Choosing an existing `assets/icons/light/*.svg` for Motion Slides extracts the e
 | title | `title`; optional `highlight` must exactly match part of title; optional `kicker` |
 | brand | `logos`; optional `separator` default `×`; no heading. Variant `cta` requires `cta.text`, supports `cta.href/showArrow` and optional `label`; no title/body. See [metrics-and-cta.md](metrics-and-cta.md). |
 | cards / comparison | `title`, `items[].title`; optional `kicker`, item `label/body/image/tone` |
-| input | `prompt`; compact may include `label/image`; `showSend` default true; `showCursor` default false; `send:{state,ariaLabel}` optional |
+| input | `prompt`; compact may include `label/image`; `showSend` default true; `showCursor` default false; `showCaret` default false (explicit opt-in only, independent of mouse); `send:{state,ariaLabel}` optional |
 | list | `items[].title`; optional `image/showLogo`, row `body/badge/image/checked/tone`; checked variant applies check by default |
 | synthesis | `title`, 1–4 `groups` of 1–4 tag objects, 1–3 `outputs`; tag `id/title/tone/size`; optional `composition` controls arrangement, role sizes, Fill/Hug and alignment |
 | hub | `title`, `hub` title and/or image, 1–4 `items`; satellite title and/or image plus optional `label`; optional explicit `connections` with slots |
