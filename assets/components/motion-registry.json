@@ -430,6 +430,7 @@
       },
       "caret": {
         "optional": true,
+        "default": false,
         "field": "showCaret",
         "target": "caret",
         "typing": "AIDENT_MOTION.setPromptText(slideId,text)",

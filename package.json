@@ -9,6 +9,7 @@
     "url": "https://github.com/Edward-J-create/aident-ppt-skill.git"
   },
   "scripts": {
+    "motion:input:qa": "node scripts/validate-motion-input-caret.mjs && node scripts/validate-motion-input-binding.mjs",
     "size": "node scripts/package-size.mjs",
     "title:qa:en": "node scripts/validate-title-paint.mjs --html output/example-en/index.html",
     "title:qa:zh": "node scripts/validate-title-paint.mjs --html output/example-zh/index.html",

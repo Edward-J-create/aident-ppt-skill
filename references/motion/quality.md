@@ -27,7 +27,17 @@ RUNTIME_NODE_MODULES=/absolute/path/node_modules node "$SKILL_DIR/scripts/prefli
 
 The preview clock only selects scenes; it is not animation art direction. Review the semantic shot choices using [scene-planning.md](scene-planning.md): do prompt/identity/relationship content use appropriate Input/Logo/Joint candidates rather than generic card substitutions? Automated geometry checks cannot replace this authoring review. Exported MP4/NLE projects and engine-specific compositions require downstream QA when requested.
 
+## Downstream animated Input checks
+
+For requested typing/click animations, follow **Cursor-to-Send targeting** and **Typing caret lifecycle** in [editable-components.md](editable-components.md). Inspect pre-typing, first/middle/final character, line-wrap, click and post-send frames. By default no insertion caret may be added, including through CSS pseudo-elements; progressive text and the mouse remain independent. Only when explicitly enabled, the insertion caret must follow the current live text prefix with explicit stage-appropriate visibility; the mouse fingertip must land on the actual Send center and stay attached during press. Test short/long EN/ZH copy, compact/multiline variants, replacement Logos, camera/preview scaling and backward seeks. Missing/hidden/disabled targets must not depict a successful click.
+
+Record downstream frame evidence separately: static preflight and current controls tests do not validate this animated behavior. Check both geometric contact and perceived alignment of the asymmetric hand artwork; do not confuse whole-image centering with fingertip targeting. Approach must finish before press starts. Review arrival, press onset, maximum press and release from the actual regenerated export, not just source edits or a stale preview. Static-only HTML does not require an invented typing or click animation.
+
 ## Maintenance
+
+Run `scripts/validate-motion-input-binding.mjs` for font-ready prompt reservation and click geometry, including delayed fonts, content prefixes, scaled previews and press/release. See [Input binding](input-binding.md). This does not replace actual exported-frame review.
+
+Run `scripts/validate-motion-input-caret.mjs` with the browser dependencies for EN/ZH compact/multiline Inputs: omitted/false must emit no caret; explicit true remains supported; prompt replacement and mouse/Send behavior stay independent. This checks static editable behavior, not downstream click alignment.
 
 Run `scripts/validate-motion-promotional.mjs --browser` for paired metrics, hero-number/word and Logo + CTA variants. Confirm equal-weight independent values, no unsolicited closing heading/body, both Logo replacements, content-hugging CTA, padded component text, and actual handoff-selector parity. Do not report a patched HTML as a reproducible Skill output until regeneration retains the same registered variant.
 

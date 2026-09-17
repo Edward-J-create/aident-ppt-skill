@@ -125,8 +125,8 @@ if(browserMode){
    }
    for(const slide of document.querySelectorAll('[data-theme="light"][data-palette="lime"]'))for(const el of slide.querySelectorAll('.m-card,.m-list-row,.m-input,.m-tag-panel,.m-node-visual,.m-result')){const cs=getComputedStyle(el);if(Math.abs(rgba(cs.backgroundColor)[3]-.65)>.001)errors.push('Bright-lime panel must use 65% white fill: '+el.className);if(cs.color!=='rgb(16, 32, 25)')errors.push('Bright-lime panel must use dark text: '+el.className);}
    api.seekSlide('dark-input',0);api.setPromptText('dark-input','A');
-   const caret=document.querySelector('[data-id="dark-input"] [data-motion="caret"]'),x=caret.getBoundingClientRect().x;
-   api.setPromptText('dark-input','A longer prompt');if(caret.getBoundingClientRect().x<=x)errors.push('Caret does not follow text');
+   if(document.querySelector('[data-id="dark-input"] [data-motion="caret"]'))errors.push('Default example must not include a caret');
+   api.setPromptText('dark-input','A longer prompt');if(document.querySelector('[data-id="dark-input"] [data-motion="prompt-text"]').textContent!=='A longer prompt')errors.push('Caret-free prompt editing failed');
    if(!document.querySelector('[data-id="dark-input"] [data-motion="cursor"]'))errors.push('Mouse pointer missing');
    api.seekSlide('dark-hub',0);const shell=document.querySelector('[data-id="dark-hub"] .m-satellite'),visual=shell.querySelector('[data-animation-target]'),before=shell.getBoundingClientRect();
    visual.style.transform='translateY(20px)';visual.style.opacity='.4';api.seekSlide('dark-hub',1);

@@ -35,6 +35,7 @@ npm run motion:starter:en
 npm run motion:starter:zh
 npm run motion:synthesis:qa
 npm run motion:controls:qa
+npm run motion:input:qa
 npm run motion:promotional:qa
 npm run title:qa:en
 npm run title:qa:zh

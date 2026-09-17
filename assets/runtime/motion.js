@@ -81,6 +81,7 @@
   if(!prompt)throw Error('No prompt on this slide');
   prompt.textContent=text;return text;
  }
+ function inputBinding(slideId){return window.AIDENT_INPUT.bind(slides.find(s=>s.dataset.id===slideId));}
  function select(i){active=clamp(Math.trunc(i),0,slides.length-1);slides.forEach((s,j)=>{s.classList.toggle('is-active',j===active);s.setAttribute('aria-hidden',String(j!==active));});}
  function render(){
   const i=data.slides.findIndex(s=>time<s.end);select(i<0?slides.length-1:i);
@@ -107,7 +108,7 @@
   if(params.has('t'))seek(finite(params.get('t')));else seekSlide(clamp(Math.trunc(finite(params.get('slide'))),0,slides.length-1),0);
   document.documentElement.dataset.motionReady='true';
  })();
- window.AIDENT_MOTION={ready,seek,seekSlide,play,pause,getState:state,externalControl,staticSlide,layout,setSendState,setPromptText,duration:data.duration,fps:data.fps};
+ window.AIDENT_MOTION={ready,seek,seekSlide,play,pause,getState:state,externalControl,staticSlide,layout,setSendState,setPromptText,inputBinding,duration:data.duration,fps:data.fps};
  document.querySelectorAll('.m-send').forEach(button=>button.addEventListener('click',()=>{
   if(button.disabled)return;
   window.dispatchEvent(new CustomEvent('aident:send',{detail:{slideId:button.closest('.motion-slide').dataset.id,state:button.dataset.state}}));
