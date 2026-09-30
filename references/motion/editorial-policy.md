@@ -51,7 +51,7 @@ Before regenerating, compare the requested change with that record. “Add a wor
 - `scroll`: start the scene at y140 even if short; the author intentionally chooses a scrolling shot.
 - `legacy`: preserve previous y200, Logo slot150 and gap67 for an already-approved older composition.
 
-New framing uses the Logo's real contained height and a40px identity gap, not a fixed empty150px slot for every aspect ratio. All rows stay in the DOM; only the camera clips. These are initial coordinates only, never scroll distance, end position, animation bounds or a fixed viewport. Animators may move the scene entirely beyond the camera. Call layout after content settles and before animation, not every frame.
+New framing uses the Logo's real contained height and a 40 px identity gap, not a fixed empty 150 px slot for every aspect ratio. All rows stay in the DOM; only the camera clips. These are initial coordinates only, never scroll distance, end position, animation bounds or a fixed viewport. Animators may move the scene entirely beyond the camera. Call layout after content settles and before animation, not every frame.
 
 ## 6. Review in three distinct layers
 
@@ -59,8 +59,8 @@ New framing uses the Logo's real contained height and a40px identity gap, not a 
 2. **Editorial/composition:** read `editorial-review.json` and screenshots. Lexical duplicates and reading-density flags are suggestions, not semantic verdicts. Review synonyms, hierarchy, repeated explanatory copy and visual balance manually. Resolve or explain each finding; never auto-delete text.
 3. **Animation/export:** only when requested, verify actual exported pacing and fixed-duration requirements with the downstream tool. Static HTML is not proof of a final video's timing or motion quality.
 
-For Motion, do not run the Presentation-only presenter validator. A0-error geometry report does not approve copy or pacing. No automatic editorial lint can certify preserved user intent; compare the revision record explicitly.
+For Motion, do not run the Presentation-only presenter validator. A zero-error geometry report does not approve copy or pacing. No automatic editorial lint can certify preserved user intent; compare the revision record explicitly.
 
 ## Use-case launch text
 
-When publishing/updating a launch use case, do not prefill an exact30s unless that use case specifically promises a fixed-length deliverable. A general starter can say “Use content-driven pacing unless I specify a duration; first review editable HTML, then animate.” Keep this external entrypoint consistent with the Skill. Updating this package alone does not update a hosted use case or catalog artifact.
+When publishing/updating a launch use case, do not prefill an exact 30-second duration unless that use case specifically promises a fixed-length deliverable. A general starter can say “Use content-driven pacing unless I specify a duration; first review editable HTML, then animate.” Keep this external entrypoint consistent with the Skill. Updating this package alone does not update a hosted use case or catalog artifact.

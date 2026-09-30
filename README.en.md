@@ -12,7 +12,7 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 ## Motion Slides / 视频用 HTML 版式
 
-Editorial control / 内容与节奏：Timing is content-driven unless a target or fixed duration is requested—no30-second cap. Optional copy must add information; title-free hero values and measured list framing are supported. The default ending keeps `Follow https://aident.ai/SETUP.md` unless the user explicitly changes it; middle Inputs remain task-specific. Editorial review accompanies geometry QA. See [the policy](./references/motion/editorial-policy.md).
+Editorial control / 内容与节奏：Timing is content-driven unless a target or fixed duration is requested—no 30-second cap. Optional copy must add information; title-free hero values and measured list framing are supported. The default ending keeps `Follow https://aident.ai/SETUP.md` unless the user explicitly changes it; middle Inputs remain task-specific. Editorial review accompanies geometry QA. See [the policy](./references/motion/editorial-policy.md).
 
 默认按内容确定时长；小字和标签按需使用，大数字支持无标题，列表按实际尺寸构图。结尾通用 Setup Prompt 不随主题或语言改写；中间 Input 可替换业务指令。自动审核提示不代替视觉与内容判断。
 
