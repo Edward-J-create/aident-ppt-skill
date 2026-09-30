@@ -123,6 +123,7 @@ p,h1{overflow-wrap:normal}
 .m-card-value{width:100%;font:var(--m-metricCard-weight) var(--m-metricCard-size)/var(--m-metricCard-lh) var(--m-metricCard-font),var(--m-body-font),sans-serif;letter-spacing:var(--m-metricCard-tracking);color:var(--m-primary)}
 .m-metric-body{width:100%;font:var(--m-metricBody-weight) var(--m-metricBody-size)/var(--m-metricBody-lh) var(--m-metricBody-font),sans-serif;letter-spacing:var(--m-metricBody-tracking);color:var(--m-secondary)}
 .m-hero-number,.m-hero-word{top:var(--metric-heroTop)}
+.m-title-free .m-metric{top:50%;translate:0 -50%}
 .m-hero-number .m-metric-value{font:var(--m-heroNumber-weight) var(--m-heroNumber-size)/var(--m-heroNumber-lh) var(--m-heroNumber-font),var(--m-body-font),sans-serif;letter-spacing:var(--m-heroNumber-tracking)}
 .m-hero-word .m-metric-value{font:var(--m-heroWord-weight) var(--m-heroWord-size)/var(--m-heroWord-lh) var(--m-heroWord-font),sans-serif;letter-spacing:var(--m-heroWord-tracking)}
 .m-hero-number .m-lead,.m-hero-word .m-lead{font-size:32px}

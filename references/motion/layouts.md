@@ -11,12 +11,12 @@ All coordinates and dimensions are CSS pixels on a 1920×1080 canvas. Source-mat
 | `motion-cards` | 2 / 3 / 4 columns | optional label/image, title, body | x110, y429, width1700; gap30; shared height450; padding30; radius20 |
 | `motion-comparison` | 2 | baseline, target | same card geometry; left muted surface; right emphasized theme fill/stroke; gradient is Light-only |
 | `motion-input` | multiline / compact | prompt, optional label/logo/cursor/send | centered; multiline width900 and hug height; compact hug width ≤1600; 24 padding; 77 send button |
-| `motion-list` | plain / checked, 1–24 items | default/replaceable logo; row title/body/badge/image/check | scene x310,y200,w1300,height auto; logo height150 + gap67; track starts y417 with logo or y200 without; row min137/hug; gap20 |
+| `motion-list` | plain / checked, 1–24 items | default/replaceable logo; row title/body/badge/image/check | width1300 at x310; `framing:auto` measures and centers a fitting group, otherwise starts at y140; real Logo height≤150 + gap40; row min137/hug, gap20. `legacy` retains y200/slot150/gap67. |
 | `motion-synthesis` | stages / many-to-few; columns / rows / wrap composition | 1–4 tag groups, 1–3 outputs | y380, 1700×550 zone; measured input width and hug height; fixed167×22.0919 arrow; output hug |
 | `motion-hub` | one / two / three / four satellites | central title and/or logo; satellite labels/images; explicit edges/slots optional | x110,y360,w1700,h570; separate original SVG connectors; cards hug content |
 | `motion-workflow` | left-to-right, 2 / 3 / 4 nodes | ordered title/label/body/image nodes, explicit adjacent edges optional | x110,w1700,centerY630; equal Fill nodes; hug text; original167px arrows with24px gaps |
 | `motion-image` | split / hero | title, image; optional body for split | split: left text760 + gap100 + right image840×472.5 at y390; hero image1160×580 at x380,y360 |
-| `motion-metric` | single / hero-number / hero-word / cards | title; single value or two independent items; optional labels/body | [Metric geometry](metrics-and-cta.md): 200px single,360px hero number,200px keyword, two835px cards with132px values |
+| `motion-metric` | single / hero-number / hero-word / cards | title (optional for hero variants); single value or two independent items; optional labels/body | [Metric geometry](metrics-and-cta.md): 200px single,360px hero number,200px keyword, two835px cards with132px values; title-free hero group centers with Hug height |
 
 ## Typography
 

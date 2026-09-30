@@ -12,6 +12,10 @@ Bring your own brand: replace the cover and upper-left slide mark with your own 
 
 ## Motion Slides / 视频用 HTML 版式
 
+Editorial control / 内容与节奏：Timing is content-driven unless a target or fixed duration is requested—no30-second cap. Optional copy must add information; title-free hero values and measured list framing are supported. The default ending keeps `Follow https://aident.ai/SETUP.md` unless the user explicitly changes it; middle Inputs remain task-specific. Editorial review accompanies geometry QA. See [the policy](./references/motion/editorial-policy.md).
+
+默认按内容确定时长；小字和标签按需使用，大数字支持无标题，列表按实际尺寸构图。结尾通用 Setup Prompt 不随主题或语言改写；中间 Input 可替换业务指令。自动审核提示不代替视觉与内容判断。
+
 **Paired large-number Cards and hero numbers/keywords** support Light/Dark themes; **Logo + CTA endings** use Light/neutral only. All are registered bilingual templates with replaceable logos, copy and links. 双 Card 独立大数字、超大数字／关键词支持深浅主题；Logo＋CTA 尾页统一浅色中性底。均为可替换内容的中英文正式模板，无需生成后打补丁。See [specification and examples / 规则与示例](./references/motion/metrics-and-cta.md).
 
 ![Metrics and CTA · English / 大数字与行动尾页·英文](./assets/previews/motion-promotional.en.webp)

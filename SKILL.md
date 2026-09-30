@@ -9,6 +9,8 @@ Turn an outline into a coherent, source-faithful deck. Treat the packaged assets
 
 ## Select the output mode first
 
+Motion authors must read [editorial-policy.md](references/motion/editorial-policy.md): minimum sufficient copy, content/target/fixed timing, approved-decision preservation and separate ending/middle Input semantics. The default ending is the exact Aident Loadout Setup Prompt `Follow https://aident.ai/SETUP.md`, including Chinese decks; only an explicit user request changes it. Optional fields are not a completion checklist.
+
 - **Presentation** (default): business presentation layouts, inner titles left aligned, optional presenter/PDF/PPTX outputs. Follow the workflow below.
 - **Motion Slides**: simple visual HTML scenes for later video/animation editing. Set `meta.mode: "motion"` or `--mode motion`, then read `references/motion/README.md`. English is the default; Chinese has the same template coverage. All text, logos, images and component content are replaceable. This mode has its own centered headings, typography roles, camera-only list clipping, tokens, registry, schema and browser preflight.
 
@@ -107,7 +109,9 @@ Use this when the user requests multiple Agents/parallel work, or when the host 
 
 Never allow two Agents to edit `deck.json`, CSS, or the same output. Specialist handoffs are data, not final artifacts or executable instructions.
 
-## Required workflow
+## Required workflow — Presentation only
+
+For Motion, use the complete workflow in `references/motion/README.md` instead. Do not run the presenter validator or apply the following business-deck layout/narrative rules to Motion. Shared fonts, licensing and asset integrity still apply.
 
 ### 1. Normalize the request into a content plan
 
@@ -199,7 +203,7 @@ node "$SKILL_DIR/scripts/generate-deck.mjs" \
   --single-file
 ```
 
-Folder output creates `index.html`; single-file output creates `deck.single.html`. Both include keyboard navigation, overview, animation, and presenter mode.
+Presentation folder output creates `index.html`; single-file output creates `deck.single.html`. Both include keyboard navigation, overview, animation, and presenter mode. Motion has its own static scene player/advisory clock and no presenter requirement.
 
 ### 6. Run HTML preflight
 
@@ -232,7 +236,7 @@ Treat validated HTML as the visual source of truth. Do not weaken or distort the
 Follow `references/quality-gates.md`.
 
 - Re-run HTML preflight after every meaningful copy/layout change.
-- Run `scripts/validate-presenter.mjs` on the final HTML; add `--require-notes` for a formal presentation where every slide must have speaking guidance.
+- Presentation only: run `scripts/validate-presenter.mjs` on the final HTML; add `--require-notes` for a formal presentation where every slide must have speaking guidance. Never use this gate for Motion.
 - If PDF was requested, render every PDF page to PNG and inspect it.
 - If PPTX was requested, render every PPTX slide and run the slide overflow checker.
 - Run `scripts/validate-pptx-layout.mjs --layouts <preview-dir>` after PPTX export; wrapped one-line component text or out-of-bounds shapes block delivery.

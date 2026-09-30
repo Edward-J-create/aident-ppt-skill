@@ -9,6 +9,8 @@ RUNTIME_NODE_MODULES=/absolute/path/node_modules node "$SKILL_DIR/scripts/prefli
 
 ## Required evidence
 
+Also follow [editorial-policy.md](editorial-policy.md). Read generated `editorial-review.json`; resolve or justify warnings without auto-deleting text. Compare `motion-plan.md` with the current user request for approved layouts, asset choices, exact ending prompt and removals. Check title-free hero centering, short-list balance and deliberate long-list framing. Run `scripts/validate-motion-editorial.mjs --browser` during maintenance. Never substitute the Presentation presenter validator for Motion QA.
+
 1. EN and ZH examples use identical template coverage. Confirm Outfit/Noto Sans for English and Smiley Sans/Noto Sans SC roles for Chinese.
 2. Every text box fits; one-line titles do not wrap; no overlaps between foreground text or across connected cards.
 3. Logos remain visible and preserve ratio for square, wide and tall replacement marks. Single/pair default shots use the complete lockup (symbol + original lettering in one image); compact list/diagram slots retain the standalone mark. An image that loads successfully but contains only extracted lettering, an accidental shadow/glow, or an export-canvas background still fails visual review. Run `scripts/normalize-motion-lockup.mjs --check` during maintenance; do not redraw logo paths.

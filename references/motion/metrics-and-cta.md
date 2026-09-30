@@ -4,6 +4,8 @@ Use these registered variants for numerical proof or a real next-step action. Th
 
 ## Choose the intended relation
 
+For ordinary Aident endings, use the fixed Setup Prompt described in [editorial-policy.md](editorial-policy.md), not an automatically selected marketing button. The Logo + button variants below are explicit alternatives/component demonstrations, not default ending copy.
+
 | Content | Type / variant | Do not substitute |
 |---|---|---|
 | One value with context | `motion-metric` / `single` | Do not concatenate two independent measures into one `value`. A genuine ratio can remain one value. |
@@ -39,6 +41,8 @@ When revising a deck, preserve the approved visual relation and optional element
 - Independent stable targets: `metrics`, `metric-card-0/1`, `metric-value-0/1`, and optional `metric-label-0/1`, `metric-body-0/1`.
 
 ## Hero value variants
+
+`hero-number` and `hero-word` may omit `title`. Omit `kicker` as well in this case. The complete value/optional label/body group centers vertically with Hug height; there is no empty heading slot. Optional support copy should add information, not repeat the value. A supplied title retains the established headed layout. `single` and `cards` still require a title.
 
 `hero-number`: value up to6 characters; Outfit Medium360 /100%, tracking−6%. `hero-word`: up to12 EN/6 ZH characters, Outfit200 /110% tracking−2% or Smiley Sans200 /120% tracking0. Content starts y365, width1300 centered; support text32 /150%. They share the ordinary optional label/body fields. Long words/numbers must pass browser fit; budgets do not guarantee glyph-width fit. Existing `single` remains200 /110% for compatibility.
 

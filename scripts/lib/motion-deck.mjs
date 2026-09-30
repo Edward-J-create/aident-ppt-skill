@@ -1,6 +1,7 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import {auditMotionEditorial} from './motion-editorial.mjs';
 import {skillRoot,copyPackagedAsset,writeRuntimeFonts,inlineHtml,escapeHtml as esc,normalizeImage} from '../generate-deck.mjs';
 
 export const tokens=JSON.parse(await fs.readFile(path.join(skillRoot,'assets/tokens/motion.json'),'utf8'));
@@ -10,7 +11,7 @@ const txt=v=>String(v??'').trim();
 const len=v=>Array.from(txt(v)).length;
 const pick=(v,a,d)=>a.includes(v)?v:d;
 const keys={
- root:['meta','slides'],meta:['mode','title','language','brandName','logo','showLogo','fps','theme','palette'],
+ root:['meta','slides'],meta:['mode','title','language','brandName','logo','showLogo','fps','theme','palette','timing'],
  slide:['id','type','variant','title','kicker','highlight','body','value','label','prompt','items','groups','outputs','composition','hub','connections','send','logos','separator','image','background','duration','motion','scroll','showLogo','showCursor','showSend','result','notes'],
  send:['state','ariaLabel'],cta:['text','href','showArrow'],connection:['id','from','to','slot'],
  composition:['arrangement','size','outputSize','tagWidth','align','groupAlign','density'],
@@ -18,7 +19,7 @@ const keys={
  motion:['enter','stagger','hold','exit','travel','preset'],scroll:['enabled','start','end','reveal','direction','itemDirection','itemOrder'],
  image:['src','alt','fit','position','variants'],notes:['title','purpose','talk','transition']
 };
-keys.slide.push('theme','rows','showCaret','palette','cta');
+keys.slide.push('theme','rows','showCaret','palette','cta','framing');
 const themeFor=(s,meta)=>s.theme||meta.theme||'light';
 const paletteFor=(s,meta)=>s.palette||meta.palette||'neutral';
 const backgroundFor=(s,meta)=>s.background||(paletteFor(s,meta)!=='neutral'?'brand':themeFor(s,meta)==='dark'?'solid':['motion-title','motion-brand'].includes(s.type)?'title':s.type==='motion-synthesis'?'elements':'content');
@@ -31,6 +32,13 @@ export function validateMotion(deck){
  if(!['en','zh',undefined].includes(deck.meta.language))add('meta.language must be en or zh.');
  if(!txt(deck.meta.title))add('meta.title is required.');
  if(deck.meta.fps!==undefined&&![24,25,30,50,60].includes(deck.meta.fps))add('meta.fps must be 24/25/30/50/60.');
+ if(deck.meta.timing!==undefined){
+  const t=deck.meta.timing;
+  if(!t||typeof t!=='object'||Array.isArray(t)||Object.keys(t).some(k=>!['policy','targetSeconds'].includes(k)))add('meta.timing accepts policy/targetSeconds only.');
+  if(!['content','target','fixed'].includes(t?.policy))add('meta.timing.policy must be content/target/fixed.');
+  if(t?.policy==='content'&&t.targetSeconds!==undefined)add('Content-driven timing must not retain a targetSeconds cap.');
+  if(t?.policy!=='content'&&(!Number.isFinite(t?.targetSeconds)||t.targetSeconds<=0))add('Target/fixed timing requires positive targetSeconds.');
+ }
  if(deck.meta.showLogo!==undefined&&typeof deck.meta.showLogo!=='boolean')add('meta.showLogo must be boolean.');
  if(deck.meta.theme!==undefined&&!Object.hasOwn(tokens.themes,deck.meta.theme))add('meta.theme must be light/dark.');
  if(deck.meta.palette!==undefined&&!Object.hasOwn(tokens.palettes,deck.meta.palette))add('meta.palette must be neutral/teal/cobalt/lime.');
@@ -71,8 +79,10 @@ export function validateMotion(deck){
   if(!/^[a-z0-9][a-z0-9-]*$/.test(s.id||'')||ids.has(s.id))add(`${p}.id must be unique kebab-case`);ids.add(s.id);
   if(s.variant&&!rule.variants.includes(s.variant))add(`${p}.variant must be ${rule.variants.join('/')}`);
   if(s.background&&!registry.components.theme.backgrounds.includes(s.background))add(`${p}.background must be ${registry.components.theme.backgrounds.join('/')}`);
-  const titleRequired=!['motion-brand','motion-input','motion-list'].includes(s.type);
+  const titleRequired=!['motion-brand','motion-input','motion-list'].includes(s.type)&&!(s.type==='motion-metric'&&['hero-number','hero-word'].includes(s.variant));
   if(titleRequired&&!txt(s.title))add(`${p}.title is required`);
+  if(s.type==='motion-metric'&&!txt(s.title)&&s.kicker)add(`${p}: a title-free hero must omit kicker; use a meaningful label instead`);
+  if(s.framing!==undefined&&!['auto','balanced','scroll','legacy'].includes(s.framing))add(`${p}.framing must be auto/balanced/scroll/legacy`);
   if(len(s.title)>(s.type==='motion-title'?(zh?26:80):(zh?17:44)))add(`${p}.title exceeds ${zh?'Chinese':'English'} budget; shorten the takeaway`);
   if(s.highlight&&(!txt(s.title).includes(s.highlight)||s.type!=='motion-title'))add(`${p}.highlight must be an exact substring of a motion-title`);
   if(len(s.kicker)>(zh?24:56))add(`${p}.kicker too long`);
@@ -146,7 +156,8 @@ export function validateMotion(deck){
    }
   }
   if(s.type==='motion-list'&&(!n||n>24))add(`${p}: list requires 1–24 items`);
-  if(s.type==='motion-input'&&(!txt(s.prompt)||len(s.prompt)>(s.variant==='compact'?(zh?30:66):(zh?70:150))))add(`${p}.prompt is empty or exceeds its layout budget`);
+  const cjkPrompt=zh&&/\p{Script=Han}/u.test(txt(s.prompt));
+  if(s.type==='motion-input'&&(!txt(s.prompt)||len(s.prompt)>(s.variant==='compact'?(cjkPrompt?30:66):(cjkPrompt?70:150))))add(`${p}.prompt is empty or exceeds its layout budget`);
   if(s.type==='motion-metric'){
    if(s.variant==='cards'){
     if(!Array.isArray(s.items)||s.items.length!==2)add(`${p}: metric cards requires exactly two independent items`);
@@ -328,18 +339,19 @@ function render(s,meta,i){
  case 'motion-hub':body=title(s)+hub(s);break;
  case 'motion-workflow':body=title(s)+workflow(s);break;
  case 'motion-image':body=title(s)+(s.variant==='hero'?node('image','m-hero-image',img(s.image)): `<div class="m-split">${node('copy','m-split-copy',p(s.body,'m-lead'))}${node('image','m-split-image',img(s.image))}</div>`);break;
- case 'motion-metric':body=title(s)+metric(s);break;
+ case 'motion-metric':body=(txt(s.title)?title(s):'')+metric(s);break;
  }
  const palette=paletteFor(s,meta),bg=backgroundFor(s,meta);
  const theme=themeFor(s,meta);
  if(theme==='dark')for(const name of ['arrow','curve','stem'])body=body.replaceAll(`src="${tokens.assets[name]}"`,`src="assets/motion/dark/${name}.svg"`);
  const backdrop=bg==='solid'||bg.startsWith('brand')?'<div class="m-brand-background" data-motion="background" aria-hidden="true"></div>':`<img class="background" src="${tokens.themes[theme].backgrounds[bg]}" alt="">${bg==='title'?'':`<img class="texture" src="assets/textures/light-overlay.webp" alt="">`}`;
- return `<section class="slide motion-slide ${s.type}" data-id="${esc(s.id)}" data-type="${s.type}" data-index="${i}" data-theme="${theme}" data-palette="${palette}" data-background="${bg}" aria-hidden="true" aria-label="${esc(s.title||s.notes?.title||s.id)}">${backdrop}<div class="m-canvas">${body}</div></section>`;
+ return `<section class="slide motion-slide ${s.type}${s.type==='motion-metric'&&!txt(s.title)?' m-title-free':''}" data-id="${esc(s.id)}" data-type="${s.type}" data-index="${i}" data-framing="${esc(s.framing||tokens.list.framing.default)}" data-theme="${theme}" data-palette="${palette}" data-background="${bg}" aria-hidden="true" aria-label="${esc(s.title||s.notes?.title||s.id)}">${backdrop}<div class="m-canvas">${body}</div></section>`;
 }
 
 function cssTokens(lang){const t=tokens;let css=':root{';for(const [k,v] of Object.entries(t.colors))css+=`--m-${k}:${v};`;
  for(const variant of ['single','pair'])css+=`--brand-${variant}-width:${t.brand[variant].maxWidth}px;--brand-${variant}-height:${t.brand[variant].maxHeight}px;`;
  for(const group of ['metric','cta'])for(const [key,v] of Object.entries(t[group]))css+=`--${group}-${key}:${typeof v==='number'?v+'px':v};`;
+ for(const [key,v] of Object.entries(t.list.framing))if(typeof v==='number')css+=`--list-${key}:${v}px;`;
  css+=`--brand-gap:${t.brand.gap}px;--hub-bottom-only-center-y:${t.hub.bottomOnlyCenterY}px;`;
  for(const [k,v] of Object.entries(t.type[lang]))css+=`--m-${k}-font:"${v.family}";--m-${k}-size:${v.size}px;--m-${k}-weight:${v.weight};--m-${k}-lh:${v.lineHeight};--m-${k}-tracking:${v.tracking}em;`;
  for(const [k,v] of Object.entries(t.synthesis))if(typeof v==='number')css+=`--synthesis-${k}:${v}px;`;
@@ -359,6 +371,7 @@ export async function generateMotionDeck(args,raw){
  if(outDir===skillRoot||outDir===path.parse(outDir).root||outDir===inputDir)throw Error('Use a dedicated output folder separate from the source JSON and Skill.');
  await fs.mkdir(outDir,{recursive:true});
  const prepared=structuredClone(raw);
+ prepared.meta.timing=prepared.meta.timing||{policy:'content'};
  for(const s of prepared.slides)s.background=backgroundFor(s,prepared.meta);
  for(const s of prepared.slides)if(s.type==='motion-input')s.showCaret=s.showCaret??false;
  for(const s of prepared.slides)if(s.type==='motion-synthesis')s.composition=resolveSynthesis(s);
@@ -373,6 +386,9 @@ export async function generateMotionDeck(args,raw){
   const entry={id:s.id,type:s.type,start,duration,end:start+duration,advisory:true,motion:m,...(s.type==='motion-list'?{scroll:{...s.scroll,advisory:true,itemOrder:s.scroll?.itemOrder||'top-to-bottom',direction:'up'}}:{}),notes:s.notes||{}};start+=duration;return entry;
  });
  const data={meta:deck.meta,slides:timeline,duration:start,fps:deck.meta.fps,animationOwnership:'external',timingAdvisory:true};
+ const editorial=auditMotionEditorial(deck,timeline);
+ await fs.writeFile(path.join(outDir,'editorial-review.json'),JSON.stringify(editorial,null,2)+'\n');
+ if(editorial.findings.length)console.warn(`Motion editorial review: ${editorial.findings.length} advisory findings; inspect ${path.join(outDir,'editorial-review.json')}. No copy or timing was changed.`);
  const layers=[];
  const slideHtml=deck.slides.map((s,i)=>{
   let n=0;
@@ -400,6 +416,6 @@ export async function generateMotionDeck(args,raw){
  if(args.singleFile)await fs.writeFile(path.join(outDir,'deck.single.html'),await inlineHtml(html,outDir));
  await fs.writeFile(path.join(outDir,'deck.resolved.json'),JSON.stringify(deck,null,2)+'\n');
  await fs.writeFile(path.join(outDir,'timeline.json'),JSON.stringify(data,null,2)+'\n');
- await fs.writeFile(path.join(outDir,'animation-handoff.json'),JSON.stringify({version:3,metricContract:{cards:'[data-motion^=metric-card-]',values:'[data-motion^=metric-value-]',rule:'Two independent values in equal-weight cards; do not combine into a slash string.'},ctaContract:{group:'[data-motion=brand-cta]',button:'[data-motion=cta]',text:'[data-motion=cta-text]',arrow:'[data-motion=cta-arrow]',label:'[data-motion=cta-label]',rule:'CTA is separate from heading/body. Without href it is an inert button; downstream animation owns interaction states.'},themeContract:{default:deck.meta.theme||'light',scenes:deck.slides.map(s=>({id:s.id,theme:s.theme,palette:s.palette,background:s.background||(s.palette!=='neutral'?'brand':'layout-default')})),assetPolicy:'select supplied theme variant; no inversion or automatic plaque'},layoutContract:{owner:'[data-layout-owner]',animate:'[data-animation-target]',diagram:'[data-motion=diagram], [data-motion=workflow-group]',rule:'Animate visual inner layers for reveals; move a connected diagram as one group. Call layout only before animation or after content changes, never each frame.'},inputContract:{text:'[data-motion=prompt-text]',caret:'[data-motion=caret]',pointer:'[data-motion=cursor]',send:'[data-motion=send]',binding:'AIDENT_MOTION.inputBinding(slideId); await prepare(fullPrompt); measure(); assertAligned()',pointerGeometry:tokens.input.pointer,helper:'assets/runtime/motion-input.js',caretDefault:false,scenes:deck.slides.filter(s=>s.type==='motion-input').map(s=>({id:s.id,showCaret:s.showCaret})),typing:'setPromptText(slideId, text); no caret by default. Do not add a caret unless explicitly enabled. Optional caret is inline; no built-in blink. Mouse pointer and Send are independent.'},firstFrame:'All content visible at t=0; downstream animator must author a legible poster/first frame.',mode:'motion',canvas:tokens.canvas,fps:data.fps,duration:data.duration,timingAdvisory:true,animationOwnership:'external',html:'index.html',content:'deck.resolved.json',timeline:'timeline.json',editMode:'?capture=1',runtimeGlobal:'AIDENT_MOTION',layers,assets:[...new Set(layers.filter(l=>l.src).map(l=>l.src))],fontManifest:'assets/fonts/manifest.json',listContract:{suggestedItemOrder:'top-to-bottom',suggestedTrackDirection:'up',cameraSelector:'.motion-slide',sceneSelector:'[data-list-scene]',trackSelector:'[data-scroll-track]',itemSelector:'[data-list-item]',internalClip:false,scrollDistance:null,overflow:'full content retained beyond the camera; external animator chooses travel and framing'}},null,2)+'\n');
+ await fs.writeFile(path.join(outDir,'animation-handoff.json'),JSON.stringify({version:3,timingBrief:deck.meta.timing,editorialReview:'editorial-review.json',metricContract:{cards:'[data-motion^=metric-card-]',values:'[data-motion^=metric-value-]',rule:'Two independent values in equal-weight cards; do not combine into a slash string.'},ctaContract:{group:'[data-motion=brand-cta]',button:'[data-motion=cta]',text:'[data-motion=cta-text]',arrow:'[data-motion=cta-arrow]',label:'[data-motion=cta-label]',rule:'CTA is separate from heading/body. Without href it is an inert button; downstream animation owns interaction states.'},themeContract:{default:deck.meta.theme||'light',scenes:deck.slides.map(s=>({id:s.id,theme:s.theme,palette:s.palette,background:s.background||(s.palette!=='neutral'?'brand':'layout-default')})),assetPolicy:'select supplied theme variant; no inversion or automatic plaque'},layoutContract:{owner:'[data-layout-owner]',animate:'[data-animation-target]',diagram:'[data-motion=diagram], [data-motion=workflow-group]',rule:'Animate visual inner layers for reveals; move a connected diagram as one group. Call layout only before animation or after content changes, never each frame.'},inputContract:{text:'[data-motion=prompt-text]',caret:'[data-motion=caret]',pointer:'[data-motion=cursor]',send:'[data-motion=send]',binding:'AIDENT_MOTION.inputBinding(slideId); await prepare(fullPrompt); measure(); assertAligned()',pointerGeometry:tokens.input.pointer,helper:'assets/runtime/motion-input.js',caretDefault:false,scenes:deck.slides.filter(s=>s.type==='motion-input').map(s=>({id:s.id,showCaret:s.showCaret})),typing:'setPromptText(slideId, text); no caret by default. Do not add a caret unless explicitly enabled. Optional caret is inline; no built-in blink. Mouse pointer and Send are independent.'},firstFrame:'All content visible at t=0; downstream animator must author a legible poster/first frame.',mode:'motion',canvas:tokens.canvas,fps:data.fps,duration:data.duration,timingAdvisory:true,animationOwnership:'external',html:'index.html',content:'deck.resolved.json',timeline:'timeline.json',editMode:'?capture=1',runtimeGlobal:'AIDENT_MOTION',layers,assets:[...new Set(layers.filter(l=>l.src).map(l=>l.src))],fontManifest:'assets/fonts/manifest.json',listContract:{initialFraming:deck.slides.filter(s=>s.type==='motion-list').map(s=>({id:s.id,framing:s.framing||tokens.list.framing.default})),suggestedItemOrder:'top-to-bottom',suggestedTrackDirection:'up',cameraSelector:'.motion-slide',sceneSelector:'[data-list-scene]',trackSelector:'[data-scroll-track]',itemSelector:'[data-list-item]',internalClip:false,scrollDistance:null,overflow:'full content retained beyond the camera; external animator chooses travel and framing'}},null,2)+'\n');
  console.log(`Generated ${deck.slides.length} Motion Slides (${start.toFixed(2)} seconds, ${data.fps} fps) at ${outDir}`);
 }

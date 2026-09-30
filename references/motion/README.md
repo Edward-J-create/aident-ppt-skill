@@ -6,6 +6,8 @@ Use this mode for simple, visual, editable HTML scenes intended for later video 
 
 ## Generate
 
+Before authoring, read [editorial-policy.md](editorial-policy.md). Default ending: the unchanged Aident Loadout Setup Prompt, not a rewritten campaign CTA. Middle Input prompts are scenario-specific.
+
 ```bash
 node "$SKILL_DIR/scripts/generate-deck.mjs" \
   --input "$SKILL_DIR/examples/motion/starter.en.json" \
@@ -51,11 +53,21 @@ Every registered Motion layout and variant supports the shared theme/palette/bac
 9. Do not add complex motion presets merely to fill the library. Deliver clear static composition and precise editable targets. Animation tools can own choreography and video export later.
 10. Run `scripts/preflight.mjs`; it automatically selects the Motion Slides QA rules. Geometry pass is not aesthetic approval: inspect screenshots and resolve visual-review advisories. For synthesis, choose a coherent Fill/center, Fill/left or Hug system; no automatic column-based size ramp.
 
+## Motion-only workflow
+
+1. Establish purpose, source, identity and timing policy; retain approved decisions/removals in `motion-plan.md` beside the source.
+2. Plan semantic shots using [scene-planning.md](scene-planning.md), omitting optional copy without independent information.
+3. Write JSON using [content.md](content.md); use title-free hero values where sufficient and deliberate list framing.
+4. Generate HTML and inspect `editorial-review.json`. Review timing after structural changes; do not normalize to30s.
+5. Run shared `preflight.mjs` (auto-routes to Motion). Inspect screenshots and editorial warnings; do not run `validate-presenter.mjs`.
+6. Deliver editable HTML and handoff; animate/export video only when separately requested. No animation presets or paid actions are implied.
+
 ## Deliverables
 
 - `index.html`: editable, offline presentation and lightweight scrubber.
 - `deck.resolved.json`: all populated content and relative asset paths.
 - `timeline.json`: advisory shot order, durations and notes; no automatic content animation or calculated scroll range.
+- `editorial-review.json`: non-destructive redundancy, density and timing-review signals; manual semantic/visual approval remains required.
 - `animation-handoff.json`: layer selectors, canvas, asset inventory, font manifest, scroll contract.
 - `assets/runtime/deck.css` and `deck.js`: readable layout CSS and optional standalone player.
 - Referenced images/icons/backgrounds only, plus required fonts and licenses.

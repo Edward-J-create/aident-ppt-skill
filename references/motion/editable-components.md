@@ -4,6 +4,8 @@ Use this reference when customizing Motion duration, tag colors, workflow topolo
 
 ## Advisory timing / 建议时长
 
+First set the brief's `meta.timing` policy: content-driven by default, approximate target, or explicit fixed length. See [editorial-policy.md](editorial-policy.md). Reassess after adding scenes; the table below never authorizes normalizing the total to30s. The fixed Setup Prompt belongs to the ending; middle Input prompts remain scenario-specific.
+
 | Shot | Default seconds | Editorial guidance |
 |---|---:|---|
 | Logo single/pair | 2 | A signature may need only 1.5–2.5s; a explained partnership may need longer |

@@ -29,11 +29,16 @@ export async function preflightMotion(htmlPath,screenshotDir){
    },handoff.layers));
   }catch(e){errors.push('Animation handoff unavailable: '+e.message);}
   const timeline=await page.evaluate(()=>window.AIDENT_DECK.slides);
+  try{
+   const review=JSON.parse(await fs.readFile(path.join(path.dirname(htmlPath),'editorial-review.json'),'utf8'));
+   warnings.push(...review.findings.map(f=>`Editorial [${f.code}] ${f.slideId||'deck'}: ${f.message}`));
+  }catch(e){if(e.code!=='ENOENT')errors.push('Cannot read editorial-review.json: '+e.message);}
   const audit=async(i,t,external)=>page.evaluate(({i,t,external})=>{
    const api=window.AIDENT_MOTION;api.externalControl(external);api.seekSlide(i,t);
    const slide=document.querySelector('.slide.is-active'),errors=[];
    const rect=el=>{const r=el.getBoundingClientRect();return {x:r.x,y:r.y,width:r.width,height:r.height,right:r.right,bottom:r.bottom};};
    const sr=rect(slide),scene=slide.querySelector('[data-list-scene]');
+   if(scene?.dataset.framingOverflow==='true')errors.push('Balanced list exceeds safe composition height; use auto/scroll or restructure content, never shrink/crop rows');
    if(!['light','dark'].includes(slide.dataset.theme))errors.push('Unknown Motion theme');
    if(slide.dataset.theme==='dark'){
     const rgba=s=>{const v=s.trim();if(v.startsWith('#'))return [...v.slice(1).match(/../g).map(x=>parseInt(x,16)),1];const n=v.match(/[\d.]+/g).map(Number);return [n[0],n[1],n[2],n[3]??1]};

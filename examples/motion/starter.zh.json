@@ -3,6 +3,7 @@
     "mode": "motion",
     "language": "zh",
     "title": "从输入到清晰行动",
+    "timing": {"policy": "content"},
     "logo": {
       "src": "assets/motion/mark.svg",
       "alt": "可替换的默认 Aident 标志"
@@ -115,16 +116,13 @@
       "background": "brand",
       "items": [
         {
-          "title": "可见的结果",
-          "body": "说清观众需要理解的具体结果。"
+          "title": "可见的结果"
         },
         {
-          "title": "明确的责任",
-          "body": "展示由谁执行下一步。"
+          "title": "明确的责任"
         },
         {
-          "title": "约定的回顾",
-          "body": "约定何时重新检查证据。"
+          "title": "约定的回顾"
         }
       ],
       "notes": {
@@ -134,18 +132,17 @@
     },
     {
       "id": "signature",
-      "type": "motion-brand",
+      "type": "motion-input",
       "theme": "light",
       "palette": "neutral",
-      "variant": "single",
-      "logos": [
-        {
-          "src": "assets/motion/lockup.svg",
-          "alt": "Aident Loadout 完整标志"
-        }
-      ],
+      "variant": "compact",
+      "background": "solid",
+      "image": {"src": "assets/motion/mark.svg", "alt": "Aident"},
+      "label": "Aident Loadout",
+      "prompt": "Follow https://aident.ai/SETUP.md",
+      "showCaret": false,
       "notes": {
-        "purpose": "可选浅色中性品牌收尾，不继承深色或亮绿色的全局配色。这不是必须照搬的六镜头顺序。"
+        "purpose": "默认浅色中性 Setup CTA，通用 prompt 保持原文，仅在用户明确要求时替换。不复制中间的业务指令；用户明确不需要结尾或 CTA 时可省略。镜头顺序不是配额。"
       }
     }
   ]
