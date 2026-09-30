@@ -22,6 +22,8 @@ Choose `meta.mode: "motion"`. Default `language` is `en`; choose `zh` for Chines
 
 The generator accepts only registered keys and validates counts and copy budgets. Use notes for narration or metadata that is not meant to appear on screen.
 
+In a Chinese deck, a Latin Input prompt (including the unchanged Setup URL) uses the English character budget. Prompts containing Chinese characters retain the Chinese budget; every combination still requires pixel-fit QA.
+
 ## Root and shared fields
 
 | Field | Type / behavior |
@@ -30,6 +32,7 @@ The generator accepts only registered keys and validates counts and copy budgets
 | `meta.mode` | `motion` |
 | `meta.language` | `en` default / `zh` |
 | `meta.fps` | 24,25,30,50,60; default30; downstream frame mapping |
+| `meta.timing` | `{policy:"content"}` default; or `{policy:"target"\|"fixed",targetSeconds:number}`. No automatic total-length scaling. See [editorial policy](editorial-policy.md). |
 | `meta.logo` | optional image or `{light,dark}`; list identity falls back to packaged `assets/motion/mark.svg` when omitted |
 | `meta.showLogo` | list scenes only; defaults true; false only after explicit no-Logo choice |
 | `meta.brandName` | optional descriptive metadata; never replaces a missing supplied logo with a hardcoded brand |
@@ -39,6 +42,7 @@ The generator accepts only registered keys and validates counts and copy budgets
 | `slide.title` / `kicker` | visible heading / optional section label on compatible layouts |
 | `slide.background` | `solid`, `content`, `title`, `elements`, `brand`, `brand-gradient`; neutral Dark defaults to solid ink `#101B27`, non-neutral to solid `brand`, neutral Light to layout artwork |
 | `slide.duration` | optional suggested shot length; at least one frame at meta.fps, at most180s; overrides shorter per-layout defaults |
+| `slide.framing` | lists only: `auto` default / `balanced` / `scroll` / `legacy`; initial framing, not animation bounds |
 | `slide.notes` | `{title,purpose,talk:[],transition}`; not painted on the canvas |
 
 ## Replace images and logos
@@ -73,13 +77,15 @@ Choosing an existing `assets/icons/light/*.svg` for Motion Slides extracts the e
 | hub | `title`, `hub` title and/or image, 1–4 `items`; satellite title and/or image plus optional `label`; optional explicit `connections` with slots |
 | workflow | `title`, 2–4 ordered `items` with `title`, optional `label/body/image`; optional adjacent `connections:{id,from,to}[]`; no central hub |
 | image | `title`, `image`; optional `body` on split, optional `kicker` |
-| metric | `title`, `value`; optional `label/body/kicker`. Variant `cards` instead requires exactly two `items[].value` with optional item `label/body`; no top-level value/label/body. Variants `hero-number/hero-word` enlarge a single focal value. See [metrics-and-cta.md](metrics-and-cta.md). |
+| metric | `title`, `value`; optional `label/body/kicker`. `hero-number/hero-word` may omit title (and must then omit kicker), centering the whole remaining group. Variant `cards` instead requires title and exactly two `items[].value` with optional item `label/body`; no top-level value/label/body. See [metrics-and-cta.md](metrics-and-cta.md). |
 
 Do not put a property on a layout that has no visible slot for it. For example, `body` belongs to split-image copy, not a Logo-only scene. There is no callout/source/header property in this mode. Keep source attribution or evidence in notes unless it is itself the subject of visible user-provided copy.
 
 For synthesis, follow [synthesis-composition.md](synthesis-composition.md). Default peers and outputs are medium, not24→30→50 by column. Use one composition-level `size`, `tagWidth` and `align` for peers; changing each tag's size alone does not repair irregular widths or alignment. Explicit mixed roles remain supported when justified by the content.
 
 ## List sequencing and scroll
+
+Choose initial `framing` using [editorial-policy.md](editorial-policy.md). `auto` centers content that fits and otherwise starts a scroll composition; `balanced` overflow is an error. This neither hides rows nor determines animation travel. For an approved older position use `legacy` explicitly.
 
 ```json
 {

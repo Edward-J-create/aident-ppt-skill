@@ -6,6 +6,10 @@ The Skill provides reusable HTML layouts, editable layers, local assets/fonts, a
 
 ## Contract
 
+- `timingBrief` carries content/target/fixed policy; `editorialReview` points to non-destructive review signals. The advisory numeric duration is not a hard30s cap or final render guarantee. Preserve an explicit fixed brief; replan expanded content rather than silently retiming everything.
+- List `initialFraming` records auto/balanced/scroll/legacy choices. Preserve runtime measurement when adapting: fitting groups center; long groups retain off-camera rows. This is not a scroll-distance contract. Do not invoke layout during animation.
+- Preserve the ending's exact Setup Prompt (or explicit user replacement); middle business prompts are independent. See [editorial-policy.md](editorial-policy.md).
+
 - Each slide is a `section.motion-slide[data-id="stable-slide-id"]`.
 - Components have `data-motion="heading|card-0|hub|satellite-0|connector-0|..."`.
 - Every text/image has `data-layer="slide-id/..."` and `data-editable="text|image"`.
@@ -43,7 +47,7 @@ For animated Input, read **Cursor-to-Send targeting** and **Typing caret lifecyc
 | `pause()` / `play()` | advisory clock/scene selection only; never content animation |
 | `externalControl(true)` | compatibility API: pause clock, retain external ownership; never clear host styles |
 | `staticSlide(index)` | pause and select scene; does not reset host-authored animation |
-| `layout()` | recalculate intrinsic logo sizes, synthesis tag grids and Joint attachment boxes |
+| `layout()` | recalculate intrinsic logo sizes, list initial framing, synthesis tag grids and Joint attachment boxes; before animation only |
 | `getState()` | global/local time, current slide, fps, duration, ownership |
 | `setSendState(slideId,state)` | apply one explicit Send state; does not animate or submit; seek never resets it |
 | `inputBinding(slideId)` | optional [font-ready Input reservation and pointer measurement](input-binding.md); no animation or automatic tracking |

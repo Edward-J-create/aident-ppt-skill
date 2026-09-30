@@ -184,7 +184,8 @@
         "items",
         "image",
         "scroll",
-        "showLogo"
+        "showLogo",
+        "framing"
       ],
       "purpose": "Full off-canvas list with replaceable identity; animation suggestions only, no internal scroll window"
     },

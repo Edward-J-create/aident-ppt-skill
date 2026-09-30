@@ -35,6 +35,18 @@
         "brandName": {
           "type": "string"
         },
+        "timing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["policy"],
+          "properties": {
+            "policy": {"enum": ["content", "target", "fixed"]},
+            "targetSeconds": {"type": "number", "exclusiveMinimum": 0}
+          },
+          "if": {"properties": {"policy": {"const": "content"}}},
+          "then": {"properties": {"targetSeconds": false}},
+          "else": {"required": ["targetSeconds"]}
+        },
         "showLogo": {
           "type": "boolean",
           "description": "List identity is shown by default; false only when the user explicitly requests no logo."
@@ -285,6 +297,7 @@
         "variant": {
           "type": "string"
         },
+        "framing": {"enum": ["auto", "balanced", "scroll", "legacy"], "description": "Motion list initial composition only; never an animation range."},
         "title": {
           "type": "string"
         },
@@ -786,6 +799,10 @@
       ],
       "allOf": [
         {
+          "if": {"required": ["framing"]},
+          "then": {"properties": {"type": {"const": "motion-list"}}}
+        },
+        {
           "if": {
             "properties": {
               "type": {
@@ -1131,9 +1148,6 @@
             ]
           },
           "then": {
-            "required": [
-              "title"
-            ],
             "properties": {
               "variant": {
                 "enum": [
@@ -1145,6 +1159,15 @@
               }
             },
             "allOf": [
+              {
+                "if": {"properties": {"variant": {"enum": ["hero-number", "hero-word"]}}, "required": ["variant"]},
+                "then": {
+                  "if": {"properties": {"title": {"pattern": "\\S"}}, "required": ["title"]},
+                  "then": {},
+                  "else": {"properties": {"kicker": false}}
+                },
+                "else": {"required": ["title"]}
+              },
               {
                 "if": {
                   "properties": {

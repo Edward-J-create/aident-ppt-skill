@@ -4,7 +4,8 @@ Use the run brief and supplied source materials to create `handoffs/narrative.js
 
 Requirements:
 
-- Read `references/content-schema.md` and `references/components-and-layouts.md`.
+- Presentation: read `references/content-schema.md` and `references/components-and-layouts.md`. Motion: use its own content/layout references and `references/motion/editorial-policy.md` instead.
+- For Motion, select content/target/fixed timing from the brief, not a30s default. Preserve the lead's recorded approvals and removals; don't fill optional text without new information. Default ending is the exact `Follow https://aident.ai/SETUP.md` in EN/ZH unless the user explicitly replaces it; middle Input prompts are independent. Title-free heroes and auto/balanced/scroll list framing are supported.
 - Identify the audience, decision, thesis, evidence, and closing action.
 - Produce a coherent sequence rather than one slide per source heading.
 - Use only registered slide types and counts.

@@ -3,6 +3,7 @@
     "mode": "motion",
     "language": "en",
     "title": "From request to clear action",
+    "timing": {"policy": "content"},
     "logo": {
       "src": "assets/motion/mark.svg",
       "alt": "Replaceable Aident default"
@@ -27,7 +28,6 @@
       "id": "request",
       "type": "motion-input",
       "variant": "compact",
-      "label": "Request",
       "prompt": "Turn these notes into one useful next step.",
       "showSend": true,
       "notes": {
@@ -115,16 +115,13 @@
       "background": "brand",
       "items": [
         {
-          "title": "A visible outcome",
-          "body": "Name the result the audience should understand."
+          "title": "A visible outcome"
         },
         {
-          "title": "A clear owner",
-          "body": "Show who will take the next step."
+          "title": "A clear owner"
         },
         {
-          "title": "A review point",
-          "body": "Agree when to check the evidence again."
+          "title": "A review point"
         }
       ],
       "notes": {
@@ -134,18 +131,17 @@
     },
     {
       "id": "signature",
-      "type": "motion-brand",
+      "type": "motion-input",
       "theme": "light",
       "palette": "neutral",
-      "variant": "single",
-      "logos": [
-        {
-          "src": "assets/motion/lockup.svg",
-          "alt": "Aident Loadout complete logo"
-        }
-      ],
+      "variant": "compact",
+      "background": "solid",
+      "image": {"src": "assets/motion/mark.svg", "alt": "Aident"},
+      "label": "Aident Loadout",
+      "prompt": "Follow https://aident.ai/SETUP.md",
+      "showCaret": false,
       "notes": {
-        "purpose": "Optional Light/neutral closing identity; never inherit a Dark or lime deck palette. This starter is not a compulsory six-shot sequence."
+        "purpose": "Default Light/neutral Setup CTA. Preserve this exact prompt unless the user explicitly changes it; do not copy the middle business prompt. Omit only if an ending/CTA is unwanted. The starter is not a compulsory sequence."
       }
     }
   ]

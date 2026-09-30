@@ -17,6 +17,19 @@
    const nodes=[...group.querySelectorAll('.m-flow-node')];nodes.forEach(n=>n.style.removeProperty('height'));
    const height=Math.max(...nodes.map(n=>n.offsetHeight));nodes.forEach(n=>n.style.height=`${height}px`);
   }
+  for(const scene of document.querySelectorAll('[data-list-scene]')){
+   const slide=scene.closest('.motion-slide'),mode=slide.dataset.framing||'auto',identity=scene.querySelector('.m-list-identity');
+   // Intrinsic layout only. Do not inspect animated bounding boxes or set transforms/travel.
+   if(mode==='legacy'){scene.style.removeProperty('top');scene.style.removeProperty('gap');identity?.style.removeProperty('height');delete scene.dataset.framingOverflow;continue;}
+   const cs=getComputedStyle(scene),read=k=>parseFloat(cs.getPropertyValue('--list-'+k));
+   if(identity)identity.style.height=`${identity.querySelector('img').offsetHeight}px`;
+   scene.style.gap=`${read('identityGap')}px`;
+   const height=scene.offsetHeight,safeTop=read('safeTop'),safeBottom=read('safeBottom'),fits=height<=1080-safeTop-safeBottom;
+   const balanced=mode==='balanced'||(mode==='auto'&&fits);
+   scene.style.top=`${balanced?Math.max(safeTop,(1080-height)/2):read('scrollTop')}px`;
+   scene.dataset.framingResolved=balanced?'balanced':'scroll';
+   scene.dataset.framingOverflow=String(mode==='balanced'&&!fits);
+  }
   for(const scene of document.querySelectorAll('[data-synthesis]')){
    const panel=scene.querySelector('.m-synthesis-inputs'),groups=[...panel.children],outputs=scene.querySelector('.m-outputs'),arrow=scene.querySelector('.m-synthesis-arrow');
    const ps=getComputedStyle(panel),pad=parseFloat(ps.paddingLeft)+parseFloat(ps.paddingRight)+2,groupGap=parseFloat(ps.gap),tagGap=parseFloat(getComputedStyle(groups[0]).gap);

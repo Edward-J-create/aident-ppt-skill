@@ -6,6 +6,8 @@ Read before drafting a Motion deck. The generator renders explicit `slide.type`;
 
 ## Intake
 
+Apply [editorial-policy.md](editorial-policy.md) before filling fields: establish timing policy, preserve approved choices/removals, and leave redundant optional text out. The default final shot uses the fixed Setup Prompt, not the middle scene's business prompt.
+
 Establish audience, intended takeaway, language (English default), source content and whether this delivery is editable HTML or a separately requested finished animation. Ask once: “Keep the default Aident Logo, replace it with your own PNG/JPEG/WebP/SVG, or use no Logo?” Do not block when unanswered: use packaged `assets/motion/lockup.svg` for brand shots and `assets/motion/mark.svg` for compact identities, and disclose the default. Already supplied brand choices need no repeat question. Ask this when generating a user's deck, not when maintaining the Skill.
 
 Only use user-supplied or approved logos to imply actual products/organizations. A pair-logo scene represents a real, specified relationship; do not invent a partner to fill the second slot. Never put a Logo on every scene solely for variety.
@@ -45,7 +47,8 @@ Do not alternate palettes merely because multiple tokens exist. In a typical sho
 | Ordered repeated results / 连续清单 | `motion-list` | Keep full content beyond camera. No nested scrolling viewport. More rows need downstream camera travel, not tiny text. |
 | A meaningful number or keyword / 数值或关键词 | `motion-metric` single / hero-number / hero-word | One verified or clearly illustrative focal value; larger variants are explicit, not a font-size patch. |
 | Two independent measures / 并列数据 | `motion-metric` cards | Exactly two equal-weight Cards, each with a large independent value. Never concatenate measures to satisfy the single-value variant. |
-| Identity plus a real action / 行动尾页 | `motion-brand` cta | 1–2 Logos + optional small label + independent CTA. Do not replace an approved CTA with brand-title, body copy or a Logo-only scene. |
+| Default Aident ending / 默认行动尾页 | `motion-input` compact | Exact `Follow https://aident.ai/SETUP.md` in EN/ZH; change only on explicit user request. Separate from middle business Inputs. |
+| Explicit alternative button CTA / 用户指定的按钮尾页 | `motion-brand` cta | 1–2 Logos + optional meaningful label + independent button. Preserve an explicitly approved alternative; do not use it to replace the default Setup Prompt without direction. |
 | Independent categories / 并列概念 | `motion-cards` | 2–4 genuinely parallel ideas. Not the default container for prompts, relationships or process transformations. |
 | A standalone claim or transition / 核心句 | `motion-title` | One short takeaway. Avoid repeating every scene's message as a separate title slide. |
 
@@ -59,7 +62,7 @@ For each shot record: narrative purpose, visible subject, visual relation, chose
 
 Before generation review whether prompt, identity or relationship content was flattened into cards. If so, select Input, Logo or Joint/synthesis as appropriate. Repeated layouts are allowed when the story needs repetition; avoid mechanically mapping one source heading to one page. Keep one dominant visual idea per shot; move narration into notes. Labels, numbering and explanatory body copy are optional, not required decorations.
 
-An illustrative AI explainer might use: Logo introduction → actual Input prompt → Joint relationships → synthesis/result → a short list → Light/neutral Logo closing. This is not a fixed sequence: omit branding if explicitly unwanted, and only include relationships/transformation supported by the source. Both EN and ZH follow the same planning process.
+An illustrative AI explainer might use: Logo introduction → actual Input prompt → Joint relationships → synthesis/result → a short list → Light/neutral Setup Prompt closing. This is not a fixed sequence: omit branding or an ending if explicitly unwanted, and only include relationships/transformation supported by the source. Both EN and ZH follow the same planning process; the default ending prompt stays unchanged in both.
 
 ## Animation ownership
 

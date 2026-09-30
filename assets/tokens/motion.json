@@ -400,7 +400,8 @@
     "padding": 20,
     "textGap": 8,
     "logoTop": 200,
-    "logoHeight": 150
+    "logoHeight": 150,
+    "framing": {"default": "auto", "safeTop": 110, "safeBottom": 110, "identityGap": 40, "scrollTop": 140}
   },
   "input": {
     "pointer": {

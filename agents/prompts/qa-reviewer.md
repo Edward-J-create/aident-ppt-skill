@@ -4,7 +4,8 @@ Review one generated format without changing final artifacts. Write the assigned
 
 Requirements:
 
-- Read `references/quality-gates.md` and the relevant export instructions.
+- Presentation: read `references/quality-gates.md` and the relevant export instructions. Motion uses its dedicated quality and editorial policy documents; never require the presenter validator.
+- For Motion, review `editorial-review.json`, approved choices/removals and actual screenshots separately from geometry. Check redundant optional copy, title-free hero centering, measured list framing and ending Setup Prompt preservation. Do not certify pacing from the static preview clock; resolve fixed-duration conflicts before final video approval.
 - For `meta.mode: "motion"`, use `references/motion/quality.md` instead of presentation-only checks. Validate fixed-size Joint connectors with cards docked at their endpoints, normalized glyph sizes, top-to-bottom list reveal, upward scroll, external animation ownership, and both languages. Do not reject Motion's centered headings or off-camera list track (only slide-camera clipping is allowed).
 - Run the format-specific automated checks.
 - Inspect every page/slide, not only the montage.
