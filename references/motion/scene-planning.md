@@ -28,7 +28,7 @@ Select the layout from the information relationship first. Then use these prefer
 | Closing / end card, with or without CTA | Light neutral only | Do not use Dark or bright lime, including Logo-only endings. Override deck theme/palette explicitly. |
 | One large number or keyword | Bright lime → Light neutral → solid brand color | Bright lime is primarily for `motion-metric` or a short `motion-title`, with one dominant center focal point. |
 | Ordered long/checked list | Solid brand deep teal → solid deep blue → Light neutral | Do not default lists to lime. Rows use the theme surface recipe; dark tags/checks use brand cyan `#1EEAEA`. |
-| Cards, Input, synthesis, workflow, hub, comparison, image | Light neutral → Dark neutral → solid brand deep teal/deep blue | Prefer sustained readability over color variety. |
+| Cards, Input, synthesis, workflow, hub, tree, comparison, image | Light neutral → Dark neutral → solid brand deep teal/deep blue | Prefer sustained readability over color variety. |
 
 Do not alternate palettes merely because multiple tokens exist. In a typical short sequence, let one neutral system carry most information scenes and reserve one saturated beat for emphasis. If an explicit lower-priority combination is useful, keep it and state the reason in `notes.purpose`; do not block generation.
 
@@ -40,6 +40,7 @@ Do not alternate palettes merely because multiple tokens exist. In a typical sho
 | Integration or collaboration / 品牌关系 | `motion-brand` pair | Two approved identities and an editable separator. No invented endorsement. |
 | A request, query, instruction / 输入问题 | `motion-input` compact or multiline | Show the actual prompt instead of a card saying “Enter a prompt.” Compact may include Logo/label; multiline supports a real readable request. |
 | One center connected to 1–4 actors / 中心关系 | `motion-hub` | Explain tools, roles, signals or relationships with live nodes and unchanged Joint connectors. Do not misuse this as a linear four-step chain. |
+| One root → 1–2 parents → 2–4 leaves each / 三级分支 | `motion-tree` branching | Preserve the actual parentage; one optional image per node. See [partner-launch.md](partner-launch.md). Do not flatten this into parallel cards or a single-level hub. |
 | Ordered steps from left to right / 单向流程 | `motion-workflow` | 2–4 nodes and one original arrow between adjacent nodes. No center. Split longer processes into coherent shots. |
 | Many inputs becoming fewer outputs / 汇聚与转化 | `motion-synthesis` | Separate input tags, directional connector and output; not paragraph cards. Supports 1–4 input groups and 1–3 outputs. Select a coherent [tag composition](synthesis-composition.md), not one size per column. |
 | Real screenshot, visual evidence / 画面证据 | `motion-image` | Hero for image focus, split for left text/right image. Ask for missing evidence instead of inventing a screenshot. |
@@ -52,13 +53,13 @@ Do not alternate palettes merely because multiple tokens exist. In a typical sho
 | Independent categories / 并列概念 | `motion-cards` | 2–4 genuinely parallel ideas. Not the default container for prompts, relationships or process transformations. |
 | A standalone claim or transition / 核心句 | `motion-title` | One short takeaway. Avoid repeating every scene's message as a separate title slide. |
 
-These are semantic choices, not numeric weights, mandatory percentages or a quota requiring every template. If no registered geometry fits (for example a cycle or multi-level graph), explain the mismatch and choose a supported truthful representation; do not disguise card columns as a connected flowchart or stretch Joint artwork.
+These are semantic choices, not numeric weights, mandatory percentages or a quota requiring every template. If no registered geometry fits (for example a cycle or hierarchy outside the registered three-tier tree contract), explain the mismatch and choose a supported truthful representation; do not disguise card columns as a connected flowchart or stretch Joint artwork.
 
 Closing/end cards use `theme:"light", palette:"neutral"` explicitly. Neither Dark nor bright lime is an ending option, regardless of whether it contains a single Logo, two Logos, CTA or statement. These colors remain available for interior scenes; technical palette compatibility must not be mistaken for ending guidance.
 
 ## Draft a shot plan
 
-For each shot record: narrative purpose, visible subject, visual relation, chosen type, required assets and optional downstream motion idea. Put the reason in `notes.purpose`, narration in `notes.talk`, and a non-binding transition idea in `notes.transition`. Do not add unsupported JSON keys.
+For each shot record: narrative purpose, visible subject, visual relation, chosen type, required assets and optional downstream motion idea. Preserve explicitly requested typewriter/count-up/draw/sequential actions in `slide.animation` as documented in [partner-launch.md](partner-launch.md); narration notes alone are insufficient. Put the reason in `notes.purpose`, narration in `notes.talk`, and a non-binding transition idea in `notes.transition`. Do not add unsupported JSON keys.
 
 Before generation review whether prompt, identity or relationship content was flattened into cards. If so, select Input, Logo or Joint/synthesis as appropriate. Repeated layouts are allowed when the story needs repetition; avoid mechanically mapping one source heading to one page. Keep one dominant visual idea per shot; move narration into notes. Labels, numbering and explanatory body copy are optional, not required decorations.
 
@@ -66,7 +67,7 @@ An illustrative AI explainer might use: Logo introduction → actual Input promp
 
 ## Animation ownership
 
-Motion Slides means animation-ready scene construction, not PPT transitions. HTML defaults to fully visible components; do not apply generic rise/fade/stagger or hide assets behind timed reveals. Keep identity, input cursor/send, nodes, connectors and rows separate for later editing. Describe an optional action (for example “submit the question, then reveal related tools”), not a required easing, duration, scroll distance or animation range. A chosen animation Skill owns choreography, camera motion, timing, frame rendering and final motion QA.
+Motion Slides means animation-ready scene construction, not PPT transitions. HTML defaults to fully visible components; do not apply generic rise/fade/stagger or hide assets behind timed reveals. Keep identity, input cursor/send, nodes, connectors and rows separate for later editing. Record an explicitly requested action in the registered `animation` fields. For unspecified motion, describe an optional action (for example “submit the question, then reveal related tools”), not a required easing, duration, scroll distance or animation range. A chosen animation Skill owns choreography, camera motion, timing, frame rendering and final motion QA.
 
 ## Planning review
 

@@ -38,6 +38,7 @@ npm run motion:controls:qa
 npm run motion:input:qa
 npm run motion:promotional:qa
 npm run motion:partner:qa
+npm run motion:handoffs:qa
 npm run title:qa:en
 npm run title:qa:zh
 ```
@@ -59,6 +60,8 @@ Run `npm run size` before publication to report the uncompressed source-package 
 - Preserve all font licenses and [NOTICE.md](NOTICE.md). Publishing does not grant a new brand-asset or repository-wide license.
 
 ## Publish safely
+
+For a maintenance request that includes the installed Skill, use this order: **local source fix and QA → local installation sync and verification → GitHub publication**. Inspect the actual installed directory/symlink before syncing; preserve the previous copy or target for rollback. Verify that the installed entry loads the checked source. A GitHub update alone does not refresh an unrelated local installation. Installation changes still require the user's authorization.
 
 1. Confirm the destination is `Edward-J-create/aident-ppt-skill` and inspect its current branch/SHA.
 2. Compare against a fresh checkout; preserve remote-only files and investigate conflicting edits. Never force-push over another author's updates.
