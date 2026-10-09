@@ -19,6 +19,15 @@ deck.meta=deck.meta||{};
 const byId=new Map();
 for(const slide of deck.slides){if(!slide.id)throw new Error('Every narrative slide requires an id.');if(byId.has(slide.id))throw new Error(`Duplicate slide id: ${slide.id}`);byId.set(slide.id,slide)}
 
+function patchImages(targets,mapping,context){
+  if(!mapping||typeof mapping!=='object'||Array.isArray(mapping))throw new Error(`${context}: image mapping must be an object`);
+  for(const [id,patch] of Object.entries(mapping)){
+    const target=targets.get(id);if(!target)throw new Error(`${context}: unknown image target ${id}`);
+    if(!patch||typeof patch!=='object'||Array.isArray(patch)||Object.keys(patch).some(k=>k!=='image')||!patch.image)throw new Error(`${context}/${id}: use an image-only patch`);
+    target.image=patch.image;
+  }
+}
+
 if(assets._status!=='waived'){
   if(!assets.slides||typeof assets.slides!=='object')throw new Error('assets.json must contain slides object or _status:"waived".');
   if(assets.brand?.logo)deck.meta.logo=assets.brand.logo;
@@ -29,6 +38,27 @@ if(assets._status!=='waived'){
     if(deck.meta.mode==='motion'){
       if(patch.logos)slide.logos=patch.logos;
       if(patch.hub?.image)slide.hub={...slide.hub,image:patch.hub.image};
+      if(patch.nodes!==undefined){
+        if(slide.type!=='motion-tree')throw new Error(`Node image mapping requires motion-tree: ${slideId}`);
+        const nodes=[slide.root,...(slide.branches||[]).flatMap(b=>[b,...(b.children||[])])];
+        patchImages(new Map(nodes.filter(Boolean).map(n=>[n.id,n])),patch.nodes,`${slideId}/nodes`);
+      }
+      if(patch.platforms!==undefined){
+        if(!Array.isArray(slide.platforms))throw new Error(`Platform image mapping requires an existing platform grid: ${slideId}`);
+        patchImages(new Map(slide.platforms.map((p,i)=>[String(i),p])),patch.platforms,`${slideId}/platforms`);
+      }
+      if(patch.result!==undefined){
+        if(!slide.result)throw new Error(`Result image mapping requires an existing result: ${slideId}`);
+        patchImages(new Map([['result',slide.result]]),{result:patch.result},slideId);
+      }
+      if(patch.rows!==undefined){
+        if(!patch.rows||typeof patch.rows!=='object'||Array.isArray(patch.rows)||!Array.isArray(slide.rows))throw new Error(`Row image mapping requires existing workflow rows: ${slideId}`);
+        for(const [rowId,rowPatch] of Object.entries(patch.rows)){
+          const row=slide.rows.find(r=>r.id===rowId);
+          if(!row||!rowPatch||typeof rowPatch!=='object'||Object.keys(rowPatch).some(k=>k!=='items'))throw new Error(`Invalid workflow row image target: ${slideId}/${rowId}`);
+          patchImages(new Map(row.items.map((v,i)=>[String(i),v])),rowPatch.items,`${slideId}/rows/${rowId}`);
+        }
+      }
     }
     if(patch.header)slide.header={...(slide.header||{}),...patch.header};
     if(patch.items){

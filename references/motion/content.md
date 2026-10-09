@@ -60,6 +60,9 @@ Supported replacement slots:
 - Card page: `items[].image` is an optional small visual, separate from title/body.
 - Input pill: `image`, `label`, `prompt`.
 - Joint/hub: `hub.image`, `hub.title`, `items[].image`, `items[].title`, `items[].label`.
+- Three-tier tree: `root.image`, `branches[].image`, `branches[].children[].image`; asset handoffs use `nodes[nodeId].image` with the narrative's existing node IDs.
+- Platform grid: `platforms[].image`; asset handoffs use numeric `platforms[index].image`.
+- Result/workflow rows: `result.image`, `rows[].items[].image`; asset handoffs address rows by explicit `rowId`. Image-only mappings preserve labels and topology.
 - Image scene: `image.src`, `alt`, `fit`, `position`; `body` is the left-side copy in split mode.
 
 Choosing an existing `assets/icons/light/*.svg` for Motion Slides extracts the existing design-system glyph without the old 60px surface. The packaged motion glyph keeps all original paths and uses a tight normalized 46px image box. This avoids shrinking the actual symbol inside a second card. User logo files are never cropped or treated as these design-system glyphs.

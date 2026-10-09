@@ -74,7 +74,7 @@ These limitations are explicit, tested, and do not create a Figma runtime depend
 
 | Contract | Canonical source | Executable evidence |
 |---|---|---|
-| 11 families, variants and editable slots | `assets/components/motion-registry.json`, `references/motion/layouts.md` | `validate-motion.mjs` checks matching 20-page EN/ZH coverage and rejects malformed content |
+| 12 families, variants and editable slots | `assets/components/motion-registry.json`, `references/motion/layouts.md` | `validate-motion.mjs` checks matching 21-page EN/ZH coverage and rejects malformed content |
 | Per-role fonts, line-height ratios, tracking, paint alpha, spacing | `assets/tokens/motion.json`, Motion typography/copy-budget tables | Browser font/line-height/overflow checks |
 | Original Joint curves; cards dock to endpoints | Motion layout and animation handoff docs, `assets/motion/curve.svg` | Three/four-satellite short/long EN/ZH replacement tests; original connector dimensions preserved |
 | Original icon glyphs without source surface shrinkage | `assets/motion/icons/manifest.json` | `normalize-motion-icons.mjs --check` verifies 10 extractions without redrawing |

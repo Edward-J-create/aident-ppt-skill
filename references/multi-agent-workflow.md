@@ -94,8 +94,9 @@ The handoff files start as explicit templates with `_status: "pending"`. Special
 
 Use the same initializer with `--formats html` (or `html,single-html`). In the narrative handoff, set `deck.meta.mode: "motion"` and use the Motion schema, not Presentation slide types. The lead must preserve this field during assembly. There is no separate `--mode` initializer option.
 
-- Narrative: read `motion/README.md`, `motion/scene-planning.md`, `motion/layouts.md`, and `motion/content.md`, and `motion/editable-components.md`; distinguish linear Workflow from hub relationships; keep EN/ZH copy budgets and the top-to-bottom list order.
-- Assets: patch local `logos`, `hub.image`, `image`, and `items[index].image` by stable slide ID. Omit presentation-only `brand.rightText`, `header`, and item `icon` fields. Use normalized Motion SVGs via `image`.
+- Narrative: read `motion/README.md`, `motion/scene-planning.md`, `motion/layouts.md`, and `motion/content.md`, and `motion/editable-components.md`; distinguish linear Workflow, single-level hub and three-tier tree relationships; keep EN/ZH copy budgets and the top-to-bottom list order.
+- Assets: patch local `logos`, `hub.image`, `image`, `items[index].image/tools`, `nodes[nodeId].image` (tree), `platforms[index].image`, `result.image`, and `rows[rowId].items[index].image` by stable slide ID. Omit presentation-only `brand.rightText`, `header`, and item `icon` fields. Use normalized Motion SVGs via `image`.
+  Tree node IDs and workflow row IDs must already exist in the narrative. Platform and row-item indices must target existing entries. New mappings accept only `image`, never copy, order or parentage; unknown IDs/indices fail assembly instead of being silently ignored.
 - Notes: use `{purpose,talk,transition}` for off-canvas narration; do not introduce an on-canvas footer or Callout.
 - HTML QA: use `motion/quality.md`; retain fixed Joint geometry, verify card docking and final list-row reachability, then test external animation ownership.
 - Generation: `generate-deck.mjs --input <run>/deck.json --out <run>/output/web`; mode routes from JSON. Deliver the generated timeline and layer index beside HTML.
