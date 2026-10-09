@@ -76,6 +76,8 @@ npm run motion:qa:zh
 
 The folder includes HTML, editable content JSON, suggested timing, a layer/asset index and bundled fonts. It is ready for animation adaptation, but is not itself a native video-engine or NLE project. / 输出包含 HTML、内容 JSON、建议时间轴、图层与素材索引及字体；可继续改编为动画项目，当前交付本身并非剪辑工程或原生视频引擎项目。
 
+Motion 联合宣发组合现支持大数字＋2–18 个平台图标、从上到下、每层分支的流程图、独立 Logo 视觉缩放、易读结果表、紧凑 CTA 间距，以及向下游传递明确的打字／计数／描线／逐项动画请求。见[组合说明](references/motion/partner-launch.md)与[中文示例](examples/motion/partner-launch.zh.json)。
+
 ## Design system at a glance / 一眼看懂这套系统
 
 The preview below is generated from the packaged registries and bundled font files, so its inventory stays synchronized with the Skill. / 下图直接读取包内 registry 与字体文件生成，能力数量和字体角色会与 Skill 保持同步。

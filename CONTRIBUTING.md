@@ -37,6 +37,7 @@ npm run motion:synthesis:qa
 npm run motion:controls:qa
 npm run motion:input:qa
 npm run motion:promotional:qa
+npm run motion:partner:qa
 npm run title:qa:en
 npm run title:qa:zh
 ```

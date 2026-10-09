@@ -8,10 +8,10 @@
  const zh=data.meta.language==='zh';
  document.body.classList.toggle('capture',params.has('capture')||params.has('embed'));
  function layout(){
-  const limits={ 'm-brand-logo':[760,144],'m-list-logo':[650,150],'m-hub-logo':[160,80],'m-satellite-logo':[92,46],'m-input-logo':[120,60],'m-list-item-image':[100,60],'m-card-icon':[120,60]};
+  const limits={ 'm-brand-logo':[760,144],'m-list-logo':[650,150],'m-hub-logo':[160,80],'m-satellite-logo':[92,46],'m-input-logo':[120,60],'m-list-item-image':[100,60],'m-card-icon':[120,60],'m-result-logo':[40,36],'m-tool-logo':[44,44],'m-platform-logo':[64,64]};
   for(const im of document.querySelectorAll('.replaceable-logo')){
    const key=Object.keys(limits).find(k=>im.classList.contains(k));if(!key||!im.naturalWidth)continue;
-   const style=getComputedStyle(im),[w,h]=key==='m-brand-logo'?[parseFloat(style.getPropertyValue('--brand-max-width')),parseFloat(style.getPropertyValue('--brand-max-height'))]:key==='m-satellite-logo'&&im.closest('.m-flow-row')?[72,36]:limits[key],scale=Math.min(w/im.naturalWidth,h/im.naturalHeight);im.style.width=`${im.naturalWidth*scale}px`;im.style.height=`${im.naturalHeight*scale}px`;
+   const style=getComputedStyle(im),[w,h]=key==='m-brand-logo'?[parseFloat(style.getPropertyValue('--brand-max-width')),parseFloat(style.getPropertyValue('--brand-max-height'))]:key==='m-satellite-logo'&&im.closest('.m-flow-row')?[72,36]:limits[key],scale=Math.min(w/im.naturalWidth,h/im.naturalHeight)*finite(im.dataset.opticalScale,1);if(key==='m-brand-logo')im.closest('.m-brand-slot').style.maxWidth=`${w*finite(im.dataset.opticalScale,1)}px`;if(im.dataset.opticalScale){im.style.maxWidth=`${w*finite(im.dataset.opticalScale,1)}px`;im.style.maxHeight=`${h*finite(im.dataset.opticalScale,1)}px`;}im.style.width=`${im.naturalWidth*scale}px`;im.style.height=`${im.naturalHeight*scale}px`;
   }
   for(const group of document.querySelectorAll('[data-workflow-rows]')){
    const nodes=[...group.querySelectorAll('.m-flow-node')];nodes.forEach(n=>n.style.removeProperty('height'));
@@ -59,6 +59,22 @@
    const available=Math.min(parseFloat(ps.maxWidth),scene.clientWidth-outputs.offsetWidth-arrow.offsetWidth-2*parseFloat(getComputedStyle(scene).gap));
    // Measure layout, not animation. Oversized content remains a QA error: never shrink fonts, crop or reorder it.
    panel.style.setProperty('--input-width',`${Math.min(Math.ceil(needed+pad),Math.floor(available))}px`);
+  }
+  for(const tree of document.querySelectorAll('[data-tree]')){
+   const nodes=[...tree.querySelectorAll('[data-node-id]')],leaves=nodes.filter(n=>n.dataset.depth==='2');
+   const cs=getComputedStyle(tree),width=leaves.reduce((sum,n)=>sum+n.offsetWidth,0),preferredGap=parseFloat(cs.getPropertyValue('--tree-leafGap')),minimumGap=parseFloat(cs.getPropertyValue('--tree-minLeafGap'));
+   const gap=Math.max(minimumGap,Math.min(preferredGap,(tree.clientWidth-width)/(leaves.length-1)));
+   const total=width+(leaves.length-1)*gap;let x=(tree.clientWidth-total)/2;
+   const center=new Map();
+   leaves.forEach(n=>{center.set(n.dataset.nodeId,x+n.offsetWidth/2);x+=n.offsetWidth+gap;});
+   const parents=nodes.filter(n=>n.dataset.depth==='1');
+   for(const n of parents){const kids=leaves.filter(c=>c.dataset.parent===n.dataset.nodeId);center.set(n.dataset.nodeId,parents.length===1?tree.clientWidth/2:(center.get(kids[0].dataset.nodeId)+center.get(kids.at(-1).dataset.nodeId))/2);}
+   center.set(nodes.find(n=>n.dataset.depth==='0').dataset.nodeId,tree.clientWidth/2);
+   for(const n of nodes){const y=parseFloat(cs.getPropertyValue('--tree-level'+n.dataset.depth+'Y'));n.style.left=`${center.get(n.dataset.nodeId)}px`;n.style.top=`${y}px`;}
+   for(const edge of tree.querySelectorAll('[data-edge]')){
+    const from=nodes.find(n=>n.dataset.nodeId===edge.dataset.from),to=nodes.find(n=>n.dataset.nodeId===edge.dataset.to),x0=from.offsetLeft,y0=from.offsetTop+from.offsetHeight/2,x1=to.offsetLeft,y1=to.offsetTop-to.offsetHeight/2,mid=(y0+y1)/2;
+    edge.querySelector('path').setAttribute('d',`M${x0} ${y0} C${x0} ${mid} ${x1} ${mid} ${x1} ${y1}`);
+   }
   }
   for(const hub of document.querySelectorAll('.m-hub')){
    const center=hub.querySelector('.m-hub-center'),satellites=[...hub.querySelectorAll('.m-satellite')];

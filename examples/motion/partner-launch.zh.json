@@ -1,0 +1,310 @@
+{
+  "meta": {
+    "mode": "motion",
+    "title": "可编辑联合发布镜头",
+    "language": "zh",
+    "timing": {
+      "policy": "content"
+    }
+  },
+  "slides": [
+    {
+      "id": "partner-opening",
+      "type": "motion-title",
+      "variant": "brand-title",
+      "title": "你的智能体\n你的下一次发布",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "opticalScale": 1.1
+        },
+        {
+          "placeholder": "合作方"
+        }
+      ]
+    },
+    {
+      "id": "reach",
+      "type": "motion-metric",
+      "variant": "hero-number",
+      "theme": "light",
+      "palette": "lime",
+      "value": "18",
+      "label": "覆盖数量示例",
+      "body": "一个接口，多个目标。",
+      "platforms": [
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 1"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/capabilities.svg"
+          },
+          "label": "应用 2"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 3"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 4"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 5"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 6"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 7"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/capabilities.svg"
+          },
+          "label": "应用 8"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 9"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 10"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 11"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 12"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 13"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/capabilities.svg"
+          },
+          "label": "应用 14"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 15"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 16"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 17"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "应用 18"
+        }
+      ],
+      "animation": {
+        "metric": "count-up"
+      },
+      "notes": {
+        "purpose": "Generic layout fixture. Replace every platform image/label and verify provider coverage; count does not assert a real partnership or integration."
+      }
+    },
+    {
+      "id": "input",
+      "type": "motion-input",
+      "prompt": "为我的下一次发布准备待审核草稿。",
+      "showCursor": true,
+      "showCaret": false,
+      "animation": {
+        "prompt": "typewriter"
+      }
+    },
+    {
+      "id": "invoke",
+      "type": "motion-tree",
+      "variant": "branching",
+      "title": "审核后执行",
+      "root": {
+        "id": "loadout",
+        "title": "Loadout",
+        "image": {
+          "src": "assets/motion/mark.svg"
+        }
+      },
+      "branches": [
+        {
+          "id": "provider",
+          "title": "服务商",
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "children": [
+            {
+              "id": "channel-1",
+              "title": "应用 1",
+              "image": {
+                "src": "assets/motion/icons/integration.svg"
+              }
+            },
+            {
+              "id": "channel-2",
+              "title": "应用 2",
+              "image": {
+                "src": "assets/motion/icons/skill.svg"
+              }
+            },
+            {
+              "id": "channel-3",
+              "title": "应用 3",
+              "image": {
+                "src": "assets/motion/icons/history.svg"
+              }
+            },
+            {
+              "id": "channel-4",
+              "title": "应用 4",
+              "image": {
+                "src": "assets/motion/icons/capabilities.svg"
+              }
+            }
+          ]
+        }
+      ],
+      "animation": {
+        "connectors": "draw"
+      },
+      "notes": {
+        "purpose": "One root -> one provider -> four replaceable destinations. This is a branching invocation, not four sequential cards."
+      }
+    },
+    {
+      "id": "results",
+      "type": "motion-synthesis",
+      "title": "看清执行结果",
+      "theme": "dark",
+      "palette": "cobalt",
+      "groups": [
+        [
+          {
+            "title": "文案"
+          },
+          {
+            "title": "账号"
+          }
+        ],
+        [
+          {
+            "title": "素材"
+          },
+          {
+            "title": "时间"
+          }
+        ]
+      ],
+      "composition": {
+        "size": "small",
+        "density": "compact"
+      },
+      "outputs": [],
+      "result": {
+        "density": "prominent",
+        "title": "发布状态",
+        "columns": [
+          "渠道",
+          "状态",
+          "UTC 时间"
+        ],
+        "columnWidths": [
+          3,
+          3,
+          3
+        ],
+        "rows": [
+          [
+            "渠道 1",
+            "已排期",
+            "09:00"
+          ],
+          [
+            "渠道 2",
+            "已排期",
+            "09:05"
+          ],
+          [
+            "渠道 3",
+            "已排期",
+            "09:10"
+          ],
+          [
+            "渠道 4",
+            "已排期",
+            "09:15"
+          ]
+        ],
+        "caption": "状态示例"
+      },
+      "animation": {
+        "results": "sequential"
+      }
+    },
+    {
+      "id": "closing",
+      "type": "motion-brand",
+      "variant": "cta",
+      "theme": "light",
+      "palette": "neutral",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg"
+        },
+        {
+          "placeholder": "合作方"
+        }
+      ],
+      "label": "告诉你的智能体",
+      "cta": {
+        "text": "Follow https://aident.ai/SETUP.md"
+      }
+    }
+  ]
+}

@@ -10,7 +10,7 @@
       "path": "assets/previews/motion-slides.en.webp",
       "width": 2016,
       "height": 2712,
-      "purpose": "English Motion slides: 20 browser-verified scenes",
+      "purpose": "English Motion slides: 21 browser-verified scenes",
       "runtimeRequired": false,
       "derivedFrom": "examples/motion/deck.en.json browser preflight screenshots"
     },
@@ -19,7 +19,7 @@
       "path": "assets/previews/motion-slides.zh.webp",
       "width": 2016,
       "height": 2712,
-      "purpose": "Chinese Motion slides: 20 browser-verified scenes",
+      "purpose": "Chinese Motion slides: 21 browser-verified scenes",
       "runtimeRequired": false,
       "derivedFrom": "examples/motion/deck.zh.json browser preflight screenshots"
     },

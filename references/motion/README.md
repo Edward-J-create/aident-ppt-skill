@@ -14,7 +14,7 @@ node "$SKILL_DIR/scripts/generate-deck.mjs" \
   --out /absolute/path/motion-en
 
 # Chinese: use examples/motion/starter.zh.json.
-# Full 20-page component catalog: examples/motion/deck.en.json or deck.zh.json.
+# Full 21-page component catalog: examples/motion/deck.en.json or deck.zh.json.
 # Add --single-file to ALSO generate deck.single.html.
 ```
 
@@ -27,6 +27,7 @@ For a new explainer/demo use the bilingual starter, which includes Logo, Input, 
 | Task | Canonical reference |
 |---|---|
 | Plan shots by meaning, not PPT outline | [scene-planning.md](scene-planning.md) |
+| Partner launch: platform grid, branching workflows, optical sizing, prominent results, animation requests | [partner-launch.md](partner-launch.md), bilingual `examples/motion/partner-launch.*.json` |
 | Pick a layout and density | [layouts.md](layouts.md) |
 | Paired large-number cards, hero number/keyword, Logo + CTA ending | [metrics-and-cta.md](metrics-and-cta.md), bilingual `examples/motion/promotional.*.json` |
 | Arrange tags, widths, peer alignment and emphasis | [synthesis-composition.md](synthesis-composition.md) |

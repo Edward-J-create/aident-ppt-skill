@@ -57,7 +57,7 @@ export async function preflightMotion(htmlPath,screenshotDir){
     const rows=[...group.querySelectorAll('[data-workflow]')],first=[...rows[0].querySelectorAll('[data-node-id]')].map(rect);
     for(const row of rows)for(const [i,n] of [...row.querySelectorAll('[data-node-id]')].entries()){const r=rect(n);if(!first[i]||Math.abs(r.x-first[i].x)>1||Math.abs(r.width-first[i].width)>1||Math.abs(r.height-first[i].height)>1)errors.push('Workflow row columns must align and share sizes');}
    }
-   const visible=el=>{let n=el;while(n&&n!==slide){const cs=getComputedStyle(n);if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity===0)return false;n=n.parentElement;}const r=rect(el);return r.width>0&&r.height>0;};
+   const visible=el=>{let n=el;while(n&&n!==slide){const cs=getComputedStyle(n);if(cs.display==='none'||cs.visibility==='hidden'||+cs.opacity===0)return false;n=n.parentElement;}const r=rect(el);return r.width>0&&r.height>0||(el instanceof SVGPathElement&&el.getTotalLength()>0);};
    for(const el of slide.querySelectorAll('[data-motion],[data-list-item]'))if(!visible(el)||+getComputedStyle(el).opacity!==1)errors.push('Static content hidden/faded: '+el.dataset.layer);
    for(const im of slide.querySelectorAll('img'))if(!im.complete||!im.naturalWidth)errors.push('Broken image: '+im.getAttribute('src'));
    for(const el of slide.querySelectorAll('[data-editable="text"],.m-card,.m-input,.m-satellite,.m-hub-center,.m-brand-slot,.m-tag-panel,.m-flow-node,.m-flow-edge')){
@@ -70,10 +70,11 @@ export async function preflightMotion(htmlPath,screenshotDir){
     }
    }
    for(const im of slide.querySelectorAll('.replaceable-logo')){
-    const r=rect(im);if(im.naturalWidth&&Math.abs((r.width/r.height)/(im.naturalWidth/im.naturalHeight)-1)>.015)errors.push('Logo distorted: '+im.dataset.layer);
+    const r=rect(im);if(!im.closest('[data-scroll-track]')&&(r.x<sr.x-1||r.y<sr.y-1||r.right>sr.right+1||r.bottom>sr.bottom+1))errors.push('Logo outside canvas: '+im.dataset.layer);if(im.naturalWidth&&Math.abs((r.width/r.height)/(im.naturalWidth/im.naturalHeight)-1)>.015)errors.push('Logo distorted: '+im.dataset.layer);
     if(im.classList.contains('m-brand-logo')){
      const cs=getComputedStyle(im),w=parseFloat(cs.getPropertyValue('--brand-max-width')),h=parseFloat(cs.getPropertyValue('--brand-max-height'));
-     if(!Number.isFinite(w)||!Number.isFinite(h)||im.offsetWidth>w+1||im.offsetHeight>h+1)errors.push('Brand image exceeds variant bounds: '+im.dataset.layer);
+     const optical=Number(im.dataset.opticalScale||1);
+     if(!Number.isFinite(w)||!Number.isFinite(h)||im.offsetWidth>w*optical+1||im.offsetHeight>h*optical+1)errors.push('Brand image exceeds variant bounds: '+im.dataset.layer);
     }
    }
    for(const flow of slide.querySelectorAll('[data-workflow]')){
@@ -90,14 +91,29 @@ export async function preflightMotion(htmlPath,screenshotDir){
      }
     }
    }
+   for(const tree of slide.querySelectorAll('[data-tree]')){
+    const tr=rect(tree),scale=tr.width/tree.offsetWidth,tol=2*scale,nodes=[...tree.querySelectorAll('[data-node-id]')],edges=[...tree.querySelectorAll('[data-edge]')];
+    if(edges.length!==nodes.length-1)errors.push('Tree requires one edge per non-root node');
+    for(const n of nodes){const r=rect(n);if(r.x<tr.x-tol||r.right>tr.right+tol||r.y<tr.y-tol||r.bottom>tr.bottom+tol)errors.push('Tree node exceeds content zone: '+n.dataset.nodeId);}
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const a=rect(nodes[i]),b=rect(nodes[j]);if(Math.min(a.right,b.right)-Math.max(a.x,b.x)>tol&&Math.min(a.bottom,b.bottom)-Math.max(a.y,b.y)>tol)errors.push('Tree node overlap');}
+    for(const e of edges){
+     const from=nodes.find(n=>n.dataset.nodeId===e.dataset.from),to=nodes.find(n=>n.dataset.nodeId===e.dataset.to),path=e.querySelector('path');
+     if(!from||!to||to.dataset.parent!==from.dataset.nodeId){errors.push('Tree parent/child mismatch');continue;}
+     const a=rect(from),b=rect(to),start=path.getPointAtLength(0),end=path.getPointAtLength(path.getTotalLength());
+     if(b.y<=a.bottom)errors.push('Tree edges must proceed downward');
+     if(Math.abs(tr.x+start.x*scale-(a.x+a.right)/2)>tol||Math.abs(tr.y+start.y*scale-a.bottom)>tol||Math.abs(tr.x+end.x*scale-(b.x+b.right)/2)>tol||Math.abs(tr.y+end.y*scale-b.y)>tol)errors.push('Tree connector detached from node');
+    }
+   }
    // Text boxes must not collide. Decorative containment and clipping are intentional.
-   for(const card of slide.querySelectorAll('.m-card,.m-cta')){
+   for(const card of slide.querySelectorAll('.m-card,.m-cta,.m-node-visual,.m-result,td,th,.m-result-list-row,.m-platform-item')){
     const cr=rect(card),cs=getComputedStyle(card),scale=sr.width/1920;
     for(const child of card.querySelectorAll('[data-editable="text"]')){
      const r=rect(child);if(r.x<cr.x+parseFloat(cs.paddingLeft)*scale-2||r.right>cr.right-parseFloat(cs.paddingRight)*scale+2||r.y<cr.y+parseFloat(cs.paddingTop)*scale-2||r.bottom>cr.bottom-parseFloat(cs.paddingBottom)*scale+2)errors.push('Text outside padded component: '+child.dataset.layer);
     }
    }
-   const heading=slide.querySelector('.m-heading'),content=slide.querySelector('.m-cards,.m-synthesis,.m-hub,.m-split,.m-hero-image,.m-metric,[data-workflow-rows]');
+   const grid=slide.querySelector('.m-platform-grid');
+   if(grid){const r=rect(grid);if(r.x<sr.x||r.right>sr.right||r.y<sr.y||r.bottom>sr.bottom)errors.push('Platform grid outside camera');const metric=rect(slide.querySelector('.m-metric'));if(r.y-metric.bottom<32)errors.push('Metric/platform gap below 32px');}
+   const heading=slide.querySelector('.m-heading'),content=slide.querySelector('.m-cards,.m-synthesis,.m-hub,.m-split,.m-hero-image,.m-metric,.m-tree-node[data-depth="0"],[data-workflow-rows]');
    if(slide.querySelector('.m-metric-cards')){
     const cards=[...slide.querySelectorAll('.m-metric-card')],values=cards.map(c=>rect(c.querySelector('.m-card-value')));
     if(cards.length!==2||Math.abs(rect(cards[0]).height-rect(cards[1]).height)>1||Math.abs(rect(cards[0]).width-rect(cards[1]).width)>1||Math.abs(values[0].y-values[1].y)>1)errors.push('Paired metrics must keep equal Card geometry and aligned values after optional-copy changes');

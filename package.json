@@ -56,7 +56,8 @@
     "motion:controls:validate": "node scripts/validate-motion-controls.mjs",
     "motion:themes:qa": "node scripts/validate-motion-themes.mjs --browser",
     "motion:themes:validate": "node scripts/validate-motion-themes.mjs",
-    "motion:themes:preview": "node scripts/build-motion-preview.mjs --themes"
+    "motion:themes:preview": "node scripts/build-motion-preview.mjs --themes",
+    "motion:partner:qa": "node scripts/validate-motion-partner.mjs --browser"
   },
   "engines": {
     "node": ">=20"

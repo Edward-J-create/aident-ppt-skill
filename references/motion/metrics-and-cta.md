@@ -88,3 +88,5 @@ Named targets: `brand-cta` (whole scene), `logo-0`, optional `logo-1`, `separato
 Run `npm run motion:promotional:qa`. It tests both languages, all8 theme/palette combinations, omitted optional text, native link/button variants, logo replacement, independent values, regeneration stability, external states and single-file output. Run the full theme/control/synthesis suites for cross-layout changes.
 
 Preflight checks text against padded Card/CTA bounds, heading/content separation, two-line statements, and every handoff selector against actual DOM. Missing or stale index entries fail even if the button looks correct. Visually review full-resolution captures for typography and balance; a passing count is not aesthetic approval.
+
+For platform grids, three-tier branching diagrams, optical sizing, prominent result density and explicit animation requests, see [partner-launch.md](partner-launch.md).

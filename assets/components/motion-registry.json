@@ -29,8 +29,13 @@
       },
       {
         "purpose": "closing",
-        "layouts": ["motion-title", "motion-brand"],
-        "preferred": ["light/neutral"],
+        "layouts": [
+          "motion-title",
+          "motion-brand"
+        ],
+        "preferred": [
+          "light/neutral"
+        ],
         "reason": "End cards explicitly override deck defaults with Light/neutral. No Dark or bright-lime endings, whether Logo-only, Logo + CTA, or a statement."
       },
       {
@@ -71,7 +76,8 @@
           "motion-synthesis",
           "motion-hub",
           "motion-workflow",
-          "motion-image"
+          "motion-image",
+          "motion-tree"
         ],
         "preferred": [
           "light/neutral",
@@ -262,7 +268,9 @@
         "value",
         "label",
         "body",
-        "items"
+        "items",
+        "platforms",
+        "platformColumns"
       ],
       "purpose": "One focal value/keyword, or two independent equal-weight metric cards; never merge separate measures into one slash-delimited string",
       "extension": true
@@ -286,6 +294,20 @@
         "rows"
       ],
       "purpose": "Ordered left-to-right steps with independent original arrows; no central node",
+      "extension": true
+    },
+    "motion-tree": {
+      "variants": [
+        "branching"
+      ],
+      "duration": 5,
+      "fields": [
+        "title",
+        "kicker",
+        "root",
+        "branches"
+      ],
+      "purpose": "Top-to-bottom hierarchy: one root, 1–2 intermediate nodes, 2–4 leaves per branch; one image per node",
       "extension": true
     }
   },
@@ -462,7 +484,8 @@
           "maxWidth": 420,
           "maxHeight": 80,
           "gap": 32
-        }
+        },
+        "tools": 44
       },
       "pairTargets": [
         "logo-0",
@@ -486,6 +509,14 @@
         "compactDefault": "assets/motion/mark.svg",
         "allowed": "approved complete lockup or standalone graphic; no extracted text-only identity",
         "replacement": "both pair slots independent; preserve original ratio; no invented partners"
+      },
+      "opticalScale": {
+        "range": [
+          0.5,
+          1.5
+        ],
+        "default": 1,
+        "rule": "Uniform scale per image; inspect visible artwork, preserve ratio and color."
       }
     },
     "connector": {
@@ -495,7 +526,8 @@
       "sizing": "intrinsic; mirror only; never stretch or skew",
       "fit": "contain",
       "binding": "content-hugging cards move to dock at fixed-size connector endpoints",
-      "topology": "Hub-to-satellite only; one edge per satellite; 1–4 satellites; explicit unique slots optional"
+      "topology": "Hub-to-satellite only; one edge per satellite; 1–4 satellites; explicit unique slots optional",
+      "nodeCopy": "Title and optional label stack vertically inside the padded visual surface."
     },
     "listScene": {
       "clip": false,
@@ -547,7 +579,12 @@
         4
       ],
       "width": 840,
-      "captionOptional": true
+      "captionOptional": true,
+      "density": [
+        "standard",
+        "prominent"
+      ],
+      "prominentToken": "resultProminent"
     },
     "theme": {
       "scope": "all-motion-layouts-and-variants",
@@ -592,7 +629,28 @@
         "hero-number",
         "hero-word",
         "cards"
-      ]
+      ],
+      "platformGrid": {
+        "variant": "title-free hero-number",
+        "count": [
+          2,
+          18
+        ],
+        "maxRows": 2,
+        "columns": [
+          2,
+          9
+        ],
+        "fields": [
+          "image",
+          "label"
+        ],
+        "token": "platformGrid",
+        "targets": [
+          "platform-grid",
+          "platform-N"
+        ]
+      }
     },
     "cta": {
       "defaultTheme": "light",
@@ -619,6 +677,31 @@
         "logo-1"
       ],
       "timing": "external"
+    },
+    "tree": {
+      "levels": [
+        1,
+        [
+          1,
+          2
+        ],
+        [
+          2,
+          4
+        ]
+      ],
+      "leafCount": "2–4 per branch, up to 8 total",
+      "spacing": "Prefer 80px leaf gaps; reduce to a 24px minimum only when wider leaf content needs the full zone",
+      "token": "tree",
+      "nodes": "Joint surfaces; Hug content, one optional image per node",
+      "edges": "Independent live cubic paths, no stretching or redrawing of the original Joint assets",
+      "targets": [
+        "diagram",
+        "node-ID",
+        "node-ID-visual",
+        "connector-ID",
+        "connector-ID-path"
+      ]
     }
   },
   "themes": [
