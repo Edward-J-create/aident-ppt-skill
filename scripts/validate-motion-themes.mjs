@@ -50,7 +50,7 @@ for(const d of decks){
  const lang=d.meta.language,out=path.join(root,`output/motion-themes-${lang}`);
  await generateMotionDeck({input:path.join(root,`examples/motion/themes.${lang}.json`),out,singleFile:true},d);
  const handoff=await fs.readFile(path.join(out,'animation-handoff.json'),'utf8').then(JSON.parse);
- assert.equal(handoff.version,3);assert.ok(handoff.layoutContract.animate);assert.equal(handoff.themeContract.scenes[1].theme,'dark');
+ assert.equal(handoff.version,4);assert.ok(handoff.layoutContract.animate);assert.equal(handoff.themeContract.scenes[1].theme,'dark');
  if(browserMode)assert.equal((await preflightMotion(path.join(out,'index.html'),path.join(out,'qa'))).errors.length,0);
  // Every existing family, both themes. Full Aident lettering has no approved dark variant;
  // test dark logo slots explicitly with the approved standalone graphic, never invert the lockup.

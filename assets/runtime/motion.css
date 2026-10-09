@@ -199,3 +199,43 @@ body.capture #motion-controls{display:none}
 .m-flow-row .m-node-visual{gap:8px}
 .m-flow-row .m-satellite-logo{max-height:36px;max-width:72px}
 .m-flow-row .m-body{font-size:22px}
+
+/* Content-hugging Joint nodes keep title and detail inside one copy column. */
+.m-node-copy{display:flex;flex-direction:column;gap:8px;min-width:0;max-width:100%}
+.m-node-copy .m-node-title,.m-node-copy .m-node-label{width:max-content;max-width:100%}
+.m-node-copy .m-node-label{font-size:28px}
+.m-node-visual>.replaceable-logo{flex:none}
+.m-tool-icon{flex:none;width:44px;height:44px}
+.m-tool-logo{max-width:44px;max-height:44px;object-fit:contain}
+
+/* Registered hero metric with independent, replaceable platform images. */
+.has-platform-grid .m-metric{top:var(--platformGrid-metricTop);translate:none;gap:10px}
+.has-platform-grid .m-metric-value{font-size:var(--platformGrid-valueSize)}
+.m-platform-grid{position:absolute;left:var(--platformGrid-left);top:var(--platformGrid-top);width:var(--platformGrid-width);display:grid;grid-template-columns:repeat(var(--platform-columns),minmax(0,1fr));gap:var(--platformGrid-rowGap) var(--platformGrid-columnGap)}
+.m-platform-item{display:flex;flex-direction:column;align-items:center;gap:12px;min-width:0}
+.m-platform-logo{width:var(--platformGrid-iconSize);height:var(--platformGrid-iconSize);object-fit:contain}
+.m-platform-label{font:400 var(--platformGrid-labelSize)/1.4 var(--m-body-font);color:var(--m-secondary);max-width:100%}
+
+/* A readable result shot is an explicit reusable density, not a scene CSS patch. */
+.m-synthesis[data-result-density="prominent"]{top:var(--resultProminent-top);height:var(--resultProminent-height);gap:var(--resultProminent-gap)}
+.m-synthesis[data-result-density="prominent"] .m-result{width:var(--resultProminent-width);padding:var(--resultProminent-padding)}
+.m-synthesis[data-result-density="prominent"] .m-result-title{font-size:var(--resultProminent-titleSize)}
+.m-synthesis[data-result-density="prominent"] .m-result-header{font-size:var(--resultProminent-headerSize)}
+.m-synthesis[data-result-density="prominent"] .m-result-value{font-size:var(--resultProminent-valueSize)}
+.m-synthesis[data-result-density="prominent"] .m-result-caption{font-size:var(--resultProminent-captionSize)}
+.m-synthesis[data-result-density="prominent"] .m-result-table th,.m-synthesis[data-result-density="prominent"] .m-result-table td{padding-top:var(--resultProminent-cellPaddingY);padding-bottom:var(--resultProminent-cellPaddingY)}
+
+/* Three-tier branching uses the Joint node surfaces with independently routed edges. */
+.m-tree{position:absolute;left:110px;top:var(--tree-top);width:1700px;height:640px}
+.m-tree-node{position:absolute;translate:-50% -50%;display:flex;align-items:center;gap:12px;width:max-content;max-width:320px}
+.m-tree-copy{display:flex;flex-direction:column;gap:6px;min-width:0}
+.m-tree-title{font:400 32px/1.5 var(--m-tag-font);max-width:100%}
+.m-tree-label{font:400 24px/1.4 var(--m-body-font);color:var(--m-secondary);max-width:100%}
+.m-tree-node[data-depth="2"]{max-width:190px}
+.m-tree-node[data-depth="2"] .m-node-visual{flex-direction:column;padding:16px;gap:8px}
+.m-tree-node[data-depth="2"] .m-tree-copy{align-items:center;text-align:center}
+.m-tree-node[data-depth="2"] .m-tree-title,.m-tree-node[data-depth="2"] .m-tree-label{overflow-wrap:anywhere;text-wrap:balance}
+.m-tree-node[data-depth="2"] .m-tree-title{font-size:28px}
+.m-tree-node[data-depth="2"] .m-tree-label{font-size:20px}
+.m-tree-edge{position:absolute;inset:0;width:1700px;height:640px;pointer-events:none;overflow:visible}
+.m-tree-edge path{fill:none;stroke:var(--m-accent);stroke-width:2;stroke-linecap:round}

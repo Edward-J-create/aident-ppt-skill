@@ -69,6 +69,8 @@ Deliverables include editable HTML, content JSON, suggested timing, a layer/asse
 
 [Usage](./references/motion/README.md) · [Layouts](./references/motion/layouts.md) · [Content replacement](./references/motion/content.md) · [Animation handoff](./references/motion/animation-handoff.md)
 
+Motion partner-launch combinations now include editable hero-number platform grids (2–18), three-tier branching diagrams with one icon per node, independent image optical scale, prominent result tables, compact CTA spacing and explicit downstream animation requests. See [the composition guide](references/motion/partner-launch.md) and [English example](examples/motion/partner-launch.en.json).
+
 ## The system at a glance / 一眼看懂这套系统
 
 The preview is generated from packaged registries and bundled fonts. / 下图由包内 registry 与字体文件生成。

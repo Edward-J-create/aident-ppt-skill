@@ -35,7 +35,7 @@ For Light only: blue peers + accent result, or meaningful category colors; orang
 
 ## Workflow nodes and edges / 节点和连线
 
-Two distinct topologies are registered: `motion-hub` for **one center connected to1–4 satellites**, and `motion-workflow` for **2–4 ordered nodes from left to right without a center**. Choose based on the relationship, not visual habit. Neither is an arbitrary graph, cycle or nested workflow engine. Unsupported relationships must be split or handled by a purpose-built diagram implementation, not silently flattened into a hub.
+Two distinct topologies are registered: `motion-hub` for **one center connected to1–4 satellites**, and `motion-workflow` for **2–4 ordered nodes from left to right without a center**. Choose based on the relationship, not visual habit. For three-tier top-to-bottom hierarchies, use the registered `motion-tree` extension; none of these is an arbitrary graph or cycle engine. Unsupported relationships must be split or handled by a purpose-built diagram implementation, not silently flattened into a hub.
 
 ### Left-to-right workflow / 无中心单向流程
 
@@ -174,3 +174,5 @@ See `examples/motion/controls.en.json` and `controls.zh.json` for bilingual timi
 
 ## List tool icons
 List items may specify `tools: [{src,alt}, ...]` with 1–3 product assets. They sit to the right of the copy and retain intrinsic ratios. Animation targets are `tools-ROW` and `tool-ROW-INDEX`.
+
+For ordered vertical invocations use `motion-tree` / `branching` (one root, 1–2 intermediate nodes, 2–4 leaves per branch). See [partner-launch.md](partner-launch.md).

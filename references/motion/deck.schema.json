@@ -38,14 +38,39 @@
         "timing": {
           "type": "object",
           "additionalProperties": false,
-          "required": ["policy"],
+          "required": [
+            "policy"
+          ],
           "properties": {
-            "policy": {"enum": ["content", "target", "fixed"]},
-            "targetSeconds": {"type": "number", "exclusiveMinimum": 0}
+            "policy": {
+              "enum": [
+                "content",
+                "target",
+                "fixed"
+              ]
+            },
+            "targetSeconds": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            }
           },
-          "if": {"properties": {"policy": {"const": "content"}}},
-          "then": {"properties": {"targetSeconds": false}},
-          "else": {"required": ["targetSeconds"]}
+          "if": {
+            "properties": {
+              "policy": {
+                "const": "content"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "targetSeconds": false
+            }
+          },
+          "else": {
+            "required": [
+              "targetSeconds"
+            ]
+          }
         },
         "showLogo": {
           "type": "boolean",
@@ -92,6 +117,12 @@
                       "pattern": "\\.(svg|png|jpe?g|webp)$"
                     }
                   }
+                },
+                "opticalScale": {
+                  "type": "number",
+                  "minimum": 0.5,
+                  "maximum": 1.5,
+                  "default": 1
                 }
               },
               "required": [
@@ -187,6 +218,12 @@
                   "pattern": "\\.(svg|png|jpe?g|webp)$"
                 }
               }
+            },
+            "opticalScale": {
+              "type": "number",
+              "minimum": 0.5,
+              "maximum": 1.5,
+              "default": 1
             }
           },
           "required": [
@@ -291,13 +328,22 @@
             "motion-hub",
             "motion-image",
             "motion-metric",
-            "motion-workflow"
+            "motion-workflow",
+            "motion-tree"
           ]
         },
         "variant": {
           "type": "string"
         },
-        "framing": {"enum": ["auto", "balanced", "scroll", "legacy"], "description": "Motion list initial composition only; never an animation range."},
+        "framing": {
+          "enum": [
+            "auto",
+            "balanced",
+            "scroll",
+            "legacy"
+          ],
+          "description": "Motion list initial composition only; never an animation range."
+        },
         "title": {
           "type": "string"
         },
@@ -695,6 +741,13 @@
                 "minLength": 1,
                 "maxLength": 48
               }
+            },
+            "density": {
+              "enum": [
+                "standard",
+                "prominent"
+              ],
+              "default": "standard"
             }
           },
           "allOf": [
@@ -791,6 +844,64 @@
               "type": "boolean"
             }
           }
+        },
+        "platforms": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 18,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "image"
+            ],
+            "properties": {
+              "image": {
+                "$ref": "#/$defs/image"
+              },
+              "label": {
+                "type": "string",
+                "maxLength": 20
+              }
+            }
+          }
+        },
+        "platformColumns": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 9
+        },
+        "animation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "prompt": {
+              "const": "typewriter"
+            },
+            "metric": {
+              "const": "count-up"
+            },
+            "connectors": {
+              "const": "draw"
+            },
+            "items": {
+              "const": "sequential"
+            },
+            "results": {
+              "const": "sequential"
+            }
+          }
+        },
+        "root": {
+          "$ref": "#/$defs/treeNode"
+        },
+        "branches": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {
+            "$ref": "#/$defs/treeBranch"
+          }
         }
       },
       "required": [
@@ -799,8 +910,18 @@
       ],
       "allOf": [
         {
-          "if": {"required": ["framing"]},
-          "then": {"properties": {"type": {"const": "motion-list"}}}
+          "if": {
+            "required": [
+              "framing"
+            ]
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "const": "motion-list"
+              }
+            }
+          }
         },
         {
           "if": {
@@ -1160,13 +1281,42 @@
             },
             "allOf": [
               {
-                "if": {"properties": {"variant": {"enum": ["hero-number", "hero-word"]}}, "required": ["variant"]},
-                "then": {
-                  "if": {"properties": {"title": {"pattern": "\\S"}}, "required": ["title"]},
-                  "then": {},
-                  "else": {"properties": {"kicker": false}}
+                "if": {
+                  "properties": {
+                    "variant": {
+                      "enum": [
+                        "hero-number",
+                        "hero-word"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "variant"
+                  ]
                 },
-                "else": {"required": ["title"]}
+                "then": {
+                  "if": {
+                    "properties": {
+                      "title": {
+                        "pattern": "\\S"
+                      }
+                    },
+                    "required": [
+                      "title"
+                    ]
+                  },
+                  "then": {},
+                  "else": {
+                    "properties": {
+                      "kicker": false
+                    }
+                  }
+                },
+                "else": {
+                  "required": [
+                    "title"
+                  ]
+                }
               },
               {
                 "if": {
@@ -1300,6 +1450,192 @@
               "cta": false
             }
           }
+        },
+        {
+          "if": {
+            "required": [
+              "platforms"
+            ]
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "const": "motion-metric"
+              },
+              "variant": {
+                "const": "hero-number"
+              },
+              "title": false
+            },
+            "required": [
+              "variant"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "platformColumns"
+            ]
+          },
+          "then": {
+            "required": [
+              "platforms"
+            ]
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "animation"
+            ],
+            "properties": {
+              "animation": {
+                "required": [
+                  "prompt"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "motion-input"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "animation"
+            ],
+            "properties": {
+              "animation": {
+                "required": [
+                  "metric"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "motion-metric"
+                ]
+              },
+              "variant": {
+                "not": {
+                  "const": "cards"
+                }
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "animation"
+            ],
+            "properties": {
+              "animation": {
+                "required": [
+                  "connectors"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "motion-hub",
+                  "motion-workflow",
+                  "motion-synthesis",
+                  "motion-tree"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "animation"
+            ],
+            "properties": {
+              "animation": {
+                "required": [
+                  "items"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "motion-cards",
+                  "motion-comparison",
+                  "motion-list"
+                ]
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "required": [
+              "animation"
+            ],
+            "properties": {
+              "animation": {
+                "required": [
+                  "results"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "type": {
+                "enum": [
+                  "motion-synthesis"
+                ]
+              }
+            },
+            "required": [
+              "result"
+            ]
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "type": {
+                "const": "motion-tree"
+              }
+            },
+            "required": [
+              "type"
+            ]
+          },
+          "then": {
+            "required": [
+              "root",
+              "branches"
+            ],
+            "properties": {
+              "variant": {
+                "enum": [
+                  "branching"
+                ]
+              }
+            }
+          }
         }
       ]
     },
@@ -1356,6 +1692,87 @@
         "body": {
           "type": "string",
           "maxLength": 80
+        }
+      }
+    },
+    "treeNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 22
+        },
+        "label": {
+          "type": "string",
+          "maxLength": 22
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        }
+      }
+    },
+    "treeBranch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "children"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 22
+        },
+        "label": {
+          "type": "string",
+          "maxLength": 22
+        },
+        "image": {
+          "$ref": "#/$defs/image"
+        },
+        "children": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/treeLeaf"
+          }
+        }
+      }
+    },
+    "treeLeaf": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9-]*$"
+        },
+        "title": {
+          "type": "string",
+          "maxLength": 12
+        },
+        "label": {
+          "type": "string",
+          "maxLength": 22
+        },
+        "image": {
+          "$ref": "#/$defs/image"
         }
       }
     }

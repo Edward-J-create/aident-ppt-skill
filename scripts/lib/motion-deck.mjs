@@ -17,9 +17,9 @@ const keys={
  composition:['arrangement','size','outputSize','tagWidth','align','groupAlign','density'],
  item:['id','title','body','label','badge','tone','image','checked','size','tools'],
  motion:['enter','stagger','hold','exit','travel','preset'],scroll:['enabled','start','end','reveal','direction','itemDirection','itemOrder'],
- image:['src','alt','fit','position','variants'],notes:['title','purpose','talk','transition']
+ image:['src','alt','fit','position','variants','opticalScale'],notes:['title','purpose','talk','transition']
 };
-keys.slide.push('theme','rows','showCaret','palette','cta','framing');
+keys.slide.push('theme','rows','showCaret','palette','cta','framing','platforms','platformColumns','animation','root','branches');
 const themeFor=(s,meta)=>s.theme||meta.theme||'light';
 const paletteFor=(s,meta)=>s.palette||meta.palette||'neutral';
 const backgroundFor=(s,meta)=>s.background||(paletteFor(s,meta)!=='neutral'?'brand':themeFor(s,meta)==='dark'?'solid':['motion-title','motion-brand'].includes(s.type)?'title':s.type==='motion-synthesis'?'elements':'content');
@@ -43,7 +43,7 @@ export function validateMotion(deck){
  if(deck.meta.theme!==undefined&&!Object.hasOwn(tokens.themes,deck.meta.theme))add('meta.theme must be light/dark.');
  if(deck.meta.palette!==undefined&&!Object.hasOwn(tokens.palettes,deck.meta.palette))add('meta.palette must be neutral/teal/cobalt/lime.');
  const zh=deck.meta.language==='zh',ids=new Set();
- function image(v,p){if(v===undefined)return;const im=normalizeImage(v);if(!im||typeof im.src!=='string'||!im.src.trim()){add(`${p}.src is required`);return;}unknown(im,'image',p);if(im.fit&&!['contain','cover'].includes(im.fit))add(`${p}.fit must be contain/cover`);if(im.position&&!/^\d+(?:\.\d+)?% \d+(?:\.\d+)?%$/.test(im.position))add(`${p}.position must be two percentages`);if(/^(?:https?:|data:|javascript:)/i.test(im.src))add(`${p}: use a local PNG/JPEG/WebP/SVG for offline, deterministic capture`);if(!/\.(?:svg|png|jpe?g|webp)$/i.test(im.src))add(`${p}: unsupported image format`);}
+ function image(v,p){if(v===undefined)return;const im=normalizeImage(v);if(!im||typeof im.src!=='string'||!im.src.trim()){add(`${p}.src is required`);return;}unknown(im,'image',p);if(im.opticalScale!==undefined&&(!Number.isFinite(im.opticalScale)||im.opticalScale<0.5||im.opticalScale>1.5))add(`${p}.opticalScale must be 0.5–1.5`);if(im.fit&&!['contain','cover'].includes(im.fit))add(`${p}.fit must be contain/cover`);if(im.position&&!/^\d+(?:\.\d+)?% \d+(?:\.\d+)?%$/.test(im.position))add(`${p}.position must be two percentages`);if(/^(?:https?:|data:|javascript:)/i.test(im.src))add(`${p}: use a local PNG/JPEG/WebP/SVG for offline, deterministic capture`);if(!/\.(?:svg|png|jpe?g|webp)$/i.test(im.src))add(`${p}: unsupported image format`);}
  image(typeof deck.meta.logo==='object'&&!deck.meta.logo?.src?undefined:deck.meta.logo,'meta.logo');
  if(deck.meta.logo&&typeof deck.meta.logo==='object'&&!deck.meta.logo.src){for(const k of Object.keys(deck.meta.logo))if(!['light','dark'].includes(k))add(`meta.logo.${k}: unknown field`);for(const k of ['light','dark'])image(deck.meta.logo[k],`meta.logo.${k}`);}
  if(!Array.isArray(deck.slides)||!deck.slides.length)return [...errors,'slides must be a nonempty array'];
@@ -52,7 +52,7 @@ export function validateMotion(deck){
   const rule=registry.layouts[s.type];if(!rule){add(`${p}.type is not a motion layout`);return;}
   const base=['id','type','variant','background','duration','motion','notes','theme','palette'];
   const extras={'motion-title':['kicker'],'motion-input':['showCursor','showSend'],'motion-image':['kicker'],'motion-metric':['kicker'],'motion-hub':['kicker'],'motion-list':['showLogo']};
-  const used=new Set([...base,...rule.fields,...(extras[s.type]||[])]);
+  const used=new Set([...base,'animation',...rule.fields,...(extras[s.type]||[])]);
   if(s.type==='motion-input')used.add('showCaret');
   if(s.theme!==undefined&&!Object.hasOwn(tokens.themes,s.theme))add(`${p}.theme must be light/dark`);
   if(s.palette!==undefined&&!Object.hasOwn(tokens.palettes,s.palette))add(`${p}.palette must be neutral/teal/cobalt/lime`);
@@ -158,6 +158,22 @@ export function validateMotion(deck){
   if(s.type==='motion-list'&&(!n||n>24))add(`${p}: list requires 1–24 items`);
   const cjkPrompt=zh&&/\p{Script=Han}/u.test(txt(s.prompt));
   if(s.type==='motion-input'&&(!txt(s.prompt)||len(s.prompt)>(s.variant==='compact'?(cjkPrompt?30:66):(cjkPrompt?70:150))))add(`${p}.prompt is empty or exceeds its layout budget`);
+  if(s.animation!==undefined){
+   const allowed={prompt:['motion-input','typewriter'],metric:['motion-metric','count-up'],connectors:[['motion-hub','motion-workflow','motion-synthesis','motion-tree'],'draw'],items:[['motion-cards','motion-comparison','motion-list'],'sequential'],results:['motion-synthesis','sequential']};
+   if(!s.animation||typeof s.animation!=='object'||Array.isArray(s.animation))add(`${p}.animation must be an object`);
+   else for(const [key,value] of Object.entries(s.animation)){
+    const rule=allowed[key];
+    if(!rule||![rule[0]].flat().includes(s.type)||value!==rule[1]||(key==='results'&&!s.result))add(`${p}.animation.${key}: unsupported request for ${s.type}`);
+    if(key==='metric'&&(s.variant==='cards'||!/^([^0-9]*)([0-9]+(?:,[0-9]{3})*(?:\.[0-9]+)?)([^0-9]*)$/.test(s.value||'')))add(`${p}.animation.metric requires a single numeric value with optional prefix/suffix`);
+   }
+  }
+  if(s.platforms!==undefined){
+   if(s.type!=='motion-metric'||s.variant!=='hero-number'||txt(s.title))add(`${p}.platforms requires a title-free hero-number`);
+   if(!Array.isArray(s.platforms)||s.platforms.length<2||s.platforms.length>18)add(`${p}.platforms requires 2–18 local platform images`);
+   else s.platforms.forEach((v,j)=>{if(!v||Object.keys(v).some(k=>!['image','label'].includes(k))||!v.image)add(`${p}.platforms[${j}] requires image and optional label`);else{image(v.image,`${p}.platforms[${j}].image`);themedAsset(v.image,`${p}.platforms[${j}].image`);if(v.label!==undefined&&(typeof v.label!=='string'||len(v.label)>(zh?10:20)))add(`${p}.platforms[${j}].label too long`);}});
+  }
+  if(s.platformColumns!==undefined&&(!s.platforms||!Number.isInteger(s.platformColumns)||s.platformColumns<2||s.platformColumns>9))add(`${p}.platformColumns requires platforms and 2–9 columns`);
+  if(Array.isArray(s.platforms)&&Math.ceil(s.platforms.length/(s.platformColumns||Math.ceil(s.platforms.length/2)))>2)add(`${p}.platforms supports at most two rows`);
   if(s.type==='motion-metric'){
    if(s.variant==='cards'){
     if(!Array.isArray(s.items)||s.items.length!==2)add(`${p}: metric cards requires exactly two independent items`);
@@ -168,6 +184,7 @@ export function validateMotion(deck){
     if(!txt(s.value)||len(s.value)>max)add(`${p}.value requires 1–${max} characters`);
    }
   }
+  if(s.type==='motion-image'&&normalizeImage(s.image)?.opticalScale!==undefined)add(`${p}.image.opticalScale applies to logo/icon roles, not image media`);
   if(s.type==='motion-image'&&!s.image)add(`${p}.image is required`);
   if(len(s.body)>(zh?65:160))add(`${p}.body too long`);
   if(s.type==='motion-brand'&&(!Array.isArray(s.logos)||![1,2].includes(s.logos.length)))add(`${p}.logos requires 1 or 2 local logo images`);
@@ -177,7 +194,7 @@ export function validateMotion(deck){
     if(!s.cta||typeof s.cta!=='object'||Array.isArray(s.cta))add(`${p}.cta is required for the CTA variant`);
     else {
      unknown(s.cta,'cta',`${p}.cta`);
-     if(typeof s.cta.text!=='string'||!txt(s.cta.text)||len(s.cta.text)>(zh?32:64))add(`${p}.cta.text exceeds its nonempty one-line budget`);
+     if(typeof s.cta.text!=='string'||!txt(s.cta.text)||(s.cta.text!=='Follow https://aident.ai/SETUP.md'&&len(s.cta.text)>(zh?32:64)))add(`${p}.cta.text exceeds its nonempty one-line budget`);
      if(s.cta.href!==undefined&&(typeof s.cta.href!=='string'||!/^(?:https?:\/\/[^\s]+|mailto:[^\s]+|#[a-z0-9-]+)$/i.test(s.cta.href)))add(`${p}.cta.href must be an http(s), mailto or fragment link`);
      if(s.cta.showArrow!==undefined&&typeof s.cta.showArrow!=='boolean')add(`${p}.cta.showArrow must be boolean`);
     }
@@ -200,8 +217,9 @@ export function validateMotion(deck){
    const r=s.result;
    if(s.type!=='motion-synthesis'||typeof r!=='object'||Array.isArray(r))add(`${p}.result requires a synthesis result table`);
    else {
-    if(Object.keys(r).some(k=>!['type','title','columns','rows','caption','image','items','columnWidths','accentColumn'].includes(k)))add(`${p}.result unknown field`);
+    if(Object.keys(r).some(k=>!['type','title','columns','rows','caption','image','items','columnWidths','accentColumn','density'].includes(k)))add(`${p}.result unknown field`);
     if(!txt(r.title)||len(r.title)>40||(r.caption!==undefined&&typeof r.caption!=='string')||len(r.caption)>120)add(`${p}.result title/caption invalid`);
+    if(r.density!==undefined&&!['standard','prominent'].includes(r.density))add(`${p}.result.density must be standard/prominent`);
     if(r.type!==undefined&&!['table','list'].includes(r.type))add(`${p}.result.type must be table/list`);
     if(r.type==='list'){
      if(!Array.isArray(r.items)||r.items.length<1||r.items.length>4||r.items.some(v=>typeof v!=='string'||!txt(v)||len(v)>(zh?20:48)))add(`${p}.result.items requires 1–4 concise text rows`);
@@ -215,6 +233,26 @@ export function validateMotion(deck){
     }
     image(r.image,`${p}.result.image`);
     themedAsset(r.image,`${p}.result.image`);
+   }
+  }
+  if(s.type==='motion-tree'){
+   const ids=new Set(),treeNode=(v,ref,leaf=false)=>{
+    if(!v||typeof v!=='object'||Array.isArray(v)){add(`${ref}: node object required`);return;}
+    if(Object.keys(v).some(k=>!['id','title','label','image',...(leaf?[]:['children'])].includes(k)))add(`${ref}: use id/title/label/image only, plus branch children`);
+    if(typeof v.id!=='string'||!/^[a-z0-9][a-z0-9-]*$/.test(v.id)||ids.has(v.id))add(`${ref}: unique explicit node id required`);ids.add(v.id);
+    if(!txt(v.title)&&!v.image)add(`${ref}: title or image required`);
+    if(v.title!==undefined&&(typeof v.title!=='string'||len(v.title)>(leaf?(zh?6:12):(zh?10:22))))add(`${ref}.title exceeds tree-node budget`);
+    if(v.label!==undefined&&(typeof v.label!=='string'||len(v.label)>(zh?10:22)))add(`${ref}.label exceeds tree-node budget`);
+    image(v.image,`${ref}.image`);themedAsset(v.image,`${ref}.image`);
+   };
+   treeNode(s.root,`${p}.root`);
+   if(s.root?.children)add(`${p}.root: branches owns the next tier; omit root.children`);
+   if(!Array.isArray(s.branches)||s.branches.length<1||s.branches.length>2)add(`${p}.branches requires 1–2 intermediate nodes`);
+   else for(const [j,b] of s.branches.entries()){
+    treeNode(b,`${p}.branches[${j}]`);
+    if(!b||typeof b!=='object'||Array.isArray(b))continue;
+    if(!Array.isArray(b.children)||b.children.length<2||b.children.length>4)add(`${p}.branches[${j}].children requires 2–4 leaves`);
+    else b.children.forEach((v,k)=>treeNode(v,`${p}.branches[${j}].children[${k}]`,true));
    }
   }
   if(s.type==='motion-hub'&&!s.hub)add(`${p}.hub is required`);
@@ -281,6 +319,9 @@ async function materialize(deck,inputDir,outDir){
  for(const s of deck.slides){const theme=themeFor(s,deck.meta),asset=v=>image(v,theme);s.theme=theme;s.palette=paletteFor(s,deck.meta);
   if(s.type==='motion-list'&&!s.image&&(s.showLogo??deck.meta.showLogo)!==false&&deck.meta.logo){const v=deck.meta.logo;s.image=typeof v==='object'&&!v.src?v[theme]:v;}
   s.image=await asset(s.image);if(s.logos)s.logos=await Promise.all(s.logos.map(v=>v?.placeholder?v:asset(v)));
+  if(s.root)s.root.image=await asset(s.root.image);
+  if(s.branches)for(const b of s.branches){b.image=await asset(b.image);for(const c of b.children)c.image=await asset(c.image);}
+  if(s.platforms)for(const v of s.platforms)v.image=await asset(v.image);
   if(s.result)s.result.image=await asset(s.result.image);
   for(const item of [...(s.items||[]),...(s.rows||[]).flatMap(r=>r.items),...(s.groups||[]).flat(),...(s.outputs||[]),...(s.hub?[s.hub]:[])]){item.image=await asset(item.image);if(item.tools)item.tools=await Promise.all(item.tools.map(asset));}
  }
@@ -292,21 +333,22 @@ async function materialize(deck,inputDir,outDir){
  return deck;
 }
 
-const node=(id,cls,content,extra='')=>{const positioned=['m-flow-node','m-hub-center','m-satellite'].includes(cls);return `<div class="${cls}" data-motion="${esc(id)}" ${positioned?'data-layout-owner="true"':''} ${extra}>${positioned?`<div class="m-node-visual" data-motion="${esc(id)}-visual" data-animation-target="true">${content}</div>`:content}</div>`;};
-function img(v,cls='media',logo=false){const i=normalizeImage(v);return i?`<img class="${cls}${logo?' replaceable-logo':''}" src="${esc(i.src)}" alt="${esc(i.alt||'')}" style="object-fit:${logo?'contain':pick(i.fit,['contain','cover'],'contain')};object-position:${esc(i.position||'50% 50%')}">`:'';}
+const node=(id,cls,content,extra='')=>{const positioned=['m-flow-node','m-hub-center','m-satellite','m-tree-node'].includes(cls);return `<div class="${cls}" data-motion="${esc(id)}" ${positioned?'data-layout-owner="true"':''} ${extra}>${positioned?`<div class="m-node-visual" data-motion="${esc(id)}-visual" data-animation-target="true">${content}</div>`:content}</div>`;};
+function img(v,cls='media',logo=false){const i=normalizeImage(v);return i?`<img class="${cls}${logo?' replaceable-logo':''}" src="${esc(i.src)}"${i.opticalScale!==undefined?` data-optical-scale="${i.opticalScale}"`:''} alt="${esc(i.alt||'')}" style="object-fit:${logo?'contain':pick(i.fit,['contain','cover'],'contain')};object-position:${esc(i.position||'50% 50%')}">`:'';}
 const p=(v,cls,one=false)=>txt(v)?`<p class="${cls}"${one?' data-one-line':''}>${esc(v)}</p>`:'';
 const label=v=>p(v,'m-label',true);
 function brands(s,compact=false){return `<div class="m-brands${compact?' m-title-brands':''}" data-brand-count="${s.logos.length}">${s.logos.map((v,j)=>(j?node('separator','m-brand-separator',p(s.separator||'×','m-separator')):'')+node(`logo-${j}`,'m-brand-slot',v.placeholder?node(`logo-placeholder-${j}`,'m-brand-placeholder',p(v.placeholder,'m-brand-placeholder-title',true)+p(v.caption,'m-body',true)):img(v,'m-brand-logo',true))).join('')}</div>`;}
 function title(s){let t=esc(s.title);if(s.highlight)t=t.replace(esc(s.highlight),`<span class="m-highlight">${esc(s.highlight)}</span>`);return `<header class="m-heading${s.variant==='brand-title'?' m-brand-heading':''}" data-motion="heading">${s.variant==='brand-title'?brands(s,true):''}${p(s.kicker,'m-kicker',true)}<h1 class="${s.type==='motion-title'?'m-statement':'m-title'}"${s.type!=='motion-title'?' data-one-line':''}>${t}</h1>${s.variant==='brand-title'?p(s.body,'m-lead'):''}</header>`;}
 function tag(t,size='medium',i=0){return node(`tag-${i}`,`m-tag tone-${t.tone||'neutral'} size-${t.size||size}`,p(t.title,'m-tag-text',true));}
 function card(t,i){return node(`card-${i}`,`m-card tone-${t.tone||'standard'}`,label(t.label)+img(t.image,'m-card-icon',true)+p(t.title,'m-item-title',true)+p(t.body,'m-body'));}
+function platformGrid(s){return node('platform-grid','m-platform-grid',s.platforms.map((v,i)=>node(`platform-${i}`,'m-platform-item',img(v.image,'m-platform-logo',true)+p(v.label,'m-platform-label',true))).join(''),`style="--platform-columns:${s.platformColumns||Math.ceil(s.platforms.length/2)}"`);}
 function metric(s){
  const text=(v,cls,id,one=false)=>p(v,cls,one).replace('<p ',`<p data-motion="${id}" `);
  if(s.variant==='cards'){
   const valueRow=s.items.some(v=>txt(v.label))?2:1,rows=valueRow+(s.items.some(v=>txt(v.body))?1:0);
   return `<div class="m-cards m-metric-cards" data-motion="metrics" style="--columns:2;--metric-rows:${rows};--metric-value-row:${valueRow};--metric-body-row:${valueRow+1}">${s.items.map((v,i)=>node(`metric-card-${i}`,'m-card m-metric-card',text(v.label,'m-label',`metric-label-${i}`,true)+text(v.value,'m-card-value',`metric-value-${i}`,true)+text(v.body,'m-metric-body',`metric-body-${i}`))).join('')}</div>`;
  }
- return node('metric',`m-metric ${s.variant==='hero-number'?'m-hero-number':s.variant==='hero-word'?'m-hero-word':''}`,text(s.label,'m-label','metric-label',true)+text(s.value,'m-metric-value','metric-value',true)+text(s.body,'m-lead','metric-body'));
+ return node('metric',`m-metric ${s.variant==='hero-number'?'m-hero-number':s.variant==='hero-word'?'m-hero-word':''}`,text(s.label,'m-label','metric-label',true)+text(s.value,'m-metric-value','metric-value',true)+text(s.body,'m-lead','metric-body'))+(s.platforms?platformGrid(s):'');
 }
 function brandCta(s){
  const c=s.cta,tag=c.href?'a':'button';
@@ -325,8 +367,13 @@ function resultTable(r){const heading=`<div class="m-result-heading">${img(r.ima
  if(r.type==='list')return heading+`<div class="m-result-list">${r.items.map((v,i)=>node(`result-row-${i}`,'m-result-list-row',p(v,'m-result-value',true))).join('')}</div>`+p(r.caption,'m-result-caption');
  const widths=r.columnWidths||(r.columns.length===3?[36,23,41]:r.columns.map(()=>1)),total=widths.reduce((a,b)=>a+b,0);
  return heading+`<table class="m-result-table"><colgroup>${widths.map(w=>`<col style="width:${w/total*100}%">`).join('')}</colgroup><thead><tr>${r.columns.map(c=>`<th>${p(c,'m-result-header',true)}</th>`).join('')}</tr></thead><tbody>${r.rows.map((row,i)=>`<tr data-motion="result-row-${i}">${row.map((c,j)=>`<td${j===(r.accentColumn??-1)?' class="m-result-accent"':''}>${node(`result-cell-${i}-${j}`,'m-result-cell',p(c,'m-result-value',true))}</td>`).join('')}</tr>`).join('')}</tbody></table>${p(r.caption,'m-result-caption')}`;}
-function synthesis(s){const c=resolveSynthesis(s);return `<div class="m-synthesis ${s.variant==='many-to-few'?'many-to-few':'stages'}" data-synthesis data-arrangement="${c.arrangement}" data-tag-width="${c.tagWidth}" data-align="${c.align}" data-group-align="${c.groupAlign}" data-density="${c.density}">${node('inputs','m-tag-panel m-synthesis-inputs',s.groups.map((g,j)=>node(`group-${j}`,'m-tag-column',g.map((t,i)=>tag(t,c.size,`${j}-${i}`)).join(''))).join(''))}${node('connector','m-synthesis-arrow',img({src:tokens.assets.arrow}))}${node('outputs',`m-outputs ${s.result?'m-result':s.outputs.length>1?'m-tag-panel':''}`,s.result?resultTable(s.result):s.outputs.map((t,i)=>tag(t,c.outputSize,`out-${i}`)).join(''))}</div>`;}
-function hub(s){const edges=resolveConnections(s),lower=edges.some(e=>e.slot.startsWith('bottom-'));return `<div data-motion="diagram" class="m-hub ${lower?'four':'three'}" data-hub data-bottom-only="${edges.every(e=>e.slot.startsWith('bottom'))}"><div class="m-connector-layer" aria-hidden="true">${edges.map(e=>node(`connector-${e.id}`,e.slot==='bottom'?'m-stem':'m-curve',img({src:e.slot==='bottom'?tokens.assets.stem:tokens.assets.curve}),`data-edge="${esc(e.id)}" data-from="hub" data-to="${esc(e.to)}" data-slot="${e.slot}"`)).join('')}</div>${node('hub','m-hub-center',img(s.hub.image,'m-hub-logo',true)+p(s.hub.title,'m-hub-text',true),'data-node-id="hub"')}${s.items.map((t,i)=>node(`satellite-${t.id??i}`,'m-satellite',img(t.image,'m-satellite-logo',true)+p(t.title,'m-node-title',true)+p(t.label,'m-node-label',true),`data-node-id="${esc(t.id??i)}"`)).join('')}</div>`;}
+function synthesis(s){const c=resolveSynthesis(s);return `<div class="m-synthesis ${s.variant==='many-to-few'?'many-to-few':'stages'}" data-synthesis data-arrangement="${c.arrangement}" data-tag-width="${c.tagWidth}" data-align="${c.align}" data-group-align="${c.groupAlign}" data-density="${c.density}" data-result-density="${s.result?.density||'standard'}">${node('inputs','m-tag-panel m-synthesis-inputs',s.groups.map((g,j)=>node(`group-${j}`,'m-tag-column',g.map((t,i)=>tag(t,c.size,`${j}-${i}`)).join(''))).join(''))}${node('connector','m-synthesis-arrow',img({src:tokens.assets.arrow}))}${node('outputs',`m-outputs ${s.result?'m-result':s.outputs.length>1?'m-tag-panel':''}`,s.result?resultTable(s.result):s.outputs.map((t,i)=>tag(t,c.outputSize,`out-${i}`)).join(''))}</div>`;}
+function hub(s){const edges=resolveConnections(s),lower=edges.some(e=>e.slot.startsWith('bottom-'));return `<div data-motion="diagram" class="m-hub ${lower?'four':'three'}" data-hub data-bottom-only="${edges.every(e=>e.slot.startsWith('bottom'))}"><div class="m-connector-layer" aria-hidden="true">${edges.map(e=>node(`connector-${e.id}`,e.slot==='bottom'?'m-stem':'m-curve',img({src:e.slot==='bottom'?tokens.assets.stem:tokens.assets.curve}),`data-edge="${esc(e.id)}" data-from="hub" data-to="${esc(e.to)}" data-slot="${e.slot}"`)).join('')}</div>${node('hub','m-hub-center',img(s.hub.image,'m-hub-logo',true)+p(s.hub.title,'m-hub-text',true),'data-node-id="hub"')}${s.items.map((t,i)=>node(`satellite-${t.id??i}`,'m-satellite',img(t.image,'m-satellite-logo',true)+(t.title||t.label?node(`node-copy-${t.id??i}`,'m-node-copy',p(t.title,'m-node-title',true)+p(t.label,'m-node-label',true)):''),`data-node-id="${esc(t.id??i)}"`)).join('')}</div>`;}
+function tree(s){
+ const nodes=[{...s.root,depth:0},...s.branches.flatMap(b=>[{...b,depth:1,parent:s.root.id},...b.children.map(c=>({...c,depth:2,parent:b.id}))])];
+ const edges=nodes.filter(n=>n.parent).map(n=>`<svg class="m-tree-edge" viewBox="0 0 1700 640" data-motion="connector-${esc(n.id)}" data-edge="${esc(n.id)}" data-from="${esc(n.parent)}" data-to="${esc(n.id)}" aria-hidden="true"><path data-motion="connector-${esc(n.id)}-path"/></svg>`).join('');
+ return `<div class="m-tree" data-tree data-motion="diagram">${edges}${nodes.map(n=>node(`node-${n.id}`,'m-tree-node',img(n.image,'m-satellite-logo',true)+(n.title||n.label?node(`node-copy-${n.id}`,'m-tree-copy',p(n.title,'m-tree-title',n.depth!==2)+p(n.label,'m-tree-label',n.depth!==2)):''),`data-node-id="${esc(n.id)}" data-depth="${n.depth}"${n.parent?` data-parent="${esc(n.parent)}"`:''}`)).join('')}</div>`;
+}
 function render(s,meta,i){
  const layout=registry.layouts[s.type];let body='';
  switch(s.type){
@@ -338,19 +385,20 @@ function render(s,meta,i){
  case 'motion-synthesis':body=title(s)+synthesis(s);break;
  case 'motion-hub':body=title(s)+hub(s);break;
  case 'motion-workflow':body=title(s)+workflow(s);break;
+ case 'motion-tree':body=title(s)+tree(s);break;
  case 'motion-image':body=title(s)+(s.variant==='hero'?node('image','m-hero-image',img(s.image)): `<div class="m-split">${node('copy','m-split-copy',p(s.body,'m-lead'))}${node('image','m-split-image',img(s.image))}</div>`);break;
  case 'motion-metric':body=(txt(s.title)?title(s):'')+metric(s);break;
  }
  const palette=paletteFor(s,meta),bg=backgroundFor(s,meta);
  const theme=themeFor(s,meta);
- if(theme==='dark')for(const name of ['arrow','curve','stem'])body=body.replaceAll(`src="${tokens.assets[name]}"`,`src="assets/motion/dark/${name}.svg"`);
+ if(theme==='dark')for(const name of ['arrow','curve','stem'])body=body.replaceAll(`src="${tokens.assets[name]}"`,`src="${tokens.assets[name].replace('assets/motion/','assets/motion/dark/')}"`);
  const backdrop=bg==='solid'||bg.startsWith('brand')?'<div class="m-brand-background" data-motion="background" aria-hidden="true"></div>':`<img class="background" src="${tokens.themes[theme].backgrounds[bg]}" alt="">${bg==='title'?'':`<img class="texture" src="assets/textures/light-overlay.webp" alt="">`}`;
- return `<section class="slide motion-slide ${s.type}${s.type==='motion-metric'&&!txt(s.title)?' m-title-free':''}" data-id="${esc(s.id)}" data-type="${s.type}" data-index="${i}" data-framing="${esc(s.framing||tokens.list.framing.default)}" data-theme="${theme}" data-palette="${palette}" data-background="${bg}" aria-hidden="true" aria-label="${esc(s.title||s.notes?.title||s.id)}">${backdrop}<div class="m-canvas">${body}</div></section>`;
+ return `<section class="slide motion-slide ${s.type}${s.type==='motion-metric'&&!txt(s.title)?' m-title-free':''}${s.platforms?' has-platform-grid':''}" data-id="${esc(s.id)}" data-type="${s.type}" data-index="${i}" data-framing="${esc(s.framing||tokens.list.framing.default)}" data-theme="${theme}" data-palette="${palette}" data-background="${bg}" aria-hidden="true" aria-label="${esc(s.title||s.notes?.title||s.id)}">${backdrop}<div class="m-canvas">${body}</div></section>`;
 }
 
 function cssTokens(lang){const t=tokens;let css=':root{';for(const [k,v] of Object.entries(t.colors))css+=`--m-${k}:${v};`;
  for(const variant of ['single','pair'])css+=`--brand-${variant}-width:${t.brand[variant].maxWidth}px;--brand-${variant}-height:${t.brand[variant].maxHeight}px;`;
- for(const group of ['metric','cta'])for(const [key,v] of Object.entries(t[group]))css+=`--${group}-${key}:${typeof v==='number'?v+'px':v};`;
+ for(const group of ['metric','cta','platformGrid','resultProminent','tree'])for(const [key,v] of Object.entries(t[group]))css+=`--${group}-${key}:${typeof v==='number'?v+'px':v};`;
  for(const [key,v] of Object.entries(t.list.framing))if(typeof v==='number')css+=`--list-${key}:${v}px;`;
  css+=`--brand-gap:${t.brand.gap}px;--hub-bottom-only-center-y:${t.hub.bottomOnlyCenterY}px;`;
  for(const [k,v] of Object.entries(t.type[lang]))css+=`--m-${k}-font:"${v.family}";--m-${k}-size:${v.size}px;--m-${k}-weight:${v.weight};--m-${k}-lh:${v.lineHeight};--m-${k}-tracking:${v.tracking}em;`;
@@ -383,7 +431,7 @@ export async function generateMotionDeck(args,raw){
  const timeline=deck.slides.map(s=>{
   const m={...s.motion};
   const duration=s.duration||registry.layouts[s.type].duration;
-  const entry={id:s.id,type:s.type,start,duration,end:start+duration,advisory:true,motion:m,...(s.type==='motion-list'?{scroll:{...s.scroll,advisory:true,itemOrder:s.scroll?.itemOrder||'top-to-bottom',direction:'up'}}:{}),notes:s.notes||{}};start+=duration;return entry;
+  const entry={id:s.id,type:s.type,start,duration,end:start+duration,advisory:true,motion:m,...(s.animation?{animation:s.animation}:{}),...(s.type==='motion-list'?{scroll:{...s.scroll,advisory:true,itemOrder:s.scroll?.itemOrder||'top-to-bottom',direction:'up'}}:{}),notes:s.notes||{}};start+=duration;return entry;
  });
  const data={meta:deck.meta,slides:timeline,duration:start,fps:deck.meta.fps,animationOwnership:'external',timingAdvisory:true};
  const editorial=auditMotionEditorial(deck,timeline);
@@ -416,6 +464,6 @@ export async function generateMotionDeck(args,raw){
  if(args.singleFile)await fs.writeFile(path.join(outDir,'deck.single.html'),await inlineHtml(html,outDir));
  await fs.writeFile(path.join(outDir,'deck.resolved.json'),JSON.stringify(deck,null,2)+'\n');
  await fs.writeFile(path.join(outDir,'timeline.json'),JSON.stringify(data,null,2)+'\n');
- await fs.writeFile(path.join(outDir,'animation-handoff.json'),JSON.stringify({version:3,timingBrief:deck.meta.timing,editorialReview:'editorial-review.json',metricContract:{cards:'[data-motion^=metric-card-]',values:'[data-motion^=metric-value-]',rule:'Two independent values in equal-weight cards; do not combine into a slash string.'},ctaContract:{group:'[data-motion=brand-cta]',button:'[data-motion=cta]',text:'[data-motion=cta-text]',arrow:'[data-motion=cta-arrow]',label:'[data-motion=cta-label]',rule:'CTA is separate from heading/body. Without href it is an inert button; downstream animation owns interaction states.'},themeContract:{default:deck.meta.theme||'light',scenes:deck.slides.map(s=>({id:s.id,theme:s.theme,palette:s.palette,background:s.background||(s.palette!=='neutral'?'brand':'layout-default')})),assetPolicy:'select supplied theme variant; no inversion or automatic plaque'},layoutContract:{owner:'[data-layout-owner]',animate:'[data-animation-target]',diagram:'[data-motion=diagram], [data-motion=workflow-group]',rule:'Animate visual inner layers for reveals; move a connected diagram as one group. Call layout only before animation or after content changes, never each frame.'},inputContract:{text:'[data-motion=prompt-text]',caret:'[data-motion=caret]',pointer:'[data-motion=cursor]',send:'[data-motion=send]',binding:'AIDENT_MOTION.inputBinding(slideId); await prepare(fullPrompt); measure(); assertAligned()',pointerGeometry:tokens.input.pointer,helper:'assets/runtime/motion-input.js',caretDefault:false,scenes:deck.slides.filter(s=>s.type==='motion-input').map(s=>({id:s.id,showCaret:s.showCaret})),typing:'setPromptText(slideId, text); no caret by default. Do not add a caret unless explicitly enabled. Optional caret is inline; no built-in blink. Mouse pointer and Send are independent.'},firstFrame:'All content visible at t=0; downstream animator must author a legible poster/first frame.',mode:'motion',canvas:tokens.canvas,fps:data.fps,duration:data.duration,timingAdvisory:true,animationOwnership:'external',html:'index.html',content:'deck.resolved.json',timeline:'timeline.json',editMode:'?capture=1',runtimeGlobal:'AIDENT_MOTION',layers,assets:[...new Set(layers.filter(l=>l.src).map(l=>l.src))],fontManifest:'assets/fonts/manifest.json',listContract:{initialFraming:deck.slides.filter(s=>s.type==='motion-list').map(s=>({id:s.id,framing:s.framing||tokens.list.framing.default})),suggestedItemOrder:'top-to-bottom',suggestedTrackDirection:'up',cameraSelector:'.motion-slide',sceneSelector:'[data-list-scene]',trackSelector:'[data-scroll-track]',itemSelector:'[data-list-item]',internalClip:false,scrollDistance:null,overflow:'full content retained beyond the camera; external animator chooses travel and framing'}},null,2)+'\n');
+ await fs.writeFile(path.join(outDir,'animation-handoff.json'),JSON.stringify({version:4,animationRequests:deck.slides.filter(s=>s.animation).map(s=>({id:s.id,requests:s.animation,selectors:{prompt:'[data-motion=prompt-text]',metric:'[data-motion=metric-value]',connectors:'[data-edge], [data-motion=connector]',items:'[data-motion^=card-], [data-list-item]',results:'[data-motion^=result-row-]'},rule:'External animator implements explicit requests with deterministic seeks. Typewriter updates live text; count-up preserves suffix; draw uses original SVG paths; sequential retains all items. Send states use AIDENT_MOTION.setSendState, never an arbitrary green.'})),timingBrief:deck.meta.timing,editorialReview:'editorial-review.json',metricContract:{cards:'[data-motion^=metric-card-]',values:'[data-motion^=metric-value-]',rule:'Two independent values in equal-weight cards; do not combine into a slash string.'},ctaContract:{group:'[data-motion=brand-cta]',button:'[data-motion=cta]',text:'[data-motion=cta-text]',arrow:'[data-motion=cta-arrow]',label:'[data-motion=cta-label]',rule:'CTA is separate from heading/body. Without href it is an inert button; downstream animation owns interaction states.'},themeContract:{default:deck.meta.theme||'light',scenes:deck.slides.map(s=>({id:s.id,theme:s.theme,palette:s.palette,background:s.background||(s.palette!=='neutral'?'brand':'layout-default')})),assetPolicy:'select supplied theme variant; no inversion or automatic plaque'},layoutContract:{owner:'[data-layout-owner]',animate:'[data-animation-target]',diagram:'[data-motion=diagram], [data-motion=workflow-group]',rule:'Animate visual inner layers for reveals; move a connected diagram as one group. Call layout only before animation or after content changes, never each frame.'},inputContract:{text:'[data-motion=prompt-text]',caret:'[data-motion=caret]',pointer:'[data-motion=cursor]',send:'[data-motion=send]',binding:'AIDENT_MOTION.inputBinding(slideId); await prepare(fullPrompt); measure(); assertAligned()',pointerGeometry:tokens.input.pointer,helper:'assets/runtime/motion-input.js',caretDefault:false,scenes:deck.slides.filter(s=>s.type==='motion-input').map(s=>({id:s.id,showCaret:s.showCaret})),typing:'setPromptText(slideId, text); no caret by default. Do not add a caret unless explicitly enabled. Optional caret is inline; no built-in blink. Mouse pointer and Send are independent.'},firstFrame:'All content visible at t=0; downstream animator must author a legible poster/first frame.',mode:'motion',canvas:tokens.canvas,fps:data.fps,duration:data.duration,timingAdvisory:true,animationOwnership:'external',html:'index.html',content:'deck.resolved.json',timeline:'timeline.json',editMode:'?capture=1',runtimeGlobal:'AIDENT_MOTION',layers,assets:[...new Set(layers.filter(l=>l.src).map(l=>l.src))],fontManifest:'assets/fonts/manifest.json',listContract:{initialFraming:deck.slides.filter(s=>s.type==='motion-list').map(s=>({id:s.id,framing:s.framing||tokens.list.framing.default})),suggestedItemOrder:'top-to-bottom',suggestedTrackDirection:'up',cameraSelector:'.motion-slide',sceneSelector:'[data-list-scene]',trackSelector:'[data-scroll-track]',itemSelector:'[data-list-item]',internalClip:false,scrollDistance:null,overflow:'full content retained beyond the camera; external animator chooses travel and framing'}},null,2)+'\n');
  console.log(`Generated ${deck.slides.length} Motion Slides (${start.toFixed(2)} seconds, ${data.fps} fps) at ${outDir}`);
 }

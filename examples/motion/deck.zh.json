@@ -639,6 +639,64 @@
           "title": "分享"
         }
       ]
+    },
+    {
+      "id": "branching-tree",
+      "type": "motion-tree",
+      "variant": "branching",
+      "title": "逐层连接多个目标",
+      "root": {
+        "id": "loadout",
+        "title": "Loadout",
+        "image": {
+          "src": "assets/motion/mark.svg"
+        }
+      },
+      "branches": [
+        {
+          "id": "provider",
+          "title": "服务商",
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "children": [
+            {
+              "id": "channel-1",
+              "title": "应用 1",
+              "image": {
+                "src": "assets/motion/icons/integration.svg"
+              }
+            },
+            {
+              "id": "channel-2",
+              "title": "应用 2",
+              "image": {
+                "src": "assets/motion/icons/skill.svg"
+              }
+            },
+            {
+              "id": "channel-3",
+              "title": "应用 3",
+              "image": {
+                "src": "assets/motion/icons/history.svg"
+              }
+            },
+            {
+              "id": "channel-4",
+              "title": "应用 4",
+              "image": {
+                "src": "assets/motion/icons/capabilities.svg"
+              }
+            }
+          ]
+        }
+      ],
+      "animation": {
+        "connectors": "draw"
+      },
+      "notes": {
+        "purpose": "One root -> one provider -> four replaceable destinations. This is a branching invocation, not four sequential cards."
+      }
     }
   ]
 }

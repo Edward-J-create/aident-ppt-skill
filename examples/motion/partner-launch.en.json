@@ -1,0 +1,310 @@
+{
+  "meta": {
+    "mode": "motion",
+    "title": "Editable partner launch scenes",
+    "language": "en",
+    "timing": {
+      "policy": "content"
+    }
+  },
+  "slides": [
+    {
+      "id": "partner-opening",
+      "type": "motion-title",
+      "variant": "brand-title",
+      "title": "Your agent.\nYour next launch.",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg",
+          "opticalScale": 1.1
+        },
+        {
+          "placeholder": "Partner"
+        }
+      ]
+    },
+    {
+      "id": "reach",
+      "type": "motion-metric",
+      "variant": "hero-number",
+      "theme": "light",
+      "palette": "lime",
+      "value": "18",
+      "label": "ILLUSTRATIVE COVERAGE",
+      "body": "One interface. Many destinations.",
+      "platforms": [
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 1"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/capabilities.svg"
+          },
+          "label": "App 2"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 3"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 4"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 5"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 6"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 7"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/capabilities.svg"
+          },
+          "label": "App 8"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 9"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 10"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 11"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 12"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 13"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/capabilities.svg"
+          },
+          "label": "App 14"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 15"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 16"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 17"
+        },
+        {
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "label": "App 18"
+        }
+      ],
+      "animation": {
+        "metric": "count-up"
+      },
+      "notes": {
+        "purpose": "Generic layout fixture. Replace every platform image/label and verify provider coverage; count does not assert a real partnership or integration."
+      }
+    },
+    {
+      "id": "input",
+      "type": "motion-input",
+      "prompt": "Prepare reviewed drafts for my next launch.",
+      "showCursor": true,
+      "showCaret": false,
+      "animation": {
+        "prompt": "typewriter"
+      }
+    },
+    {
+      "id": "invoke",
+      "type": "motion-tree",
+      "variant": "branching",
+      "title": "Approve, then run.",
+      "root": {
+        "id": "loadout",
+        "title": "Loadout",
+        "image": {
+          "src": "assets/motion/mark.svg"
+        }
+      },
+      "branches": [
+        {
+          "id": "provider",
+          "title": "Provider",
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "children": [
+            {
+              "id": "channel-1",
+              "title": "App 1",
+              "image": {
+                "src": "assets/motion/icons/integration.svg"
+              }
+            },
+            {
+              "id": "channel-2",
+              "title": "App 2",
+              "image": {
+                "src": "assets/motion/icons/skill.svg"
+              }
+            },
+            {
+              "id": "channel-3",
+              "title": "App 3",
+              "image": {
+                "src": "assets/motion/icons/history.svg"
+              }
+            },
+            {
+              "id": "channel-4",
+              "title": "App 4",
+              "image": {
+                "src": "assets/motion/icons/capabilities.svg"
+              }
+            }
+          ]
+        }
+      ],
+      "animation": {
+        "connectors": "draw"
+      },
+      "notes": {
+        "purpose": "One root -> one provider -> four replaceable destinations. This is a branching invocation, not four sequential cards."
+      }
+    },
+    {
+      "id": "results",
+      "type": "motion-synthesis",
+      "title": "Know what happened.",
+      "theme": "dark",
+      "palette": "cobalt",
+      "groups": [
+        [
+          {
+            "title": "Copy"
+          },
+          {
+            "title": "Accounts"
+          }
+        ],
+        [
+          {
+            "title": "Media"
+          },
+          {
+            "title": "Time"
+          }
+        ]
+      ],
+      "composition": {
+        "size": "small",
+        "density": "compact"
+      },
+      "outputs": [],
+      "result": {
+        "density": "prominent",
+        "title": "Launch status",
+        "columns": [
+          "CHANNEL",
+          "STATE",
+          "TIME UTC"
+        ],
+        "columnWidths": [
+          3,
+          3,
+          3
+        ],
+        "rows": [
+          [
+            "Channel 1",
+            "Scheduled",
+            "09:00"
+          ],
+          [
+            "Channel 2",
+            "Scheduled",
+            "09:05"
+          ],
+          [
+            "Channel 3",
+            "Scheduled",
+            "09:10"
+          ],
+          [
+            "Channel 4",
+            "Scheduled",
+            "09:15"
+          ]
+        ],
+        "caption": "Illustrative status"
+      },
+      "animation": {
+        "results": "sequential"
+      }
+    },
+    {
+      "id": "closing",
+      "type": "motion-brand",
+      "variant": "cta",
+      "theme": "light",
+      "palette": "neutral",
+      "logos": [
+        {
+          "src": "assets/motion/lockup.svg"
+        },
+        {
+          "placeholder": "Partner"
+        }
+      ],
+      "label": "ASK YOUR AGENT",
+      "cta": {
+        "text": "Follow https://aident.ai/SETUP.md"
+      }
+    }
+  ]
+}

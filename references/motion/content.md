@@ -118,3 +118,5 @@ For exact timing, palette choices, explicit edge schemas, independent Logo-pair 
 3. Stable slide/component selectors are in `animation-handoff.json`. Text/image leaf selectors are unique in that build. Inserting/reordering content can renumber leaf selectors, so regenerate the handoff after structural edits.
 4. Wait for fonts/images, call `AIDENT_MOTION.layout()`, and rerun preflight after changing text or images.
 5. Preserve font licenses and relative assets when delivering an editable folder to an editor.
+
+For platform grids, three-tier branching diagrams, optical sizing, prominent result density and explicit animation requests, see [partner-launch.md](partner-launch.md).

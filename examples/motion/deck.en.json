@@ -639,6 +639,64 @@
           "title": "Share"
         }
       ]
+    },
+    {
+      "id": "branching-tree",
+      "type": "motion-tree",
+      "variant": "branching",
+      "title": "One layer, many destinations",
+      "root": {
+        "id": "loadout",
+        "title": "Loadout",
+        "image": {
+          "src": "assets/motion/mark.svg"
+        }
+      },
+      "branches": [
+        {
+          "id": "provider",
+          "title": "Provider",
+          "image": {
+            "src": "assets/motion/icons/action.svg"
+          },
+          "children": [
+            {
+              "id": "channel-1",
+              "title": "App 1",
+              "image": {
+                "src": "assets/motion/icons/integration.svg"
+              }
+            },
+            {
+              "id": "channel-2",
+              "title": "App 2",
+              "image": {
+                "src": "assets/motion/icons/skill.svg"
+              }
+            },
+            {
+              "id": "channel-3",
+              "title": "App 3",
+              "image": {
+                "src": "assets/motion/icons/history.svg"
+              }
+            },
+            {
+              "id": "channel-4",
+              "title": "App 4",
+              "image": {
+                "src": "assets/motion/icons/capabilities.svg"
+              }
+            }
+          ]
+        }
+      ],
+      "animation": {
+        "connectors": "draw"
+      },
+      "notes": {
+        "purpose": "One root -> one provider -> four replaceable destinations. This is a branching invocation, not four sequential cards."
+      }
     }
   ]
 }

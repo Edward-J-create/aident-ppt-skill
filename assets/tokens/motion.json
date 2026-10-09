@@ -401,12 +401,24 @@
     "textGap": 8,
     "logoTop": 200,
     "logoHeight": 150,
-    "framing": {"default": "auto", "safeTop": 110, "safeBottom": 110, "identityGap": 40, "scrollTop": 140}
+    "framing": {
+      "default": "auto",
+      "safeTop": 110,
+      "safeBottom": 110,
+      "identityGap": 40,
+      "scrollTop": 140
+    }
   },
   "input": {
     "pointer": {
-      "hotspot": {"x": 23, "y": 12},
-      "viewBox": {"width": 59, "height": 59},
+      "hotspot": {
+        "x": 23,
+        "y": 12
+      },
+      "viewBox": {
+        "width": 59,
+        "height": 59
+      },
       "tolerance": 1
     },
     "width": 900,
@@ -667,8 +679,39 @@
     "radius": 16,
     "gap": 24,
     "labelGap": 16,
-    "brandGap": 110,
+    "brandGap": 56,
     "arrowSize": 30,
     "arrowRotation": "45deg"
+  },
+  "platformGrid": {
+    "metricTop": 100,
+    "valueSize": 320,
+    "top": 590,
+    "width": 1300,
+    "left": 310,
+    "rowGap": 32,
+    "columnGap": 24,
+    "iconSize": 64,
+    "labelSize": 20
+  },
+  "resultProminent": {
+    "top": 320,
+    "height": 620,
+    "width": 920,
+    "gap": 32,
+    "padding": 24,
+    "titleSize": 38,
+    "headerSize": 24,
+    "valueSize": 32,
+    "captionSize": 22,
+    "cellPaddingY": 11
+  },
+  "tree": {
+    "top": 270,
+    "level0Y": 80,
+    "level1Y": 285,
+    "level2Y": 505,
+    "leafGap": 80,
+    "minLeafGap": 24
   }
 }
