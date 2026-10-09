@@ -12,6 +12,7 @@ This repository supports both single-agent and multi-agent deck production. When
 - Use packaged tokens, components, icons, backgrounds, and font policy.
 - Do not introduce proprietary names, claims, data, or imagery unless supplied and approved.
 - Always run browser checks. Run PDF and PPTX checks only when those optional formats were requested or when their adapters changed during Skill maintenance.
+- For maintenance that includes a local installation, update and validate local source first, synchronize the authorized installed entry and verify its active files, then publish to GitHub. Check the actual installed path or symlink; a remote merge does not update a different local copy. Preserve the previous copy/target for rollback. Do not change an installation outside the user's authorized scope.
 
 ## Motion Slides routing
 
