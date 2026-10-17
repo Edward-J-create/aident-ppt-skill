@@ -1,5 +1,7 @@
 # Aident PPT Skill
 
+[All Skills / 全部 Skills](https://github.com/edward-skills)
+
 > **Current use: invocation-only.** Install and invoke for your own or client projects; use the resulting outputs. Redistribution, resale and publication of modified Skill packages are not authorized. Historical permissions and separately licensed materials retain their terms.
 >
 > **当前授权：仅调用使用。** 可安装、调用并使用生成结果；不授权转售、再分发或发布修改版 Skill。历史授权与单独许可的素材条款继续有效。 [License](LICENSE.md) · [Agent setup, Muse AI & Grok Bot](references/agent-compatibility.md) · [Version boundary](references/licensing-history.md)
@@ -137,7 +139,7 @@ Other local Agent environments need file access, Node.js 20+, and browser previe
 Install the complete public repository with the following command. / 使用以下命令安装完整公开仓库，Skill 名保持 `aident-ppt-skill`：
 
 ```bash
-npx skills add https://github.com/Edward-J-create/aident-ppt-skill --skill aident-ppt-skill
+npx skills add https://github.com/edward-skills/aident-ppt-skill --skill aident-ppt-skill
 ```
 
 ### 2. Give the Agent an outline / 给 Agent 一段内容框架

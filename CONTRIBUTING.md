@@ -63,7 +63,7 @@ Run `npm run size` before publication to report the uncompressed source-package 
 
 For a maintenance request that includes the installed Skill, use this order: **local source fix and QA → local installation sync and verification → GitHub publication**. Inspect the actual installed directory/symlink before syncing; preserve the previous copy or target for rollback. Verify that the installed entry loads the checked source. A GitHub update alone does not refresh an unrelated local installation. Installation changes still require the user's authorization.
 
-1. Confirm the destination is `Edward-J-create/aident-ppt-skill` and inspect its current branch/SHA.
+1. Confirm the destination is `edward-skills/aident-ppt-skill` and inspect its current branch/SHA.
 2. Compare against a fresh checkout; preserve remote-only files and investigate conflicting edits. Never force-push over another author's updates.
 3. Publish only Skill source, references, generic examples, indexed assets and documentation. Exclude `output/`, `.tmp/`, `node_modules/`, caches, user briefs and local QA screenshots. README montages belong under `assets/previews/`.
 4. Run package checks and relevant browser tests from the staged checkout; confirm README links, installed fonts and both preview languages.

@@ -128,7 +128,7 @@ cp -R /path/to/aident-ppt-skill ~/.claude/skills/aident-ppt-skill
 Other local Agent environments need file access, Node.js 20+, and browser preview support. Install the complete public repository, keeping the Skill name `aident-ppt-skill`:
 
 ```bash
-npx skills add https://github.com/Edward-J-create/aident-ppt-skill --skill aident-ppt-skill
+npx skills add https://github.com/edward-skills/aident-ppt-skill --skill aident-ppt-skill
 ```
 
 ### Prompt the Agent
