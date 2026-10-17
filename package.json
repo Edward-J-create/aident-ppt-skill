@@ -6,7 +6,7 @@
   "description": "Self-contained Aident-style bilingual HTML, PPTX, PDF, and web presentation skill.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Edward-J-create/aident-ppt-skill.git"
+    "url": "https://github.com/edward-skills/aident-ppt-skill.git"
   },
   "scripts": {
     "motion:editorial:qa": "node scripts/validate-motion-editorial.mjs --browser",
