@@ -1,9 +1,16 @@
 ---
 name: aident-ppt-skill
 description: Create polished bilingual 16:9 presentation decks or simpler Motion Slides in the packaged Aident PPT visual language from a user-supplied outline. Use for HTML/web presentations, editable HTML scenes for later video animation, single-file HTML, optional PPTX/PDF, presenter view, reusable slide content, or a multi-agent deck workflow. Motion Slides preserve editable layers for GSAP, Hyperframes, or Remotion adaptation. All copy, logos, and images are replaceable. Self-contained at runtime.
+license: Proprietary. LICENSE.md contains the invocation-only terms.
 ---
 
+
 # Aident PPT Skill
+
+For host setup, Meta Muse AI / Grok Bot capability boundaries and current usage rights, see [cross-agent use](references/agent-compatibility.md). Follow the production workflow below unchanged.
+
+
+
 
 Turn an outline into a coherent, source-faithful deck. Treat the packaged assets, tokens, components, and layout rules as the runtime source of truth. Figma and the source PDFs are provenance and QA references only; do not require them to generate a deck.
 
