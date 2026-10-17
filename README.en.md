@@ -1,5 +1,8 @@
 # Aident PPT Skill
 
+> **Current use / 当前授权：Invocation-only.** 可安装、调用并使用生成结果；不授权转售、再分发或发布修改版 Skill。Third-party/font rights and historical MIT grants are retained. [License](LICENSE.md) · [Agent setup, Muse AI & Grok Bot](references/agent-compatibility.md) · [Version boundary](references/licensing-history.md)
+
+
 ![Aident PPT Skill — from content outline to polished presentation / 从内容框架到高质量演示](./assets/previews/aident-ppt-hero.webp)
 
 [中文](./README.md) · [Skill instructions](./SKILL.md) · [Page layout catalog](./references/layout-catalog.md) · [Multi-Agent workflow](./references/multi-agent-workflow.md)
@@ -373,6 +376,6 @@ Coverage against [`op7418/guizang-ppt-skill`](https://github.com/op7418/guizang-
 
 - Keep all bundled third-party font licenses and asset provenance indexes.
 - Bundled fonts are governed by their individual OFL files. The Aident name, logos, backgrounds, icons, and design-system assets do not become open-source merely because the repository is public; see [NOTICE.md](./NOTICE.md).
-- If the asset owner later chooses a repository-level open-source license, add a separate `LICENSE`; font licenses do not automatically license brand assets.
+- Current first-party permission is in `LICENSE.md`; font licenses do not license brand assets.
 - Remove user inputs, temporary outputs, commercial copy, and sensitive QA screenshots.
 - Run `node scripts/validate-assets.mjs` and the Skill validator to confirm manifests, hashes, and documentation.

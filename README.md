@@ -1,5 +1,8 @@
 # Aident PPT Skill
 
+> **Current use / 当前授权：Invocation-only.** 可安装、调用并使用生成结果；不授权转售、再分发或发布修改版 Skill。Third-party/font rights and historical MIT grants are retained. [License](LICENSE.md) · [Agent setup, Muse AI & Grok Bot](references/agent-compatibility.md) · [Version boundary](references/licensing-history.md)
+
+
 [Dependencies and maintenance / 依赖安装与维护检查](./CONTRIBUTING.md)
 
 ![Aident PPT Skill — from content outline to polished presentation / 从内容框架到高质量演示](./assets/previews/aident-ppt-hero.webp)
@@ -404,6 +407,6 @@ Keep third-party licenses and provenance indexes, and remove user inputs, tempor
 
 - 保留包内第三方字体授权文件和素材来源索引。
 - 第三方字体分别遵循包内 OFL 文件；Aident 名称、logo、背景、图标和设计系统素材不因仓库公开而自动获得开源许可，详见 [NOTICE.md](./NOTICE.md)。
-- 若资产权利人以后决定采用明确的仓库级开源许可，应另行增加 `LICENSE`；不要假设字体许可等于品牌素材许可。
+- 当前仓库级许可见 `LICENSE.md`；字体许可与品牌素材权利仍分别处理。
 - 删除用户输入、临时输出、商业内容和 QA 中的敏感截图。
 - 运行 `node scripts/validate-assets.mjs` 和 Skill validator，确认 manifest、hash 与文档完整。
